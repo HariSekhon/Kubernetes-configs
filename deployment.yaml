@@ -35,6 +35,16 @@ spec:
         containers:
         - name: master
           image: k8s.gcr.io/APP:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 30
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 20
           resources:
             requests:
               # millicores - 1/1000 of a CPU / vCPU
