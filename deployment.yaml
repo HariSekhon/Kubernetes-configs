@@ -40,11 +40,19 @@ spec:
           readinessProbe:
             tcpSocket:
               port: 8080
-            initialDelaySeconds: 30
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
           livenessProbe:
             tcpSocket:
               port: 8080
+            httpGet:
+              path: /healthz
+              port: 8080
             initialDelaySeconds: 20
+            periodSeconds: 5
           resources:
             requests:
               # millicores - 1/1000 of a CPU / vCPU
