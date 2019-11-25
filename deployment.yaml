@@ -1,0 +1,44 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2019-11-25 13:47:16 +0000 (Mon, 25 Nov 2019)
+#
+#  https://github.com/harisekhon/devops-perl-tools
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/harisekhon
+#
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: NAME
+  labels:
+    app: APP
+spec:
+  selector:
+    matchLabels:
+      app: APP
+      role: master
+      tier: backend
+    replicas: 2
+    template:
+      metadata:
+        labels:
+          app: APP
+          role: master
+          tier: backend
+      spec:
+        containers:
+        - name: master
+          image: k8s.gcr.io/APP:latest
+          resources:
+            requests:
+              # millicores - 1/1000 of a CPU / vCPU
+              # 100m = 1/10th of CPU core
+              cpu: 100m
+              # literal MiB
+              memory: 100Mi
