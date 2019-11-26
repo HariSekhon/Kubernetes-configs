@@ -19,7 +19,12 @@ metadata:
   labels:
     app: APP
 subnets:
+  # round robins to each of the addresses
   - addresses:
     - ip: IP
+    ports:
+    - port: 80
+  - addresses:
+    - ip: IP2
     ports:
     - port: 80
