@@ -32,6 +32,7 @@ spec:
           role: master
           tier: backend
       spec:
+        progressDeadlineSeconds: 120
         containers:
         - name: master
           image: k8s.gcr.io/APP:latest
