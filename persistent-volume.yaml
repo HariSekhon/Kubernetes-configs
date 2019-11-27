@@ -1,0 +1,27 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2019-11-27 12:19:45 +0000 (Wed, 27 Nov 2019)
+#
+#  https://github.com/harisekhon/devops-perl-tools
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/harisekhon
+#
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: APP-pv
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 10G
+  accessModes:
+    - ReadOnlyMany
+  gcePersistentDisk:
+    pdName: APP-disk
+    fsType: ext4
