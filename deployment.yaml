@@ -53,3 +53,8 @@ spec:
               cpu: 100m
               # literal MiB
               memory: 100Mi
+            volumes:
+              - name: APP-vol
+              # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
+                claimName: APP-dynamic-pvc
+                readOnly: true
