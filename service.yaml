@@ -19,6 +19,9 @@ metadata:
   labels:
     app: APP
 spec:
+  #type: ClusterIP  # default
+  #type: NodePort
+  #type: LoadBalancer
   ports:
   - protocol: TCP
     port: 80
