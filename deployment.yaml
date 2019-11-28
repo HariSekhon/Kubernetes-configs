@@ -73,3 +73,13 @@ spec:
           volumeMounts:
             - name: APP-vol
               mountPath: /mnt/APP-vol
+      initContainers:
+        - name: init-files
+          image: alpine/git
+          command: ['git', 'clone', 'https://github.com/harisekhon/devops-python-tools /data']
+          volumeMounts:
+            - name: app-vol
+              mountPath: /data
+        - name: init-mysql
+          image: busybox
+          command: ['sh', '-c', 'until nslookup mysql; do echo waiting for mysql to come up; sleep 1; done']
