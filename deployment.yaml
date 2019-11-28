@@ -36,40 +36,40 @@ spec:
       app: APP
       role: master
       tier: backend
-    replicas: 2
-    template:
-      metadata:
-        labels:
-          app: APP
-          role: master
-          tier: backend
-      spec:
-        progressDeadlineSeconds: 120
-        containers:
-        - name: master
-          image: k8s.gcr.io/APP:latest
-          ports:
-            - containerPort: 8080
-          readinessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 30
-          livenessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 20
-          resources:
-            requests:
-              # millicores - 1/1000 of a CPU / vCPU
-              # 100m = 1/10th of CPU core
-              cpu: 100m
-              # literal MiB
-              memory: 100Mi
-            volumes:
-              - name: APP-vol
-              # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
-                claimName: APP-dynamic-pvc
-                readOnly: true
-            volumeMounts:
-              - name: APP-vol
-                mountPath: /mnt/APP-vol
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: APP
+        role: master
+        tier: backend
+    spec:
+      progressDeadlineSeconds: 120
+      containers:
+      - name: master
+        image: k8s.gcr.io/APP:latest
+        ports:
+          - containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 30
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 20
+        resources:
+          requests:
+            # millicores - 1/1000 of a CPU / vCPU
+            # 100m = 1/10th of CPU core
+            cpu: 100m
+            # literal MiB
+            memory: 100Mi
+          volumes:
+            - name: APP-vol
+            # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
+              claimName: APP-dynamic-pvc
+              readOnly: true
+          volumeMounts:
+            - name: APP-vol
+              mountPath: /mnt/APP-vol
