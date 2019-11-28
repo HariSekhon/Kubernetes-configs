@@ -20,13 +20,13 @@ spec:
   selector:
     matchLabels:
       name: fluentd
-    template:
-      metadata:
-        labels:
-          name: fluentd
-      spec:
-        nodeSelector:
-          type: prod
-        containers:
-        - name: fluentd
-          image: gcr.io/google-containers/fluentd-elasticsearch:1.20
+  template:
+    metadata:
+      labels:
+        name: fluentd
+    spec:
+      nodeSelector:
+        type: prod
+      containers:
+      - name: fluentd
+        image: gcr.io/google-containers/fluentd-elasticsearch:1.20
