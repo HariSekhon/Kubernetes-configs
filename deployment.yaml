@@ -19,6 +19,18 @@ metadata:
   labels:
     app: APP
 spec:
+  # for persistent disks limited to 2 zones combined with GKE regional clusters
+  # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/e2e-az-name
+            operator: In
+            values:
+            - europe-west-1b
+            - europe-west-1c
   selector:
     matchLabels:
       app: APP
