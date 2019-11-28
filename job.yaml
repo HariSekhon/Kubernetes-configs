@@ -17,6 +17,8 @@ kind: Job
 metadata:
   name: NAME
 spec:
+  completions: 8
+  parallelism: 4
   template:
     metadata:
       name: NAME
