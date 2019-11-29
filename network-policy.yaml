@@ -1,0 +1,48 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2019-11-28 18:23:03 +0000 (Thu, 28 Nov 2019)
+#
+#  https://github.com/harisekhon/devops-perl-tools
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/harisekhon
+#
+
+# allow incoming to APP-backend pods only from APP-frontend
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: permit-frontend-only
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+      app: APP-backend
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: APP-frontend
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: outbound-dns-only
+spec:
+  policyTypes:
+    - Egress
+  podSelector:
+    matchLabels:
+      app: locked-down-app
+  egress:
+    - ports:
+      - protocol: TCP
+        port: 53
+      - protocol: UDP
+        port: 53

@@ -1,0 +1,32 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2019-11-28 18:51:59 +0000 (Thu, 28 Nov 2019)
+#
+#  https://github.com/harisekhon/devops-perl-tools
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/harisekhon
+#
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: NAME
+spec:
+  completions: 8
+  parallelism: 4
+  template:
+    metadata:
+      name: NAME
+    spec:
+      containers:
+      - name: NAME
+        image: perl
+        # takes about a minute to execute
+        command: ["perl"]
+        args: ["-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never

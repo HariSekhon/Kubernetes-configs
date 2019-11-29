@@ -12,6 +12,8 @@
 #  https://www.linkedin.com/in/harisekhon
 #
 
+# combine with endpoints.yaml
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -19,15 +21,5 @@ metadata:
   labels:
     app: APP
 spec:
-  #type: ClusterIP  # default
-  #type: NodePort
-  #type: LoadBalancer
-  #type: None       # headless, returns all A records instead of round robin. Useful for Cassandra seeding
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-  selector:
-    app: APP
-    role: master
-    tier: backend
+  type: ExternalName
+  externalName: NAME.DOMAIN.COM

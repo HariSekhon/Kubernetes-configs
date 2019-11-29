@@ -13,21 +13,18 @@
 #
 
 apiVersion: v1
-kind: Service
+kind: Endpoints
 metadata:
   name: NAME
   labels:
     app: APP
-spec:
-  #type: ClusterIP  # default
-  #type: NodePort
-  #type: LoadBalancer
-  #type: None       # headless, returns all A records instead of round robin. Useful for Cassandra seeding
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-  selector:
-    app: APP
-    role: master
-    tier: backend
+subnets:
+  # round robins to each of the addresses
+  - addresses:
+    - ip: IP
+    ports:
+    - port: 80
+  - addresses:
+    - ip: IP2
+    ports:
+    - port: 80
