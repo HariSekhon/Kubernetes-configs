@@ -45,19 +45,32 @@ spec:
         tier: backend
     spec:
       progressDeadlineSeconds: 120
+      terminationGracePeriodSeconds: 120  # how long between SIGTERM and killed - may want to set higher than default 30 secs eg. 1800 for Cassandra
       containers:
       - name: master
         image: k8s.gcr.io/APP:latest
         ports:
           - containerPort: 8080
+        env:
+          - name: HEAP_SIZE
+            value: 1G
+          - name: CASSANDRA_SEEDS
+            value: cassandra-0.cassandra.default.svc.cluster.local
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP  # K8S API path
         readinessProbe:
+          # http, tcp or exec
           tcpSocket:
             port: 8080
           initialDelaySeconds: 30
+          timeoutSeconds: 5
         livenessProbe:
           tcpSocket:
             port: 8080
           initialDelaySeconds: 20
+          timeoutSeconds: 5
         resources:
           requests:
             # millicores - 1/1000 of a CPU / vCPU
@@ -65,14 +78,26 @@ spec:
             cpu: 100m
             # literal MiB
             memory: 100Mi
-          volumes:
-            - name: APP-vol
+        volumes:
+          - name: APP-vol
             # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
-              claimName: APP-dynamic-pvc
-              readOnly: true
-          volumeMounts:
-            - name: APP-vol
-              mountPath: /mnt/APP-vol
+            claimName: APP-dynamic-pvc
+            readOnly: true
+        volumeMounts:
+          - name: APP-vol
+            mountPath: /mnt/APP-vol
+        securityContext:
+          capabilities:
+            add: ["IPC_LOCK"]  # allow mlock to avoid paging ram to disk, for security or performance eg. NoSQL low latency datastores
+        lifecycle:
+          # execute this when sending TERM to container
+          preStop:
+            # http call or exec
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - nodetool drain
       initContainers:
         - name: init-files
           image: alpine/git
@@ -83,3 +108,12 @@ spec:
         - name: init-mysql
           image: busybox
           command: ['sh', '-c', 'until nslookup mysql; do echo waiting for mysql to come up; sleep 1; done']
+      VolumeClaimTemplates:
+        - metadata:
+            name: APP-data
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            storageClassName: fast
+            resources:
+              requests:
+                storage: 1Gi
