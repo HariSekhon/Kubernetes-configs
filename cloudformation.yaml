@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 
 Description: Template to create an EC2 instance and enable SSH
 
-Parameters: 
+Parameters:
   KeyName:
     Description: Name of SSH KeyPair
     Type: 'AWS::EC2::KeyPair::KeyName'
@@ -13,7 +13,7 @@ Resources:
     Type: 'AWS::EC2::Instance'
     Properties:
       InstanceType: t2.micro
-      ImageId: ami-0bdb1d6c15a40392c
+      ImageId: ami-0bdb1d6c15a40392c  # TODO: replace with AMI ID for your region, eg. awless search images canonical:ubuntu --latest-id --silent
       KeyName: !Ref KeyName
       SecurityGroups:
        - Ref: InstanceSecurityGroup
@@ -30,7 +30,7 @@ Resources:
         ToPort: 22
         CidrIp: 0.0.0.0/0
 
-Outputs: 
+Outputs:
   InstanceID:
     Description: The Instance ID
     Value: !Ref MyEC2Instance
