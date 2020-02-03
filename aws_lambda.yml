@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Resources:
   TestFunction:
     Properties:
-      CodeUri: s3://myBucket/5c69705d60312a253e72f31ba8204df3
+      CodeUri: s3://myBucket/1a23456b78901c234d56e78fa9012bc3
       Environment:
         Variables:
           S3_BUCKET: myBucket
