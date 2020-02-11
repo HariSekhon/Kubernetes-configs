@@ -16,9 +16,12 @@
 #
 # gcloud builds submit --config cloudbuild.yaml .
 
+images:
+- 'gcr.io/$PROJECT_ID/myapp'
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   # $PROJECT_ID is auto-populated by Cloud Build
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/myapp', '.' ]
-images:
-- 'gcr.io/$PROJECT_ID/myapp'
+# check the newly created image
+- name: 'gcr.io/$PROJECT_ID/myapp'
+  args: ['test']
