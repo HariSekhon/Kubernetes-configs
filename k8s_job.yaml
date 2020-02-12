@@ -17,8 +17,8 @@ kind: Job
 metadata:
   name: NAME
 spec:
-  completions: 8
-  parallelism: 4
+  completions: 8  # total successful jobs - omit this for queue pattern where any pod successfully finishes
+  parallelism: 4  # concurrent jobs
   template:
     metadata:
       name: NAME
@@ -30,3 +30,6 @@ spec:
         command: ["perl"]
         args: ["-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
+  # exponential backoff retries of job
+  backoffLimit: 6  # default, max job retries
+  activeDeadlineSeconds: 300  # max job runtime
