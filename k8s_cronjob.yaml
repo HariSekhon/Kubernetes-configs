@@ -18,6 +18,11 @@ metadata:
   name: NAME-schedule
 spec:
   schedule: "0 0 * * *"
+  startingDeadlineSeconds: 3600  # (re)start up to an hour late
+  concurrencyPolicy: Forbid  # Allow / Forbid / Replace when starting new job if old job is still running
+  suspend: False  # set to True to prevent new job executions (counted as missed jobs)
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
       metadata:
