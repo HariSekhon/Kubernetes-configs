@@ -18,6 +18,8 @@ metadata:
   name: NAME
   labels:
     app: APP
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: True  # set to False for apps that don't like disruption
 spec:
   # for persistent disks limited to 2 zones combined with GKE regional clusters
   # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
