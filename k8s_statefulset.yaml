@@ -25,6 +25,8 @@ spec:
   selector:
     matchLabels:
       app: pgsql
+  nodeSelector:
+    disktype: ssd
   template:
     metadata:
       labels:
