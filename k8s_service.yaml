@@ -19,10 +19,11 @@ metadata:
   labels:
     app: APP
 spec:
-  #type: ClusterIP  # default
+  type: ClusterIP  # default
   #type: NodePort
   #type: LoadBalancer
   #type: None       # headless, returns all A records instead of round robin. Useful for Cassandra seeding
+  #sessionAffinity: ClientIP  # use with LoadBalancer for stickyness
   ports:
   - protocol: TCP
     port: 80
