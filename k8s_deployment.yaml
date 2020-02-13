@@ -34,6 +34,8 @@ spec:
             values:
             - europe-west-1b
             - europe-west-1c
+  nodeSelector:
+    disktype: ssd
   selector:
     matchLabels:
       app: APP
