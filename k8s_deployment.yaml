@@ -54,6 +54,7 @@ spec:
       containers:
       - name: master
         image: k8s.gcr.io/APP:latest
+        imagePullPolicy: IfNotPresent  # set to Always if replacing a docker_image:tag or using :latest in development
         ports:
           - containerPort: 8080
         env:
