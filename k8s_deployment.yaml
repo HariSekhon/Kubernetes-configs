@@ -22,6 +22,12 @@ metadata:
     # see also k8s_pod_disruption_budget.yaml
     cluster-autoscaler.kubernetes.io/safe-to-evict: True  # set to False for apps that don't like disruption
 spec:
+  paused: False
+  revisionHistoryLimit: 10
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
   nodeSelector:
     disktype: ssd
     kubernetes.io/arch: amd64
@@ -78,6 +84,7 @@ spec:
         role: master
         tier: backend
     spec:
+      minReadySeconds: 0  # secs healthy before serving
       progressDeadlineSeconds: 120
       terminationGracePeriodSeconds: 120  # how long between SIGTERM and killed - may want to set higher than default 30 secs eg. 1800 for Cassandra
       containers:
