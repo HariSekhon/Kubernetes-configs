@@ -19,6 +19,7 @@ metadata:
   labels:
     app: APP
   annotations:
+    # see also k8s_pod_disruption_budget.yaml
     cluster-autoscaler.kubernetes.io/safe-to-evict: True  # set to False for apps that don't like disruption
 spec:
   # for persistent disks limited to 2 zones combined with GKE regional clusters
