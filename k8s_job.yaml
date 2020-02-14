@@ -30,6 +30,6 @@ spec:
         command: ["perl"]
         args: ["-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
-  # exponential backoff retries of job
+  # exponential backoff retries of job - 10 => 20 => 40 secs...
   backoffLimit: 6  # default, max job retries
   activeDeadlineSeconds: 300  # max job runtime
