@@ -31,12 +31,3 @@ rules:
   - apiGroups: [""]
     resourcesNames: ["my-pod"]  # must name resources to allow update / patch
     verbs: ["patch", "update"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: default
-  name: NAME
-rules:
-  - nonResourceURLs: ["metrics/", "/metrics/*"]
-    verbs: ["get", "post"]
