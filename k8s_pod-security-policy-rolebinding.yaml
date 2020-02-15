@@ -1,0 +1,29 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2020-02-15 12:37:50 +0000 (Sat, 15 Feb 2020)
+#
+#  vim:ts=4:sts=4:sw=4:et
+#
+#  https://github.com/harisekhon/tools
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/harisekhon
+#
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: restricted-pod-rolebinding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: restricted-pods-role
+subjects:
+# Example: All service accounts in default namespace
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:serviceaccounts
