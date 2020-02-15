@@ -18,5 +18,5 @@ metadata:
   name: monitoring-endpoints
 rules:
   - apiGroups: [""]
-    resources: ["services", "endpoints", "pods"]
+    resources: ["services", "endpoints", "pods", "storageclasses"]
     verbs: ["get", "list", "watch"]
