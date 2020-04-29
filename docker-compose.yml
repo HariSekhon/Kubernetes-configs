@@ -1,0 +1,41 @@
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  Author: Hari Sekhon
+#  Date: [% DATE # 2016-12-08 16:53:29 +0000 (Thu, 08 Dec 2016) %]
+#
+#  [% URL %]
+#
+#  [% LICENSE %]
+#
+#  [% MESSAGE %]
+#
+#  [% LINKEDIN %]
+#
+
+# Docker 1.12.0+
+# format 2.1 enables ${VAR:-default}
+# Docker 1.13.0+
+# format 2.2 enables user
+version: '2.2'
+
+# XXX: for Dockerfiles only, remove otherwise
+build:
+  context: .
+  args:
+    - nocache
+
+services:
+  [% NAME %]:
+    extends:
+      file: common.yml
+      service: common
+    image: harisekhon/[% NAME %]:${VERSION:-latest}
+    ports:
+      #- "5000:5000"
+    volumes:
+      - .:/code
+      #-logvolume01:/var/log
+    #links:
+    #  - redis
+#volumes:
+#  logvolume01: {}
