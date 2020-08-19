@@ -120,12 +120,14 @@ spec:
           initialDelaySeconds: 20
           timeoutSeconds: 5
         resources:
+          limits:
+            cpu: 1
+            memory: 4Gi  # GiB
           requests:
             # millicores - 1/1000 of a CPU / vCPU
             # 100m = 1/10th of CPU core
             cpu: 100m
-            # literal MiB
-            memory: 100Mi
+            memory: 100Mi # MiB
         volumes:
           - name: APP-vol
             # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
