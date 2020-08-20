@@ -19,7 +19,7 @@ metadata:
 spec:
   schedule: "0 0 * * *"
   startingDeadlineSeconds: 3600  # (re)start up to an hour late
-  concurrencyPolicy: Forbid  # Allow / Forbid / Replace when starting new job if old job is still running
+  concurrencyPolicy: Forbid  # Allow / Forbid / Replace - start new job if old job is still running (default: Allow, in which case your jobs should be idempotent)
   suspend: False  # set to True to prevent new job executions (counted as missed jobs)
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
