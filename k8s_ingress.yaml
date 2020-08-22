@@ -21,6 +21,10 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     # rewrite /APP to just /
     nginx.ingress.kubernetes.io/rewrite-target: /
+  #
+  # see k8s_traefik.yaml to set up this ingress controller
+  #annotations:
+  #  kubernetes.io/ingress.class: traefik
 spec:
   rules:
   - host: APP.DOMAIN.COM
