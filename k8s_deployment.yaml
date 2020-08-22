@@ -1,15 +1,16 @@
 #
 #  Author: Hari Sekhon
-#  Date: 2019-11-25 13:47:16 +0000 (Mon, 25 Nov 2019)
+#  Date: [% DATE # 2019-11-25 13:47:16 +0000 (Mon, 25 Nov 2019) %]
 #
-#  https://github.com/harisekhon/devops-perl-tools
+#  [% VIM_TAGS %]
 #
-#  License: see accompanying Hari Sekhon LICENSE file
+#  [% URL %]
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn
-#  and optionally send me feedback to help improve or steer this or other code I publish
+#  [% LICENSE %]
 #
-#  https://www.linkedin.com/in/harisekhon
+#  [% MESSAGE %]
+#
+#  [% LINKEDIN %]
 #
 
 apiVersion: apps/v1
@@ -23,7 +24,7 @@ metadata:
     cluster-autoscaler.kubernetes.io/safe-to-evict: True  # set to False for apps that don't like disruption
 spec:
   paused: False
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 10  # how many ReplicaSets specs to retain for rollbacks
   strategy:
     rollingUpdate:
       maxUnavailable: 25%
