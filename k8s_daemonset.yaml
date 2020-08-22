@@ -1,15 +1,16 @@
 #
 #  Author: Hari Sekhon
-#  Date: 2019-11-28 18:48:25 +0000 (Thu, 28 Nov 2019)
+#  Date: [% DATE # 2019-11-28 18:48:25 +0000 (Thu, 28 Nov 2019) %]
 #
-#  https://github.com/harisekhon/devops-perl-tools
+#  [% VIM_TAGS %]
 #
-#  License: see accompanying Hari Sekhon LICENSE file
+#  [% URL %]
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn
-#  and optionally send me feedback to help improve or steer this or other code I publish
+#  [% LICENSE %]
 #
-#  https://www.linkedin.com/in/harisekhon
+#  [% MESSAGE %]
+#
+#  [% LINKEDIN %]
 #
 
 apiVersion: apps/v1
