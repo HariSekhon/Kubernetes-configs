@@ -14,8 +14,15 @@
 #
 
 # workaround to fix stale cronjobs and get them running again after they miss the magic number of 100 executions
+#
+# see here for details:
+#
+#   https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#cron-job-limitations
 
-# kubectl patch cj <name> --patch "$(cat k8s_cronjob_fix_stale.yaml)"
+
+# apply like this:
+#
+#   kubectl patch cj <name> --patch "$(cat k8s_cronjob_fix_stale.yaml)"
 
 ---
 spec:
