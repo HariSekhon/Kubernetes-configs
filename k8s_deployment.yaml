@@ -60,7 +60,7 @@ spec:
             values:
             - europe-west-1b
             - europe-west-1c
-          # XXX: remove this if the pod is safe to preempt
+          # XXX: remove this if the pod is safe to preempt, or move to preferredDuringSchedulingIgnoredDuringExecution
           #
           # Node preemption:
           # - shuts down pods ungracefully
