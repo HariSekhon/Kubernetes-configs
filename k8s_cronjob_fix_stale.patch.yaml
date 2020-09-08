@@ -22,7 +22,7 @@
 
 # apply like this:
 #
-#   kubectl patch cj <name> --patch "$(cat k8s_cronjob_fix_stale.yaml)"
+#   kubectl patch cj <name> --patch "$(cat k8s_cronjob_fix_stale.patch.yaml)"
 
 ---
 spec:
