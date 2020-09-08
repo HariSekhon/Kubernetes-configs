@@ -60,6 +60,16 @@ spec:
             values:
             - europe-west-1b
             - europe-west-1c
+          # XXX: remove this if the pod is safe to preempt
+          #
+          # Node preemption:
+          # - shuts down pods ungracefully
+          # - ignores PodDisruptionBudget
+          # - invalidate Stateful guarantees and can lead to data loss !!
+          # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#kubernetes_constraint_violations
+          # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+          - key: cloud.google.com/gke-preemptible
+            operator: DoesNotExist
     #podAffinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
