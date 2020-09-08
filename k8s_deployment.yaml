@@ -50,6 +50,12 @@ spec:
                 values:
                   - gpu
                   - tpu
+          # XXX: prefer non-preemptible VMs unless unavailable
+        - weight: 100
+          preference:
+            - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
@@ -60,7 +66,7 @@ spec:
             values:
             - europe-west-1b
             - europe-west-1c
-          # XXX: remove this if the pod is safe to preempt, or move to preferredDuringSchedulingIgnoredDuringExecution
+          # XXX: remove this if the pod is safe to preempt
           #
           # Node preemption:
           # - shuts down pods ungracefully
