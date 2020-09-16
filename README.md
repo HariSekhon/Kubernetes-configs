@@ -12,9 +12,11 @@ Forked from [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-tools)
 
 ### See Also:
 
-* [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) - 450+ DevOps Bash Scripts, Advanced `.bashrc`, `.vimrc`, `.screenrc`, `.tmux.conf`, CI configs & Utility Code Library - AWS, GCP, Kubernetes, Kafka, Docker, Hadoop, SQL, Hive, Impala, PostgreSQL, MySQL, LDAP, Spotify API & MP3 tools, Git, Code & build linting, package management for Linux / Mac / Python / Perl / Ruby / NodeJS / Golang, and lots more random goodies
+* [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) - 450+ DevOps Bash Scripts, Advanced `.bashrc`, `.vimrc`, `.screenrc`, `.tmux.conf`, `.gitconfig`, CI configs & Utility Code Library - AWS, GCP, Kubernetes, Docker, Kafka, Hadoop, SQL, BigQuery, Hive, Impala, PostgreSQL, MySQL, LDAP, DockerHub, Jenkins, Spotify API & MP3 tools, Git tricks, GitHub API, GitLab API, BitBucket API, Code & build linting, package management for Linux / Mac / Python / Perl / Ruby / NodeJS / Golang, and lots more random goodies
 
-* [SQL Scripts](https://github.com/HariSekhon/SQL-scripts) - 80+ SQL Scripts - PostgreSQL, MySQL, AWS Athena, Google BigQuery
+* [SQL Scripts](https://github.com/HariSekhon/SQL-scripts) - 100+ SQL Scripts - PostgreSQL, MySQL, AWS Athena, Google BigQuery
+
+* [Templates](https://github.com/HariSekhon/Templates) - dozens of Code & Config templates for many popular programming languages and DevOps tools including Docker, AWS, GCP, Jenkins, Circle CI, Vagrant, Make, SBT, Gradle etc.
 
 * [DevOps Python Tools](https://github.com/harisekhon/devops-python-tools) - 80+ DevOps CLI tools for AWS, Hadoop, HBase, Spark, Log Anonymizer, Ambari Blueprints, AWS CloudFormation, Linux, Docker, Spark Data Converters & Validators (Avro / Parquet / JSON / CSV / INI / XML / YAML), Elasticsearch, Solr, Travis CI, Pig, IPython
 
