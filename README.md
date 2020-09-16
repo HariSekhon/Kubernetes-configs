@@ -1,6 +1,8 @@
 Kubernetes Templates
 ====================
 
+[git.io/k8s-templates](https://git.io/k8s-templates)
+
 Kubernetes YAML templates for common functions in Kubernetes.
 
 Contain various tweaks and best practices learned in production across environments to carry forward to new deployments.
