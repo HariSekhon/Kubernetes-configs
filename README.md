@@ -24,6 +24,6 @@ Forked from [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-tools)
 
 * [Dockerfiles](https://github.com/HariSekhon/Dockerfiles) - 50+ DockerHub public images for Docker & Kubernetes - Hadoop, Kafka, ZooKeeper, HBase, Cassandra, Solr, SolrCloud, Presto, Apache Drill, Nifi, Spark, Mesos, Consul, Riak, OpenTSDB, Jython, Advanced Nagios Plugins & DevOps Tools repos on Alpine, CentOS, Debian, Fedora, Ubuntu, Superset, H2O, Serf, Alluxio / Tachyon, FakeS3
 
-[![Stargazers over time](https://starchart.cc/HariSekhon/SQL-scripts.svg)](https://starchart.cc/HariSekhon/SQL-scripts)
+[![Stargazers over time](https://starchart.cc/HariSekhon/Kubernetes-templates.svg)](https://starchart.cc/HariSekhon/Kubernetes-templates)
 
 [git.io/k8s-templates](https://git.io/k8s-templates)
