@@ -20,6 +20,25 @@ metadata:
   name: NAME-schedule
 spec:
   schedule: "0 0 * * *"
+  #
+  # XXX: setting startingDeadlineSeconds is very important for cronjobs on schedules like * * * * * because a planned maintenance / outage will cause these jobs to miss the magic 100 executions and fail to start after this!
+  #
+  # To detect such stuck cronjobs look at the LAST SCHEDULE field from this output:
+  #
+  #   kubectl get cronjobs -A --sort-by=.status.lastScheduleTime
+  #
+  # See the DevOps Bash tools repo for related kubernetes scripts such as detecting stuck jobs:
+  #
+  #   https://github.com/HariSekhon/DevOps-Bash-tools
+  #
+  # If you run in to this issue, see the adjacent fix in
+  #
+  #   cronjob-fix-stale.patch.yaml
+  #
+  # More details here:
+  #
+  #   https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#cron-job-limitations
+  #
   startingDeadlineSeconds: 3600  # (re)start up to an hour late
   concurrencyPolicy: Forbid  # Allow / Forbid / Replace - start new job if old job is still running (default: Allow, in which case your jobs should be idempotent)
   suspend: False  # set to True to prevent new job executions (counted as missed jobs)
