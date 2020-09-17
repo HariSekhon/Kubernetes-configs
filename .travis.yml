@@ -1,0 +1,49 @@
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  Author: Hari Sekhon
+#  Date: 2020-09-17 18:18:38 +0100 (Thu, 17 Sep 2020)
+#
+#  https://github.com/harisekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback
+#  to help improve or steer this or other code I publish
+#
+#  http://www.linkedin.com/in/harisekhon
+#
+
+version: ~> 1.0
+
+language: bash
+os:
+  - linux
+
+notifications:
+  email: false
+
+#branches:
+#  only:
+#    - master
+
+#before_cache:
+#  - test -f pytools_checks/Makefile || rm -fr pytools_checks
+
+cache:
+  - directories:
+    - .cache          # yamllint disable-line rule:indentation
+    - pytools_checks  # yamllint disable-line rule:indentation
+
+env:
+  - PYTHONUNBUFFERED=1
+
+# avoid package checksum mismatches when installing packages
+before_install:
+  - sudo rm -f "${TRAVIS_ROOT}/etc/apt/apt.conf.d/99-travis-apt-proxy"
+  - sudo rm -rf "${TRAVIS_ROOT}/var/lib/apt/lists/"*
+
+install:
+  - travis_retry curl -sS https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/bootstrap.sh | sh
+
+script:
+  - travis_retry cd bash-tools && ./check_pytools.sh
