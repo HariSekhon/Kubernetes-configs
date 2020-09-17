@@ -10,7 +10,11 @@ Kubernetes Templates
 
 Kubernetes YAML templates for common functions in Kubernetes.
 
-Contains various Best Practices, Tips & Tricks learned in production across environments to carry forward to new deployments - see especially important info in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml), [service.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/service.yaml), [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/statefulset.yaml).
+Contains various Best Practices, Tips & Tricks learned in production across environments to carry forward to new deployments - see especially important info in
+[deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml),
+[service.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/service.yaml),
+[statefulset.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/statefulset.yaml) and
+[cronjob.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/cronjob.yaml).
 
 Forked from [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-tools) repo for which this is now a submodule.
 
