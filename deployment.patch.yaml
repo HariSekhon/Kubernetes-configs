@@ -13,7 +13,17 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# patch any fields from the generic deployment, eg. number of replicas difference between prod / staging /dev
+# ============================================================================ #
+#                        D e p l o y m e n t   P a t c h
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+# patch any fields from the generic deployment
+#
+# eg. number of replicas - set different between prod / staging /dev
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
