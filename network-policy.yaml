@@ -14,8 +14,15 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                           N e t w o r k P o l i c y
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/services-networking/network-policies/
+
 # allow incoming to APP-backend pods only from APP-frontend
 
+---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
