@@ -17,12 +17,17 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - namespace.yaml
   - deployment.yaml
   - service.yaml
+  #- cronjob.yaml
+  #- statefulset.yaml
 
 # I prefer this to the JSON inline patch as it's separately usable from the CLI as well
 patchesStrategicMerge:
   - deployment.patch.yaml
+  # set in cronjob.yml now
+  #- cronjob-fix-stale.patch.yaml
 
 images:
   - name: eu.gcr.io/myproject/someimage
