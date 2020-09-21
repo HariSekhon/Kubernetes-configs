@@ -14,8 +14,17 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#            S e r v i c e   w i t h   m a n u a l   e n d p o i n t
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/services-networking/service/
+
+# You'll rarely create endpoints yourself, usually let the service manage the endpoint for you
+
 # combine with endpoints.yaml
 
+---
 apiVersion: v1
 kind: Service
 metadata:
