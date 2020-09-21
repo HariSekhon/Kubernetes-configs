@@ -7,6 +7,7 @@ Kubernetes Templates
 [![Repo on GitLab](https://img.shields.io/badge/repo-GitLab-blue?logo=gitlab)](https://gitlab.com/HariSekhon/Kubernetes-Templates)
 [![Repo on BitBucket](https://img.shields.io/badge/repo-BitBucket-blue?logo=bitbucket)](https://bitbucket.org/HariSekhon/Kubernetes-Templates)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/HariSekhon/Kubernetes-templates?logo=github)](https://github.com/HariSekhon/Kubernetes-templates/commits/master)
+[![Lines of Config](https://img.shields.io/badge/lines%20of%20config-1.5k-lightgrey?logo=codecademy)](https://github.com/HariSekhon/Templates)
 
 [git.io/k8s-templates](https://git.io/k8s-templates)
 
