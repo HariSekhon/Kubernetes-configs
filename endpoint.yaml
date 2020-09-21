@@ -14,6 +14,17 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                                E n d p o i n t
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/services-networking/service/
+
+# You'll rarely do this yourself, usually let the service manage the endpoint for you
+
+# combine with service-manual-endpoints.yaml
+
+---
 apiVersion: v1
 kind: Endpoints
 metadata:
