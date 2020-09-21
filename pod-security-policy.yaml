@@ -14,6 +14,18 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                     P o d   S e c u r i t y   P o l i c y
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/security/pod-security-standards/
+
+# https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+
+# https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+
+
+---
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
