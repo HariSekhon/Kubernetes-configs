@@ -13,11 +13,31 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                               K u s t o m i z e
+# ============================================================================ #
+
+# Quick Reference:
+#
+# https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html
+
+# =============
+# Edit / Delete below as necessary for your environment (it's easier than remembering / finding / adding all this stuff)
+
+# =============
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+# override namespace for all resources
+namespace: NAMESPACE
 
+# add resource configs from ../../base/kustomization.yaml
 #bases:
 #  - ../../base
+
+# set labels on all resources and selectors
+commonLabels:
+  app: NAME-dev
 
 resources:
   - namespace.yaml
@@ -29,12 +49,18 @@ resources:
 # I prefer this to the JSON inline patch as it's separately usable from the CLI as well
 patchesStrategicMerge:
   - deployment.patch.yaml
-  # set in cronjob.yml now - besides this is too generic to apply here, doesn't contain name/namespace metadata necessary for patching selection
+  #
+  # set in cronjob.yml now - besides this is too generic without metadata.name necessary for patching selection, designed to be called from CLI as a fix
   #- cronjob-fix-stale.patch.yaml
+  #
+  # enable to override LoadBalancer to NodePort for testing locally
+  #- service-nodeport.patch.yaml
 
+# override image names and tags
+# only changing the tag here to be latest for dev environment
 images:
-  - name: eu.gcr.io/myproject/someimage
-    newName: eu.gcr.io/myproject/someotherimage
+  - name: eu.gcr.io/myproject/myimage
+    newName: eu.gcr.io/myproject/myimage
     newTag: "latest"
 
 configMapGenerator:
