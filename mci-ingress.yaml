@@ -14,8 +14,12 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# Multi-Cluster Ingress on GKE
+# ============================================================================ #
+#            M u l t i - C l u s t e r   I n g r e s s   o n   G K E
+# ============================================================================ #
 
+
+---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
