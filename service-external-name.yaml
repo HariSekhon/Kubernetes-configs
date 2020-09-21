@@ -14,8 +14,15 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#              S e r v i c e   w i t h   E x t e r n a l   N a m e
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/services-networking/service/#externalname
+
 # combine with endpoints.yaml
 
+---
 apiVersion: v1
 kind: Service
 metadata:
