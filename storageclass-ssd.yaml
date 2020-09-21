@@ -14,8 +14,15 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                            S t o r a g e C l a s s
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/storage/storage-classes/
+
 # Storage Class for SSD instead of standard disk
 
+---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
