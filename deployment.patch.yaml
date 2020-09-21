@@ -1,0 +1,24 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2020-09-21 13:36:02 +0100 (Mon, 21 Sep 2020)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# patch any fields from the generic deployment, eg. number of replicas difference between prod / staging /dev
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: NAME
+  namespace: NAMESPACE
+spec:
+  # maybe you just want to run 2 replica pods n dev / staging instead of many in production
+  replicas: 2
