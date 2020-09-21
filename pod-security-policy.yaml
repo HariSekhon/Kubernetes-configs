@@ -18,6 +18,7 @@ apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: noprivpods
+  namespace: NAMESPACE
 spec:
   privileged: false
   seLinux:

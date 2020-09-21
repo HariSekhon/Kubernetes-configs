@@ -20,6 +20,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: permit-frontend-only
+  namespace: NAMESPACE
 spec:
   policyTypes:
     - Ingress
@@ -36,6 +37,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: outbound-dns-only
+  namespace: NAMESPACE
 spec:
   policyTypes:
     - Egress

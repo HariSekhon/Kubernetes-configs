@@ -18,6 +18,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: NAME
+  namespace: NAMESPACE
 spec:
   completions: 8  # total successful jobs - omit this for queue pattern where any pod successfully finishes
   parallelism: 4  # concurrent jobs

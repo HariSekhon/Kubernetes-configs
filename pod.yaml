@@ -20,6 +20,7 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: privileged-pod
+  namespace: NAMESPACE
 spec:
   containers:
     - name: privileged-pod

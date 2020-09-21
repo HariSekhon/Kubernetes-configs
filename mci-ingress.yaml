@@ -20,6 +20,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: APP
+  namespace: NAMESPACE
   annotations:
     kubernetes.io/ingress.class: gce-multi-cluster
     kubernetes.io/ingress.global-static-ip-name: kubemci-ip

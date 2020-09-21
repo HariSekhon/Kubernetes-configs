@@ -22,6 +22,7 @@ metadata:
   labels:
     app: APP
   name: hog
+  namespace: NAMESPACE
 spec:
   progressDeadlineSeconds: 600
   replicas: 1

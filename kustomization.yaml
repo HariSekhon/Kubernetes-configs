@@ -26,7 +26,7 @@ resources:
 # I prefer this to the JSON inline patch as it's separately usable from the CLI as well
 patchesStrategicMerge:
   - deployment.patch.yaml
-  # set in cronjob.yml now
+  # set in cronjob.yml now - besides this is too generic to apply here, doesn't contain name/namespace metadata necessary for patching selection
   #- cronjob-fix-stale.patch.yaml
 
 images:

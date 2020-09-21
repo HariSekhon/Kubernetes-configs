@@ -36,8 +36,8 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  namespace: default
   name: NAME
+  namespace: NAMESPACE
 rules:
   - apiGroups: [""]
     resources: ["pods", "pods/logs"]
@@ -46,8 +46,8 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  namespace: default
   name: NAME
+  namespace: NAMESPACE
 rules:
   - apiGroups: [""]
     resourcesNames: ["my-pod"]  # must name resources to allow update / patch

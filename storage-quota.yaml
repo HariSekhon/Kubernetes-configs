@@ -18,6 +18,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: storagequota
+  namespace: NAMESPACE
 spec:
   hard:
     persistentvolumeclaims: "10"
