@@ -15,6 +15,13 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                    N a m e s p a c e   L i m i t R a n g e
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/policy/limit-range/
+
+---
 apiVersion: v1
 kind: LimitRange
 metadata:
