@@ -14,6 +14,15 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                               N a m e s p a c e
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+
+# https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/
+
+---
 apiVersion: v1
 kind: Namespace
 metadata:
