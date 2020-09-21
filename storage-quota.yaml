@@ -14,6 +14,17 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                           R e s o u r c e Q u o t a
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/policy/resource-quotas/
+
+# https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/
+
+# https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/
+
+---
 apiVersion: v1
 kind: ResourceQuota
 metadata:
