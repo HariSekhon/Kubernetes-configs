@@ -14,8 +14,15 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                 P e r s i s t e n t   V o l u m e   C l a i m
+# ============================================================================ #
+
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim
+
 # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
 
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
