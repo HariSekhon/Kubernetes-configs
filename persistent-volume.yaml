@@ -14,6 +14,13 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                       P e r s i s t e n t   V o l u m e
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
