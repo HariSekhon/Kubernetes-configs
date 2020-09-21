@@ -34,9 +34,12 @@ spec:
   paused: False
   revisionHistoryLimit: 10  # how many ReplicaSets specs to retain for rollbacks
   strategy:
+    type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 25%
-      maxSurge: 25%
+      #maxUnavailable: 25%
+      maxUnavailable: 1
+      #maxSurge: 25%
+      maxSurge: 1
   nodeSelector:
     disktype: ssd
     kubernetes.io/arch: amd64
