@@ -24,6 +24,7 @@
 #
 # Edit / Delete as necessary for your deployment (it's easier than remembering / finding / adding all this stuff)
 
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
