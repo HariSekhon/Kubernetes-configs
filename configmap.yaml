@@ -1,0 +1,37 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2020-09-21 15:01:45 +0100 (Mon, 21 Sep 2020)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: NAME
+  namespace: NAMESPACE
+data:
+  my.magic.number: "3"
+  my.properties.file: "NAME.properties"
+  google.project.id: my-project-123456  # export this to a standard GOOGLE_CLOUD_PROJECT env var in deployment
+  stackdriver.project.id: my-project-123456
+  # where to connect to backend in this environment (username + password should be in a secret instead)
+  db.host: mydatabase.domain.com
+  db.name: myDB
+  # could be mounted as an ini properties file
+  my.properties: |
+    setting1=test1
+    setting2=test2
+# prevent accidental updates causing outages
+# improve performance / reduce load on kube-apiserver by closing watches on this configmap
+# cannot be replaced - only deleted + recreated - existing pods will not be affected and must be manually recreated
+immutable: true  # 1.19+
