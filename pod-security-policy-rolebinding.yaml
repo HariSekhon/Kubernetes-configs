@@ -15,10 +15,17 @@
 #
 
 # ============================================================================ #
-#                            R o l e   B i n d i n g
+#         P o d   S e c u r i t y   P o l i c y   R o l e b i n d i n g
 # ============================================================================ #
 
+# https://kubernetes.io/docs/concepts/security/pod-security-standards/
+
+# https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+
+# https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+
 # https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-example
+
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
