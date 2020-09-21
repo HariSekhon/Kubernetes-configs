@@ -14,12 +14,13 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# workaround to fix stale cronjobs and get them running again after they miss the magic number of 100 executions
-#
-# see here for details:
-#
-#   https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#cron-job-limitations
+# ============================================================================ #
+#                     C r o n j o b   S t a l e   P a t c h
+# ============================================================================ #
 
+# https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#cron-job-limitations
+
+# workaround to fix stale cronjobs and get them running again after they miss the magic number of 100 executions
 
 # apply like this:
 #
