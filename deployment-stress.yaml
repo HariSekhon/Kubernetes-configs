@@ -14,14 +14,23 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                       D e p l o y m e n t   S t r e s s
+# ============================================================================ #
+
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+# Deployment for stressing out your resources to test namespace resource limits
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
     deployment.kubernetes.io/revision: "1"
   labels:
-    app: APP
-  name: hog
+    app: stress
+  name: stress
   namespace: NAMESPACE
 spec:
   progressDeadlineSeconds: 600
@@ -29,7 +38,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: APP
+      app: stress
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -38,7 +47,7 @@ spec:
   template:
     metadata:
       labels:
-        app: APP
+        app: stress
     spec:
       containers:
       - image: vish/stress
