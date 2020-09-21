@@ -14,8 +14,22 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# mainly for testing pod security policy against privileged pods
+# ============================================================================ #
+#                          P r i v i l e g e d   P o d
+# ============================================================================ #
 
+# https://kubernetes.io/docs/concepts/security/pod-security-standards/
+
+# https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+
+# https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+
+# https://kubernetes.io/docs/concepts/workloads/pods/
+
+
+# this is for testing pod security policy using this privileged pods
+
+---
 kind: Pod
 apiVersion: v1
 metadata:
