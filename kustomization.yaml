@@ -42,11 +42,14 @@ namespace: NAMESPACE
 
 #namePrefix: dev-
 
-# set labels on all resources and selectors
-# beware this overrides labels in resources yamls
+# set labels on all resources and selectors - will override base
 # eg. this will replace all 'app' labels
 commonLabels:
   app: NAME-dev
+
+# set annotations on all resources - will override base
+#commonAnnotations:
+#  annotationKey1: annotationValue2
 
 resources:
   - namespace.yaml
