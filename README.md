@@ -14,9 +14,8 @@ Kubernetes Templates
 Kubernetes YAML templates for common functions in Kubernetes.
 
 Contains various Best Practices, Tips & Tricks learned in production across environments to carry forward to new deployments - see especially important info in
-[deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml),
-[statefulset.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/statefulset.yaml),
-and [cronjob.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/cronjob.yaml).
+[deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml) and
+[statefulset.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/statefulset.yaml).
 
 The best documentation links are provided at the top of each yaml for fast referencing (this advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open the URLs from the current file via a hotkey!)
 
