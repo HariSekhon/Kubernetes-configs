@@ -69,6 +69,7 @@ patchesStrategicMerge:
   #- service-nodeport.patch.yaml
 
 # not my favourite way of doing it, prefer patchesStrategicMerge above
+# the only reason to use this is because not all resources or fields support strategic merge patches
 #patchesJson6902:
 #- target:
 #    version: v1
