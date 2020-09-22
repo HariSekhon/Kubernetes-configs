@@ -13,7 +13,7 @@ Kubernetes Templates
 
 Kubernetes YAML templates.
 
-Contains various Best Practices, Tips & Tricks learned in production environments - start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml).
+Contains various Best Practices, Tips & Tricks learned in production environments - start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/kustomization.yaml).
 
 The best documentation links are provided at the top of each yaml for fast referencing (this advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open the URLs from the current file via a hotkey!)
 
