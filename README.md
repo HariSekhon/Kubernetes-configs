@@ -11,11 +11,9 @@ Kubernetes Templates
 
 [git.io/k8s-templates](https://git.io/k8s-templates)
 
-Kubernetes YAML templates for common functions in Kubernetes.
+Kubernetes YAML templates.
 
-Contains various Best Practices, Tips & Tricks learned in production across environments to carry forward to new deployments - see especially important info in
-[deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml) and
-[statefulset.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/statefulset.yaml).
+Contains various Best Practices, Tips & Tricks learned in production environments - start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml).
 
 The best documentation links are provided at the top of each yaml for fast referencing (this advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open the URLs from the current file via a hotkey!)
 
