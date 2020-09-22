@@ -20,11 +20,15 @@
 # Quick Reference:
 #
 # https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html
+#
+# https://kubectl.docs.kubernetes.io/pages/examples/kustomize.html
 
 # =============
+
 # Edit / Delete below as necessary for your environment (it's easier than remembering / finding / adding all this stuff)
 
 # =============
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -36,6 +40,8 @@ namespace: NAMESPACE
 #  - ../../base
 
 # set labels on all resources and selectors
+# beware this overrides labels in resources yamls
+# eg. this will replace all 'app' labels
 commonLabels:
   app: NAME-dev
 
@@ -45,10 +51,13 @@ resources:
   - service.yaml
   #- cronjob.yaml
   #- statefulset.yaml
+  #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
 
 # I prefer this to the JSON inline patch as it's separately usable from the CLI as well
+# must name metadata.name [and often metadata.namespace] in order to match exact resources from the above yamls to match + patch
 patchesStrategicMerge:
-  - deployment.patch.yaml
+  # overrides replica counts / memory / ports across environments etc - anything that could be defined in a normal deployment
+  #- deployment.patch.yaml
   #
   # set in cronjob.yml now - besides this is too generic without metadata.name necessary for patching selection, designed to be called from CLI as a fix
   #- cronjob-fix-stale.patch.yaml
@@ -56,14 +65,39 @@ patchesStrategicMerge:
   # enable to override LoadBalancer to NodePort for testing locally
   #- service-nodeport.patch.yaml
 
+# not my favourite way of doing it, prefer patchesStrategicMerge above
+#patchesJson6902:
+#- target:
+#    version: v1
+#    kind: Deployment
+#    name: NAME
+#  # this has to be in op format, not regular k8s yaml format
+#  # eg. some.patch.yaml's contents should be something like:
+#  #
+#	 #		{"op": "replace", "path": "/some/existing/path", "value": "new value"}
+#	 #
+#  # OR in yaml format:
+#	 #
+#	 #   - op:replace
+#	 #     path: /some/existing/path
+#	 #     value: new value
+#	 #
+#  path: some.patch.yaml
+
 # override image names and tags
-# only changing the tag here to be latest for dev environment
+# can use newName and/or newTag to override image name and/or tag
 images:
   - name: eu.gcr.io/myproject/myimage
-    newName: eu.gcr.io/myproject/myimage
+    newName: eu.gcr.io/myproject/myotherimage
     newTag: "latest"
 
 configMapGenerator:
+  # useful for straight mounts to files
+  #- name: my-config-files
+  #  files:
+  #    - file1.properties
+  #    - file2.properties
+  # useful for extracting to environment variables
   - name: my-env
     namespace: NAMESPACE
     literals:
