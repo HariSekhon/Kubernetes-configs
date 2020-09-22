@@ -78,7 +78,7 @@ patchesStrategicMerge:
 #    version: v1
 #    kind: Deployment
 #    name: NAME
-#  # this has to be in op format, not regular k8s yaml format
+#  # this has to be in Json Patch format, not regular k8s yaml format
 #  # eg. some.patch.yaml's contents should be something like:
 #  #
 #	 #		{"op": "replace", "path": "/some/existing/path", "value": "new value"}
