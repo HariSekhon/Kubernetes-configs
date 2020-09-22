@@ -109,7 +109,7 @@ spec:
       app: APP
       role: master
       tier: backend
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
