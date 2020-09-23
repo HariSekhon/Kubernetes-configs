@@ -43,7 +43,7 @@ before_install:
   - sudo rm -rf "${TRAVIS_ROOT}/var/lib/apt/lists/"*
 
 install:
-  - travis_retry curl -sS https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/bootstrap.sh | sh
+  - travis_retry curl -L git.io/bash-bootstrap | sh
 
 script:
   - travis_retry cd bash-tools && ./check_pytools.sh
