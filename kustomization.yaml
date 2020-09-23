@@ -40,13 +40,16 @@ namespace: NAMESPACE
 #bases:
 #  - ../../base
 
-#namePrefix: prod-
+#namePrefix: dev-
 
-# set labels on all resources and selectors
-# beware this overrides labels in resources yamls
+# set labels on all resources and selectors - will override base
 # eg. this will replace all 'app' labels
 commonLabels:
   app: NAME-dev
+
+# set annotations on all resources - will override base
+#commonAnnotations:
+#  annotationKey1: annotationValue2
 
 resources:
   - namespace.yaml
@@ -69,12 +72,13 @@ patchesStrategicMerge:
   #- service-nodeport.patch.yaml
 
 # not my favourite way of doing it, prefer patchesStrategicMerge above
+# the only reason to use this is because not all resources or fields support strategic merge patches
 #patchesJson6902:
 #- target:
 #    version: v1
 #    kind: Deployment
 #    name: NAME
-#  # this has to be in op format, not regular k8s yaml format
+#  # this has to be in Json Patch format, not regular k8s yaml format
 #  # eg. some.patch.yaml's contents should be something like:
 #  #
 #	 #		{"op": "replace", "path": "/some/existing/path", "value": "new value"}
