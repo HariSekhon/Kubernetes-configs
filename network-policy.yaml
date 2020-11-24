@@ -20,6 +20,8 @@
 
 # https://kubernetes.io/docs/concepts/services-networking/network-policies/
 
+# https://github.com/ahmetb/kubernetes-network-policy-recipes
+
 # allow incoming to APP-backend pods only from APP-frontend
 
 ---
