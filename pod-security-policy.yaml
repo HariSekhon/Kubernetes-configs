@@ -24,6 +24,7 @@
 
 # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 
+# https://github.com/kubernetes/examples/blob/master/staging/podsecuritypolicy/rbac/README.md
 
 ---
 apiVersion: policy/v1beta1
