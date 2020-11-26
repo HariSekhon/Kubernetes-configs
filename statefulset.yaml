@@ -64,3 +64,12 @@ spec:
         volumeMounts:
           - name: pgdata
             mountPath: /var/lib/pgsql
+  volumeClaimTemplates:
+  - metadata:
+      name: pgdata
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
