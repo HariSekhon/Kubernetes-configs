@@ -30,8 +30,8 @@ metadata:
     # see also k8s_pod_disruption_budget.yaml
     cluster-autoscaler.kubernetes.io/safe-to-evict: False
 spec:
-  serviceName: pgsql
   replicas: 3
+  serviceName: pgsql
   selector:
     matchLabels:
       app: pgsql
