@@ -153,6 +153,7 @@ spec:
           tcpSocket:
             port: 8080
           initialDelaySeconds: 30
+          failureThreshold: 3
           timeoutSeconds: 5
         livenessProbe:
           httpGet:
@@ -161,6 +162,7 @@ spec:
           tcpSocket:
             port: 8080
           initialDelaySeconds: 20
+          failureThreshold: 3
           timeoutSeconds: 5
         resources:
           limits:
