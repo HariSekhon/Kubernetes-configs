@@ -72,6 +72,10 @@ spec:
   - metadata:
       name: pgdata
     spec:
+      # optional: requires storageclass-*.yaml
+      #storageClassName: gcp-ssd
+      #storageClassName: gcp-ssd-resizeable
+      #storageClassName: gcp-standard-resizeable
       accessModes:
         - ReadWriteOnce
       resources:
