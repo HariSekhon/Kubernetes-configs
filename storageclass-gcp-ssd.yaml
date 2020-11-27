@@ -26,6 +26,7 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
+  # generic name so on another cloud vendor you just replace the storageclass but the deployment / statefulset manifests don't need modifying
   name: ssd
 provisioner: kubernetes.io/gce-pd
 parameters:
