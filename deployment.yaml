@@ -130,6 +130,8 @@ spec:
       securityContext:
         # see pod-security-policy.yaml for wider enforcement
         runAsNonRoot: true
+        #runAsUser: 0   # not recommended
+        fsGroup: 1000   # group to own volumeMounts so they can be written to by the user-level process
       containers:
       - name: master
         image: k8s.gcr.io/APP:latest
