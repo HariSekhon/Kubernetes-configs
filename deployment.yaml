@@ -227,7 +227,8 @@ spec:
             #storageClassName: ssd
             #storageClassName: ssd-resizeable
             #storageClassName: standard-resizeable
-            accessModes: ["ReadWriteOnce"]
+            accessModes:
+              - ReadWriteOnce
             resources:
               requests:
                 storage: 1Gi
