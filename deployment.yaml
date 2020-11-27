@@ -154,6 +154,7 @@ spec:
             port: 8080
           initialDelaySeconds: 30
           failureThreshold: 3
+          periodSeconds: 5  # interval
           timeoutSeconds: 5
         livenessProbe:
           httpGet:
@@ -163,6 +164,7 @@ spec:
             port: 8080
           initialDelaySeconds: 20
           failureThreshold: 3
+          periodSeconds: 5
           timeoutSeconds: 5
         resources:
           limits:
