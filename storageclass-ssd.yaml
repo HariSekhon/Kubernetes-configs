@@ -15,12 +15,12 @@
 #
 
 # ============================================================================ #
-#                            S t o r a g e C l a s s
+#                  S t o r a g e C l a s s   -   G C P   S S D
 # ============================================================================ #
 
-# https://kubernetes.io/docs/concepts/storage/storage-classes/
+# Storage Class for GCP SSD instead of GCP standard disk
 
-# Storage Class for SSD instead of standard disk
+# https://kubernetes.io/docs/concepts/storage/storage-classes/
 
 ---
 apiVersion: storage.k8s.io/v1
@@ -30,4 +30,6 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
-  replication-type: none
+  #replication-type: regional-pd  # default: none
+  #volumeBindingMode: WaitForFirstConsumer  # recommended with regional-pd
+reclaimPolicy: Retain # for safety, else default: Delete
