@@ -28,7 +28,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: permit-frontend-only
+  name: permit-frontend-pods-by-label
   namespace: NAMESPACE
 spec:
   policyTypes:
@@ -41,6 +41,35 @@ spec:
       - podSelector:
           matchLabels:
             app: APP-frontend
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: permit-from-namespace
+  namespace: NAMESPACE
+spec:
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            project: myothernamespace
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: permit-from-IP
+  namespace: NAMESPACE
+spec:
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+      - ipBlock:
+          cidr: x.x.x.x/16
+          except:
+          - x.x.x.x/24
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
