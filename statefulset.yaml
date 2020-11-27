@@ -74,20 +74,22 @@ spec:
           # invalid: spec.containers[0].livenessProbe.tcpSocket: Forbidden: may not specify more than 1 handler type
           tcpSocket:
             port: 5432
-          initialDelaySeconds: 30
-          failureThreshold: 3
-          periodSeconds: 5  # interval
-          timeoutSeconds: 5
+          initialDelaySeconds: 0 # default
+          successThreshold: 1    # default
+          failureThreshold: 3    # default
+          periodSeconds: 10      # default (interval)
+          timeoutSeconds: 1      # default
         livenessProbe:
           #httpGet:
           #  path: /healthz
           #  port: 8080
           tcpSocket:
             port: 5432
-          initialDelaySeconds: 20
-          failureThreshold: 3
-          periodSeconds: 5
-          timeoutSeconds: 5
+          initialDelaySeconds: 0 # default
+          successThreshold: 1    # default
+          failureThreshold: 3    # default
+          periodSeconds: 10      # default (interval)
+          timeoutSeconds: 1      # default
         volumeMounts:
           - name: pgdata
             mountPath: /var/lib/pgsql
