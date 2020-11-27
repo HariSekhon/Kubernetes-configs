@@ -65,6 +65,29 @@ spec:
         ports:
           - name: pgsql
             containerPort: 5432
+        readinessProbe:
+          # http, tcp or exec
+          #httpGet:
+          #  path: /healthz
+          #  port: 8080
+          # only uncomment if you can't use http check, must comment/delete http check otherwise will get this error:
+          # invalid: spec.containers[0].livenessProbe.tcpSocket: Forbidden: may not specify more than 1 handler type
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 30
+          failureThreshold: 3
+          periodSeconds: 5  # interval
+          timeoutSeconds: 5
+        livenessProbe:
+          #httpGet:
+          #  path: /healthz
+          #  port: 8080
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 20
+          failureThreshold: 3
+          periodSeconds: 5
+          timeoutSeconds: 5
         volumeMounts:
           - name: pgdata
             mountPath: /var/lib/pgsql
