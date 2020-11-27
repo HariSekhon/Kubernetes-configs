@@ -215,8 +215,11 @@ spec:
         - metadata:
             name: APP-data
           spec:
+            # optional: requires storageclass-*.yaml
+            #storageClassName: gcp-ssd
+            #storageClassName: gcp-ssd-resizeable
+            #storageClassName: gcp-standard-resizeable
             accessModes: ["ReadWriteOnce"]
-            storageClassName: fast
             resources:
               requests:
                 storage: 1Gi
