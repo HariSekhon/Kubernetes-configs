@@ -233,4 +233,5 @@ spec:
               - ReadWriteOnce
             resources:
               requests:
+                # resize here doesn't affect the PVC, must edit the PVC directly to trigger the provider resize, didn't even need a pod cycle in GCP testing
                 storage: 1Gi
