@@ -61,7 +61,7 @@ cache:
     - $HOME/.cpanm
     - $HOME/.gem
     # bash-tools is not a submodule, but downloaded so ok to cache whole
-    #- bash-tools
+    - bash-tools
 
 # ==============================================
 # https://docs.travis-ci.com/user/job-lifecycle/
