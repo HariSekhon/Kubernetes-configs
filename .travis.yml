@@ -13,25 +13,34 @@
 #  http://www.linkedin.com/in/harisekhon
 #
 
+# ============================================================================ #
+#                               T r a v i s   C I
+# ============================================================================ #
+
 # https://docs.travis-ci.com/user/customizing-the-build/
 
 version: ~> 1.0
 
+# ==============================================================
 # https://docs.travis-ci.com/user/languages/minimal-and-generic/
 language: bash
 
+# =========================================
 # https://docs.travis-ci.com/user/multi-os/
 os:
   - linux
 
+# ======================================================
 # https://docs.travis-ci.com/user/environment-variables/
 env:
   - PYTHONUNBUFFERED=1
 
+# ==============================================
 # https://docs.travis-ci.com/user/notifications/
 notifications:
   email: false
 
+# =================================================================================
 # https://docs.travis-ci.com/user/customizing-the-build/#building-specific-branches
 # https://docs.travis-ci.com/user/conditional-builds-stages-jobs
 #branches:
