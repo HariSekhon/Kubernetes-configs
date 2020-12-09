@@ -13,18 +13,28 @@
 #  http://www.linkedin.com/in/harisekhon
 #
 
+# https://docs.travis-ci.com/user/customizing-the-build/
+
 version: ~> 1.0
 
+# https://docs.travis-ci.com/user/languages/minimal-and-generic/
 language: bash
+
+# https://docs.travis-ci.com/user/multi-os/
 os:
   - linux
 
-notifications:
-  email: false
-
+# https://docs.travis-ci.com/user/customizing-the-build/#building-specific-branches
+# https://docs.travis-ci.com/user/conditional-builds-stages-jobs
 #branches:
 #  only:
 #    - master
+
+# https://docs.travis-ci.com/user/notifications/
+notifications:
+  email: false
+
+# https://docs.travis-ci.com/user/job-lifecycle/
 
 #before_cache:
 #  - test -f pytools_checks/Makefile || rm -fr pytools_checks
