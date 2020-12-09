@@ -53,7 +53,7 @@ notifications:
 cache:
   - pip
   - directories:
-    - .cache
+    - $HOME/.cache
     - bash-tools/pytools_checks
 
 # ==============================================
