@@ -24,28 +24,32 @@ language: bash
 os:
   - linux
 
+# https://docs.travis-ci.com/user/environment-variables/
+env:
+  - PYTHONUNBUFFERED=1
+
+# https://docs.travis-ci.com/user/notifications/
+notifications:
+  email: false
+
 # https://docs.travis-ci.com/user/customizing-the-build/#building-specific-branches
 # https://docs.travis-ci.com/user/conditional-builds-stages-jobs
 #branches:
 #  only:
 #    - master
 
-# https://docs.travis-ci.com/user/notifications/
-notifications:
-  email: false
-
 # https://docs.travis-ci.com/user/job-lifecycle/
 
 #before_cache:
 #  - test -f pytools_checks/Makefile || rm -fr pytools_checks
 
+# https://docs.travis-ci.com/user/caching/
 cache:
   - directories:
     - .cache          # yamllint disable-line rule:indentation
     - pytools_checks  # yamllint disable-line rule:indentation
 
-env:
-  - PYTHONUNBUFFERED=1
+# https://docs.travis-ci.com/user/job-lifecycle/
 
 # avoid package checksum mismatches when installing packages
 before_install:
