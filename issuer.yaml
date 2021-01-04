@@ -38,8 +38,12 @@ spec:
     # XXX: test on LetsEncrypt staging first
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     #server: https://acme-v02.api.letsencrypt.org/directory
-    # set to not create a new ACME account but instead wait for you to populate the k8s secret with the key of an existing ACME account
+
+    # https://cert-manager.io/docs/configuration/acme/#reusing-an-acme-account
+    #
+    # reuse existing ACME account rather than creating new one - waits for you to populate the k8s secret with the key of an existing ACME account
     #disableAccountKeyGeneration: true
+
     privateKeySecretRef:
       # k8s secret that'll store your account's private key
       # auto-creates secret in the cert-manager namespace during account auto-creation
