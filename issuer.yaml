@@ -1,0 +1,89 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2020-12-17 17:51:14 +0000 (Thu, 17 Dec 2020)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ACME Issuer for Let's Encrypt
+
+# https://cert-manager.io/docs/configuration/acme/
+
+---
+apiVersion: cert-manager.io/v1
+#kind: Issuer
+# easier to use a non-namespaced resource to service multiple namespaces
+kind: ClusterIssuer
+metadata:
+  # XXX: create one per environment
+  name: letsencrypt-dev
+  #name: letsencrypt-staging
+  #name: letsencrypt-prod
+  # XXX: set this is using Issuer rather than ClusterIssuer
+  #namespace: NAMESPACE
+spec:
+  acme:
+    # XXX: set your admin email address - Let's Encrypt will use this to contact you about expiring certificates, and issues related to your account
+    # auto-creates an account with this email address
+    email: hari@domain.com
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # set to not create a new ACME account but instead wait for you to populate the k8s secret with the key of an existing ACME account
+    #disableAccountKeyGeneration: true
+    privateKeySecretRef:
+      # k8s secret that'll store your account's private key
+      # auto-creates secret in the cert-manager namespace during account auto-creation
+      name: issuer-account-key
+
+    solvers:
+
+      # XXX: HTTP - simpler but needs to be a publicly accessible HTTP ingress
+      #
+      # https://cert-manager.io/docs/configuration/acme/http01/
+      #
+      - http01:
+          ingress:
+            class: nginx
+
+      # XXX: DNS - if ingress is not publicly accessible (eg. only via VPN) then must use DNS validation
+      #            LetsEncrypt doesn't provide public IPs to whitelist and can change any time
+      #
+      # https://cert-manager.io/docs/tutorials/acme/dns-validation/
+      #
+      # Instructions for integration with Google CloudDNS, Cloudflare, Akamai, AWS Route53 and AzureDNS:
+      #
+      # https://cert-manager.io/docs/configuration/acme/dns01/
+      #
+      - dns01:
+          # https://docs.cert-manager.io/en/latest/tasks/issuers/setup-acme/dns01/google.html
+          cloudDNS:
+            # The ID of the GCP project
+            project: $PROJECT_ID
+            # XXX: create this secret with service account key
+            serviceAccountSecretRef:
+              name: clouddns-dns01-solver-svc-acct
+              key: key.json
+        # empty selector matches all domains
+        #selector: {}
+
+      - dns01:
+          # https://cert-manager.io/docs/configuration/acme/dns01/cloudflare/
+          cloudflare:
+            email: my-cloudflare-account@mydomain.com
+            # XXX: create this k8s secret
+            # kubectl create secret generic cloudflare-api-token
+            apiTokenSecretRef:
+              name: cloudflare-api-token
+              key: cloudflare-api-token
+        # use Cloudflare to resolve challenges example.org
+        #selector:
+        #  dnsNames:
+        #  - example.org
