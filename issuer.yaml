@@ -35,7 +35,9 @@ spec:
     # XXX: set your admin email address - Let's Encrypt will use this to contact you about expiring certificates, and issues related to your account
     # auto-creates an account with this email address
     email: hari@domain.com
+    # XXX: test on LetsEncrypt staging first
     server: https://acme-staging-v02.api.letsencrypt.org/directory
+    #server: https://acme-v02.api.letsencrypt.org/directory
     # set to not create a new ACME account but instead wait for you to populate the k8s secret with the key of an existing ACME account
     #disableAccountKeyGeneration: true
     privateKeySecretRef:
