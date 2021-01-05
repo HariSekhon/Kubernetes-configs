@@ -24,10 +24,7 @@ apiVersion: cert-manager.io/v1
 # easier to use a non-namespaced resource to service multiple namespaces
 kind: ClusterIssuer
 metadata:
-  # XXX: create one per environment
-  name: letsencrypt-dev
-  #name: letsencrypt-staging
-  #name: letsencrypt-prod
+  name: letsencrypt
   # XXX: set this is using Issuer rather than ClusterIssuer
   #namespace: NAMESPACE
 spec:
