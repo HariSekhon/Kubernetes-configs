@@ -80,8 +80,21 @@ spec:
           - mountPath: /data/teamcity_server/datadir
             name: teamcity-server-datadir
           # if we reschedule the pod on another node we still want continuity of logs and their history
-          - mountPath: /data/teamcity/logs
+          - mountPath: /opt/teamcity/logs
             name: teamcity-server-logs
+# Optional: uncomment RemoteIpValve block in server.xml containing x-forwarded-for and x-forwarded-proto then upload to a configmap called server-xml in teamcity namespace to get rid of the following warning:
+#
+#           Requests with incorrect proxy configuration were detected
+#           Insecure Tomcat connector attributes
+#           Request by <user> from x.x.x.x
+#
+#          - mountPath: /opt/teamcity/conf/server.xml
+#            subPath: server.xml
+#            name: server-xml
+#      volumes:
+#        - name: server-xml
+#          configMap:
+#            name: server-xml
   volumeClaimTemplates:
     - metadata:
         name: teamcity-server-datadir
