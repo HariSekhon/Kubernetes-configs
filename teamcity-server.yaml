@@ -53,6 +53,7 @@ spec:
       #    mountPath: /data/teamcity_server/datadir
       #    - mountPath: /data/teamcity/logs
       #      name: teamcity-server-logs
+      serviceAccountName: teamcity-server
       containers:
       - name: teamcity-server
         image: jetbrains/teamcity-server:2020.2
