@@ -65,7 +65,11 @@ spec:
       initContainers:
       - name: init
         image: busybox:latest
-        command: ['/bin/chmod', '0666', '/var/run/docker.sock']
+        # XXX: it's either this or run teamcity-agent as root to access the socket
+        #      Perm/Group changes are not propagated to the host's /var/run/docker.sock but there
+        #      is still a serious risk of malicious builds running docker containers as root
+        #      you must trust your developers, and preferably segregate to a separate CI k8s cluster
+        command: ['/bin/chgrp', '1000', '/var/run/docker.sock']
         volumeMounts:
           - name: var-run-docker-sock
             mountPath: /var/run/docker.sock
