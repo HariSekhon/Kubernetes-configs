@@ -17,7 +17,13 @@
 #                     T e a m C i t y   C I   -   A g e n t
 # ============================================================================ #
 
-# See Also: https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/setup/teamcity-docker-compose.yml
+# StatefulSet because it's easier to maintain agent configurations and authorization
+
+# See Also:
+#
+#   Adjacent teamcity-agent-deployment.yaml
+#
+#   https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/setup/teamcity-docker-compose.yml
 
 ---
 apiVersion: apps/v1
