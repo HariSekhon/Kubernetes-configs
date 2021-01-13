@@ -34,6 +34,8 @@ metadata:
   namespace: NAMESPACE
 spec:
   privileged: false
+  allowPrivilegeEscalation: false
+  defaultAllowPrivilegeEscalation: false
   seLinux:
     rule: RunAsAny
   supplementalGroups:
