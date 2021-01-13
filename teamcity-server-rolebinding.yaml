@@ -1,0 +1,30 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-01-13 15:42:59 +0000 (Wed, 13 Jan 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# Binds role granting permissions in teamcity namespace to the teamcity-server serviceaccount to allow Kubernetes Cloud Profile to auto-launch instances within the kubernetes cluster
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: teamcity-server
+  namespace: teamcity
+subjects:
+  - kind: ServiceAccount
+    name: teamcity-server
+roleRef:
+  kind: Role
+  name: teamcity-server
+  apiGroup: rbac.authorization.k8s.io
