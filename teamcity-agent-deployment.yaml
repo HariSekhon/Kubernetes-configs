@@ -99,7 +99,6 @@ spec:
           failureThreshold: 10
           periodSeconds: 5
           timeoutSeconds: 5
-        # leaving out system and work as they're just caches
         volumeMounts:
           - name: var-run-docker-sock
             mountPath: /var/run/docker.sock
