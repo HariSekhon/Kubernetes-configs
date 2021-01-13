@@ -17,7 +17,9 @@
 #                     T e a m C i t y   C I   -   A g e n t
 # ============================================================================ #
 
-# StatefulSet because it's easier to maintain agent configurations and authorization
+# StatefulSet maintains agent configurations (including authorization token), logs, plugins etc.
+#
+# If you need DOCKER_IN_DOCKER support, use instead adjacent deployment template with a TeamCity Kubernetes Cloud Profile to auto-create agent instances on demand with access to the /var/run/docker.sock
 
 # See Also:
 #
