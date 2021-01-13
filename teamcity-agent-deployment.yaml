@@ -70,6 +70,7 @@ spec:
         #      is still a serious risk of malicious builds running docker containers as root
         #      you must trust your developers, and preferably segregate to a separate CI k8s cluster
         command: ['/bin/chgrp', '1000', '/var/run/docker.sock']
+        #command: ['/bin/sh', '-c', 'chgrp 1000 /var/run/docker.sock && chmod 0660 /var/run/docker.sock']
         volumeMounts:
           - name: var-run-docker-sock
             mountPath: /var/run/docker.sock
