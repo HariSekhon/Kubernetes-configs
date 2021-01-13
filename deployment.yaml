@@ -142,7 +142,7 @@ spec:
           - name: HEAP_SIZE
             value: 1G
           - name: CASSANDRA_SEEDS
-            value: cassandra-0.cassandra.default.svc.cluster.local
+            value: cassandra-0.cassandra.svc.cluster.local,cassandra-1.cassandra.svc.cluster.local,cassandra-2.cassandra.svc.cluster.local
           - name: POD_IP
             valueFrom:
               fieldRef:
