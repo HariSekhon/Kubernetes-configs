@@ -50,7 +50,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: teamcity-agent
-        image: jetbrains/teamcity-agent:2020.2
+        image: jetbrains/teamcity-agent:2020.2.1
         ports:
           - containerPort: 9090
         env:
