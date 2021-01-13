@@ -27,9 +27,14 @@ metadata:
   name: NAME
   namespace: NAMESPACE
 subjects:
-- kind: User
-  name: <user@domain.com>
-  apiGroup: rbac.authorization.k8s.io
+  - kind: User
+    name: MYUSER
+    apiGroup: rbac.authorization.k8s.io
+  - kind: Group
+    name: MYGROUP
+    apiGroup: rbac.authorization.k8s.io
+  - kind: ServiceAccount
+    name: APP-svc-account
 roleRef:
   kind: Role
   name: pod-reader
