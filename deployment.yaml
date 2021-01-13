@@ -132,6 +132,19 @@ spec:
         runAsNonRoot: true
         #runAsUser: 0   # not recommended
         fsGroup: 1000   # group to own volumeMounts so they can be written to by the user-level process
+      initContainers:
+        - name: init-files
+          image: alpine/git
+          command: ['git', 'clone', 'https://github.com/harisekhon/devops-python-tools /data']
+          volumeMounts:
+            - name: app-vol
+              mountPath: /data
+        - name: init-mysql-service
+          image: busybox
+          command: ['sh', '-c', 'until nslookup mysql; do echo waiting for mysql service DNS to come up; sleep 1; done']
+        - name: init-mysql-endpoint
+          image: busybox
+          command: ['sh', '-c', 'until nc -z mysql 3306; do echo waiting for mysql endpoint port to come up; sleep 1; done']
       containers:
       - name: master
         image: k8s.gcr.io/APP:latest
@@ -208,30 +221,3 @@ spec:
         #    operator: "Equal"   # if myKey's value = "value" ignore NoSchedule
         #      value: "value"
         #    effect: "NoSchedule"
-      initContainers:
-        - name: init-files
-          image: alpine/git
-          command: ['git', 'clone', 'https://github.com/harisekhon/devops-python-tools /data']
-          volumeMounts:
-            - name: app-vol
-              mountPath: /data
-        - name: init-mysql-service
-          image: busybox
-          command: ['sh', '-c', 'until nslookup mysql; do echo waiting for mysql service DNS to come up; sleep 1; done']
-        - name: init-mysql-endpoint
-          image: busybox
-          command: ['sh', '-c', 'until nc -z mysql 3306; do echo waiting for mysql endpoint port to come up; sleep 1; done']
-      VolumeClaimTemplates:
-        - metadata:
-            name: APP-data
-          spec:
-            # optional: requires storageclass-*.yaml
-            #storageClassName: ssd
-            #storageClassName: ssd-resizeable
-            #storageClassName: standard-resizeable
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                # resize here doesn't affect the PVC, must edit the PVC directly to trigger the provider resize, didn't even need a pod cycle in GCP testing
-                storage: 1Gi
