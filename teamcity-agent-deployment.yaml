@@ -40,6 +40,7 @@ metadata:
     app: teamcity-agent
     profile: cloud
 spec:
+  # we don't run replicas here, this is for TeamCity's Kubernetes Cloud Profile to copy the pod spec
   replicas: 0
   selector:
     matchLabels:
@@ -77,10 +78,13 @@ spec:
       containers:
       - name: teamcity-agent
         #image: jetbrains/teamcity-agent:2020.2.1
-        # must use linux-sudo or run entire container as root to get DOCKER_IN_DOCKER to work
+        # XXX: DOCKER_IN_DOCKER - must use linux-sudo image or run entire container as root since Docker must be started by root
         image: jetbrains/teamcity-agent:2020.2.1-linux-sudo
         ports:
           - containerPort: 9090
+        securityContext:
+          # required for DOCKER_IN_DOCKER
+          privileged: true
         env:
           - name: AGENT_NAME
             valueFrom:
@@ -105,18 +109,9 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 5
         volumeMounts:
-          - name: teamcity-agent-plugins
-            mountPath: /opt/buildagent/plugins
-          - name: teamcity-agent-tools
-            mountPath: /opt/buildagent/tools
           - name: var-run-docker-sock
             mountPath: /var/run/docker.sock
       volumes:
-          # rw is necessary for DOCKER_IN_DOCKER mounts to succeed (/ is ro)
-        - name: teamcity-agent-plugins
-          emptyDir: {}
-        - name: teamcity-agent-tools
-          emptyDir: {}
         - name: var-run-docker-sock
           hostPath:
             path: /var/run/docker.sock
