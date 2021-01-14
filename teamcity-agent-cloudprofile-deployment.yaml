@@ -63,18 +63,18 @@ spec:
       securityContext:
         #runAsUser: 0
         fsGroup: 1000
-      initContainers:
-      - name: init
-        image: busybox:latest
-        # XXX: it's either this or run teamcity-agent as root to access the socket
-        #      Perm/Group changes are not propagated to the host's /var/run/docker.sock but there
-        #      is still a serious risk of malicious builds running docker containers as root
-        #      you must trust your developers, and preferably segregate to a separate CI k8s cluster
-        command: ['/bin/chgrp', '1000', '/var/run/docker.sock']
-        #command: ['/bin/sh', '-c', 'chgrp 1000 /var/run/docker.sock && chmod 0660 /var/run/docker.sock']
-        volumeMounts:
-          - name: var-run-docker-sock
-            mountPath: /var/run/docker.sock
+#      initContainers:
+#      - name: init
+#        image: busybox:latest
+#        # XXX: it's either this or run teamcity-agent as root to access the socket
+#        #      Perm/Group changes are not propagated to the host's /var/run/docker.sock but there
+#        #      is still a serious risk of malicious builds running docker containers as root
+#        #      you must trust your developers, and preferably segregate to a separate CI k8s cluster
+#        command: ['/bin/chgrp', '1000', '/var/run/docker.sock']
+#        #command: ['/bin/sh', '-c', 'chgrp 1000 /var/run/docker.sock && chmod 0660 /var/run/docker.sock']
+#        volumeMounts:
+#          - name: var-run-docker-sock
+#            mountPath: /var/run/docker.sock
       containers:
       - name: teamcity-agent
         #image: jetbrains/teamcity-agent:2020.2.1
@@ -108,11 +108,12 @@ spec:
           failureThreshold: 10
           periodSeconds: 5
           timeoutSeconds: 5
-        volumeMounts:
-          - name: var-run-docker-sock
-            mountPath: /var/run/docker.sock
-      volumes:
-        - name: var-run-docker-sock
-          hostPath:
-            path: /var/run/docker.sock
-            type: Socket
+        # don't mount /var/run/docker.sock or you'll be using the underlying host's Docker instead of TeamCity's DOCKER_IN_DOCKER, which exposes too much of the underlying k8s but also you'll get errors like this from the underlying host when the docker wrapper tries to mount all the buildagent paths:
+#        volumeMounts:
+#          - name: var-run-docker-sock
+#            mountPath: /var/run/docker.sock
+#      volumes:
+#        - name: var-run-docker-sock
+#          hostPath:
+#            path: /var/run/docker.sock
+#            type: Socket
