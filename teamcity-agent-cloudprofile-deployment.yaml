@@ -19,11 +19,11 @@
 
 # Deployment template for Kubernetes Cloud Profile to reference when creating automated agents
 #
-# It's  easier to use hostPath volume in deployment to grant access to /var/run/docker.sock for DOCKER_IN_DOCKER functionality
+# Slower to start builds from cold after 30 min default cloud profile spindown as new agents are spun up with plugin download & restart, but you can disable the spin-down timeout to keep them running for better response times similar to the statefulset
 
 # See Also:
 #
-#   Adjacent teamcity-agent.yaml (statefulset)
+#   teamcity-agent.yaml (statefulset)
 #
 #   https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/setup/teamcity-docker-compose.yml
 
@@ -62,6 +62,7 @@ spec:
     spec:
       securityContext:
         #runAsUser: 0
+        # set mount point group to gid of teamcity process
         fsGroup: 1000
 #      initContainers:
 #      - name: init
@@ -78,7 +79,7 @@ spec:
       containers:
       - name: teamcity-agent
         #image: jetbrains/teamcity-agent:2020.2.1
-        # XXX: DOCKER_IN_DOCKER - must use linux-sudo image or run entire container as root since Docker must be started by root
+        # DOCKER_IN_DOCKER - must use linux-sudo image or run entire container as root since Docker must be started by root
         image: jetbrains/teamcity-agent:2020.2.1-linux-sudo
         ports:
           - containerPort: 9090
@@ -109,6 +110,7 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 5
         # don't mount /var/run/docker.sock or you'll be using the underlying host's Docker instead of TeamCity's DOCKER_IN_DOCKER, which exposes too much of the underlying k8s but also you'll get errors like this from the underlying host when the docker wrapper tries to mount all the buildagent paths:
+        # docker: Error response from daemon: error while creating mount source path '/opt/buildagent/temp/buildTmp': mkdir /opt/buildagent: read-only file system.
 #        volumeMounts:
 #          - name: var-run-docker-sock
 #            mountPath: /var/run/docker.sock
