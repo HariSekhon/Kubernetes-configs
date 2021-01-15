@@ -59,23 +59,32 @@ spec:
         image: jetbrains/teamcity-server:2020.2.1
         ports:
           - containerPort: 8111
-         # XXX: needs more testing
+        # teamcity doesn't have a proper status check endpoint
+        #
+        #   https://youtrack.jetbrains.com/issue/TW-62305
+        #
+        # don't use readiness probe, prevents accessing default /mnt page during bootup
 #        readinessProbe:
 #          httpGet:
-#            path: /mnt
+#            # works during setup or initialization but later fails during steady state as it then returns 302 to /overview.html
+#            #path: /mnt
+#            path: /login.html
 #            port: 8111
-#          initialDelaySeconds: 5
+#          initialDelaySeconds: 30  # takes 58 secs to become ready
+#          successThreshold: 1
 #          failureThreshold: 5
 #          periodSeconds: 5
 #          timeoutSeconds: 5
-#        livenessProbe:
-#          httpGet:
-#            path: /mnt
-#            port: 8111
-#          initialDelaySeconds: 20
-#          failureThreshold: 10
-#          periodSeconds: 5
-#          timeoutSeconds: 5
+        # XXX: disable during fresh install setup which redirects to /mnt
+        livenessProbe:
+          httpGet:
+            path: /login.html
+            port: 8111
+          initialDelaySeconds: 120
+          successThreshold: 1
+          failureThreshold: 10
+          periodSeconds: 5
+          timeoutSeconds: 5
         volumeMounts:
           # contains config/, lib/, plugins/, system/
           - mountPath: /data/teamcity_server/datadir
