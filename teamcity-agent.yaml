@@ -83,6 +83,7 @@ spec:
           tcpSocket:
             port: 9090
           initialDelaySeconds: 30
+          successThreshold: 1
           failureThreshold: 3
           periodSeconds: 5
           timeoutSeconds: 5
@@ -90,6 +91,7 @@ spec:
           tcpSocket:
             port: 9090
           initialDelaySeconds: 150  # takes ~ 1:20 - 2:30 for port to pass healthcheck
+          successThreshold: 1
           failureThreshold: 10
           periodSeconds: 5
           timeoutSeconds: 5
