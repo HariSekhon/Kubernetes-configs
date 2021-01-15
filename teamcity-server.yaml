@@ -63,7 +63,8 @@ spec:
         #
         #   https://youtrack.jetbrains.com/issue/TW-62305
         #
-        # don't use readiness probe, prevents accessing default /mnt page during bootup
+        # don't use readiness probe, prevents accessing default /mnt page during bootup and just delays 503
+        # instead of showing initializing page which redirects to login.html
 #        readinessProbe:
 #          httpGet:
 #            # works during setup or initialization but later fails during steady state as it then returns 302 to /overview.html
