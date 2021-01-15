@@ -18,12 +18,10 @@
 # ============================================================================ #
 
 # StatefulSet maintains agent configurations (including authorization token), logs, plugins etc.
-#
-# If you need DOCKER_IN_DOCKER support, use instead adjacent deployment template with a TeamCity Kubernetes Cloud Profile to auto-create agent instances on demand with access to the /var/run/docker.sock
 
 # See Also:
 #
-#   Adjacent teamcity-agent-deployment.yaml
+#   teamcity-agent-cloudprofile-deployment.yaml
 #
 #   https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/setup/teamcity-docker-compose.yml
 
@@ -65,12 +63,12 @@ spec:
       containers:
       - name: teamcity-agent
         #image: jetbrains/teamcity-agent:2020.2.1
-        # XXX: DOCKER_IN_DOCKER - must use linux-sudo image or run entire container as root
+        # DOCKER_IN_DOCKER - must use linux-sudo image or run entire container as root since Docker must be started by root
         image: jetbrains/teamcity-agent:2020.2.1-linux-sudo
         ports:
           - containerPort: 9090
         securityContext:
-          # XXX: DOCKER_IN_DOCKER: docker wrapper in builds fail with ro error otherwise
+          # required for DOCKER_IN_DOCKER
           privileged: true
         env:
           - name: AGENT_NAME
@@ -96,7 +94,7 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 5
         volumeMounts:
-          # XXX: not persisting system and work as they're just caches
+          # not persisting system and work as they're just caches
           #  mountPath: /opt/buildagent/system
           #  mountPath: /opt/buildagent/work
           #
