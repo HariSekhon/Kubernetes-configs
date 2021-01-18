@@ -20,6 +20,10 @@
 # Deployment template for Kubernetes Cloud Profile to reference when creating automated agents
 #
 # Slower to start builds from cold after 30 min default cloud profile spindown as new agents are spun up with plugin download & restart, but you can disable the spin-down timeout to keep them running for better response times similar to the statefulset
+#
+# Since TeamCity cloud profiles don't have a min instance count to maintain, you could create 2 cloud profiles:
+# - one profile with a max instances and no terminate after idle time - this provides a constant baseline pool of agents
+# - second profile for burst instances which terminates after idle time as normal
 
 # See Also:
 #
