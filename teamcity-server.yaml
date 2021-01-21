@@ -54,7 +54,7 @@ spec:
       tolerations:
         - key: cloud.google.com/gke-preemptible
           operator: Equal
-          value: "true"
+          value: "false"
           effect: PreferNoSchedule
       # TODO: add sidecar logging cleanup container to remove very old datestamped logs or modify TeamCity's log rotation
       terminationGracePeriodSeconds: 120
