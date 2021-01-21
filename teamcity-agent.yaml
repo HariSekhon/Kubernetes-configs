@@ -60,7 +60,7 @@ spec:
       tolerations:
         - key: cloud.google.com/gke-preemptible
           operator: Equal
-          value: "true"
+          value: "false"
           effect: PreferNoSchedule
       securityContext:
         #runAsUser: 0
