@@ -44,6 +44,23 @@ spec:
       labels:
         app: teamcity-agent
     spec:
+      affinity:
+        nodeAffinity:
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            nodeSelectorTerms:
+#              - matchExpressions:
+#                - key: cloud.google.com/gke-preemptible
+#                  operator: DoesNotExist
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+#      tolerations:
+#        - key: mytaint
+#          operator: Exists
+#          effect: PreferNoSchedule
       securityContext:
         #runAsUser: 0
         # set mount point group to gid of teamcity process
