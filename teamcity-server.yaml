@@ -51,10 +51,11 @@ spec:
                 matchExpressions:
                   - key: cloud.google.com/gke-preemptible
                     operator: DoesNotExist
-#      tolerations:
-#        - key: mytaint
-#          operator: Exists
-#          effect: PreferNoSchedule
+      tolerations:
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "true"
+          effect: PreferNoSchedule
       # TODO: add sidecar logging cleanup container to remove very old datestamped logs or modify TeamCity's log rotation
       terminationGracePeriodSeconds: 120
       securityContext:
