@@ -65,6 +65,11 @@ spec:
                 matchExpressions:
                   - key: cloud.google.com/gke-preemptible
                     operator: DoesNotExist
+      # tip: taint the preemptible nodes with a key eg "mykey" and PreferNoSchedule, then add allowance so only select nodes get priority scheduling there
+      tolerations:
+        - key: mykey
+          operator: Exists
+          effect: PreferNoSchedule
       containers:
       - name: pgsql
         image: postgres:9.6
