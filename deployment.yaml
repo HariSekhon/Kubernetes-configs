@@ -69,11 +69,11 @@ spec:
           # XXX: prefer non-preemptible VMs unless unavailable
         - weight: 100
           preference:
-            - matchExpressions:
+            matchExpressions:
               - key: cloud.google.com/gke-preemptible
                 operator: DoesNotExist
       requiredDuringSchedulingIgnoredDuringExecution:
-        - nodeSelectorTerms:
+        nodeSelectorTerms:
           - matchExpressions:
             # AND
             - key: kubernetes.io/e2e-az-name
