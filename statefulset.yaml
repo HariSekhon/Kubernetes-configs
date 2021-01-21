@@ -65,11 +65,11 @@ spec:
                 matchExpressions:
                   - key: cloud.google.com/gke-preemptible
                     operator: DoesNotExist
-      # tip: taint the preemptible nodes with a key eg "mytaint" and PreferNoSchedule, then add allowance so only select nodes get priority scheduling there
-      #      i'm ignoring the value here but you could use operator: equal and value: myvalue to be even more specific, but it's not necessary
+      # tip: taint the preemptible nodes with a key eg. "mytaint" and PreferNoSchedule, then add tolerance so only chosen statefulsets get priority scheduling there
       tolerations:
-        - key: mytaint
-          operator: Exists
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "true"
           effect: PreferNoSchedule
       containers:
       - name: pgsql
