@@ -104,6 +104,11 @@ spec:
                   values:
                     APP
           topologyKey: topology.kubernetes.io/zone
+  # tip: taint the preemptible nodes with a key eg "mykey" and PreferNoSchedule, then add allowance so only select nodes get priority scheduling there
+  tolerations:
+    - key: mykey
+      operator: Exists
+      effect: PreferNoSchedule
   selector:
     matchLabels:
       app: APP
