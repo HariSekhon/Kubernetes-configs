@@ -48,17 +48,23 @@ spec:
     spec:
       affinity:
         nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - nodeSelectorTerms:
-              - matchExpressions:
-                # Node preemption:
-                # - shuts down pods ungracefully
-                # - ignores PodDisruptionBudget
-                # - invalidate Stateful guarantees and can lead to data loss !!
-                # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#kubernetes_constraint_violations
-                # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
-                - key: cloud.google.com/gke-preemptible
-                  operator: DoesNotExist
+          # Node preemption:
+          # - shuts down pods ungracefully
+          # - ignores PodDisruptionBudget
+          # - invalidate Stateful guarantees and can lead to data loss !!
+          # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#kubernetes_constraint_violations
+          # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            nodeSelectorTerms:
+#              - matchExpressions:
+#                - key: cloud.google.com/gke-preemptible
+#                  operator: DoesNotExist
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
       containers:
       - name: pgsql
         image: postgres:9.6
