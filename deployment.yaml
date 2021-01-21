@@ -104,11 +104,12 @@ spec:
                   values:
                     APP
           topologyKey: topology.kubernetes.io/zone
-  # tip: taint the preemptible nodes with a key eg. "mytaint" and PreferNoSchedule, then add tolerance so only select deployments get priority scheduling there
+  # tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
+  #      then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
   tolerations:
     - key: cloud.google.com/gke-preemptible
       operator: Equal
-      value: "true"
+      value: "false"
       effect: PreferNoSchedule
   selector:
     matchLabels:
