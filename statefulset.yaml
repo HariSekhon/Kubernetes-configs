@@ -72,6 +72,9 @@ spec:
           operator: Equal
           value: "false"
           effect: PreferNoSchedule
+      #nodeSelector:
+      #  # GKE specific - hard requirement - preferred affinity above is safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
+      #  cloud.google.com/gke-nodepool: POOL_NAME
       containers:
       - name: pgsql
         image: postgres:9.6
