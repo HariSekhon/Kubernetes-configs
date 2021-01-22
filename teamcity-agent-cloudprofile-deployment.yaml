@@ -50,14 +50,6 @@ spec:
     matchLabels:
       app: teamcity-agent
       profile: cloud
-  # TODO: change when we have more node pools
-#  affinity:
-#    nodeAffinity:
-#      requiredDuringSchedulingIgnoredDuringExecution:
-#        - nodeSelectorTerms:
-#          - matchExpressions:
-#            - key: cloud.google.com/gke-preemptible
-#              operator: DoesNotExist
   template:
     metadata:
       labels:
