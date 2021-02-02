@@ -21,7 +21,7 @@
 
 # patch any fields from the generic deployment
 #
-# eg. number of replicas - set different between prod / staging /dev
+# eg. number of replicas - set different between prod / staging / dev (override by calling this from kustomization.yaml)
 
 ---
 apiVersion: apps/v1
