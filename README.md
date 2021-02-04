@@ -17,7 +17,7 @@ Kubernetes Templates
 
 Kubernetes YAML templates.
 
-Contains various Best Practices, Tips & Tricks learned in production environments - start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/kustomization.yaml). [service.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare integration.
+Contains various Best Practices, Tips & Tricks learned in production environments - start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/kustomization.yaml). The [service.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied integration etc.
 
 The best documentation links are provided at the top of each yaml for fast referencing (this advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open the URLs from the current file via a hotkey!)
 
