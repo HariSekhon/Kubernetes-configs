@@ -53,6 +53,7 @@ spec:
 #    #                               client IPs become masked to these, use X-Forwarded-For in app, and
 #    #                               restrict Cloudflare Firewall for Dev/Staging environments to only VPN / Office / 3rd party webhook addresses
 #    #                               since otherwise all clients will go through your firewall and ingress as one of the below addresses
+#    # https://www.cloudflare.com/en-gb/ips/
 #    - 103.21.244.0/22
 #    - 103.22.200.0/22
 #    - 103.31.4.0/22
