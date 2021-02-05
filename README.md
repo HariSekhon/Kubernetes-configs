@@ -21,7 +21,7 @@ Contains various Best Practices, Tips & Tricks learned in production environment
 
 Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/kustomization.yaml).
 
-The [service.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, [Cloudflare](https://www.cloudflare.com/) proxied protection IPs etc.
+The [service.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied IPs etc.
 
 The best documentation links are provided at the top of each yaml for fast referencing (this advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open the URLs from the current file via a hotkey!)
 
