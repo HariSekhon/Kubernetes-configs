@@ -72,7 +72,7 @@ before_install:
   - sudo rm -rf "${TRAVIS_ROOT}/var/lib/apt/lists/"*
 
 install:
-  - travis_retry curl -L git.io/bash-bootstrap | sh
+  - travis_retry make bash-tools
 
 script:
-  - travis_retry cd bash-tools && ./check_pytools.sh
+  - travis_retry make test
