@@ -104,6 +104,17 @@ spec:
           failureThreshold: 10
           periodSeconds: 5
           timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 2
+            # TeamCity server's 2 processes JVM heaps are -Xmx2g and -Xmx1g, plus overheads and wiggle room = 4GB
+            memory: 4Gi  # GiB
+          requests:
+            # millicores - 1/1000 of a CPU / vCPU
+            # 100m = 1/10th of CPU core
+            cpu: 400m
+            # k top po shows 1329Mi used, so request at least 1.5Gi
+            memory: 1.5Gi  # GiB
         volumeMounts:
           # contains config/, lib/, plugins/, system/
           - mountPath: /data/teamcity_server/datadir
