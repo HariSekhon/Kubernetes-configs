@@ -1,0 +1,117 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-02-22 10:47:27 +0000 (Mon, 22 Feb 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                     J e n k i n s   C I   -   S e r v e r
+# ============================================================================ #
+
+# See Also:
+#
+#   https://github.com/jenkinsci/docker/blob/master/README.md
+#
+#   https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/setup/jenkins-docker-compose.yml
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jenkins-server
+  namespace: jenkins
+  labels:
+    app: jenkins-server
+spec:
+  replicas: 1
+  serviceName: jenkins-server
+  selector:
+    matchLabels:
+      app: jenkins-server
+  template:
+    metadata:
+      labels:
+        app: jenkins-server
+    spec:
+      affinity:
+        nodeAffinity:
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            nodeSelectorTerms:
+#              - matchExpressions:
+#                - key: cloud.google.com/gke-preemptible
+#                  operator: DoesNotExist
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+      tolerations:
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "false"
+          effect: PreferNoSchedule
+      terminationGracePeriodSeconds: 120
+      securityContext:
+        #runAsUser: 0
+        fsGroup: 1000
+      serviceAccountName: jenkins-server
+      containers:
+      - name: jenkins-server
+        #image: jenkins/jenkins:2.228
+        image: jenkins/jenkins:lts
+        ports:
+          - containerPort: 8080   # UI
+          - containerPort: 50000  # agents contact server on this port
+        # if you have a reverse proxy or an ingress with a routing prefix such as /jenkins, tell Jenkins about it
+        #env:
+        #  - JENKINS_OPTS: "--prefix=/jenkins"
+#        readinessProbe:
+#          httpGet:
+#            path: /
+#            port: 8080
+#          initialDelaySeconds: 30
+#          successThreshold: 1
+#          failureThreshold: 5
+#          periodSeconds: 5
+#          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 120
+          successThreshold: 1
+          failureThreshold: 10
+          periodSeconds: 5
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 2
+            memory: 4Gi  # GiB
+          requests:
+            # millicores - 1/1000 of a CPU / vCPU
+            # 100m = 1/10th of CPU core
+            cpu: 400m
+            memory: 1.5Gi  # MiB
+        volumeMounts:
+          - mountPath: /var/jenkins_home
+            name: jenkins-home
+  volumeClaimTemplates:
+    - metadata:
+        name: jenkins-home
+      spec:
+        storageClassName: gcp-standard-resizeable
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 20Gi
