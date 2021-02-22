@@ -25,6 +25,7 @@ metadata:
   namespace: teamcity
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    #kubernetes.io/ingress.class: nginx
     # only permit internal networks
     # XXX: Edit to make available externally
     nginx.ingress.kubernetes.io/whitelist-source-range: |
