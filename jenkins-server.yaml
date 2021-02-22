@@ -75,6 +75,7 @@ spec:
         # if you have a reverse proxy or an ingress with a routing prefix such as /jenkins, tell Jenkins about it
         #env:
         #  - JENKINS_OPTS: "--prefix=/jenkins"
+        # readiness probe is pointless really. this isn't a web farm pool, we want to get the UI no matter what state it is in
 #        readinessProbe:
 #          httpGet:
 #            path: /
