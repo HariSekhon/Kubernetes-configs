@@ -107,6 +107,18 @@ spec:
           failureThreshold: 10
           periodSeconds: 5
           timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 2
+            # TeamCity agent's 2 processes JVM heaps are -Xmx384m and -Xmx16m, plus overheads and wiggle room = 1Gi
+            # + build processes which could take a couple GB each = 3Gi
+            memory: 3Gi  # GiB
+          requests:
+            # millicores - 1/1000 of a CPU / vCPU
+            # 100m = 1/10th of CPU core
+            cpu: 500m
+						# k top po shows 474Mi - 1032Mi used between 3 agents, so request at least 1.5Gi
+            memory: 1.5Gi  # GiB
         # don't mount /var/run/docker.sock or you'll be using the underlying host's Docker instead of TeamCity's DOCKER_IN_DOCKER, which exposes too much of the underlying k8s but also you'll get errors like this from the underlying host when the docker wrapper tries to mount all the buildagent paths:
         # docker: Error response from daemon: error while creating mount source path '/opt/buildagent/temp/buildTmp': mkdir /opt/buildagent: read-only file system.
 #        volumeMounts:
