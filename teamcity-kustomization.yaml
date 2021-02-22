@@ -36,6 +36,7 @@ namespace: teamcity
 #namePrefix: dev-
 
 resources:
+  - storageclass-gcp-standard-resizeable.yaml
   - teamcity-agent.yaml
   - teamcity-agent-cloudprofile-deployment.yaml
   - teamcity-ingress.yaml
