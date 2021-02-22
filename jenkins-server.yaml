@@ -87,7 +87,8 @@ spec:
 #          timeoutSeconds: 5
         livenessProbe:
           httpGet:
-            path: /
+            # other pages are auth protected and return 403
+            path: /login
             port: 8080
           initialDelaySeconds: 120
           successThreshold: 1
