@@ -70,8 +70,10 @@ spec:
         #image: jenkins/jenkins:2.228
         image: jenkins/jenkins:lts
         ports:
-          - containerPort: 8080   # UI
-          - containerPort: 50000  # agents contact server on this port
+          - name: http  # UI
+            containerPort: 8080
+          - name: jnlp  # agents contact server on this port
+            containerPort: 50000
         # if you have a reverse proxy or an ingress with a routing prefix such as /jenkins, tell Jenkins about it
         #env:
         #  - JENKINS_OPTS: "--prefix=/jenkins"
