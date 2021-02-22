@@ -76,8 +76,10 @@ spec:
             containerPort: 50000
         # if you have a reverse proxy or an ingress with a routing prefix such as /jenkins, tell Jenkins about it
         #env:
-        #  - JENKINS_OPTS: "--prefix=/jenkins"
-        #  - JAVA_OPTS=-Dhudson.footerURL=http://my.domain.com
+        #  - name: JENKINS_OPTS
+        #    value: "--prefix=/jenkins"
+        #  - name: JAVA_OPTS
+        #    value: "-Dhudson.footerURL=http://my.domain.com"
         # readiness probe is pointless really. this isn't a web farm pool, we want to get the UI no matter what state it is in
 #        readinessProbe:
 #          httpGet:
