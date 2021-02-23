@@ -58,7 +58,7 @@ spec:
         app: jenkins-agent
     spec:
       affinity:
-        # because we don't want them being taken down randomly by GKE preemption causing build failures
+        # avoid GKE preemption causing build failures
         nodeAffinity:
 #          requiredDuringSchedulingIgnoredDuringExecution:
 #            nodeSelectorTerms:
