@@ -1,0 +1,114 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-02-23 13:33:31 +0000 (Tue, 23 Feb 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                      J e n k i n s   C I   -   A g e n t
+# ============================================================================ #
+
+# StatefulSet to maintain a predictable pool of Jenkins Agents online to avoid spin-up delay
+#
+# You must create the nodes jenkins-agent-0, jenkins-agent-1 and jenkins-agent-2 on the Jenkins server
+# and copy the secret tokens to jenkins-agent-0-secret, jenkins-agent-1-secret and jenkins-agent-2-secret in Kubernetes
+#
+
+# See Also:
+#
+#   jenkins-pod.yaml - for Jenkins Kubernetes plugin (burstable)
+#
+#   https://hub.docker.com/r/jenkins/inbound-agent/
+
+---
+apiVersion: apps/v1
+kind: StatefulSet  # for predictable names and to align to individual connection secrets
+metadata:
+  name: jenkins-agent
+  namespace: jenkins
+  labels:
+    app: jenkins-agent
+spec:
+  replicas: 1
+  serviceName: jenkins-agent
+  selector:
+    matchLabels:
+      app: jenkins-agent
+  template:
+    metadata:
+      labels:
+        app: jenkins-agent
+    spec:
+      affinity:
+        nodeAffinity:
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            nodeSelectorTerms:
+#              - matchExpressions:
+#                - key: cloud.google.com/gke-preemptible
+#                  operator: DoesNotExist
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+      tolerations:
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "false"
+          effect: PreferNoSchedule
+      containers:
+      - name: jenkins-agent
+        # there is no lts tag at this time
+        image: jenkins/inbound-agent:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - name: agent
+            containerPort: 50001
+        #securityContext:
+        #  privileged: true
+        env:
+          - name: JENKINS_AGENT_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          # JENKINS_NAME for legacy support
+          - name: JENKINS_NAME
+            value: $(JENKINS_AGENT_NAME)
+          - name: JENKINS_URL
+            value: http://jenkins-ui.jenkins.svc.cluster.local:8080
+          - name: JENKINS_TUNNEL
+            value: jenkins-discovery.jenkins.svc.cluster.local:50000
+          - name: JENKINS_SECRET
+            valueFrom:
+              secretKeyRef:
+                # doesn't work
+                #name: $(JENKINS_AGENT_NAME)-secret
+                #key: $(JENKINS_AGENT_NAME)-secret
+                name: jenkins-agent-0-secret
+                key: jenkins-agent-0-secret
+          - name: JENKINS_AGENT_WORKDIR
+            # XXX: this path should match the Jenkins Server "Remote root directory" config option
+            value: /var/jenkins
+        resources:
+          limits: {}
+          requests: {}
+        tty: false
+        volumeMounts:
+        - name: workspace
+          # XXX: this path should match the Jenkins Server "Remote root directory" config option
+          mountPath: /var/jenkins
+          readOnly: false
+        workingDir: /var/jenkins
+      volumes:
+      - name: workspace
+        emptyDir: {}
