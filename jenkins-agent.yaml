@@ -18,16 +18,25 @@
 # ============================================================================ #
 
 # StatefulSet to maintain a predictable pool of Jenkins Agents online to avoid spin-up delay
-#
-# You must create the nodes jenkins-agent-0, jenkins-agent-1 and jenkins-agent-2 on the Jenkins server
-# and copy the secret tokens to jenkins-agent-0-secret, jenkins-agent-1-secret and jenkins-agent-2-secret in Kubernetes
-#
 
-# See Also:
+# This is much more complicated than just using the Jenkins Kubernetes plugin which should be preferred
+
+# See Instead:
 #
 #   jenkins-pod.yaml - for Jenkins Kubernetes plugin (burstable)
 #
 #   https://hub.docker.com/r/jenkins/inbound-agent/
+
+# If you only want 1 Jenkins agent, you can simply set JENKINS_SECRET under env, but if you want multiple agents you need to use some external Secret injection, eg.
+
+# - GCP Secret Manager integration:
+#   - Requirements:
+#     - jenkins-agent K8s service account annotated with jenkins-agent GCP service account
+#     - jenkins-agent GCP service account
+#     - serviceAccount:PROJECT_ID.svc.id.goog[K8S_NAMESPACE/KSA_NAME] must be granted to use jenkins-agent GCP service account
+#     - Secret Manager API must be enabled in project
+#     - create the Nodes in Jenkins Server: jenkins-agent-0, jenkins-agent-1, jenkins-agent-2
+#     - copy the secret tokens from Jenkins Server to GCP Secret Manager as: jenkins-agent-0-token, jenkins-agent-1-token and jenkins-agent-2-token
 
 ---
 apiVersion: apps/v1
@@ -38,7 +47,7 @@ metadata:
   labels:
     app: jenkins-agent
 spec:
-  replicas: 1
+  replicas: 3
   serviceName: jenkins-agent
   selector:
     matchLabels:
@@ -66,11 +75,45 @@ spec:
           operator: Equal
           value: "false"
           effect: PreferNoSchedule
+      serviceAccountName: jenkins-agent
+      # XXX: Trick: dynamically get the jenkins agent secret from GCP Secret Manager, populate to a file to be picked up by main container as a form of late evaluation since we can't use downwards API to populate different K8s secrets
+      initContainers:
+        - name: gcp-secret-mount
+          image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            # find latest version of the JENKINS_SECRET in GCP Secret Manager secret called 'jenkins-agent-N-token' and download it to /secrets/token to be picked up by the main jenkins-agent container
+            # Workload Identity - auth for this is done by linking k8s service account to external GCP service account which must be granted GCP IAM permission to read secrets from GCP Secret Manager
+            # this requires GCP jenkins-agent service account be granted IAM roles Secret Manager Secret Accessor and Secret Manager Secret Version Manager (to list the latest secret version)
+            - gcloud secrets versions access $(gcloud secrets versions list "${JENKINS_AGENT_NAME}-token" --filter='state=enabled' --format='value(name)' | sort -k1nr | head -n1) --secret="${JENKINS_AGENT_NAME}-token" > /secret/token
+          env:
+            - name: CLOUDSDK_CORE_PROJECT
+              # XXX: set PROJECT_ID to your GCP project containing your Secrets Manager secrets: jenkins-agent-N-token
+              value: PROJECT_ID
+            - name: JENKINS_AGENT_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          volumeMounts:
+            - name: secret
+              mountPath: /secret
+              readOnly: false
       containers:
       - name: jenkins-agent
         # there is no lts tag at this time
-        image: jenkins/inbound-agent:latest
+        #image: jenkins/inbound-agent:latest
+        image: jenkins/inbound-agent:4.6-1
         imagePullPolicy: IfNotPresent
+        command:
+          # use shell in order to late eval contents of /secret/token into an arg
+          - sh
+        args:
+          - -c
+          # not feeding as args that that behaviour is much more buggy and dependent on entrypoint positional arg parsing which doesn't work as documented
+          - "JENKINS_SECRET=$(cat /secret/token; rm -f /secret/token) jenkins-agent"
         ports:
           - name: agent
             containerPort: 50001
@@ -82,20 +125,20 @@ spec:
               fieldRef:
                 fieldPath: metadata.name
           # JENKINS_NAME for legacy support
-          - name: JENKINS_NAME
-            value: $(JENKINS_AGENT_NAME)
+          #- name: JENKINS_NAME
+          #  value: $(JENKINS_AGENT_NAME)
           - name: JENKINS_URL
             value: http://jenkins-ui.jenkins.svc.cluster.local:8080
           - name: JENKINS_TUNNEL
             value: jenkins-discovery.jenkins.svc.cluster.local:50000
-          - name: JENKINS_SECRET
-            valueFrom:
-              secretKeyRef:
-                # doesn't work
-                #name: $(JENKINS_AGENT_NAME)-secret
-                #key: $(JENKINS_AGENT_NAME)-secret
-                name: jenkins-agent-0-secret
-                key: jenkins-agent-0-secret
+#          - name: JENKINS_SECRET
+#            valueFrom:
+#              secretKeyRef:
+#                # doesn't interpolate
+#                #name: $(JENKINS_AGENT_NAME)-secret
+#                #key: $(JENKINS_AGENT_NAME)-secret
+#                name: jenkins-agent-0-secret
+#                key: jenkins-agent-0-secret
           - name: JENKINS_AGENT_WORKDIR
             # XXX: this path should match the Jenkins Server "Remote root directory" config option
             value: /var/jenkins
@@ -108,7 +151,12 @@ spec:
           # XXX: this path should match the Jenkins Server "Remote root directory" config option
           mountPath: /var/jenkins
           readOnly: false
+        - name: secret
+          mountPath: /secret
+          readOnly: false
         workingDir: /var/jenkins
       volumes:
       - name: workspace
+        emptyDir: {}
+      - name: secret
         emptyDir: {}
