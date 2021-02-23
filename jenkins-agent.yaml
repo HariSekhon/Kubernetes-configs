@@ -138,6 +138,7 @@ spec:
 #                # doesn't interpolate
 #                #name: $(JENKINS_AGENT_NAME)-secret
 #                #key: $(JENKINS_AGENT_NAME)-secret
+#                # You can do this if you only want 1 agent, but if you want multiple you need to read the notes near the top
 #                name: jenkins-agent-0-secret
 #                key: jenkins-agent-0-secret
           - name: JENKINS_AGENT_WORKDIR
