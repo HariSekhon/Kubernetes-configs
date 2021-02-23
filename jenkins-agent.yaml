@@ -31,7 +31,7 @@
 
 # - GCP Secret Manager integration:
 #   - Requirements:
-#     - jenkins-agent K8s service account annotated with jenkins-agent GCP service account
+#     - jenkins-agent K8s service account annotated with jenkins-agent GCP service account (see jenkins-agent-serviceaccount.yaml)
 #     - jenkins-agent GCP service account
 #     - serviceAccount:PROJECT_ID.svc.id.goog[K8S_NAMESPACE/KSA_NAME] must be granted to use jenkins-agent GCP service account
 #     - Secret Manager API must be enabled in project
