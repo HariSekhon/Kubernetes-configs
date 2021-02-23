@@ -39,7 +39,7 @@ resources:
   - ./storageclass-gcp-standard-resizeable.yaml
   - ./jenkins-namespace.yaml
   #- ./jenkins-agent.yaml
-  #- ./jenkins-agent-cloudprofile-deployment.yaml
+  - ./jenkins-agent-serviceaccount.yaml
   - ./jenkins-ingress.yaml
   - ./jenkins-server-role.yaml
   - ./jenkins-server-rolebinding.yaml
