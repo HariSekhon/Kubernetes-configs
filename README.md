@@ -23,6 +23,8 @@ Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/
 
 The [service.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied IPs etc.
 
+Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity.
+
 The best documentation links are provided at the top of each yaml for fast referencing (this advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open the URLs from the current file via a hotkey!)
 
 Forked from the [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-tools) repo, this is now a submodule of the [Templates](https://github.com/HariSekhon/Templates) repo which is a submodule of the DevOps [Bash](https://github.com/harisekhon/devops-bash-tools), [Perl](https://github.com/HariSekhon/DevOps-Perl-tools) and [Python](https://github.com/harisekhon/devops-python-tools) tools repos.
