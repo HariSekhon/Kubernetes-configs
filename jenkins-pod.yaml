@@ -1,0 +1,47 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-02-23 12:53:33 +0000 (Tue, 23 Feb 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                      J e n k i n s   C I   -   A g e n t
+# ============================================================================ #
+
+# Pod template for Kubernetes Cloud Configuration - copy this to "Raw YAML for the Pod" in Configure Clouds -> Kubernetes
+
+# See Also:
+#
+#   https://plugins.jenkins.io/kubernetes/
+#
+#   https://hub.docker.com/r/jenkins/inbound-agent/
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins-agent
+  namespace: jenkins
+  labels:
+    app: jenkins-agent
+    profile: cloud
+spec:
+  # an extra jnlp container to connect to Jenkins server will be added by the kubernetes-plugin
+  containers:
+  - name: jenkins-agent
+    # there is no lts tag at this time
+    image: jenkins/inbound-agent:latest
+    imagePullPolicy: IfNotPresent
+    args:
+      - "9999999"
+    command:
+      - sleep
