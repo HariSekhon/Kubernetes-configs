@@ -45,6 +45,7 @@ spec:
         app: teamcity-agent
     spec:
       affinity:
+        # avoid GKE preemption causing build failures
         nodeAffinity:
 #          requiredDuringSchedulingIgnoredDuringExecution:
 #            nodeSelectorTerms:
