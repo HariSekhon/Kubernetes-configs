@@ -43,6 +43,7 @@ spec:
         app: jenkins-server
     spec:
       affinity:
+        # avoid GKE preemptible nodes causing outages
         nodeAffinity:
 #          requiredDuringSchedulingIgnoredDuringExecution:
 #            nodeSelectorTerms:
