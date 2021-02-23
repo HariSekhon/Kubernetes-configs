@@ -19,11 +19,9 @@
 
 # Pod template for Kubernetes Cloud Configuration - copy this to "Raw YAML for the Pod" in Configure Clouds -> Kubernetes
 
-# See Also:
+# https://plugins.jenkins.io/kubernetes/
 #
-#   https://plugins.jenkins.io/kubernetes/
-#
-#   https://hub.docker.com/r/jenkins/inbound-agent/
+# https://hub.docker.com/r/jenkins/inbound-agent/
 
 ---
 apiVersion: v1
