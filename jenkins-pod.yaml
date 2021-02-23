@@ -41,6 +41,9 @@ spec:
     # there is no lts tag at this time
     image: jenkins/inbound-agent:latest
     imagePullPolicy: IfNotPresent
+    # this is only needed to stop this pod failing to connect to the Jenkins server
+    # as this is handled by an extra jnlp container that is added by the kubernetes plugin
+    # containing all the injected settings and populating the working dir for you
     args:
       - "9999999"
     command:
