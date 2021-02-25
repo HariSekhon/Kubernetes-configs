@@ -54,9 +54,9 @@ commonLabels:
 resources:
   - namespace.yaml
   - deployment.yaml
+  - statefulset.yaml
   - service.yaml
   #- cronjob.yaml
-  #- statefulset.yaml
   #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
 
 # I prefer this to the JSON inline patch as it's separately usable from the CLI as well
@@ -70,6 +70,9 @@ patchesStrategicMerge:
   #
   # enable to override LoadBalancer to NodePort for testing locally
   #- service-nodeport.patch.yaml
+  #
+  # quick fix temporary init container to reset things like mount point permissions / owner mismatch - a common problem, easiest solved this way
+  #- init-container-fix.patch.yaml
 
 # not my favourite way of doing it, prefer patchesStrategicMerge above
 # the only reason to use this is because not all resources or fields support strategic merge patches
