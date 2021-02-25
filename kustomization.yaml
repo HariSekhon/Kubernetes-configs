@@ -71,7 +71,7 @@ patchesStrategicMerge:
   # enable to override LoadBalancer to NodePort for testing locally
   #- service-nodeport.patch.yaml
   #
-  # quick fix temporary init container to reset things like mount point permissions / owner mismatch - a common problem, easiest solved this way
+  # quick fix temporary init container to reset things like mount point permissions / owner mismatch - a common problem, easily solved this way
   #- init-container-fix.patch.yaml
 
 # not my favourite way of doing it, prefer patchesStrategicMerge above
