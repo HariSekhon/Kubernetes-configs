@@ -13,11 +13,12 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# Quick initContainers fix patch that can be applied via Kustomize to any matching Deployment just by adding to kustomize.yaml's patchesStrategicMerge section
+# Quick initContainers fix patch that can be applied via Kustomize to any matching Deployment / StatefulSet just by adding to kustomize.yaml's patchesStrategicMerge section
 
 ---
 apiVersion: apps/v1
 kind: Deployment
+#kind: StatefulSet
 metadata:
   # XXX: Edit
   name: NAME
