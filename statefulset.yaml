@@ -28,7 +28,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: pgsql
+  name: NAME
   namespace: NAMESPACE
   annotations:
     # see also k8s_pod_disruption_budget.yaml
