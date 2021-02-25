@@ -70,8 +70,8 @@ spec:
       #  volumeMounts:
       #  - name: teamcity-server-datadir
       #    mountPath: /data/teamcity_server/datadir
-      #    - mountPath: /data/teamcity/logs
-      #      name: teamcity-server-logs
+      #  - name: teamcity-server-logs
+      #    mountPath: /data/teamcity/logs
       serviceAccountName: teamcity-server
       containers:
       - name: teamcity-server
