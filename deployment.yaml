@@ -170,6 +170,11 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: status.podIP  # K8S API path
+          - name: MYSECRET
+            valueFrom:
+              secretKeyRef:
+                name: my-secret
+                key: my-secret
         readinessProbe:
           # http, tcp or exec
           httpGet:
