@@ -23,7 +23,7 @@
 
 # See Instead:
 #
-#   jenkins-pod.yaml - for Jenkins Kubernetes plugin (burstable)
+#   jenkins-cloud-pod.yaml - for Jenkins Kubernetes plugin (burstable)
 #
 #   https://hub.docker.com/r/jenkins/inbound-agent/
 
@@ -79,7 +79,7 @@ spec:
       serviceAccountName: jenkins-agent
       # XXX: Trick: dynamically get the jenkins agent secret from GCP Secret Manager, populate to a file to be picked up by main container as a form of late evaluation since we can't use downwards API to populate different K8s secrets
       # WARNING: only do this in very trusted environments or an isolated project - if Devs or untrusted users can run code in your Jenkins Agents via build jobs then they can read out the Secret Manager secrets for the current project!
-      #          Consider using the jenkins-pod.yaml for Kubernetes plugin instead to dynamically spin up agents
+      #          Consider using the jenkins-cloud-pod.yaml for Kubernetes plugin instead to dynamically spin up agents
       #          Other options are run a separate stateful for each agent or put all agent secrets in the env and have the initContainer load the one matching the current hostname
       initContainers:
         - name: gcp-secret-mount
