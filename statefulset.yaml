@@ -35,16 +35,16 @@ metadata:
     cluster-autoscaler.kubernetes.io/safe-to-evict: False
 spec:
   replicas: 3
-  serviceName: pgsql
+  serviceName: NAME
   selector:
     matchLabels:
-      app: pgsql
+      app: NAME
   nodeSelector:
     disktype: ssd
   template:
     metadata:
       labels:
-        app: pgsql
+        app: NAME
     spec:
       affinity:
         nodeAffinity:
@@ -76,11 +76,25 @@ spec:
       #  # GKE specific - hard requirement - preferred affinity above is safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
       #  cloud.google.com/gke-nodepool: POOL_NAME
       containers:
-      - name: pgsql
+      - name: NAME
         image: postgres:9.6
         ports:
-          - name: pgsql
+          - name: NAME
             containerPort: 5432
+        env:
+          - name: HEAP_SIZE
+            value: 1G
+          - name: CASSANDRA_SEEDS
+            value: cassandra-0.cassandra.svc.cluster.local,cassandra-1.cassandra.svc.cluster.local,cassandra-2.cassandra.svc.cluster.local
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP  # K8S API path
+          - name: MYSECRET
+            valueFrom:
+              secretKeyRef:
+                name: my-secret
+                key: my-secret
         readinessProbe:
           # http, tcp or exec
           #httpGet:
