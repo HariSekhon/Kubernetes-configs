@@ -100,7 +100,8 @@ spec:
           httpGet:
             path: /login.html
             port: 8111
-          initialDelaySeconds: 120
+          #initialDelaySeconds: 120  # normally initializes in around this time
+          initialDelaySeconds: 300   # may take longer due to initialization recovery
           successThreshold: 1
           failureThreshold: 10
           periodSeconds: 5
