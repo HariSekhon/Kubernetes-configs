@@ -148,8 +148,14 @@ spec:
             # XXX: this path should match the Jenkins Server "Remote root directory" config option
             value: /var/jenkins
         resources:
-          limits: {}
-          requests: {}
+          limits:
+            cpu: 4
+            memory: 5Gi  # GiB
+          requests:
+            # millicores - 1/1000 of a CPU / vCPU
+            # 100m = 1/10th of CPU core
+            cpu: 1
+            memory: 1.5Gi  # MiB
         tty: false
         volumeMounts:
         - name: workspace
