@@ -101,7 +101,7 @@ spec:
             path: /login.html
             port: 8111
           #initialDelaySeconds: 120  # normally initializes in around this time
-          initialDelaySeconds: 300   # may take longer due to initialization recovery
+          initialDelaySeconds: 900   # may take longer due to complete initialization recovery after pod migration
           successThreshold: 1
           failureThreshold: 10
           periodSeconds: 5
