@@ -45,75 +45,6 @@ spec:
       maxUnavailable: 1
       #maxSurge: 25%
       maxSurge: 1
-  nodeSelector:
-    disktype: ssd
-    kubernetes.io/arch: amd64
-    kubernetes.io/os: linux
-    node.kubernetes.io/instance-type: m3.medium    # 1.17+
-    topology.kubernetes.io/zone: eueurope-west2-a  # 1.17+
-    topology.kubernetes.io/region: europe-west2    # 1.17+
-  # for persistent disks limited to 2 zones combined with GKE regional clusters
-  # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-  affinity:
-    nodeAffinity:
-    #nodeAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1  # 1 to 100, higher is stronger
-          preference:
-            - matchExpressions:
-              - key: accelerator-type
-                operator: In
-                values:
-                  - gpu
-                  - tpu
-          # XXX: prefer non-preemptible VMs unless unavailable
-        - weight: 100
-          preference:
-            matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-            # AND
-            - key: kubernetes.io/e2e-az-name
-              operator: In # NotIn, Exists, DoesNotExist
-              # OR
-              values:
-              - europe-west-1b
-              - europe-west-1c
-            # XXX: remove this if the pod is safe to preempt
-            #
-            # Node preemption:
-            # - shuts down pods ungracefully
-            # - ignores PodDisruptionBudget
-            # - invalidate Stateful guarantees and can lead to data loss !!
-            # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#kubernetes_constraint_violations
-            # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
-            - key: cloud.google.com/gke-preemptible
-              operator: DoesNotExist
-    #podAffinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          podAffinityTerm:
-            labelSelector:
-              - matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                    APP
-          topologyKey: topology.kubernetes.io/zone
-  # tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
-  #      then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
-  tolerations:
-    - key: cloud.google.com/gke-preemptible
-      operator: Equal
-      value: "false"
-      effect: PreferNoSchedule
-  #nodeSelector:
-  #  # GKE specific - hard requirement - preferred affinity above is safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
-  #  cloud.google.com/gke-nodepool: POOL_NAME
   selector:
     matchLabels:
       app: APP
@@ -127,17 +58,84 @@ spec:
         role: master
         tier: backend
     spec:
+      nodeSelector:
+        disktype: ssd
+        kubernetes.io/arch: amd64
+        kubernetes.io/os: linux
+        node.kubernetes.io/instance-type: m3.medium    # 1.17+
+        topology.kubernetes.io/zone: eueurope-west2-a  # 1.17+
+        topology.kubernetes.io/region: europe-west2    # 1.17+
+        #myLabel: myFastNodes
+        # GKE specific - hard requirement - prefer affinity below as safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
+        #cloud.google.com/gke-nodepool: POOL_NAME
+      #priorityClassName: high-priority  # for business critical workloads to get priority access to the stable node pool instead of preemptible node pool, will evict lower priority pods to preemptible node pool (default 0) if necessary
+      schedulerName: default-scheduler
+      # for persistent disks limited to 2 zones combined with GKE regional clusters
+      # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+      affinity:
+        nodeAffinity:
+        #nodeAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1  # 1 to 100, higher is stronger
+              preference:
+                - matchExpressions:
+                  - key: accelerator-type
+                    operator: In
+                    values:
+                      - gpu
+                      - tpu
+              # XXX: prefer non-preemptible VMs unless unavailable
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                # AND
+                - key: kubernetes.io/e2e-az-name
+                  operator: In # NotIn, Exists, DoesNotExist
+                  # OR
+                  values:
+                  - europe-west-1b
+                  - europe-west-1c
+                # XXX: remove this if the pod is safe to preempt
+                #
+                # Node preemption:
+                # - shuts down pods ungracefully
+                # - ignores PodDisruptionBudget
+                # - invalidate Stateful guarantees and can lead to data loss !!
+                # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#kubernetes_constraint_violations
+                # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+                - key: cloud.google.com/gke-preemptible
+                  operator: DoesNotExist
+        #podAffinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  - matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        APP
+              topologyKey: topology.kubernetes.io/zone
+      # tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
+      #      then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
+      tolerations:
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "false"
+          effect: PreferNoSchedule
       minReadySeconds: 0  # secs healthy before serving
       progressDeadlineSeconds: 120
       terminationGracePeriodSeconds: 120  # how long between SIGTERM and SIGKILL (kill -9) - may want to set higher than default 30 secs eg. 1800 for Cassandra
       dnsPolicy: ClusterFirst # use coredns, Default uses node's dns resolution
       restartPolicy: Always
-      schedulerName: default-scheduler
-      #priorityClassName: high-priority  # for business critical workloads to get priority access to the stable node pool instead of preemptible node pool, will evict lower priority pods to preemptible node pool (default 0) if necessary
       terminationMessagePath: /dev/termination-log
       terminationMessagePolicy: File  # FallbackToLogsOnError to use container logs if message file is empty upon container error
-      nodeSelector:
-        myLabel: myFastNodes
       securityContext:
         # see pod-security-policy.yaml for wider enforcement
         runAsNonRoot: true
