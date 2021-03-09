@@ -56,6 +56,7 @@ spec:
         app: teamcity-agent
         profile: cloud
     spec:
+      priorityClassName: high-priority
       securityContext:
         #runAsUser: 0
         # set mount point group to gid of teamcity process
