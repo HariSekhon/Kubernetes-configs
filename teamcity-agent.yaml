@@ -59,6 +59,22 @@ spec:
                 matchExpressions:
                   - key: cloud.google.com/gke-preemptible
                     operator: DoesNotExist
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            nodeSelectorTerms:
+#              - matchExpressions:
+#                - key: cloud.google.com/gke-preemptible
+#                  operator: DoesNotExist
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              topologyKey: topology.kubernetes.io/zone
+              podAffinityTerm:
+                labelSelector:
+                  - matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - teamcity-agent
       tolerations:
         - key: cloud.google.com/gke-preemptible
           operator: Equal
