@@ -67,10 +67,10 @@ spec:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 100
-              topologyKey: topology.kubernetes.io/zone
               podAffinityTerm:
+                topologyKey: topology.kubernetes.io/zone
                 labelSelector:
-                  - matchExpressions:
+                  matchExpressions:
                     - key: app
                       operator: In
                       values:
