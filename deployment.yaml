@@ -114,14 +114,14 @@ spec:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 100
-              topologyKey: topology.kubernetes.io/zone
               podAffinityTerm:
+                topologyKey: topology.kubernetes.io/zone
                 labelSelector:
-                  - matchExpressions:
+                  matchExpressions:
                     - key: app
                       operator: In
                       values:
-                        APP
+                        - APP
       # tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
       #      then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
       tolerations:
