@@ -38,13 +38,13 @@ spec:
   serviceName: NAME
   selector:
     matchLabels:
-      app: NAME
+      app: APP
   nodeSelector:
     disktype: ssd
   template:
     metadata:
       labels:
-        app: NAME
+        app: APP
     spec:
       priorityClassName: high-priority  # to get priority access to the stable node pool instead of running on preemptible node pool risking pv corruption, will evict lower priority pods to preemptible node pool (default 0) if necessary
       affinity:
@@ -66,6 +66,18 @@ spec:
                 matchExpressions:
                   - key: cloud.google.com/gke-preemptible
                     operator: DoesNotExist
+        #podAffinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: topology.kubernetes.io/zone
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - APP
       # tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
       #      then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
       tolerations:
