@@ -38,6 +38,7 @@ spec:
       labels:
         app: teamcity-server
     spec:
+      priorityClassName: high-priority
       affinity:
         # avoid GKE preemptible nodes causing outages
         nodeAffinity:
