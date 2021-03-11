@@ -160,6 +160,8 @@ spec:
         imagePullPolicy: IfNotPresent  # set to Always if replacing a docker_image:tag or using :latest in development
         ports:
           - containerPort: 8080
+        #securityContext:
+        #  privileged: true
         env:
           - name: HEAP_SIZE
             value: 1G
