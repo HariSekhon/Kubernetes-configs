@@ -110,7 +110,8 @@ spec:
       - name: jenkins-agent
         # there is no lts tag at this time
         #image: jenkins/inbound-agent:latest
-        image: jenkins/inbound-agent:4.6-1
+        #image: jenkins/inbound-agent:4.6-1
+        image: harisekhon/jenkins-agent-docker:4.6
         imagePullPolicy: IfNotPresent
         command:
           # use shell in order to late eval contents of /secret/token into an arg
