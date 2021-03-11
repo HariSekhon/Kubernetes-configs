@@ -61,17 +61,17 @@ spec:
       affinity:
         # avoid GKE preemption causing build failures
         nodeAffinity:
-#          requiredDuringSchedulingIgnoredDuringExecution:
-#            nodeSelectorTerms:
-#              - matchExpressions:
-#                - key: cloud.google.com/gke-preemptible
-#                  operator: DoesNotExist
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: cloud.google.com/gke-preemptible
-                    operator: DoesNotExist
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: cloud.google.com/gke-preemptible
+                  operator: DoesNotExist
+#          preferredDuringSchedulingIgnoredDuringExecution:
+#            - weight: 100
+#              preference:
+#                matchExpressions:
+#                  - key: cloud.google.com/gke-preemptible
+#                    operator: DoesNotExist
       tolerations:
         - key: cloud.google.com/gke-preemptible
           operator: Equal
@@ -159,16 +159,16 @@ spec:
             memory: 1.5Gi  # MiB
         tty: false
         volumeMounts:
-        - name: workspace
-          # XXX: this path should match the Jenkins Server "Remote root directory" config option
-          mountPath: /var/jenkins
-          readOnly: false
-        - name: secret
-          mountPath: /secret
-          readOnly: false
+          - name: workspace
+            # XXX: this path should match the Jenkins Server "Remote root directory" config option
+            mountPath: /var/jenkins
+            readOnly: false
+          - name: secret
+            mountPath: /secret
+            readOnly: false
         workingDir: /var/jenkins
       volumes:
-      - name: workspace
-        emptyDir: {}
-      - name: secret
-        emptyDir: {}
+        - name: workspace
+          emptyDir: {}
+        - name: secret
+          emptyDir: {}
