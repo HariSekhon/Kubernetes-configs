@@ -33,26 +33,25 @@ metadata:
     app: jenkins-agent
     profile: cloud
 spec:
+  # agent pod should go on stable node pool so that builds don't fail due to preemption
   priorityClassName: high-priority
-  # an extra jnlp container to connect to Jenkins server will be added by the kubernetes-plugin
+  securityContext:
+    runAsUser: 0    # required to access docker.sock
+    #fsGroup: 1000  # jenkins gid to access docker.sock, but fails to change socket group owner in container
   containers:
-  - name: jenkins-agent
-    # there is no lts tag at this time
-    #image: jenkins/inbound-agent:4.6-1
-    # above image doesn't contain docker command
-    image: harisekhon/jenkins-docker:4.6
-    imagePullPolicy: IfNotPresent
-    # this is only needed to stop this pod failing to connect to the Jenkins server
-    # as this is handled by an extra jnlp container that is added by the kubernetes plugin
-    # containing all the injected settings and populating the working dir for you
-    args:
-      - "9999999"
-    command:
-      - sleep
-    volumeMounts:
-      - name: docker-sock
-        mountPath: /var/run/docker.sock
+      # must override this exact container name as this is where builds get executed
+    - name: jnlp
+      # there is no lts tag at this time
+      #image: jenkins/inbound-agent:4.6-1
+      # based off jenkins/inbound-agent but with docker command installed
+      image: harisekhon/jenkins-agent-docker:4.6
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+          # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
   volumes:
+      # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
     - name: docker-sock
       hostPath:
         path: /var/run/docker.sock
