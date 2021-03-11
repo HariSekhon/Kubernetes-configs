@@ -88,12 +88,21 @@ spec:
       #nodeSelector:
       #  # GKE specific - hard requirement - preferred affinity above is safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
       #  cloud.google.com/gke-nodepool: POOL_NAME
+
+      #serviceAccountName: NAME
+      securityContext:
+        # see pod-security-policy.yaml for wider enforcement
+        runAsNonRoot: true
+        #runAsUser: 0   # not recommended
+        fsGroup: 1000  # chown mounts to this gid
       containers:
       - name: NAME
         image: postgres:9.6
         ports:
           - name: NAME
             containerPort: 5432
+        #securityContext:
+        #  privileged: true
         env:
           - name: HEAP_SIZE
             value: 1G
