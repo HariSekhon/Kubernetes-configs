@@ -92,7 +92,11 @@ spec:
             - -c
             # find latest version of the JENKINS_SECRET in GCP Secret Manager secret called 'jenkins-agent-N-token' and download it to /secrets/token to be picked up by the main jenkins-agent container
             # Workload Identity - auth for this is done by linking k8s service account to external GCP service account which must be granted GCP IAM permission to read secrets from GCP Secret Manager
-            # this requires GCP jenkins-agent service account be granted IAM roles Secret Manager Secret Accessor and Secret Manager Secret Version Manager (to list the latest secret version)
+            # this requires GCP jenkins-agent@$PROJECT_ID.iam.gserviceaccount.com (bound by jenkins-agent k8s serviceaccount above) to be granted IAM roles:
+            #
+            #   Secret Manager Secret Accessor
+            #   Secret Manager Secret Version Manager  # to list the latest secret version
+            #
             - gcloud secrets versions access $(gcloud secrets versions list "${JENKINS_AGENT_NAME}-token" --filter='state=enabled' --format='value(name)' | sort -k1nr | head -n1) --secret="${JENKINS_AGENT_NAME}-token" > /secret/token
           env:
             - name: CLOUDSDK_CORE_PROJECT
