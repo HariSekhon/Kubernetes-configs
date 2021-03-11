@@ -78,6 +78,10 @@ spec:
           value: "false"
           effect: PreferNoSchedule
       serviceAccountName: jenkins-agent
+      securityContext:
+        runAsUser: 0    # required to access docker.sock
+        #fsGroup: 1000  # jenkins gid to access docker.sock, but fails to change socket group owner in container
+
       # XXX: Trick: dynamically get the jenkins agent secret from GCP Secret Manager, populate to a file to be picked up by main container as a form of late evaluation since we can't use downwards API to populate different K8s secrets
       # WARNING: only do this in very trusted environments or an isolated project - if Devs or untrusted users can run code in your Jenkins Agents via build jobs then they can read out the Secret Manager secrets for the current project!
       #          Consider using the jenkins-cloud-pod.yaml for Kubernetes plugin instead to dynamically spin up agents
@@ -171,9 +175,17 @@ spec:
           - name: secret
             mountPath: /secret
             readOnly: false
+            # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
+          - name: docker-sock
+            mountPath: /var/run/docker.sock
         workingDir: /var/jenkins
       volumes:
         - name: workspace
           emptyDir: {}
         - name: secret
           emptyDir: {}
+          # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
