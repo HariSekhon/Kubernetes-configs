@@ -157,15 +157,13 @@ spec:
           - name: JENKINS_AGENT_WORKDIR
             # XXX: this path should match the Jenkins Server "Remote root directory" config option
             value: /var/jenkins
-#        resources:
-#          limits:
-#            cpu: 4
-#            memory: 5Gi  # GiB
-#          requests:
-#            # millicores - 1/1000 of a CPU / vCPU
-#            # 100m = 1/10th of CPU core
-#            cpu: 1
-#            memory: 1.5Gi  # MiB
+        resources:
+          limits:
+            cpu: 2
+            memory: 3Gi
+          requests:
+            cpu: 100m      # agent takes 6m, don't overallocate, node pool will grow costing $$$
+            memory: 500Mi  # agent takes 108Mi, plus whatever you run in the CI pipeline
         tty: false
         volumeMounts:
           - name: workspace
