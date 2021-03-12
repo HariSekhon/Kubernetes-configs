@@ -42,7 +42,7 @@ spec:
       labels:
         app: jenkins-server
     spec:
-      priorityClassName: high-priority
+      priorityClassName: high-priority  # requires priorityclass.yaml
       affinity:
         # avoid GKE preemptible nodes causing outages
         nodeAffinity:
