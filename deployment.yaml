@@ -111,8 +111,9 @@ spec:
                 - key: cloud.google.com/gke-preemptible
                   operator: DoesNotExist
         #podAffinity:
-        # XXX: spread app across AZs
         podAntiAffinity:
+          # XXX: spread app across AZs
+          # XXX: use preferred if num_replicas > num_AZs
 #          preferredDuringSchedulingIgnoredDuringExecution:
 #            - weight: 100
 #              podAffinityTerm:
@@ -124,6 +125,7 @@ spec:
 #                      values:
 #                        - APP
           requiredDuringSchedulingIgnoredDuringExecution:
+              # XXX: spread app across AZs
             - topologyKey: topology.kubernetes.io/zone
               labelSelector:
                 matchExpressions:
@@ -131,8 +133,17 @@ spec:
                     operator: In
                     values:
                       - APP
-      # tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
-      #      then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
+              # XXX: spread app across hosts (default prefers spread, whereas this requires it)
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - APP
+      # XXX: allow scheduling on reserved by default via taint non-preemptible VMs
+      #      tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
+      #           then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
       tolerations:
         - key: cloud.google.com/gke-preemptible
           operator: Equal
