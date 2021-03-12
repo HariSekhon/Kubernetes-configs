@@ -44,7 +44,7 @@ spec:
       labels:
         app: teamcity-agent
     spec:
-      priorityClassName: high-priority
+      priorityClassName: high-priority  # requires priorityclass.yaml
       affinity:
         # avoid GKE preemption causing build failures
         nodeAffinity:
