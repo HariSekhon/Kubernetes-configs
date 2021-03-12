@@ -46,7 +46,10 @@ spec:
       labels:
         app: APP
     spec:
-      priorityClassName: high-priority  # to get priority access to the stable node pool instead of running on preemptible node pool risking pv corruption, will evict lower priority pods to preemptible node pool (default 0) if necessary
+      priorityClassName: high-priority  # to get priority access to the stable node pool instead of running on preemptible node pool risking pv corruption, will evict lower priority pods to preemptible node pool (default 0) if necessary. Requires: priorityclass.yaml
+      #nodeSelector:
+      #  # GKE specific - hard requirement - preferred affinity below is safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
+      #  cloud.google.com/gke-nodepool: POOL_NAME
       affinity:
         nodeAffinity:
           # Node preemption:
@@ -105,9 +108,6 @@ spec:
           operator: Equal
           value: "false"
           effect: PreferNoSchedule
-      #nodeSelector:
-      #  # GKE specific - hard requirement - preferred affinity above is safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
-      #  cloud.google.com/gke-nodepool: POOL_NAME
 
       #serviceAccountName: NAME
       securityContext:
