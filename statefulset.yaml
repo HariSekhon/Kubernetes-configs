@@ -149,7 +149,11 @@ spec:
   - metadata:
       name: pgdata
     spec:
-      # optional: requires storageclass-*.yaml
+      # XXX: use a storageclass-*.yaml to:
+      #      - set a "reclaimPolicy: Retain" for safety to avoid data loss if deleting/recreating the namespace with the pvc
+      #        (it still requires a manual recovery for this easy mistake to make but at least the data isn't deleted)
+      #      - choose disk type (SSD vs spinning disk)
+      #      - make disk dynamically resizeable (eg. on GCP)
       #storageClassName: ssd
       #storageClassName: ssd-resizeable
       #storageClassName: standard-resizeable
