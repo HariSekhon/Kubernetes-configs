@@ -33,7 +33,7 @@ metadata:
     app: jenkins-agent
     profile: cloud
 spec:
-  # agent pod should go on stable node pool so that builds don't fail due to preemption
+  # agent pod should go on stable node pool so that builds don't fail due to preemption. Requires priorityclass.yaml
   priorityClassName: high-priority
   securityContext:
     runAsUser: 0    # required to access docker.sock
