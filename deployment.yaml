@@ -111,6 +111,7 @@ spec:
                 - key: cloud.google.com/gke-preemptible
                   operator: DoesNotExist
         #podAffinity:
+        # XXX: spread app across AZs
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 100
