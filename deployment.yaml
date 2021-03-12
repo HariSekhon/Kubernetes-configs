@@ -68,13 +68,12 @@ spec:
         #myLabel: myFastNodes
         # GKE specific - hard requirement - prefer affinity below as safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
         #cloud.google.com/gke-nodepool: POOL_NAME
-      #priorityClassName: high-priority  # for business critical workloads to get priority access to the stable node pool instead of preemptible node pool, will evict lower priority pods to preemptible node pool (default 0) if necessary
+        #priorityClassName: high-priority  # for business critical workloads to get priority access to the stable node pool instead of preemptible node pool, will evict lower priority pods to preemptible node pool (default 0) if necessary. Requires: priorityclass.yaml
       schedulerName: default-scheduler
       # for persistent disks limited to 2 zones combined with GKE regional clusters
       # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
       affinity:
         nodeAffinity:
-        #nodeAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 1  # 1 to 100, higher is stronger
               preference:
@@ -93,10 +92,10 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                # AND
+                # AND's everything under this matchExpression
                 - key: kubernetes.io/e2e-az-name
                   operator: In # NotIn, Exists, DoesNotExist
-                  # OR
+                  # OR's the values
                   values:
                   - europe-west-1b
                   - europe-west-1c
