@@ -109,8 +109,8 @@ spec:
           requests:
             # millicores - 1/1000 of a CPU / vCPU
             # 100m = 1/10th of CPU core
-            cpu: 400m
-            memory: 1.5Gi  # MiB
+            cpu: 100m    # server takes 7m resting
+            memory: 1Gi  # server takes 800-900Mi resting
         volumeMounts:
           - mountPath: /var/jenkins_home
             name: jenkins-home
