@@ -136,13 +136,10 @@ spec:
             cpu: 2
             # TeamCity agent's 2 processes JVM heaps are -Xmx384m and -Xmx16m, plus overheads and wiggle room = 1Gi
             # + build processes which could take a couple GB each = 3Gi
-            memory: 3Gi  # GiB
+            memory: 3Gi
           requests:
-            # millicores - 1/1000 of a CPU / vCPU
-            # 100m = 1/10th of CPU core
-            cpu: 500m
-						# k top po shows 474Mi - 1032Mi used between 3 agents, so request at least 1.5Gi
-            memory: 1.5Gi  # GiB
+            cpu: 100m    # 6m resting
+            memory: 1Gi  # 700-850Mi resting + pipeline progs
         volumeMounts:
           # not persisting system and work as they're just caches
           #  mountPath: /opt/buildagent/system
