@@ -162,8 +162,8 @@ spec:
             cpu: 2
             memory: 3Gi
           requests:
-            cpu: 100m      # agent takes 6m, don't overallocate, node pool will grow costing $$$
-            memory: 500Mi  # agent takes 108Mi, plus whatever you run in the CI pipeline
+            cpu: 100m      # agent takes 6m resting, don't overallocate, drives node pool scaling costing $$$
+            memory: 500Mi  # agent takes 108Mi resting, plus whatever you run in the CI pipeline
         tty: false
         volumeMounts:
           - name: workspace
