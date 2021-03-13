@@ -46,6 +46,13 @@ spec:
       # based off jenkins/inbound-agent but with docker command installed
       image: harisekhon/jenkins-agent-docker:4.6
       imagePullPolicy: IfNotPresent
+      resources:
+        limits:
+          cpu: 2
+          memory: 3Gi
+        requests:
+          cpu: 100m      # agent takes 6m resting, don't overallocate, drives node pool scaling costing $$$
+          memory: 500Mi  # agent takes 108Mi resting, plus whatever you run in the CI pipeline
       volumeMounts:
           # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
         - name: docker-sock
