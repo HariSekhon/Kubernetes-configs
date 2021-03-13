@@ -105,10 +105,8 @@ spec:
         resources:
           limits:
             cpu: 2
-            memory: 4Gi  # GiB
+            memory: 4Gi
           requests:
-            # millicores - 1/1000 of a CPU / vCPU
-            # 100m = 1/10th of CPU core
             cpu: 100m    # server takes 7m resting
             memory: 1Gi  # server takes 800-900Mi resting
         volumeMounts:
