@@ -24,6 +24,7 @@ metadata:
   name: jenkins-ui
   namespace: jenkins
 spec:
+  clusterIP: None
   selector:
     app: jenkins-server
   ports:
