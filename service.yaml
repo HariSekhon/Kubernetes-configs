@@ -37,23 +37,24 @@ spec:
   type: ClusterIP  # default
   #type: NodePort
   #type: LoadBalancer
-  #type: None       # headless, returns all A records instead of round robin. Useful for Cassandra seeding
-  #sessionAffinity: ClientIP  # use with LoadBalancer for stickyness
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
+  #type: None       # headless, returns all A records instead of round robin. Useful for Cassandra seeding, or service discovery where load balancing is not needed (eg. Jenkins / TeamCity server)
   selector:
     app: APP
     role: master
     tier: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
   #
   # =======================
   # NodePort / LoadBalancer
   #
-  # routes NodePort requests only to pods on same node
+  #sessionAffinity: ClientIP  # use with LoadBalancer for stickyness
+  #
+  # External traffic policy routes NodePort requests only to pods on same node
   # - pros:
-  #   - NodePort is only opened on nodes containing the pod, essentially allowing pods to control which nodes the LoadBalanacer routes through via pod placement
+  #   - NodePort is only opened on nodes containing the pod, essentially allowing pods to control which nodes the LoadBalanacer routes through via pod placement and LB healthchecks
   #   - one less hop inside cluster
   #   - pod receives client's IP (X-Forwarded-For is more useful if you're using Cloudflare Proxied protections for Layer 7 HTTP, or PROXY protocol header for Layer 4 TCP)
   # - cons:
