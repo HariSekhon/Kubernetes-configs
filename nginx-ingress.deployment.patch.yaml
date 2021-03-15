@@ -31,9 +31,11 @@ spec:
     spec:
       # XXX: give priority scheduling to stable node pool. Requires: priorityclass.yaml
       priorityClassName: high-priority
-      # XXX: prefer non-preemptible VMs unless unavailable
+      # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+      # XXX: not recommended in clusters greater than several hundred nodes due to significant CPU overhead slowing down scheduling
       affinity:
         nodeAffinity:
+          # XXX: prefer non-preemptible VMs unless unavailable
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 100
               preference:
