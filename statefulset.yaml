@@ -50,6 +50,9 @@ spec:
       #nodeSelector:
       #  # GKE specific - hard requirement - preferred affinity below is safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
       #  cloud.google.com/gke-nodepool: POOL_NAME
+      #
+      # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+      # XXX: not recommended in clusters greater than several hundred nodes due to significant CPU overhead slowing down scheduling
       affinity:
         nodeAffinity:
           # Node preemption:
