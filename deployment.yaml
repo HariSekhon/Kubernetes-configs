@@ -72,6 +72,7 @@ spec:
       schedulerName: default-scheduler
       # for persistent disks limited to 2 zones combined with GKE regional clusters
       # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+      # XXX: not recommended in clusters greater than several hundred nodes due to significant CPU overhead slowing down scheduling
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
