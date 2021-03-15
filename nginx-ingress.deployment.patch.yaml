@@ -1,0 +1,80 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-03-09 11:26:47 +0000 (Tue, 09 Mar 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# Enhances the default nginx ingress controller deployment from:
+#
+#   https://kubernetes.github.io/ingress-nginx/deploy/
+#
+
+---
+# Source: ingress-nginx/templates/controller-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+spec:
+  replicas: 3
+  template:
+    spec:
+      # XXX: give priority scheduling to stable node pool. Requires: priorityclass.yaml
+      priorityClassName: high-priority
+      # XXX: prefer non-preemptible VMs unless unavailable
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+        podAntiAffinity:
+          # XXX: use preferred if num_replicas > num_AZs
+#          preferredDuringSchedulingIgnoredDuringExecution:
+#            - weight: 100
+#              podAffinityTerm:
+#                # XXX: spread ingress pods across AZs for resilience
+#                topologyKey: topology.kubernetes.io/zone
+#                labelSelector:
+#                  matchExpressions:
+#                    - key: app.kubernetes.io/name
+#                      operator: In
+#                      values:
+#                        - ingress-nginx
+          requiredDuringSchedulingIgnoredDuringExecution:
+              # XXX: spread ingress pods across AZs for resilience
+            - topologyKey: topology.kubernetes.io/zone
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - ingress-nginx
+              # XXX: spread ingress pods across hosts (default prefers spread, whereas this requires it)
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - ingress-nginx
+      # XXX: allow scheduling on reserved by default via taint non-preemptible VMs
+      #      tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
+      #           then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
+      tolerations:
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "false"
+          effect: PreferNoSchedule
