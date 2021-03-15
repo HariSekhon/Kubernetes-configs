@@ -1,0 +1,49 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-03-09 11:26:47 +0000 (Tue, 09 Mar 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# Enhances the default nginx ingress controller deployment from:
+#
+#   https://kubernetes.github.io/ingress-nginx/deploy/
+#
+
+---
+# Source: ingress-nginx/templates/controller-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+spec:
+  # XXX: set static IP for external LB - change this for each cluster - find static IP created by Terraform and put here
+  #      this is not as good as the old nginx ingress controller which just used an annotation to find the IP :-(
+#  loadBalancerIP: x.x.x.x
+  # XXX: lock down generated GKE firewall rule to Cloudflare IP blocks, Office, VPN etc.
+#  loadBalancerSourceRanges:
+#    # Cloudflare IPs - only allow these Proxied IPs
+#    - 103.21.244.0/22
+#    - 103.22.200.0/22
+#    - 103.31.4.0/22
+#    - 104.16.0.0/12
+#    - 108.162.192.0/18
+#    - 131.0.72.0/22
+#    - 141.101.64.0/18
+#    - 162.158.0.0/15
+#    - 172.64.0.0/13
+#    - 173.245.48.0/20
+#    - 188.114.96.0/20
+#    - 190.93.240.0/20
+#    - 197.234.240.0/22
+#    - 198.41.128.0/17
+#    # XXX: Add your Office or VPN subnets here to restrict Dev/Staging environments to be private if not filtering all traffic through Cloudflare or similar
