@@ -38,7 +38,7 @@ namespace: jenkins
 resources:
   - ./storageclass-gcp-standard-resizeable.yaml
   - ./jenkins-namespace.yaml
-  # only enable this if using permanent agents on k8s, otherwise see jenkins-cloud-pod.yaml
+  # only enable this if using permanent agents on k8s, otherwise see jenkins-agent-cloud-pod.yaml
   #- ./jenkins-agent.yaml
   - ./jenkins-agent-serviceaccount.yaml
   - ./jenkins-ingress.yaml
