@@ -47,8 +47,24 @@ spec:
     app: APP
     role: master
     tier: backend
+  #
+  # =======================
+  # NodePort / LoadBalancer
+  #
+  # routes NodePort requests only to pods on same node
+  # - pros:
+  #   - NodePort is only opened on nodes containing the pod, essentially allowing pods to control which nodes the LoadBalanacer routes through via pod placement
+  #   - one less hop inside cluster
+  #   - pod receives client's IP (X-Forwarded-For is more useful if you're using Cloudflare Proxied protections for Layer 7 HTTP, or PROXY protocol header for Layer 4 TCP)
+  # - cons:
+  #   - can cause load imbalances between pods (which is why this is not the default)
+  # - not needed for HTTP(s) services using Ingress -> default ClusterIP services
+  #externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster  # default, distribute to all service endpoints (pods) inside cluster
+  #
   # =============================
   # 'type: LoadBalancer' settings
+  #
   # set a static IP to reuse if recreated
 #  loadBalancerIP: x.x.x.x
 #  # generates GKE firewall rule k8s-fw-<hash> which defaults to 0.0.0.0/0 otherwise
