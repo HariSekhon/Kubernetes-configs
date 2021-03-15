@@ -50,8 +50,6 @@ spec:
   # =======================
   # NodePort / LoadBalancer
   #
-  #sessionAffinity: ClientIP  # use with LoadBalancer for stickyness
-  #
   # External traffic policy routes NodePort requests only to pods on same node
   # - pros:
   #   - NodePort is only opened on nodes containing the pod, essentially allowing pods to control which nodes the LoadBalanacer routes through via pod placement and LB healthchecks
@@ -66,9 +64,12 @@ spec:
   # =============================
   # 'type: LoadBalancer' settings
   #
+#  sessionAffinity: ClientIP  # session stickyness
+  #
   # set a static IP to reuse if recreated
 #  loadBalancerIP: x.x.x.x
-#  # generates GKE firewall rule k8s-fw-<hash> which defaults to 0.0.0.0/0 otherwise
+
+  # generates GKE firewall rule k8s-fw-<hash> which defaults to 0.0.0.0/0 otherwise
 #  loadBalancerSourceRanges:
 #    # VPN / Office addresses etc...
 #    - x.x.x.x/32
