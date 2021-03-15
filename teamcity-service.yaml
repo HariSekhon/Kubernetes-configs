@@ -24,6 +24,7 @@ metadata:
   name: teamcity
   namespace: teamcity
 spec:
+  clusterIP: None
   selector:
     app: teamcity-server
   ports:
