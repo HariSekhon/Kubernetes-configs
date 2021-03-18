@@ -23,6 +23,10 @@
 #
 # https://hub.docker.com/r/jenkins/inbound-agent/
 
+# XXX: the below is not recommended and should be omitted, instead specify using a kubernetes pod in your Jenkinsfile pipeline, see:
+#
+#   https://github.com/HariSekhon/Templates/blob/master/Jenkinsfile
+
 ---
 apiVersion: v1
 kind: Pod
