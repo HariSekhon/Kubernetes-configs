@@ -21,7 +21,7 @@
 
 # This is much more complicated than just using the Jenkins Kubernetes plugin which should be preferred
 
-# XXX: the below is not recommended, skip this and instead use a kubernetes pod template in your Jenkinsfile pipeline, see:
+# XXX: see my Jenkinsfile for a better way using Pipeline embedded pod template using native k8s pod, avoid agent { docker ... } and instead use agent { kubernetes }
 #
 #   https://github.com/HariSekhon/Templates/blob/master/Jenkinsfile
 
