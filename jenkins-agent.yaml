@@ -27,7 +27,7 @@
 
 # See Also:
 #
-#   jenkins-agent-cloud-pod.yaml - for Jenkins Kubernetes plugin (burstable)
+#   jenkins-agent-cloud-pod-DooD.yaml - for Jenkins Kubernetes plugin (burstable)
 #
 #   https://hub.docker.com/r/jenkins/inbound-agent/
 
