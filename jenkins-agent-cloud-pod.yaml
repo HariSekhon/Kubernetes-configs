@@ -23,7 +23,8 @@
 #
 # https://hub.docker.com/r/jenkins/inbound-agent/
 
-# XXX: see my Jenkinsfile for a better way using Pipeline embedded pod template using native k8s pod, avoid agent { docker ... } and instead use agent { kubernetes }
+# XXX: see my Jenkinsfile for a better way using Pipeline embedded pod template using native k8s pod,
+#      avoid agent { docker ... } and instead use agent { kubernetes ... }
 #
 #   https://github.com/HariSekhon/Templates/blob/master/Jenkinsfile
 
