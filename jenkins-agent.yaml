@@ -21,7 +21,11 @@
 
 # This is much more complicated than just using the Jenkins Kubernetes plugin which should be preferred
 
-# See Instead:
+# XXX: the below is not recommended, skip this and instead use a kubernetes pod template in your Jenkinsfile pipeline, see:
+#
+#   https://github.com/HariSekhon/Templates/blob/master/Jenkinsfile
+
+# See Also:
 #
 #   jenkins-agent-cloud-pod.yaml - for Jenkins Kubernetes plugin (burstable)
 #
@@ -117,9 +121,10 @@ spec:
       containers:
       - name: jenkins-agent
         # there is no lts tag at this time
-        #image: jenkins/inbound-agent:latest
+        image: jenkins/inbound-agent:latest
         #image: jenkins/inbound-agent:4.6-1
-        image: harisekhon/jenkins-agent-docker:4.6
+        # not necessary or recommended, see the DooD comments further down
+        #image: harisekhon/jenkins-agent-docker:4.6
         imagePullPolicy: IfNotPresent
         command:
           # use shell in order to late eval contents of /secret/token into an arg
@@ -174,6 +179,11 @@ spec:
             mountPath: /secret
             readOnly: false
             # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
+            #
+            # XXX: not necessary or recommended, instead see kubernetes agent section in Jenkinsfile:
+            #
+            #       https://github.com/HariSekhon/Templates/blob/master/Jenkinsfile
+            #
           - name: docker-sock
             mountPath: /var/run/docker.sock
         workingDir: /var/jenkins
@@ -183,6 +193,11 @@ spec:
         - name: secret
           emptyDir: {}
           # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
+          #
+          # XXX: not necessary or recommended, instead see kubernetes agent section in Jenkinsfile:
+          #
+          #       https://github.com/HariSekhon/Templates/blob/master/Jenkinsfile
+          #
         - name: docker-sock
           hostPath:
             path: /var/run/docker.sock
