@@ -27,7 +27,8 @@
 
 # See Also:
 #
-#   jenkins-agent-cloud-pod-DooD.yaml - for Jenkins Kubernetes plugin (burstable)
+#   jenkins-agent-pod.yaml - to be called directly in Jenkinsfile pipelein - this is the preferred way
+#   jenkins-agent.cloud-pod-DooD.yaml - for Jenkins Kubernetes plugin (burstable)
 #
 #   https://hub.docker.com/r/jenkins/inbound-agent/
 
