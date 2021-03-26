@@ -48,22 +48,17 @@ spec:
       affinity:
         # avoid GKE preemption causing build failures
         nodeAffinity:
-#          requiredDuringSchedulingIgnoredDuringExecution:
-#            nodeSelectorTerms:
-#              - matchExpressions:
-#                - key: cloud.google.com/gke-preemptible
-#                  operator: DoesNotExist
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: cloud.google.com/gke-preemptible
-                    operator: DoesNotExist
-#          requiredDuringSchedulingIgnoredDuringExecution:
-#            nodeSelectorTerms:
-#              - matchExpressions:
-#                - key: cloud.google.com/gke-preemptible
-#                  operator: DoesNotExist
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: cloud.google.com/gke-preemptible
+                  operator: DoesNotExist
+#          preferredDuringSchedulingIgnoredDuringExecution:
+#            - weight: 100
+#              preference:
+#                matchExpressions:
+#                  - key: cloud.google.com/gke-preemptible
+#                    operator: DoesNotExist
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 100
