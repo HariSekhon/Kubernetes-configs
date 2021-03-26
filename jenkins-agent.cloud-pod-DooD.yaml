@@ -39,7 +39,26 @@ metadata:
     profile: cloud
 spec:
   # agent pod should go on stable node pool so that builds don't fail due to preemption. Requires priorityclass.yaml
-  priorityClassName: high-priority
+  priorityClassName: high-priority  # requires priorityclass.yaml
+  affinity:
+    # avoid GKE preemption causing build failures
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: cloud.google.com/gke-preemptible
+              operator: DoesNotExist
+#      preferredDuringSchedulingIgnoredDuringExecution:
+#        - weight: 100
+#          preference:
+#            matchExpressions:
+#              - key: cloud.google.com/gke-preemptible
+#                operator: DoesNotExist
+  tolerations:
+    - key: cloud.google.com/gke-preemptible
+      operator: Equal
+      value: "false"
+      effect: PreferNoSchedule
   securityContext:
     runAsUser: 0    # required to access docker.sock
     #fsGroup: 1000  # jenkins gid to access docker.sock, but fails to change socket group owner in container
