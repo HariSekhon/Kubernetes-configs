@@ -56,7 +56,26 @@ spec:
         app: teamcity-agent
         profile: cloud
     spec:
-      priorityClassName: high-priority
+      priorityClassName: high-priority  # requires priorityclass.yaml
+      affinity:
+        # avoid GKE preemption causing build failures
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: cloud.google.com/gke-preemptible
+                  operator: DoesNotExist
+#          preferredDuringSchedulingIgnoredDuringExecution:
+#            - weight: 100
+#              preference:
+#                matchExpressions:
+#                  - key: cloud.google.com/gke-preemptible
+#                    operator: DoesNotExist
+      tolerations:
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "false"
+          effect: PreferNoSchedule
       securityContext:
         #runAsUser: 0
         # set mount point group to gid of teamcity process
