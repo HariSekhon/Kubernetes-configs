@@ -22,6 +22,13 @@
 
 # https://cloud.google.com/kubernetes-engine/docs/how-to/vertical-pod-autoscaling
 
+# XXX: Tip: deploy in "Off" mode to get resource request recommendations via:
+#
+#   kubectl describe vpa APP-vpa
+#     or
+#   kubectl get vpa APP-vpa --output yaml
+#
+
 ---
 apiVersion: autoscaling.k8s.io/v1beta2
 kind: VerticalPodAutoscaler
@@ -34,12 +41,6 @@ spec:
     kind: Deployment
     name: APP-deployment
   updatePolicy:
-    # XXX: Tip: deploy to get recommendations via:
-    #
-    #   kubectl describe vpa APP-vpa
-    #     or
-    #   kubectl get vpa APP-vpa --output yaml
-    #
     updateMode: Off  # setting this to Auto or Recreate may cause downtime and requires pods to be recreated, be careful with pods that take several minutes to come up (eg. web apps that preload cache before becoming ready)
     #updateMode: Initial  # only sets resources at creation time, never updates / cycles pods later
 #    updateMode:  Auto  # same as Recreate but may take advantage of restart-free updates at a later date
