@@ -55,6 +55,6 @@ spec:
 #        controlledValues: RequestsAndLimits
 #      # switch it off for this sidecar
 #      - containerName: my-sidecar
-#        mode: Off
+#        mode: "Off"
 #      - containerName: istio-proxy
-#        mode: Off
+#        mode: "Off"
