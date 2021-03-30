@@ -30,4 +30,4 @@ spec:
     kind: Deployment
     name: APP-deployment
   updatePolicy:
-    updateMode: "auto"
+    updateMode: "auto"  # set to "Off" to just get the recommendations via 'k get vpa APP-vpa --output yaml'
