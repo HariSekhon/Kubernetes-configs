@@ -18,6 +18,10 @@
 #                 V e r t i c a l   P o d   A u t o s c a l e r
 # ============================================================================ #
 
+# https://cloud.google.com/kubernetes-engine/docs/concepts/verticalpodautoscaler
+
+# https://cloud.google.com/kubernetes-engine/docs/how-to/vertical-pod-autoscaling
+
 ---
 apiVersion: autoscaling.k8s.io/v1beta2
 kind: VerticalPodAutoscaler
@@ -30,4 +34,27 @@ spec:
     kind: Deployment
     name: APP-deployment
   updatePolicy:
-    updateMode: "auto"  # set to "Off" to just get the recommendations via 'k get vpa APP-vpa --output yaml'
+    # XXX: Tip: deploy to get recommendations via:
+    #
+    #   kubectl describe vpa APP-vpa
+    #     or
+    #   kubectl get vpa APP-vpa --output yaml
+    #
+    updateMode: Off  # setting this to Auto or Recreate may cause downtime and requires pods to be recreated, be careful with pods that take several minutes to come up (eg. web apps that preload cache before becoming ready)
+    #updateMode: Initial  # only sets resources at creation time, never updates / cycles pods later
+#    updateMode:  Auto  # same as Recreate but may take advantage of restart-free updates at a later date
+#    containerPolicies:
+#      - containerName: '*'
+#        minAllowed:
+#          cpu: 100m
+#          memory: 100Mi
+#        maxAllowed:
+#          cpu: 1
+#          memory: 500Mi
+#        controlledResources: ["cpu", "memory"]
+#        controlledValues: RequestsAndLimits
+#      # switch it off for this sidecar
+#      - containerName: my-sidecar
+#        mode: Off
+#      - containerName: istio-proxy
+#        mode: Off
