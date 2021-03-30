@@ -19,7 +19,7 @@
 
 # Combines Horizontal Pod Autoscaler for CPU + Vertical Pod Autoscaler for Memory
 
-# GKE Specific
+# GKE Specific - requires cluster version 1.19.4-gke.1700
 
 # https://cloud.google.com/kubernetes-engine/docs/how-to/multidimensional-pod-autoscaling
 
