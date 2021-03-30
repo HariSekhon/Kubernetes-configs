@@ -40,7 +40,7 @@ spec:
     name: APP-deployment
   minReplicas: 3
   maxReplicas: 5
-  targetCPUUtilizationPercentage: 60
+  targetCPUUtilizationPercentage: 70
 
   # multiple metrics using autoscaling/v2beta2 - remove targetCPUUtilizationPercentage if using this
 #  metrics:
@@ -49,7 +49,7 @@ spec:
 #        name: cpu
 #        target:
 #          type: Utilization
-#          averageUtilization: 60
+#          averageUtilization: 70
 #    - type: Resource
 #      resource:
 #        name: memory
