@@ -1,0 +1,58 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-03-30 18:56:46 +0100 (Tue, 30 Mar 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#         M u l t i D i m e n s i o n a l   P o d   A u t o s c a l e r
+# ============================================================================ #
+
+# Combines Horizontal Pod Autoscaler for CPU + Vertical Pod Autoscaler for Memory
+
+# GKE Specific
+
+# https://cloud.google.com/kubernetes-engine/docs/how-to/multidimensional-pod-autoscaling
+
+---
+apiVersion: autoscaling.gke.io/v1beta1
+kind: MultidimPodAutoscaler
+metadata:
+  name: NAME
+  namespace: NAMESPACE
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: NAME
+  goals:
+    metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+  constraints:
+    global:
+      minReplicas: 3
+      maxReplicas: 5
+    containerControlledResources: [ memory ]
+    container:
+    - name: '*'
+      requests:
+        minAllowed:
+          memory: 256Mi
+        maxAllowed:
+          memory: 2Gi
+  policy:
+    updateMode: Auto
