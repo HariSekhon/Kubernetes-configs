@@ -56,6 +56,13 @@ spec:
       #command:
       #  - cat
       tty: true
+      resources:
+        requests:
+          cpu: 200m  # actually takes 800m but overcontend rather than spawning too many nodes for bursty workload
+          memory: 300Mi # uses around 250Mi
+        limits:
+          cpu: "1"
+          memory: 1Gi
     # more containers if you want to run different stages in different containers
   #  - name: busybox
   #    image: busybox
