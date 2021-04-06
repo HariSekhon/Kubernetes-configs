@@ -58,7 +58,7 @@ spec:
       tty: true
       resources:
         requests:
-          cpu: 200m  # actually takes 800m but overcontend rather than spawning too many nodes for bursty workload
+          cpu: 300m  # actually takes 800m but overcontend rather than spawning too many nodes for bursty workload
           memory: 300Mi # uses around 250Mi
         limits:
           cpu: "1"
