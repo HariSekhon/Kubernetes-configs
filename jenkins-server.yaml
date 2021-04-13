@@ -70,6 +70,8 @@ spec:
       containers:
       - name: jenkins-server
         #image: jenkins/jenkins:2.228
+        # XXX: beware this may auto-upgrade and you may have to upgrade all plugins to fix broken configuration pages
+        # XXX: better to fix this to a specific version
         image: jenkins/jenkins:lts
         ports:
           - name: http  # UI
