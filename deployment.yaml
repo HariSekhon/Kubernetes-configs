@@ -144,6 +144,13 @@ spec:
       # XXX: allow scheduling on reserved by default via taint non-preemptible VMs
       #      tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
       #           then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
+      # ignore taints
+      #tolerations:
+      #  - key: "myKey"
+      #    operator: "Exists"  # if myKey exists ignore NoSchedule
+      #    operator: "Equal"   # if myKey's value = "value" ignore NoSchedule
+      #      value: "value"
+      #    effect: "NoSchedule"
       tolerations:
         - key: cloud.google.com/gke-preemptible
           operator: Equal
@@ -260,10 +267,16 @@ spec:
                 - /bin/sh
                 - -c
                 - nodetool drain
-        # ignore taints
-        #tolerations:
-        #  - key: "myKey"
-        #    operator: "Exists"  # if myKey exists ignore NoSchedule
-        #    operator: "Equal"   # if myKey's value = "value" ignore NoSchedule
-        #      value: "value"
-        #    effect: "NoSchedule"
+
+      # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhost
+      # https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
+      - name: cloud-sql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.17
+        command:
+          - /cloud_sql_proxy
+          - "-ip_address_types=PRIVATE"
+          - "-instances=<INSTANCE_CONNECTION_NAME>"
+        securityContext:
+          # The default Cloud SQL proxy image runs as the
+          # "nonroot" user and group (uid: 65532) by default.
+          runAsNonRoot: true
