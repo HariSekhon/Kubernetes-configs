@@ -32,7 +32,8 @@ metadata:
   # https://cloud.google.com/load-balancing/docs/internal
   # create GKE internal Load Balancer - available within VPC region
   #annotations:
-  #  networking.gke.io/load-balancer-type: Internal
+  #  networking.gke.io/load-balancer-type: Internal  # GKE 1.17+
+  #  cloud.google.com/load-balancer-type: Internal   # GKE <= 1.16
 spec:
   type: ClusterIP   # default
   #clusterIP: None  # headless service - returns all A records instead of round robin. Useful for seeding (eg. Cassandra, Elasticsearch), or Service Discovery where load balancing is not needed (eg. Jenkins / TeamCity server)
