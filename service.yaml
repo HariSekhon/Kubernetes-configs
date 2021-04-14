@@ -34,6 +34,7 @@ metadata:
   #annotations:
   #  networking.gke.io/load-balancer-type: Internal  # GKE 1.17+
   #  cloud.google.com/load-balancer-type: Internal   # GKE <= 1.16
+  #  networking.gke.io/internal-load-balancer-allow-global-access: "true"  # GKE 1.17+ - allow routing from VPC networks in other regions, VPC peers etc.
 spec:
   type: ClusterIP   # default
   #clusterIP: None  # headless service - returns all A records instead of round robin. Useful for seeding (eg. Cassandra, Elasticsearch), or Service Discovery where load balancing is not needed (eg. Jenkins / TeamCity server)
