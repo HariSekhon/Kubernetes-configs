@@ -267,9 +267,15 @@ spec:
                 - /bin/sh
                 - -c
                 - nodetool drain
-
+      #
       # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhost
-      # https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
+      #
+      #   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
+      #
+      # Set up Workload Identity integration between k8s SA + GCP SA
+      #
+      #   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine#workload-identity
+      #
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
         command:
