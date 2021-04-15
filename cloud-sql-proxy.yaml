@@ -1,0 +1,102 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2019-11-25 13:47:16 +0000 (Mon, 25 Nov 2019)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#              C l o u d   S Q L   P r o x y   D e p l o y m e n t
+# ============================================================================ #
+
+# GCP Cloud SQL Proxy Deployment - for use by CronJobs for which sidecars would cuse zombies
+#
+#   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
+#
+# Set up Workload Identity integration between k8s SA + GCP SA
+#
+#   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine#workload-identity
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-sql-proxy
+  namespace: NAMESPACE
+  labels:
+    app: cloud-sql-proxy
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+spec:
+  selector:
+    matchLabels:
+      app: cloud-sql-proxy
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: cloud-sql-proxy
+    spec:
+      # XXX: important for Workload Identity
+      serviceAccount: cloud-sql-proxy
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: cloud.google.com/gke-preemptible
+                  operator: DoesNotExist
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: topology.kubernetes.io/zone
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - cloud-sql-proxy
+      tolerations:
+        - key: cloud.google.com/gke-preemptible
+          operator: Equal
+          value: "false"
+          effect: PreferNoSchedule
+      containers:
+      - name: cloud-sql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.17
+        command:
+          - /cloud_sql_proxy
+          - "-ip_address_types=PRIVATE"
+          - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:5432"
+        env:
+        - name: CLOUD_SQL_INSTANCE
+          valueFrom:
+            configMapKeyRef:
+              # XXX: Edit
+              name: my-configmap
+              key: cloud-sql-instance
+        readinessProbe:
+          tcpSocket:
+            port: 5432
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            port: 5432
+          failureThreshold: 5
+        securityContext:
+          # runs as uid/gid 65532 by default
+          runAsNonRoot: true
