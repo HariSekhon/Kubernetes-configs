@@ -97,6 +97,13 @@ spec:
           tcpSocket:
             port: 5432
           failureThreshold: 5
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2Gi
+          requests:
+            cpu: 100m
+            memory: 128Mi
         securityContext:
           # runs as uid/gid 65532 by default
           runAsNonRoot: true
