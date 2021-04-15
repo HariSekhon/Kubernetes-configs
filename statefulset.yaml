@@ -32,7 +32,8 @@ metadata:
   namespace: NAMESPACE
   annotations:
     # see also k8s_pod_disruption_budget.yaml
-    cluster-autoscaler.kubernetes.io/safe-to-evict: False
+    # XXX: set to true if this can be evicted, otherwise this can prevent cluster autoscaler scale down
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
 spec:
   replicas: 3
   serviceName: NAME
