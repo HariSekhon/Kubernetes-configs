@@ -191,7 +191,7 @@ spec:
         command:
           - /cloud_sql_proxy
           - "-ip_address_types=PRIVATE"
-          - "-instances=<INSTANCE_CONNECTION_NAME>"
+          - "-instances=<INSTANCE_CONNECTION_NAME>=tcp:5432"  # must specify a port (eg. 5432 for PostgreSQL or 3306 for MySQL, or else a -dir option if using socket dir)
         securityContext:
           # The default Cloud SQL proxy image runs as the
           # "nonroot" user and group (uid: 65532) by default.
