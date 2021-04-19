@@ -71,11 +71,6 @@ spec:
 #                matchExpressions:
 #                  - key: cloud.google.com/gke-preemptible
 #                    operator: DoesNotExist
-      tolerations:
-        - key: cloud.google.com/gke-preemptible
-          operator: Equal
-          value: "false"
-          effect: PreferNoSchedule
       securityContext:
         #runAsUser: 0
         # set mount point group to gid of teamcity process
