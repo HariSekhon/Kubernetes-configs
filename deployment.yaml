@@ -141,9 +141,6 @@ spec:
                     operator: In
                     values:
                       - APP
-      # XXX: allow scheduling on reserved by default via taint non-preemptible VMs
-      #      tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
-      #           then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
       # ignore taints
       #tolerations:
       #  - key: "myKey"
@@ -151,11 +148,12 @@ spec:
       #    operator: "Equal"   # if myKey's value = "value" ignore NoSchedule
       #      value: "value"
       #    effect: "NoSchedule"
+      # XXX: allow scheduling on preemptible VMs with a NoSchedule taint if safe to do so
       tolerations:
         - key: cloud.google.com/gke-preemptible
           operator: Equal
-          value: "false"
-          effect: PreferNoSchedule
+          value: "true"
+          effect: NoSchedule
       minReadySeconds: 0  # secs healthy before serving
       progressDeadlineSeconds: 120
       terminationGracePeriodSeconds: 120  # how long between SIGTERM and SIGKILL (kill -9) - may want to set higher than default 30 secs eg. 1800 for Cassandra
