@@ -72,11 +72,3 @@ spec:
                     operator: In
                     values:
                       - ingress-nginx
-      # XXX: allow scheduling on reserved by default via taint non-preemptible VMs
-      #      tip: taint the non-preemptible nodes eg. kubectl taint nodes node1 "cloud.google.com/gke-preemptible"="false":PreferNoSchedule
-      #           then add tolerance so only select deployments get priority scheduling on stable non-preemptible nodes
-      tolerations:
-        - key: cloud.google.com/gke-preemptible
-          operator: Equal
-          value: "false"
-          effect: PreferNoSchedule
