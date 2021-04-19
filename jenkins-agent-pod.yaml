@@ -44,11 +44,6 @@ spec:
 #            matchExpressions:
 #              - key: cloud.google.com/gke-preemptible
 #                operator: DoesNotExist
-  tolerations:
-    - key: cloud.google.com/gke-preemptible
-      operator: Equal
-      value: "false"
-      effect: PreferNoSchedule
   containers:
     - name: gcloud-sdk  # do not name this 'jnlp', without that container this'll never come up properly to execute the build
       image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
