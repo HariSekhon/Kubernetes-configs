@@ -70,11 +70,6 @@ spec:
                     operator: In
                     values:
                       - cloud-sql-proxy
-      tolerations:
-        - key: cloud.google.com/gke-preemptible
-          operator: Equal
-          value: "false"
-          effect: PreferNoSchedule
       containers:
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
