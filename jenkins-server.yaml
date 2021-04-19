@@ -57,11 +57,6 @@ spec:
                 matchExpressions:
                   - key: cloud.google.com/gke-preemptible
                     operator: DoesNotExist
-      tolerations:
-        - key: cloud.google.com/gke-preemptible
-          operator: Equal
-          value: "false"
-          effect: PreferNoSchedule
       terminationGracePeriodSeconds: 120
       securityContext:
         #runAsUser: 0
