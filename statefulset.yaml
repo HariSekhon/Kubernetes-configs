@@ -106,7 +106,9 @@ spec:
                       - APP
       # XXX: allow scheduling on preemptible VMs with a NoSchedule taint if safe to do so
       tolerations:
-        - key: cloud.google.com/gke-preemptible
+        # use same shorter key across clouds, easier to work with and keeps yaml more portable
+        #- key: cloud.google.com/gke-preemptible
+        - key: preemptible
           operator: Equal
           value: "true"
           effect: NoSchedule
