@@ -62,17 +62,22 @@ spec:
           # - invalidate Stateful guarantees and can lead to data loss !!
           # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#kubernetes_constraint_violations
           # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
-#          requiredDuringSchedulingIgnoredDuringExecution:
-#            nodeSelectorTerms:
-#              - matchExpressions:
-#                - key: cloud.google.com/gke-preemptible
-#                  operator: DoesNotExist
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: cloud.google.com/gke-preemptible
-                    operator: DoesNotExist
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+                - key: cloud.google.com/gke-preemptible
+                  operator: DoesNotExist
+                # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
+                - key: eks.amazonaws.com/capacityType
+                  operator: NotIn
+                  values:
+                  - SPOT
+                # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
+                - key: kubernetes.azure.com/scalesetpriority
+                  operator: NotIn
+                  values:
+                  - spot
         #podAffinity:
         podAntiAffinity:
           # XXX: spread app across AZs
@@ -104,14 +109,6 @@ spec:
                     operator: In
                     values:
                       - APP
-      # XXX: allow scheduling on preemptible VMs with a NoSchedule taint if safe to do so
-      tolerations:
-        # use same shorter key across clouds, easier to work with and keeps yaml more portable
-        #- key: cloud.google.com/gke-preemptible
-        - key: preemptible
-          operator: Equal
-          value: "true"
-          effect: NoSchedule
       #serviceAccountName: NAME
       securityContext:
         # see pod-security-policy.yaml for wider enforcement
