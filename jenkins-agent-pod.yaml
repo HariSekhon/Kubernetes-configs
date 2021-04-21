@@ -35,37 +35,37 @@ spec:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
-          - matchExpressions:
-            - key: cloud.google.com/gke-preemptible
-              operator: DoesNotExist
+        - matchExpressions:
+          - key: cloud.google.com/gke-preemptible
+            operator: DoesNotExist
 #      preferredDuringSchedulingIgnoredDuringExecution:
-#        - weight: 100
-#          preference:
-#            matchExpressions:
-#              - key: cloud.google.com/gke-preemptible
-#                operator: DoesNotExist
+#      - weight: 100
+#        preference:
+#          matchExpressions:
+#          - key: cloud.google.com/gke-preemptible
+#            operator: DoesNotExist
   containers:
-    - name: gcloud-sdk  # do not name this 'jnlp', without that container this'll never come up properly to execute the build
-      image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
-      # works without this
-      #command:
-      #  - cat
-      tty: true
-      resources:
-        requests:
-          cpu: 300m  # actually takes 800m but overcontend rather than spawning too many nodes for bursty workload
-          memory: 300Mi # uses around 250Mi
-        limits:
-          cpu: "1"
-          memory: 1Gi
+  - name: gcloud-sdk  # do not name this 'jnlp', without that container this'll never come up properly to execute the build
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+    # works without this
+    #command:
+    #- cat
+    tty: true
+    resources:
+      requests:
+        cpu: 300m  # actually takes 800m but overcontend rather than spawning too many nodes for bursty workload
+        memory: 300Mi # uses around 250Mi
+      limits:
+        cpu: "1"
+        memory: 1Gi
     # more containers if you want to run different stages in different containers
-  #  - name: busybox
-  #    image: busybox
-  #    command:
-  #      - cat
-  #    tty: true
-  #  - name: golang
-  #    image: golang:1.10
-  #    command:
-  #      - cat
-  #    tty: true
+#  - name: busybox
+#    image: busybox
+#    command:
+#    - cat
+#    tty: true
+#  - name: golang
+#    image: golang:1.10
+#    command:
+#    - cat
+#    tty: true
