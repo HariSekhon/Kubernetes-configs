@@ -31,19 +31,21 @@ namespace: jenkins
 spec:
   priorityClassName: high-priority  # requires priorityclass.yaml
   affinity:
-    # avoid GKE preemption causing build failures
+    # avoid preemption which can cause build failures
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
           - key: cloud.google.com/gke-preemptible
             operator: DoesNotExist
-#      preferredDuringSchedulingIgnoredDuringExecution:
-#      - weight: 100
-#        preference:
-#          matchExpressions:
-#          - key: cloud.google.com/gke-preemptible
-#            operator: DoesNotExist
+          - key: eks.amazonaws.com/capacityType
+            operator: NotIn
+            values:
+            - SPOT
+          - key: kubernetes.azure.com/scalesetpriority
+            operator: NotIn
+            values:
+            - spot
   containers:
   - name: gcloud-sdk  # do not name this 'jnlp', without that container this'll never come up properly to execute the build
     image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
