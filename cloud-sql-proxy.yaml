@@ -51,16 +51,16 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: cloud.google.com/gke-preemptible
-                    operator: DoesNotExist
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-              - matchExpressions:
-                - key: cloud.google.com/gke-preemptible
-                  operator: DoesNotExist
+            - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - topologyKey: topology.kubernetes.io/zone
@@ -74,9 +74,9 @@ spec:
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
         command:
-          - /cloud_sql_proxy
-          - "-ip_address_types=PRIVATE"
-          - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:5432"
+        - /cloud_sql_proxy
+        - "-ip_address_types=PRIVATE"
+        - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:5432"
         env:
         - name: CLOUD_SQL_INSTANCE
           valueFrom:
