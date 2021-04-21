@@ -25,9 +25,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-namespace: jenkins
-#  labels:
-#  app: gcloud-sdk
+  namespace: jenkins
+  labels:
+  app: jenkins-agent
 spec:
   priorityClassName: high-priority  # requires priorityclass.yaml
   affinity:
@@ -46,6 +46,26 @@ spec:
             operator: NotIn
             values:
             - spot
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: topology.kubernetes.io/zone
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - jenkins-agent
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - jenkins-agent
   containers:
   - name: gcloud-sdk  # do not name this 'jnlp', without that container this'll never come up properly to execute the build
     image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
