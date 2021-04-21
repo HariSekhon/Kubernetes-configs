@@ -42,17 +42,11 @@ spec:
       affinity:
         # avoid GKE preemptible nodes causing outages
         nodeAffinity:
-#          requiredDuringSchedulingIgnoredDuringExecution:
-#            nodeSelectorTerms:
-#              - matchExpressions:
-#                - key: cloud.google.com/gke-preemptible
-#                  operator: DoesNotExist
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: cloud.google.com/gke-preemptible
-                    operator: DoesNotExist
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
       # TODO: add sidecar logging cleanup container to remove very old datestamped logs or modify TeamCity's log rotation
       terminationGracePeriodSeconds: 120
       securityContext:
@@ -110,43 +104,43 @@ spec:
             cpu: 200m    # 69m resting
             memory: 2Gi  # 1700Mi resting with pipelines
         volumeMounts:
-          # contains config/, lib/, plugins/, system/
-          - mountPath: /data/teamcity_server/datadir
-            name: teamcity-server-datadir
-          # if we reschedule the pod on another node we still want continuity of logs and their history
-          - mountPath: /opt/teamcity/logs
-            name: teamcity-server-logs
+        # contains config/, lib/, plugins/, system/
+        - mountPath: /data/teamcity_server/datadir
+          name: teamcity-server-datadir
+        # if we reschedule the pod on another node we still want continuity of logs and their history
+        - mountPath: /opt/teamcity/logs
+          name: teamcity-server-logs
 # Optional: uncomment RemoteIpValve block in server.xml containing x-forwarded-for and x-forwarded-proto then upload to a configmap called server-xml in teamcity namespace to get rid of the following warning:
 #
-#           Requests with incorrect proxy configuration were detected
-#           Insecure Tomcat connector attributes
-#           Request by <user> from x.x.x.x
+#         Requests with incorrect proxy configuration were detected
+#         Insecure Tomcat connector attributes
+#         Request by <user> from x.x.x.x
 #
-#          - mountPath: /opt/teamcity/conf/server.xml
-#            subPath: server.xml
-#            name: server-xml
+#        - mountPath: /opt/teamcity/conf/server.xml
+#          subPath: server.xml
+#          name: server-xml
 #      volumes:
-#        - name: server-xml
-#          configMap:
-#            name: server-xml
+#      - name: server-xml
+#        configMap:
+#          name: server-xml
   volumeClaimTemplates:
-    - metadata:
-        name: teamcity-server-datadir
-      spec:
-        storageClassName: gcp-standard-resizeable
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            # after 1 year this was only 3GB
-            storage: 20Gi
-    - metadata:
-        name: teamcity-server-logs
-      spec:
-        storageClassName: gcp-standard-resizeable
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            # after nearly a year the server logs were only 1.2GB,but accumulated datestamped logs, hence TODO to add sidecar to stop them building up further
-            storage: 10Gi
+  - metadata:
+      name: teamcity-server-datadir
+    spec:
+      storageClassName: gcp-standard-resizeable
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          # after 1 year this was only 3GB
+          storage: 20Gi
+  - metadata:
+      name: teamcity-server-logs
+    spec:
+      storageClassName: gcp-standard-resizeable
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          # after nearly a year the server logs were only 1.2GB,but accumulated datestamped logs, hence TODO to add sidecar to stop them building up further
+          storage: 10Gi
