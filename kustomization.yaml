@@ -86,7 +86,7 @@ patches:
 #      labelSelector: <optional label selector>
 #      annotationSelector: <optional annotation selector>
   # make cronjobs preemptible if this kustomization is used on dev/staging environments
-  - path: cronjob.preemptible.patch.yaml
+  - path: cronjob-preemptible.patch.yaml
     target:
       kind: CronJob
 
