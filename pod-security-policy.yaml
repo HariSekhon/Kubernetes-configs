@@ -45,4 +45,4 @@ spec:
   fsGroup:
     rule: RunAsAny
   volumes:
-    - '*'
+  - '*'
