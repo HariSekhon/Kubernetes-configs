@@ -30,7 +30,7 @@ metadata:
     app: cloud-sql-proxy
 spec:
   ports:
-    - port: 5432
-      name: postgres
+  - port: 5432
+    name: postgres
   selector:
     app: cloud-sql-proxy
