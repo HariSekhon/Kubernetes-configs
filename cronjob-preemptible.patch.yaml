@@ -13,7 +13,11 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# used to patch all cronjobs to be preemptible eg. on dev / staging environments
+# ============================================================================ #
+#                    P r e e m p t i b l e   C r o n J o b s
+# ============================================================================ #
+
+# Use to patch all CronJobs to be preemptible eg. on dev / staging environments
 
 ---
 apiVersion: batch/v1beta1
@@ -28,28 +32,28 @@ spec:
           affinity:
             nodeAffinity:
               preferredDuringSchedulingIgnoredDuringExecution:
-              # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+                # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
               - weight: 100
                 preference:
                   matchExpressions:
-                    - key: cloud.google.com/gke-preemptible
-                      operator: Exists
-              # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
+                  - key: cloud.google.com/gke-preemptible
+                    operator: Exists
+                # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
               - weight: 100
                 preference:
                   matchExpressions:
-                    - key: eks.amazonaws.com/capacityType
-                      operator: In
-                      values:
-                        - SPOT
+                  - key: eks.amazonaws.com/capacityType
+                    operator: In
+                    values:
+                    - SPOT
                 # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
               - weight: 100
                 preference:
                   matchExpressions:
-                    - key: kubernetes.azure.com/scalesetpriority
-                      operator: In
-                      values:
-                        - spot
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: In
+                    values:
+                    - spot
           tolerations:
             # XXX: this must be set yourself on AWS EKS / GCP GKE
             - key: preemptible
