@@ -33,13 +33,13 @@ spec:
   #
   # Subject Alternative Names for the cert to support
   dnsNames:
-    # XXX: set this
-    - FOO.DOMAIN.COM
-    - BAR.DOMAIN.COM
+  # XXX: set this
+  - FOO.DOMAIN.COM
+  - BAR.DOMAIN.COM
   #uris:
-  #  - spiffe://cluster.local/ns/sandbox/sa/example
+  #- spiffe://cluster.local/ns/sandbox/sa/example
   #ipAddresses:
-  #  - 192.168.0.5
+  #- 192.168.0.5
   issuerRef:
     # default, locally namespaced
     #kind: Issuer
