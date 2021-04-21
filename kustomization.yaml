@@ -59,7 +59,6 @@ resources:
   #- cronjob.yaml
   #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
 
-# I prefer this to the JSON inline patch as it's separately usable from the CLI as well
 # must name metadata.name [and often metadata.namespace] in order to match exact resources from the above yamls to match + patch
 patchesStrategicMerge:
   # overrides replica counts / memory / ports across environments etc - anything that could be defined in a normal deployment
@@ -74,6 +73,10 @@ patchesStrategicMerge:
   # quick fix temporary init container to reset things like mount point permissions / owner mismatch - a common problem, easily solved this way
   #- init-container-fix.patch.yaml
 
+# https://github.com/kubernetes-sigs/kustomize/blob/master/examples/jsonpatch.md
+
+# https://github.com/kubernetes-sigs/kustomize/blob/master/examples/patchMultipleObjects.md
+#
 # patch multiple objects at once - make the patch generic and target it in kustomization.yaml
 patches:
 #  - path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
