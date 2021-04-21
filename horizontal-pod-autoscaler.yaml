@@ -44,19 +44,19 @@ spec:
 
   # multiple metrics using autoscaling/v2beta2 - remove targetCPUUtilizationPercentage if using this
 #  metrics:
-#    - type: Resource
-#      resource:
-#        name: cpu
-#        target:
-#          type: Utilization
-#          averageUtilization: 70
-#    - type: Resource
-#      resource:
-#        name: memory
-#        #targetAverageValue: 250M
-#        target:
-#          type: AverageValue
-#          averageValue: 250Mi
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      target:
+#        type: Utilization
+#        averageUtilization: 70
+#  - type: Resource
+#    resource:
+#      name: memory
+#      #targetAverageValue: 250M
+#      target:
+#        type: AverageValue
+#        averageValue: 250Mi
 
   # Kubernetes 1.20+ - container level resource metrics - check the important container in the pod
 # type: ContainerResource
