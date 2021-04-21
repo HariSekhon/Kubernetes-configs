@@ -46,15 +46,9 @@ spec:
       affinity:
         # avoid GKE preemptible nodes causing outages
         nodeAffinity:
-#          requiredDuringSchedulingIgnoredDuringExecution:
-#            nodeSelectorTerms:
-#            - matchExpressions:
-#              - key: cloud.google.com/gke-preemptible
-#                operator: DoesNotExist
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            preference:
-              matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
               - key: cloud.google.com/gke-preemptible
                 operator: DoesNotExist
       terminationGracePeriodSeconds: 120
