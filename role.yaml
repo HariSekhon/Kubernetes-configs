@@ -26,9 +26,9 @@ kind: ClusterRole
 metadata:
   name: monitoring-endpoints
 rules:
-  - apiGroups: [""]
-    resources: ["services", "endpoints", "pods", "storageclasses"]
-    verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["services", "endpoints", "pods", "storageclasses"]
+  verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -36,8 +36,8 @@ metadata:
   namespace: default
   name: NAME
 rules:
-  - nonResourceURLs: ["metrics/", "/metrics/*"]
-    verbs: ["get", "post"]
+- nonResourceURLs: ["metrics/", "/metrics/*"]
+  verbs: ["get", "post"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -45,9 +45,9 @@ metadata:
   name: NAME
   namespace: NAMESPACE
 rules:
-  - apiGroups: [""]
-    resources: ["pods", "pods/logs"]
-    verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods", "pods/logs"]
+  verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -55,6 +55,6 @@ metadata:
   name: NAME
   namespace: NAMESPACE
 rules:
-  - apiGroups: [""]
-    resourcesNames: ["my-pod"]  # must name resources to allow update / patch
-    verbs: ["patch", "update"]
+- apiGroups: [""]
+  resourcesNames: ["my-pod"]  # must name resources to allow update / patch
+  verbs: ["patch", "update"]
