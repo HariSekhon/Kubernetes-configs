@@ -37,15 +37,18 @@ metadata:
   namespace: NAMESPACE
 spec:
   containers:
-    - name: privileged-pod
-      image: busybox
-      securityContext:
-        privileged: true
-    # environment variable remapping:
-    # neither $(VAR) nor $VAR will work due to order of evaluation as these are evaluated only at yaml generation time which happens before pod creation, Kubernetes has no way of inferring the current value as this must be generated before the pod is created
-    # instead do it inside the command / script
-    #env:
-    #- name: WORKDIR
-    #  value: $PWD
-    command: ["sh"]
-    args: ["-c", "cd /tmp; WORKDIR=$PWD; echo my workdir is $WORKDIR"]
+  - name: privileged-pod
+    image: busybox
+    securityContext:
+      privileged: true
+  # environment variable remapping:
+  # neither $(VAR) nor $VAR will work due to order of evaluation as these are evaluated only at yaml generation time which happens before pod creation, Kubernetes has no way of inferring the current value as this must be generated before the pod is created
+  # instead do it inside the command / script
+  #env:
+  #- name: WORKDIR
+  #  value: $PWD
+    command:
+    - sh
+    args:
+    - -c
+    - cd /tmp; WORKDIR=$PWD; echo my workdir is $WORKDIR
