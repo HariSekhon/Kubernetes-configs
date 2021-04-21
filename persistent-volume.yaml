@@ -31,7 +31,7 @@ spec:
   capacity:
     storage: 10G
   accessModes:
-    - ReadOnlyMany
+  - ReadOnlyMany
   gcePersistentDisk:
     pdName: APP-disk
     fsType: ext4
