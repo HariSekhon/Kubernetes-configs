@@ -1,0 +1,40 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-04-21 10:52:12 +0100 (Wed, 21 Apr 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# used to patch all cronjobs to be preemptible eg. on dev / staging environments
+
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: ignored
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          affinity:
+            nodeAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                preference:
+                  matchExpressions:
+										- key: cloud.google.com/gke-preemptible
+											operator: Exists
+          tolerations:
+            - key: preemptible
+              operator: Equal
+              value: "true"
+              effect: NoSchedule
