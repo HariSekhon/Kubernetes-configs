@@ -161,6 +161,7 @@ spec:
       #    effect: "NoSchedule"
       # XXX: allow scheduling on preemptible VMs with a NoSchedule taint if safe to do so
       tolerations:
+        # XXX: this must be set yourself on AWS EKS / GCP GKE
         # taint AWS spot / GCP preemptible nodepools with short 'preemptible=true:NoSchedule' taint for convenience
         #- key: cloud.google.com/gke-preemptible
         - key: preemptible
