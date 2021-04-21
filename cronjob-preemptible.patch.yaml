@@ -55,13 +55,13 @@ spec:
                     values:
                     - spot
           tolerations:
-            # XXX: this must be set yourself on AWS EKS / GCP GKE
-            - key: preemptible
-              operator: Equal
-              value: "true"
-              effect: NoSchedule
-            # automatically set on Azure AKS
-            - key: kubernetes.azure.com/scalesetpriority
-              operator: Equal
-              value: spot
-              effect: NoSchedule
+          # XXX: this must be set yourself on AWS EKS / GCP GKE
+          - key: preemptible
+            operator: Equal
+            value: "true"
+            effect: NoSchedule
+          # automatically set on Azure AKS
+          - key: kubernetes.azure.com/scalesetpriority
+            operator: Equal
+            value: spot
+            effect: NoSchedule
