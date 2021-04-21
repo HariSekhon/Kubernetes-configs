@@ -74,6 +74,22 @@ patchesStrategicMerge:
   # quick fix temporary init container to reset things like mount point permissions / owner mismatch - a common problem, easily solved this way
   #- init-container-fix.patch.yaml
 
+# patch multiple objects at once - make the patch generic and target it in kustomization.yaml
+patches:
+#  - path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
+#    target:
+#      group: <optional group>
+#      version: <optional version>
+#      kind: <optional kind>
+#      name: <optional name>
+#      namespace: <optional namespace>
+#      labelSelector: <optional label selector>
+#      annotationSelector: <optional annotation selector>
+  # make cronjobs preemptible if this kustomization is used on dev/staging environments
+  - path: cronjob.preemptible.patch.yaml
+    target:
+      kind: CronJob
+
 # not my favourite way of doing it, prefer patchesStrategicMerge above
 # the only reason to use this is because not all resources or fields support strategic merge patches
 #patchesJson6902:
