@@ -64,7 +64,7 @@ spec:
           command:
           - perl
           args:
-          - "-Mbignum=bpi"
-          - "-wle"
-          - "print bpi(2000)"
+          - -Mbignum=bpi
+          - -wle
+          - print bpi(2000)
         restartPolicy: Never
