@@ -54,14 +54,14 @@ spec:
         imagePullPolicy: Always
         name: stress
         args:
-          - -cpus
-          - "2"
-          - -mem-total
-          - 950Mi
-          - -mem-alloc-size
-          - 100Mi
-          - -mem-alloc-sleep
-          - 1s
+        - -cpus
+        - "2"
+        - -mem-total
+        - 950Mi
+        - -mem-alloc-size
+        - 100Mi
+        - -mem-alloc-sleep
+        - 1s
         resources:
           limits:
             cpu: 1
