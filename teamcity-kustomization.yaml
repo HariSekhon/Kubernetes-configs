@@ -38,13 +38,13 @@ namespace: teamcity
 #namePrefix: dev-
 
 resources:
-  - ./storageclass-gcp-standard-resizeable.yaml
-  - ./teamcity-namespace.yaml
-  - ./teamcity-agent.yaml
-  - ./teamcity-agent-cloudprofile-deployment.yaml
-  - ./teamcity-ingress.yaml
-  - ./teamcity-server-role.yaml
-  - ./teamcity-server-rolebinding.yaml
-  - ./teamcity-server-serviceaccount.yaml
-  - ./teamcity-server.yaml
-  - ./teamcity-service.yaml
+- ./storageclass-gcp-standard-resizeable.yaml
+- ./teamcity-namespace.yaml
+- ./teamcity-agent.yaml
+- ./teamcity-agent-cloudprofile-deployment.yaml
+- ./teamcity-ingress.yaml
+- ./teamcity-server-role.yaml
+- ./teamcity-server-rolebinding.yaml
+- ./teamcity-server-serviceaccount.yaml
+- ./teamcity-server.yaml
+- ./teamcity-service.yaml
