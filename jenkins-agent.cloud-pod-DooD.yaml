@@ -48,12 +48,6 @@ spec:
         - matchExpressions:
           - key: cloud.google.com/gke-preemptible
             operator: DoesNotExist
-#      preferredDuringSchedulingIgnoredDuringExecution:
-#      - weight: 100
-#        preference:
-#          matchExpressions:
-#          - key: cloud.google.com/gke-preemptible
-#            operator: DoesNotExist
   securityContext:
     runAsUser: 0    # required to access docker.sock
     #fsGroup: 1000  # jenkins gid to access docker.sock, but fails to change socket group owner in container
