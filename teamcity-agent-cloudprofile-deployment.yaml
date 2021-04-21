@@ -73,6 +73,26 @@ spec:
                 operator: NotIn
                 values:
                 - spot
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: topology.kubernetes.io/zone
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - teamcity-agent
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - teamcity-agent
       securityContext:
         #runAsUser: 0
         # set mount point group to gid of teamcity process
