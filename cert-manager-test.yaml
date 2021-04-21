@@ -38,7 +38,7 @@ metadata:
   namespace: cert-manager-test
 spec:
   dnsNames:
-    - example.com
+  - example.com
   secretName: selfsigned-cert-tls
   issuerRef:
     name: test-selfsigned
