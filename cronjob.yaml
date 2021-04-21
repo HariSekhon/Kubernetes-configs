@@ -62,9 +62,9 @@ spec:
           image: perl
           # takes about a minute to execute
           command:
-            - perl
+          - perl
           args:
-            - "-Mbignum=bpi"
-            - "-wle"
-            - "print bpi(2000)"
+          - "-Mbignum=bpi"
+          - "-wle"
+          - "print bpi(2000)"
         restartPolicy: Never
