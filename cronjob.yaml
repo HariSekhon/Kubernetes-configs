@@ -61,6 +61,10 @@ spec:
         - name: NAME
           image: perl
           # takes about a minute to execute
-          command: ["perl"]
-          args: ["-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          command:
+            - perl
+          args:
+            - "-Mbignum=bpi"
+            - "-wle"
+            - "print bpi(2000)"
         restartPolicy: Never
