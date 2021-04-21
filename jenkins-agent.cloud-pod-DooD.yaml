@@ -56,6 +56,26 @@ spec:
             operator: NotIn
             values:
             - spot
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          topologyKey: topology.kubernetes.io/zone
+          labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - jenkins-agent
+      - weight: 100
+        podAffinityTerm:
+          topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - jenkins-agent
   securityContext:
     runAsUser: 0    # required to access docker.sock
     #fsGroup: 1000  # jenkins gid to access docker.sock, but fails to change socket group owner in container
