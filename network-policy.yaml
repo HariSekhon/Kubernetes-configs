@@ -32,15 +32,15 @@ metadata:
   namespace: NAMESPACE
 spec:
   policyTypes:
-    - Ingress
+  - Ingress
   podSelector:
     matchLabels:
       app: APP-backend
   ingress:
-    - from:
-      - podSelector:
-          matchLabels:
-            app: APP-frontend
+  - from:
+    - podSelector:
+        matchLabels:
+          app: APP-frontend
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -49,12 +49,12 @@ metadata:
   namespace: NAMESPACE
 spec:
   policyTypes:
-    - Ingress
+  - Ingress
   ingress:
-    - from:
-      - namespaceSelector:
-          matchLabels:
-            project: myothernamespace
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          project: myothernamespace
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -65,11 +65,11 @@ spec:
   policyTypes:
     - Ingress
   ingress:
-    - from:
-      - ipBlock:
-          cidr: x.x.x.x/16
-          except:
-          - x.x.x.x/24
+  - from:
+    - ipBlock:
+        cidr: x.x.x.x/16
+        except:
+        - x.x.x.x/24
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -78,13 +78,13 @@ metadata:
   namespace: NAMESPACE
 spec:
   policyTypes:
-    - Egress
+  - Egress
   podSelector:
     matchLabels:
       app: locked-down-app
   egress:
-    - ports:
-      - protocol: TCP
-        port: 53
-      - protocol: UDP
-        port: 53
+  - ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
