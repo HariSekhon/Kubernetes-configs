@@ -64,51 +64,51 @@ spec:
           # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-              - matchExpressions:
-                # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
-                - key: cloud.google.com/gke-preemptible
-                  operator: DoesNotExist
-                # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
-                - key: eks.amazonaws.com/capacityType
-                  operator: NotIn
-                  values:
-                  - SPOT
-                # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
-                - key: kubernetes.azure.com/scalesetpriority
-                  operator: NotIn
-                  values:
-                  - spot
+            - matchExpressions:
+              # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                - SPOT
+              # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                - spot
         #podAffinity:
         podAntiAffinity:
           # XXX: spread app across AZs
           # XXX: use preferred if num_replicas > num_AZs
 #          preferredDuringSchedulingIgnoredDuringExecution:
-#            - weight: 100
-#              podAffinityTerm:
-#                topologyKey: topology.kubernetes.io/zone
-#                labelSelector:
-#                  matchExpressions:
-#                    - key: app
-#                      operator: In
-#                      values:
-#                        - APP
+#          - weight: 100
+#            podAffinityTerm:
+#              topologyKey: topology.kubernetes.io/zone
+#              labelSelector:
+#                matchExpressions:
+#                - key: app
+#                  operator: In
+#                  values:
+#                  - APP
           requiredDuringSchedulingIgnoredDuringExecution:
-              # XXX: spread app across AZs
-            - topologyKey: topology.kubernetes.io/zone
-              labelSelector:
-                matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                      - APP
-              # XXX: spread app across hosts (default prefers spread, whereas this requires it)
-            - topologyKey: kubernetes.io/hostname
-              labelSelector:
-                matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                      - APP
+            # XXX: spread app across AZs
+          - topologyKey: topology.kubernetes.io/zone
+            labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - APP
+            # XXX: spread app across hosts (default prefers spread, whereas this requires it)
+          - topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - APP
       #serviceAccountName: NAME
       securityContext:
         # see pod-security-policy.yaml for wider enforcement
@@ -119,24 +119,24 @@ spec:
       - name: NAME
         image: postgres:9.6
         ports:
-          - name: NAME
-            containerPort: 5432
+        - name: NAME
+          containerPort: 5432
         #securityContext:
         #  privileged: true
         env:
-          - name: HEAP_SIZE
-            value: 1G
-          - name: CASSANDRA_SEEDS
-            value: cassandra-0.cassandra.svc.cluster.local,cassandra-1.cassandra.svc.cluster.local,cassandra-2.cassandra.svc.cluster.local
-          - name: POD_IP
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP  # K8S API path
-          - name: MYSECRET
-            valueFrom:
-              secretKeyRef:
-                name: my-secret
-                key: my-secret
+        - name: HEAP_SIZE
+          value: 1G
+        - name: CASSANDRA_SEEDS
+          value: cassandra-0.cassandra.svc.cluster.local,cassandra-1.cassandra.svc.cluster.local,cassandra-2.cassandra.svc.cluster.local
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP  # K8S API path
+        - name: MYSECRET
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: my-secret
         #lifecycle:
         # postStart:
         #   exec:
@@ -172,8 +172,8 @@ spec:
           periodSeconds: 10      # default (interval)
           timeoutSeconds: 1      # default
         volumeMounts:
-          - name: pgdata
-            mountPath: /var/lib/pgsql
+        - name: pgdata
+          mountPath: /var/lib/pgsql
       #
       # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhost
       #
@@ -186,9 +186,9 @@ spec:
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
         command:
-          - /cloud_sql_proxy
-          - "-ip_address_types=PRIVATE"
-          - "-instances=<INSTANCE_CONNECTION_NAME>=tcp:5432"  # must specify a port (eg. 5432 for PostgreSQL or 3306 for MySQL, or else a -dir option if using socket dir)
+        - /cloud_sql_proxy
+        - "-ip_address_types=PRIVATE"
+        - "-instances=<INSTANCE_CONNECTION_NAME>=tcp:5432"  # must specify a port (eg. 5432 for PostgreSQL or 3306 for MySQL, or else a -dir option if using socket dir)
         securityContext:
           # The default Cloud SQL proxy image runs as the
           # "nonroot" user and group (uid: 65532) by default.
