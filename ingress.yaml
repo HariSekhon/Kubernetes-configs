@@ -46,10 +46,10 @@ metadata:
 spec:
   # cert manager will auto-create SSL cert for this address and put it in named secret
   tls:
-      # XXX: Edit
-    - hosts:
-        - APP.DOMAIN.COM
-      secretName: APP-DOMAIN-tls
+    # XXX: Edit
+  - hosts:
+    - APP.DOMAIN.COM
+    secretName: APP-DOMAIN-tls
   rules:
     # XXX: Edit
   - host: APP.DOMAIN.COM
