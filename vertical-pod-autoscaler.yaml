@@ -45,17 +45,17 @@ spec:
     #updateMode: Initial  # only sets resources at creation time, never updates / cycles pods later
 #    updateMode:  Auto  # same as Recreate but may take advantage of restart-free updates at a later date
 #    containerPolicies:
-#      - containerName: '*'
-#        minAllowed:
-#          cpu: 100m
-#          memory: 100Mi
-#        maxAllowed:
-#          cpu: 1
-#          memory: 500Mi
-#        controlledResources: ["cpu", "memory"]
-#        controlledValues: RequestsAndLimits
-#      # switch it off for this sidecar
-#      - containerName: my-sidecar
-#        mode: "Off"
-#      - containerName: istio-proxy
-#        mode: "Off"
+#    - containerName: '*'
+#      minAllowed:
+#        cpu: 100m
+#        memory: 100Mi
+#      maxAllowed:
+#        cpu: 1
+#        memory: 500Mi
+#      controlledResources: ["cpu", "memory"]
+#      controlledValues: RequestsAndLimits
+#    # switch it off for this sidecar
+#    - containerName: my-sidecar
+#      mode: "Off"
+#    - containerName: istio-proxy
+#      mode: "Off"
