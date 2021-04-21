@@ -48,15 +48,15 @@ spec:
         nodeAffinity:
 #          requiredDuringSchedulingIgnoredDuringExecution:
 #            nodeSelectorTerms:
-#              - matchExpressions:
-#                - key: cloud.google.com/gke-preemptible
-#                  operator: DoesNotExist
+#            - matchExpressions:
+#              - key: cloud.google.com/gke-preemptible
+#                operator: DoesNotExist
           preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: cloud.google.com/gke-preemptible
-                    operator: DoesNotExist
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
       terminationGracePeriodSeconds: 120
       securityContext:
         #runAsUser: 0
@@ -69,16 +69,16 @@ spec:
         # XXX: better to fix this to a specific version
         image: jenkins/jenkins:lts
         ports:
-          - name: http  # UI
-            containerPort: 8080
-          - name: jnlp  # agents contact server on this port
-            containerPort: 50000
+        - name: http  # UI
+          containerPort: 8080
+        - name: jnlp  # agents contact server on this port
+          containerPort: 50000
         # if you have a reverse proxy or an ingress with a routing prefix such as /jenkins, tell Jenkins about it
         #env:
-        #  - name: JENKINS_OPTS
-        #    value: "--prefix=/jenkins"
-        #  - name: JAVA_OPTS
-        #    value: "-Dhudson.footerURL=http://my.domain.com"
+        #- name: JENKINS_OPTS
+        #  value: "--prefix=/jenkins"
+        #- name: JAVA_OPTS
+        #  value: "-Dhudson.footerURL=http://my.domain.com"
         # readiness probe is pointless really. this isn't a web farm pool, we want to get the UI no matter what state it is in
 #        readinessProbe:
 #          httpGet:
@@ -107,15 +107,15 @@ spec:
             cpu: 100m    # server takes 7m resting
             memory: 1.4Gi  # server takes 800-900Mi resting, but easily gets to 1300-1400Mi once you have a bunch of pipelines
         volumeMounts:
-          - mountPath: /var/jenkins_home
-            name: jenkins-home
+        - mountPath: /var/jenkins_home
+          name: jenkins-home
   volumeClaimTemplates:
-    - metadata:
-        name: jenkins-home
-      spec:
-        storageClassName: gcp-standard-resizeable
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 20Gi
+  - metadata:
+      name: jenkins-home
+    spec:
+      storageClassName: gcp-standard-resizeable
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 20Gi
