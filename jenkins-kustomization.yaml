@@ -36,15 +36,15 @@ namespace: jenkins
 #namePrefix: dev-
 
 resources:
-  - ./storageclass-gcp-standard-resizeable.yaml
-  - ./jenkins-namespace.yaml
-  # only enable this if using permanent agents on k8s, otherwise see jenkins-agent-cloud-pod.yaml
-  #- ./jenkins-agent.yaml
-  - ./jenkins-agent-serviceaccount.yaml
-  - ./jenkins-ingress.yaml
-  - ./jenkins-server-role.yaml
-  - ./jenkins-server-rolebinding.yaml
-  - ./jenkins-server-serviceaccount.yaml
-  - ./jenkins-server.yaml
-  - ./jenkins-service-discovery.yaml
-  - ./jenkins-service-ui.yaml
+- ./storageclass-gcp-standard-resizeable.yaml
+- ./jenkins-namespace.yaml
+# only enable this if using permanent agents on k8s, otherwise see jenkins-agent-cloud-pod.yaml
+#- ./jenkins-agent.yaml
+- ./jenkins-agent-serviceaccount.yaml
+- ./jenkins-ingress.yaml
+- ./jenkins-server-role.yaml
+- ./jenkins-server-rolebinding.yaml
+- ./jenkins-server-serviceaccount.yaml
+- ./jenkins-server.yaml
+- ./jenkins-service-discovery.yaml
+- ./jenkins-service-ui.yaml
