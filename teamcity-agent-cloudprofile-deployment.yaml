@@ -62,15 +62,15 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-              - matchExpressions:
-                - key: cloud.google.com/gke-preemptible
-                  operator: DoesNotExist
+            - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
 #          preferredDuringSchedulingIgnoredDuringExecution:
-#            - weight: 100
-#              preference:
-#                matchExpressions:
-#                  - key: cloud.google.com/gke-preemptible
-#                    operator: DoesNotExist
+#          - weight: 100
+#            preference:
+#              matchExpressions:
+#              - key: cloud.google.com/gke-preemptible
+#                operator: DoesNotExist
       securityContext:
         #runAsUser: 0
         # set mount point group to gid of teamcity process
@@ -93,19 +93,19 @@ spec:
         # DOCKER_IN_DOCKER - must use linux-sudo image or run entire container as root since Docker must be started by root
         image: jetbrains/teamcity-agent:2020.2.1-linux-sudo
         ports:
-          - containerPort: 9090
+        - containerPort: 9090
         securityContext:
           # required for DOCKER_IN_DOCKER
           privileged: true
         env:
-          - name: AGENT_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
-          - name: DOCKER_IN_DOCKER
-            value: start
-          - name: SERVER_URL
-            value: http://teamcity-server.teamcity.svc.cluster.local:8111
+        - name: AGENT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: DOCKER_IN_DOCKER
+          value: start
+        - name: SERVER_URL
+          value: http://teamcity-server.teamcity.svc.cluster.local:8111
         readinessProbe:
           tcpSocket:
             port: 9090
@@ -134,10 +134,10 @@ spec:
         # don't mount /var/run/docker.sock or you'll be using the underlying host's Docker instead of TeamCity's DOCKER_IN_DOCKER, which exposes too much of the underlying k8s but also you'll get errors like this from the underlying host when the docker wrapper tries to mount all the buildagent paths:
         # docker: Error response from daemon: error while creating mount source path '/opt/buildagent/temp/buildTmp': mkdir /opt/buildagent: read-only file system.
 #        volumeMounts:
-#          - name: var-run-docker-sock
-#            mountPath: /var/run/docker.sock
-#      volumes:
 #        - name: var-run-docker-sock
-#          hostPath:
-#            path: /var/run/docker.sock
-#            type: Socket
+#          mountPath: /var/run/docker.sock
+#      volumes:
+#      - name: var-run-docker-sock
+#        hostPath:
+#          path: /var/run/docker.sock
+#          type: Socket
