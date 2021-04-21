@@ -39,12 +39,12 @@
             - key: eks.amazonaws.com/capacityType
               operator: In
               values:
-                - SPOT
+              - SPOT
               # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
             - key: kubernetes.azure.com/scalesetpriority
               operator: In
               values:
-                - spot
+              - spot
 ---
 - op: replace
   path: /spec/template/spec/tolerations
