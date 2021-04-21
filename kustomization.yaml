@@ -38,7 +38,7 @@ namespace: NAMESPACE
 
 # add resource configs from ../../base/kustomization.yaml
 #bases:
-#  - ../../base
+#- ../../base
 
 #namePrefix: dev-
 
@@ -52,26 +52,26 @@ commonLabels:
 #  annotationKey1: annotationValue2
 
 resources:
-  - namespace.yaml
-  - deployment.yaml
-  - statefulset.yaml
-  - service.yaml
-  #- cronjob.yaml
-  #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
+- namespace.yaml
+- deployment.yaml
+- statefulset.yaml
+- service.yaml
+#- cronjob.yaml
+#- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
 
 # must name metadata.name [and often metadata.namespace] in order to match exact resources from the above yamls to match + patch
 patchesStrategicMerge:
   # overrides replica counts / memory / ports across environments etc - anything that could be defined in a normal deployment
-  #- deployment.patch.yaml
-  #
+#- deployment.patch.yaml
+
   # set in cronjob.yml now - besides this is too generic without metadata.name necessary for patching selection, designed to be called from CLI as a fix
-  #- cronjob-fix-stale.patch.yaml
-  #
+#- cronjob-fix-stale.patch.yaml
+
   # enable to override LoadBalancer to NodePort for testing locally
-  #- service-nodeport.patch.yaml
-  #
+#- service-nodeport.patch.yaml
+
   # quick fix temporary init container to reset things like mount point permissions / owner mismatch - a common problem, easily solved this way
-  #- init-container-fix.patch.yaml
+#- init-container-fix.patch.yaml
 
 # https://github.com/kubernetes-sigs/kustomize/blob/master/examples/jsonpatch.md
 
@@ -79,19 +79,19 @@ patchesStrategicMerge:
 #
 # patch multiple objects at once - make the patch generic and target it in kustomization.yaml
 patches:
-#  - path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
-#    target:
-#      group: <optional group>
-#      version: <optional version>
-#      kind: <optional kind>
-#      name: <optional name>
-#      namespace: <optional namespace>
-#      labelSelector: <optional label selector>
-#      annotationSelector: <optional annotation selector>
+#- path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
+#  target:
+#    group: <optional group>
+#    version: <optional version>
+#    kind: <optional kind>
+#    name: <optional name>
+#    namespace: <optional namespace>
+#    labelSelector: <optional label selector>
+#    annotationSelector: <optional annotation selector>
   # make cronjobs preemptible if this kustomization is used on dev/staging environments
-  - path: cronjob-preemptible.patch.yaml
-    target:
-      kind: CronJob
+- path: cronjob-preemptible.patch.yaml
+  target:
+    kind: CronJob
 
 # not my favourite way of doing it, prefer patchesStrategicMerge above
 # the only reason to use this is because not all resources or fields support strategic merge patches
@@ -116,19 +116,19 @@ patches:
 # override image names and tags
 # can use newName and/or newTag to override image name and/or tag
 images:
-  - name: eu.gcr.io/myproject/myimage
-    newName: eu.gcr.io/myproject/myotherimage
-    newTag: "latest"
+- name: eu.gcr.io/myproject/myimage
+  newName: eu.gcr.io/myproject/myotherimage
+  newTag: "latest"
 
 configMapGenerator:
-  # useful for straight mounts to files
-  #- name: my-config-files
-  #  files:
-  #    - file1.properties
-  #    - file2.properties
-  # useful for extracting to environment variables
-  - name: my-env
-    namespace: NAMESPACE
-    literals:
-    - env=dev
-    - version=latest
+# useful for straight mounts to files
+#- name: my-config-files
+#  files:
+#    - file1.properties
+#    - file2.properties
+# useful for extracting to environment variables
+- name: my-env
+  namespace: NAMESPACE
+  literals:
+  - env=dev
+  - version=latest
