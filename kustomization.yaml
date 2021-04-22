@@ -92,6 +92,11 @@ patches:
 - path: cronjob-preemptible.patch.yaml
   target:
     kind: CronJob
+  # apply the same firewall and tuning to all Ingresses without duplicating lots of config
+- path: ./nginx-ingress.common.patch.yaml
+  target:
+    kind: Ingress
+    annotationSelector: kubernetes.io/ingress.class=nginx
 
 # not my favourite way of doing it, prefer patchesStrategicMerge above
 # the only reason to use this is because not all resources or fields support strategic merge patches
