@@ -50,10 +50,10 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-  #
+
   # =======================
   # NodePort / LoadBalancer
-  #
+
   # External traffic policy routes NodePort requests only to pods on same node
   # - pros:
   #   - NodePort is only opened on nodes containing the pod, essentially allowing pods to control which nodes the LoadBalanacer routes through via pod placement and LB healthchecks
@@ -64,11 +64,14 @@ spec:
   # - not needed for HTTP(s) services using Ingress -> default ClusterIP services
   #externalTrafficPolicy: Local
   externalTrafficPolicy: Cluster  # default, distribute to all service endpoints (pods) inside cluster
-  #
+
   # =============================
   # 'type: LoadBalancer' settings
-  #
+
 #  sessionAffinity: ClientIP  # session stickyness
+#  sessionAffinityConfig:
+#    clientIP:
+
   #
   # set a static IP to reuse if recreated
 #  loadBalancerIP: x.x.x.x
