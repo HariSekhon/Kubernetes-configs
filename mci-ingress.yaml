@@ -18,6 +18,7 @@
 #            M u l t i - C l u s t e r   I n g r e s s   o n   G K E
 # ============================================================================ #
 
+# https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress-setup
 
 ---
 apiVersion: extensions/v1beta1
