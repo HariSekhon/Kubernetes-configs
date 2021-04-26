@@ -20,16 +20,27 @@
 
 # https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress-setup
 
+# https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress
+
 ---
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: networking.gke.io/v1
+kind: MultiClusterIngress
 metadata:
   name: APP
   namespace: NAMESPACE
   annotations:
-    kubernetes.io/ingress.class: gce-multi-cluster
-    kubernetes.io/ingress.global-static-ip-name: kubemci-ip
+    networking.gke.io/static-ip: static-ip-name
 spec:
   backend:
     serviceName: APP-mcs
     servicePort: 80
+  rules:
+    # XXX: Edit
+  - host: APP.DOMAIN.COM
+    http:
+      paths:
+        # XXX: Edit
+      - path: /APP
+        backend:
+          serviceName: APP-mcs
+          servicePort: 80
