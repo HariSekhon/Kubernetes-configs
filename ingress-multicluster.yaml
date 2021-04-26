@@ -31,5 +31,5 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: kubemci-ip
 spec:
   backend:
-    serviceName: APP
+    serviceName: APP-mcs
     servicePort: 80
