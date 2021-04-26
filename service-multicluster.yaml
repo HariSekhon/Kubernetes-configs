@@ -1,0 +1,41 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-04-26 12:20:37 +0100 (Mon, 26 Apr 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#            M u l t i - C l u s t e r   S e r v i c e   o n   G K E
+# ============================================================================ #
+
+# Use with Multi-Cluster Ingress - see mci.yaml
+
+# https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-services
+
+# https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress
+
+---
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
+metadata:
+  name: APP-mcs
+  namespace: NAMESPACE
+spec:
+  template:
+    spec:
+      selector:
+        app: APP
+      ports:
+      - name: http
+        protocol: TCP
+        port: 8080
+        targetPort: 8080
