@@ -34,6 +34,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     # https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/
     #nginx.ingress.kubernetes.io/affinity: cookie
+    #nginx.ingress.kubernetes.io/session-cookie-name: mycookie
     #nginx.ingress.kubernetes.io/affinity-mode: persistent  # default: "balanced" - rebalances to new pods
     #nginx.ingress.kubernetes.io/canary: "true"
     #nginx.ingress.kubernetes.io/canary-weight: 1  # 1%
