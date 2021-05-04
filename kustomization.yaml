@@ -88,10 +88,12 @@ patches:
 #    namespace: <optional namespace>
 #    labelSelector: <optional label selector>
 #    annotationSelector: <optional annotation selector>
+
   # make cronjobs preemptible if this kustomization is used on dev/staging environments
 - path: cronjob-preemptible.patch.yaml
   target:
     kind: CronJob
+
   # apply the same firewall and tuning to all Ingresses without duplicating lots of config
 - path: ./nginx-ingress.ingress.patch.yaml
   target:
