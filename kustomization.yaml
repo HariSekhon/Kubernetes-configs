@@ -51,6 +51,8 @@ commonLabels:
 #commonAnnotations:
 #  annotationKey1: annotationValue2
 
+# ========================
+
 resources:
 - namespace.yaml
 - deployment.yaml
@@ -59,6 +61,9 @@ resources:
 #- cronjob.yaml
 #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
 
+# ========================
+# Strategic Merge Patching
+#
 # must name metadata.name [and often metadata.namespace] in order to match exact resources from the above yamls to match + patch
 patchesStrategicMerge:
   # overrides replica counts / memory / ports across environments etc - anything that could be defined in a normal deployment
@@ -73,11 +78,13 @@ patchesStrategicMerge:
   # quick fix temporary init container to reset things like mount point permissions / owner mismatch - a common problem, easily solved this way
 #- init-container-fix.patch.yaml
 
-# https://github.com/kubernetes-sigs/kustomize/blob/master/examples/jsonpatch.md
-
-# https://github.com/kubernetes-sigs/kustomize/blob/master/examples/patchMultipleObjects.md
+# =====================
+# Multi-Object Patching
 #
-# patch multiple objects at once - make the patch generic and target it in kustomization.yaml
+#   patch multiple objects at once - make the patch generic and target it in kustomization.yaml
+#
+#   https://github.com/kubernetes-sigs/kustomize/blob/master/examples/patchMultipleObjects.md
+#
 patches:
 #- path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
 #  target:
@@ -100,32 +107,36 @@ patches:
     kind: Ingress
     annotationSelector: kubernetes.io/ingress.class=nginx
 
-# not my favourite way of doing it, prefer patchesStrategicMerge above
-# the only reason to use this is because not all resources or fields support strategic merge patches
+# =============
+# JSON Patching - not my favourite way of doing it, prefer patchesStrategicMerge above
+#                 the only reason to use this is because not all resources or fields support strategic merge patches
+#
+#   https://github.com/kubernetes-sigs/kustomize/blob/master/examples/jsonpatch.md
+#   https://tools.ietf.org/html/rfc6902
+#
 #patchesJson6902:
 #- target:
 #    version: v1
 #    kind: Deployment
 #    name: NAME
-#  # this has to be in Json Patch format, not regular k8s yaml format
-#  # eg. some.patch.yaml's contents should be something like:
-#  #
-#	 #		{"op": "replace", "path": "/some/existing/path", "value": "new value"}
-#	 #
-#  # OR in yaml format:
-#	 #
-#	 #   - op:replace
-#	 #     path: /some/existing/path
-#	 #     value: new value
-#	 #
 #  path: some.patch.yaml
+#  # OR inline
+#  patch: |-
+#    - op: replace
+#      path: /some/existing/path
+#      value: new value
 
-# override image names and tags
-# can use newName and/or newTag to override image name and/or tag
+# =======================
+# Images + Tags overrides
+#
+#   can use newName and/or newTag
+#
 images:
 - name: eu.gcr.io/myproject/myimage
   newName: eu.gcr.io/myproject/myotherimage
   newTag: "latest"
+
+# =======================
 
 configMapGenerator:
 # useful for straight mounts to files
