@@ -9,7 +9,7 @@ Kubernetes Templates
 [![Repo on BitBucket](https://img.shields.io/badge/repo-BitBucket-0052CC?logo=bitbucket)](https://bitbucket.org/HariSekhon/Kubernetes-Templates)
 
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/HariSekhon/Kubernetes-templates?logo=github)](https://github.com/HariSekhon/Kubernetes-templates/commits/master)
-[![Lines of Config](https://img.shields.io/badge/lines%20of%20config-3.6k-lightgrey?logo=codecademy)](https://github.com/HariSekhon/Kubernetes-templates)
+[![Lines of Config](https://img.shields.io/badge/lines%20of%20config-4.9k-lightgrey?logo=codecademy)](https://github.com/HariSekhon/Kubernetes-templates)
 [![GitHub stars](https://img.shields.io/github/stars/HariSekhon/Kubernetes-templates?logo=github)](https://github.com/HariSekhon/Kubernetes-templates//stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/HariSekhon/Kubernetes-templates?logo=github)](https://github.com/HariSekhon/Kubernetes-templates/network)
 
