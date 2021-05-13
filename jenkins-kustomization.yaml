@@ -30,7 +30,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-# may cause duplicate namespace clashes if different namespaces are defined in base
+# may cause duplicate namespace clashes if different namespaces are defined in bases
 namespace: jenkins
 
 # if deploying to multiple environments
