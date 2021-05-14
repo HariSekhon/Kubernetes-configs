@@ -44,7 +44,6 @@
             operator: In
             values:
             - spot
----
 - op: replace
   path: /spec/template/spec/tolerations
   value:
