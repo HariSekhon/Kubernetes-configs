@@ -1,0 +1,111 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2019-11-25 13:47:16 +0000 (Mon, 25 Nov 2019)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                       S e l e n i u m   G r i d   H u b
+# ============================================================================ #
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium-hub
+  namespace: selenium
+  labels:
+    app: selenium-hub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium-hub
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+     maxSurge: 1
+     maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: selenium-hub
+    spec:
+      priorityClassName: high-priority
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                - SPOT
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                - spot
+      securityContext:
+        runAsNonRoot: true
+      containers:
+      - name: selenium-hub
+        image: selenium/hub:3.141
+        #image: selenium/hub:4.0.0
+        ports:
+        - containerPort: 4444
+        env:
+        - name: JAVA_OPTS
+          value: "-Xms1G -Xmx1G"
+        - name: POOL_MAX
+          value: "500"
+        - name: GRID_NEW_SESSION_WAIT_TIMEOUT
+          value: "-1"
+        - name: GRID_JETTY_MAX_THREADS
+          value: "-1"
+        - name: GRID_NODE_POLLING
+          value: "5000"
+        - name: GRID_CLEAN_UP_CYCLE
+          value: "5000"
+        - name: GRID_TIMEOUT
+          value: "600"
+        - name: GRID_BROWSER_TIMEOUT
+          value: "600"
+        - name: GRID_MAX_SESSION
+          value: "5"
+        - name: GRID_UNREGISTER_IF_STILL_DOWN_AFTER
+          value: "30000"
+        # can take it down under high load
+#        readinessProbe:
+#          httpGet:
+#            # don't use /wd/hub/ - it returns HTTP/2 500 if no nodes are attached
+#            #path: /wd/hub/
+#            path: /status
+#            #path: /wd/hub/status
+#            #path: /  # works too
+#            port: 4444
+#          initialDelaySeconds: 10
+#        livenessProbe:
+#          httpGet:
+#            path: /status
+#            #path: /wd/hub/status
+#            port: 4444
+#          initialDelaySeconds: 30
+        resources:
+          limits:
+            cpu: 4
+            memory: 4Gi
+          requests:
+            cpu: 500m
+            memory: 1.2Gi
