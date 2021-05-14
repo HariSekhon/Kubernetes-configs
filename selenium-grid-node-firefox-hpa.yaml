@@ -20,6 +20,8 @@
 #               H o r i z o n t a l   P o d   A u t o S c a l e r
 # ============================================================================ #
 
+# Not safe as K8s may remove pods while scaling down that still have tests running on them
+
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
