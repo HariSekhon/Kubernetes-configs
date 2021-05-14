@@ -27,29 +27,27 @@
 - op: replace
   path: /spec/template/spec/affinity
   value:
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-              # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
-            - key: cloud.google.com/gke-preemptible
-              operator: Exists
-              # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
-            - key: eks.amazonaws.com/capacityType
-              operator: In
-              values:
-              - SPOT
-              # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
-            - key: kubernetes.azure.com/scalesetpriority
-              operator: In
-              values:
-              - spot
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+            # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+          - key: cloud.google.com/gke-preemptible
+            operator: Exists
+            # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
+          - key: eks.amazonaws.com/capacityType
+            operator: In
+            values:
+            - SPOT
+            # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
+          - key: kubernetes.azure.com/scalesetpriority
+            operator: In
+            values:
+            - spot
 ---
 - op: replace
   path: /spec/template/spec/tolerations
   value:
-    tolerations:
     # XXX: this must be set yourself on AWS EKS / GCP GKE
     - key: preemptible
       operator: Equal
