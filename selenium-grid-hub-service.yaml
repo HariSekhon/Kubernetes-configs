@@ -1,0 +1,53 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2019-11-25 13:47:16 +0000 (Mon, 25 Nov 2019)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#               S e l e n i u m   G r i d   H u b   S e r v i c e
+# ============================================================================ #
+
+# Could have exposed 4444 via a LoadBalancer but see the ingress yaml instead
+# which is better as supports DNS and auto-configures SSL
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: selenium-hub
+  namespace: selenium
+  labels:
+    app: selenium-hub
+spec:
+  selector:
+    app: selenium-hub
+  ports:
+  - name: web
+    protocol: TCP
+    port: 4444
+    targetPort: 4444
+  # Grid 4+ only
+  - name: publish
+    protocol: TCP
+    port: 4442
+    targetPort: 4442
+  # Grid 4+ only
+  - name: subscribe
+    protocol: TCP
+    port: 4443
+    targetPort: 4443
+  - name: node
+    protocol: TCP
+    port: 5555
+    targetPort: 5555
