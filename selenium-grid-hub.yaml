@@ -86,6 +86,8 @@ spec:
           value: "5"
         - name: GRID_UNREGISTER_IF_STILL_DOWN_AFTER
           value: "30000"
+        - name: SE_NODE_SESSION_TIMEOUT
+          value: 300  # default
         # can take it down under high load
 #        readinessProbe:
 #          httpGet:
