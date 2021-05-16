@@ -79,8 +79,6 @@ spec:
           value: "4442"
         - name: SE_EVENT_BUS_SUBSCRIBE_PORT
           value: "4443"
-        - name: REMOTE_HOST
-          value: ""
         # vnc pw defaults to 'secret', might as well not bother as the grid itself requires firewall protection instead
         - name: VNC_NO_PASSWORD
           value: "1"
