@@ -57,8 +57,7 @@ spec:
         runAsNonRoot: true
       containers:
       - name: selenium-node-chrome
-        # expects hub 4.0
-        #image: selenium/node-chrome:90.0
+        #image: selenium/node-chrome:90.0  # requires Hub 4.0
         image: selenium/node-chrome:3.141.59
         ports:
         - containerPort: 5555
