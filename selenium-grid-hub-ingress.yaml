@@ -53,7 +53,7 @@ spec:
     # XXX: Edit
   - hosts:
     - selenium.DOMAIN.COM
-    secretName: selenium-DOMAIN-tls
+    secretName: selenium-hub-tls
   rules:
     # XXX: Edit
   - host: selenium.DOMAIN.COM
