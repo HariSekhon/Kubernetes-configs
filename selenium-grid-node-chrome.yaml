@@ -62,6 +62,8 @@ spec:
         image: selenium/node-chrome:3.141.59
         ports:
         - containerPort: 5555
+        - containerPort: 5900  # VNC
+        - containerPort: 7900  # noVNC (browser)
         env:
         - name: JAVA_OPTS
           value: "-Xmx512m -Dselenium.LOGGER.level=WARNING"
@@ -79,6 +81,9 @@ spec:
           value: "4443"
         - name: REMOTE_HOST
           value: ""
+        # vnc pw defaults to 'secret', might as well not bother as the grid itself requires firewall protection instead
+        - name: VNC_NO_PASSWORD
+          value: "1"
         resources:
           limits:
             cpu: 2
