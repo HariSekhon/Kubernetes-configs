@@ -57,8 +57,8 @@ spec:
         runAsNonRoot: true
       containers:
       - name: selenium-node-firefox
-        #image: selenium/node-firefox:88.0  # requires Hub 4.0
-        image: selenium/node-firefox:3.141.59
+        #image: selenium/node-firefox:3.141.59
+        image: selenium/node-firefox:88.0  # requires Hub 4.0
         ports:
         - containerPort: 5555
         - containerPort: 5900  # VNC
