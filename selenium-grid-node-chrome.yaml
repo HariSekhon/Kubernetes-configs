@@ -93,6 +93,7 @@ spec:
             path: /status
             port: 5555
           initialDelaySeconds: 30
+        # https://www.selenium.dev/documentation/en/grid/grid_4/grid_endpoints/#drain
         lifecycle:
          preStop:
            exec:
