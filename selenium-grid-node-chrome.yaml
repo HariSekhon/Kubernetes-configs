@@ -67,7 +67,7 @@ spec:
         - name: JAVA_OPTS
           value: "-Xmx512m -Dselenium.LOGGER.level=WARNING"
         - name: SE_OPTS
-          value: ""  # args to java cli
+          value: ""  # args to java -jar command
         # Grid 3.x
         #- name: HUB_PORT_4444_TCP_ADDR
         #  value: "selenium-hub"
