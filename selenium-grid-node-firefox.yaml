@@ -67,11 +67,12 @@ spec:
         - name: JAVA_OPTS
           value: "-Xmx512m -Dselenium.LOGGER.level=WARNING"
         - name: SE_OPTS
-          value: ""
-        - name: HUB_PORT_4444_TCP_ADDR
-          value: "selenium-hub"
-        - name: HUB_PORT_4444_TCP_PORT
-          value: "4444"
+          value: ""  # args to java -jar command
+        # Grid 3.x
+        #- name: HUB_PORT_4444_TCP_ADDR
+        #  value: "selenium-hub"
+        #- name: HUB_PORT_4444_TCP_PORT
+        #  value: "4444"
         - name: SE_EVENT_BUS_HOST
           value: "selenium-hub"
         - name: SE_EVENT_BUS_PUBLISH_PORT
