@@ -55,6 +55,7 @@ spec:
                 - spot
       securityContext:
         runAsNonRoot: true
+      terminationGracePeriodSeconds: 600
       containers:
       - name: selenium-node-firefox
         #image: selenium/node-firefox:3.141.59
@@ -82,6 +83,23 @@ spec:
         # vnc pw defaults to 'secret', might as well not bother as the grid itself requires firewall protection instead
         - name: VNC_NO_PASSWORD
           value: "1"
+        readinessProbe:
+          httpGet:
+            path: /status
+            port: 5555
+          initialDelaySeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: 5555
+          initialDelaySeconds: 30
+        lifecycle:
+         preStop:
+           exec:
+             command:
+               - /bin/sh
+               - -c
+               - curl -X POST 'http://localhost:5555/se/grid/node/drain' -H 'X-REGISTRATION-SECRET;' && while curl localhost:5555/status; do sleep 1; done
         resources:
           limits:
             cpu: 2
