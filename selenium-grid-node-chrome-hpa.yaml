@@ -24,7 +24,7 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: selenium-node-chrome-hpa
+  name: selenium-node-chrome
   namespace: selenium
 spec:
   scaleTargetRef:
