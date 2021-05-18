@@ -68,42 +68,24 @@ spec:
         env:
         - name: JAVA_OPTS
           value: "-Xms1G -Xmx1G"
-        - name: POOL_MAX
-          value: "500"
-        - name: GRID_NEW_SESSION_WAIT_TIMEOUT
-          value: "-1"
-        - name: GRID_JETTY_MAX_THREADS
-          value: "-1"
-        - name: GRID_NODE_POLLING
-          value: "5000"
-        - name: GRID_CLEAN_UP_CYCLE
-          value: "5000"
-        - name: GRID_TIMEOUT
-          value: "600"
-        - name: GRID_BROWSER_TIMEOUT
-          value: "600"
-        - name: GRID_MAX_SESSION
-          value: "5"
-        - name: GRID_UNREGISTER_IF_STILL_DOWN_AFTER
-          value: "30000"
         - name: SE_NODE_SESSION_TIMEOUT
           value: 300  # default
         # can take it down under high load
-#        readinessProbe:
-#          httpGet:
-#            # don't use /wd/hub/ - it returns HTTP/2 500 if no nodes are attached
-#            #path: /wd/hub/
-#            path: /status
-#            #path: /wd/hub/status
-#            #path: /  # works too
-#            port: 4444
-#          initialDelaySeconds: 10
-#        livenessProbe:
-#          httpGet:
-#            path: /status
-#            #path: /wd/hub/status
-#            port: 4444
-#          initialDelaySeconds: 30
+        #readinessProbe:
+        #  httpGet:
+        #    # don't use /wd/hub/ - it returns HTTP/2 500 if no nodes are attached
+        #    #path: /wd/hub/
+        #    path: /status
+        #    #path: /wd/hub/status
+        #    #path: /  # works too
+        #    port: 4444
+        #  initialDelaySeconds: 10
+        #livenessProbe:
+        #  httpGet:
+        #    path: /status
+        #    #path: /wd/hub/status
+        #    port: 4444
+        #  initialDelaySeconds: 30
         resources:
           limits:
             cpu: 4
