@@ -47,6 +47,7 @@ spec:
     protocol: TCP
     port: 4443
     targetPort: 4443
+  # needed for status in webdriver protocol
   - name: node
     protocol: TCP
     port: 5555
