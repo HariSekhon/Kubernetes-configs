@@ -47,3 +47,7 @@ spec:
     protocol: TCP
     port: 4443
     targetPort: 4443
+  - name: node
+    protocol: TCP
+    port: 5555
+    targetPort: 5555
