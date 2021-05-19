@@ -17,15 +17,7 @@
 #             S e l e n i u m   G r i d   K u s t o m i z a t i o n
 # ============================================================================ #
 
-# Ties all the Jenkins resources together for an easy one-shot deployment
-
-# Quick Reference:
-#
-# https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html
-#
-# https://kubectl.docs.kubernetes.io/pages/examples/kustomize.html
-#
-# https://github.com/HariSekhon/Kubernetes-templates/blob/master/kustomization.yaml
+# Ties all the Selenium Grid resources together for an easy one-shot deployment
 
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
