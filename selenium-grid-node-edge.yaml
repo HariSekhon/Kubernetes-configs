@@ -73,6 +73,7 @@ spec:
         #  value: "selenium-hub"
         #- name: HUB_PORT_4444_TCP_PORT
         #  value: "4444"
+        # XXX: should be "selenium-event-bus" in fully distributed grid
         - name: SE_EVENT_BUS_HOST
           value: "selenium-hub"
         - name: SE_EVENT_BUS_PUBLISH_PORT
