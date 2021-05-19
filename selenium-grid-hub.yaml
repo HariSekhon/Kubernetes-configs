@@ -87,7 +87,7 @@ spec:
         - name: GRID_BROWSER_TIMEOUT
           value: "600"
         - name: GRID_MAX_SESSION
-          value: "5"
+          value: "12"
         - name: GRID_UNREGISTER_IF_STILL_DOWN_AFTER
           value: "30000"
         # can take it down under high load as it becomes less responsive
