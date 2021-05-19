@@ -1,0 +1,85 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-05-19 13:25:09 +0100 (Wed, 19 May 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#            S e l e n i u m   G r i d   S e s s i o n   Q u e u e r
+# ============================================================================ #
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium-session-queuer
+  namespace: selenium
+  labels:
+    app: selenium-session-queuer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium-session-queuer
+  template:
+    metadata:
+      labels:
+        app: selenium-session-queuer
+    spec:
+      priorityClassName: high-priority
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                - SPOT
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                - spot
+      securityContext:
+        runAsNonRoot: true
+      containers:
+      - name: selenium-session-queuer
+        image: selenium/session-queuer:4.0.0
+        ports:
+        - containerPort: 5559
+        env:
+        - name: JAVA_OPTS
+          value: "-Xmx512m"
+        - name: SE_EVENT_BUS_HOST
+          value: "selenium-event-bus"
+        - name: SE_EVENT_BUS_PUBLISH_PORT
+          value: "4442"
+        - name: SE_EVENT_BUS_SUBSCRIBE_PORT
+          value: "4443"
+        readinessProbe:
+          tcpSocket:
+            port: 5559
+          initialDelaySeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 5559
+          initialDelaySeconds: 30
+        resources:
+          limits:
+            cpu: 2
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 600Mi
