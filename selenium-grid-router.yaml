@@ -1,0 +1,91 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-05-19 13:25:00 +0100 (Wed, 19 May 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                    S e l e n i u m   G r i d   R o u t e r
+# ============================================================================ #
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium-router
+  namespace: selenium
+  labels:
+    app: selenium-router
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium-router
+  template:
+    metadata:
+      labels:
+        app: selenium-router
+    spec:
+      priorityClassName: high-priority
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                - SPOT
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                - spot
+      securityContext:
+        runAsNonRoot: true
+      containers:
+      - name: selenium-router
+        image: selenium/router:4.0.0
+        ports:
+        - containerPort: 4444
+        env:
+        - name: JAVA_OPTS
+          value: "-Xmx512m"
+        - name: SE_DISTRIBUTOR_HOST
+          value: "selenium-distributor"
+        - name: SE_DISTRIBUTOR_PORT
+          value: "5553"
+        - name: SE_SESSIONS_MAP_HOST
+          value: "selenium-sessions"
+        - name: SE_SESSIONS_MAP_PORT
+          value: "5556"
+        - name: SE_SESSION_QUEUE_HOST
+          value: "selenium-session-queuer"
+        - name: SE_SESSION_QUEUE_PORT
+          value: "5559"
+        readinessProbe:
+          tcpSocket:
+            port: 4444
+          initialDelaySeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 4444
+          initialDelaySeconds: 30
+        resources:
+          limits:
+            cpu: 2
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 600Mi
