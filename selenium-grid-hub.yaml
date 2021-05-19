@@ -71,6 +71,25 @@ spec:
           value: "-Xms1G -Xmx1G"
         - name: SE_NODE_SESSION_TIMEOUT
           value: "300"  # default
+        # these settings are needed to get Grid 3.x hub to register nodes properly
+        - name: POOL_MAX
+          value: "500"
+        - name: GRID_NEW_SESSION_WAIT_TIMEOUT
+          value: "-1"
+        - name: GRID_JETTY_MAX_THREADS
+          value: "-1"
+        - name: GRID_NODE_POLLING
+          value: "5000"
+        - name: GRID_CLEAN_UP_CYCLE
+          value: "5000"
+        - name: GRID_TIMEOUT
+          value: "600"
+        - name: GRID_BROWSER_TIMEOUT
+          value: "600"
+        - name: GRID_MAX_SESSION
+          value: "5"
+        - name: GRID_UNREGISTER_IF_STILL_DOWN_AFTER
+          value: "30000"
         # can take it down under high load as it becomes less responsive
         #readinessProbe:
         #  httpGet:
