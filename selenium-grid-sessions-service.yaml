@@ -1,0 +1,36 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-05-19 13:25:13 +0100 (Wed, 19 May 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#       S e l e n i u m   G r i d   S e s s i o n   M a p   S e r v i c e
+# ============================================================================ #
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: selenium-sessions
+  namespace: selenium
+  labels:
+    app: selenium-sessions
+spec:
+  selector:
+    app: selenium-sessions
+  ports:
+  - name: sessions
+    protocol: TCP
+    port: 5556
+    targetPort: 5556
