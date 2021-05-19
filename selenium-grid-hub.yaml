@@ -64,7 +64,8 @@ spec:
         #image: selenium/hub:3.141
         image: selenium/hub:4.0.0
         ports:
-        - containerPort: 4444
+        - containerPort: 4444  # UI
+        - containerPort: 5555  # needed for status in webdriver protocol
         env:
         - name: JAVA_OPTS
           value: "-Xms1G -Xmx1G"
