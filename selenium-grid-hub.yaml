@@ -69,8 +69,8 @@ spec:
         - name: JAVA_OPTS
           value: "-Xms1G -Xmx1G"
         - name: SE_NODE_SESSION_TIMEOUT
-          value: 300  # default
-        # can take it down under high load
+          value: "300"  # default
+        # can take it down under high load as it becomes less responsive
         #readinessProbe:
         #  httpGet:
         #    # don't use /wd/hub/ - it returns HTTP/2 500 if no nodes are attached
@@ -86,6 +86,14 @@ spec:
         #    #path: /wd/hub/status
         #    port: 4444
         #  initialDelaySeconds: 30
+        readinessProbe:
+          tcpSocket:
+            port: 4444
+          initialDelaySeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: 4444
+          initialDelaySeconds: 30
         resources:
           limits:
             cpu: 4
