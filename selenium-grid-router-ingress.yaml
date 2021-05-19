@@ -1,0 +1,65 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-05-19 13:24:51 +0100 (Wed, 19 May 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#            S e l e n i u m   G r i d   R o u t e r   I n g r e s s
+# ============================================================================ #
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: selenium-router
+  namespace: selenium
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # XXX: Edit to make available externally
+    nginx.ingress.kubernetes.io/whitelist-source-range: |
+      10.0.0.0/8,
+      172.16.0.0/16,
+      192.168.0.0/16,
+      # https://www.cloudflare.com/en-gb/ips/ - XXX: remove this line
+      103.21.244.0/22,
+      103.22.200.0/22,
+      103.31.4.0/22,
+      104.16.0.0/12,
+      108.162.192.0/18,
+      131.0.72.0/22,
+      141.101.64.0/18,
+      162.158.0.0/15,
+      172.64.0.0/13,
+      173.245.48.0/20,
+      188.114.96.0/20,
+      190.93.240.0/20,
+      197.234.240.0/22,
+      198.41.128.0/17
+spec:
+  tls:
+    # XXX: Edit
+  - hosts:
+    - selenium.DOMAIN.COM
+    secretName: selenium-router-tls
+  rules:
+    # XXX: Edit
+  - host: selenium.DOMAIN.COM
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: selenium-router
+          servicePort: 4444
