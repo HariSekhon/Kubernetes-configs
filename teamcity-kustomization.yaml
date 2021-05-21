@@ -19,19 +19,9 @@
 
 # Ties all the TeamCity resources together for an easy one-shot deployment
 
-# Quick Reference:
-#
-# https://kubectl.docs.kubernetes.io/pages/reference/kustomize.html
-#
-# https://kubectl.docs.kubernetes.io/pages/examples/kustomize.html
-#
-# https://github.com/HariSekhon/Kubernetes-templates/blob/master/kustomization.yaml
-
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
-# override namespace for all resources
 # may cause duplicate namespace clashes if different namespaces are defined in bases
 namespace: teamcity
 
