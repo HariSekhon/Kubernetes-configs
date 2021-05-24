@@ -97,6 +97,7 @@ spec:
     image: busybox
     command:
       - cat
+    tty: true
     resources:
       requests:
         cpu: 50m
@@ -104,7 +105,6 @@ spec:
       limits:
         cpu: 200m
         memory: 200Mi
-    tty: true
   #- name: golang
   #  image: golang:1.10
   #  command:
