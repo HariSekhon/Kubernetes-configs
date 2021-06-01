@@ -29,7 +29,7 @@
 #
 # 3. Apply this manifest to create the alert provider:
 #
-#       kubectl apply -f fluxcd-slack-notifications.yaml
+#       kubectl apply -f fluxcd-slack-provider.yaml
 #
 # 4. Check alert provider was created:
 #
