@@ -31,7 +31,7 @@
 #
 #       kubectl apply -f fluxcd-slack-provider.yaml
 #
-# 4. Check alert provider was created:
+# 4. Verify:
 #
 #       flux get alert-providers
 
