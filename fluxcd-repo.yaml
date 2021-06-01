@@ -21,13 +21,13 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
-  # XXX: edit
+  # XXX: Edit
   name: NAME
   namespace: flux-system
 spec:
   interval: 30s
   ref:
-    # XXX: edit
+    # XXX: Edit
     branch: master
-  # XXX: edit
+  # XXX: Edit
   url: https://github.com/HariSekhon/Kubernetes-templates
