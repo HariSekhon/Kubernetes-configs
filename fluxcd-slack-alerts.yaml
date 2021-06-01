@@ -19,7 +19,7 @@
 
 # https://fluxcd.io/docs/guides/notifications/
 
-# 1. Create Slack alert provider as per instructions in fluxcd-slack-provider.yam
+# 1. Create Slack alert provider as per instructions in fluxcd-slack-provider.yaml
 #
 # 2. Apply this manifest:
 #
