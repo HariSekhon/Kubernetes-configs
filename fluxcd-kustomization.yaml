@@ -1,0 +1,36 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-05-28 18:16:27 +0100 (Fri, 28 May 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                      F l u x C D   v 2   G i t   R e p o
+# ============================================================================ #
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  # XXX: Edit
+  name: NAME
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  # XXX: Edit
+  path: ./path/to/cluster
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    # XXX: Edit - should match fluxcd-repo.yaml
+    name: v2
+  validation: client  # client or server
