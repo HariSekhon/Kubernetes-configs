@@ -17,13 +17,23 @@
 #                      F l u x C D   v 2   S l a c k
 # ============================================================================ #
 
-# First create a Slack webhook as follows:
+# https://fluxcd.io/docs/guides/notifications/
+
+# 1. First create a Slack webhook as follows:
 #
-#		https://api.slack.com/messaging/webhooks
+#		    https://api.slack.com/messaging/webhooks
 #
-# then create the Kubernetes secret containing the secret webhook url
+# 2. Create the Kubernetes secret containing the secret webhook url
 #
-#		kubectl -n flux-system create secret generic slack-webhook --from-literal=address=https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+#		    kubectl -n flux-system create secret generic slack-webhook --from-literal=address=https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+#
+# 3. Apply this manifest to create the alert provider:
+#
+#       kubectl apply -f fluxcd-slack-notifications.yaml
+#
+# 4. Check alert provider was created:
+#
+#       flux get alert-providers
 
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
