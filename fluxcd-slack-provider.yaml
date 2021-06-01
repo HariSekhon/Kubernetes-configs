@@ -24,7 +24,7 @@
 #		    https://api.slack.com/messaging/webhooks
 #
 # 2. Create the Kubernetes secret containing the secret webhook url
-#
+#                                                                                         XXX: Edit - replace this URL
 #		    kubectl -n flux-system create secret generic slack-webhook --from-literal=address=https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
 #
 # 3. Apply this manifest to create the alert provider:
