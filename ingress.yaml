@@ -27,7 +27,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   # XXX: Edit
-  name: APP-ingress
+  name: APP
   namespace: NAMESPACE
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
@@ -79,7 +79,8 @@ spec:
     http:
       paths:
         # XXX: Edit
-      - path: /APP
+      #- path: /APP
+      - path: /
         backend:
           serviceName: APP-svc
           servicePort: 80
