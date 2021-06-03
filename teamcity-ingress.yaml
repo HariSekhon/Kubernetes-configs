@@ -21,7 +21,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: teamcity-ingress
+  name: teamcity
   namespace: teamcity
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
