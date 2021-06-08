@@ -32,12 +32,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
-    # https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/
-    #nginx.ingress.kubernetes.io/affinity: cookie
-    #nginx.ingress.kubernetes.io/session-cookie-name: MYCOOKIE  # default: INGRESSCOOKIE
-    #nginx.ingress.kubernetes.io/affinity-mode: persistent  # default: "balanced" - rebalances to new pods
-    #nginx.ingress.kubernetes.io/canary: "true"
-    #nginx.ingress.kubernetes.io/canary-weight: 1  # 1%
+    #kubernetes.io/ingress.class: traefik  # see k8s_traefik.yaml to set up this ingress controller
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     # XXX: Edit to make available externally or apply common ingress.patch.yaml with shared IP list eg. Cloudflare
     nginx.ingress.kubernetes.io/whitelist-source-range: |
@@ -48,9 +43,12 @@ metadata:
     # rewrite /APP to just /
     nginx.ingress.kubernetes.io/rewrite-target: /
 
-  # see k8s_traefik.yaml to set up this ingress controller
-  #annotations:
-  #  kubernetes.io/ingress.class: traefik
+    # https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/
+    #nginx.ingress.kubernetes.io/affinity: cookie
+    #nginx.ingress.kubernetes.io/session-cookie-name: MYCOOKIE  # default: INGRESSCOOKIE
+    #nginx.ingress.kubernetes.io/affinity-mode: persistent  # default: "balanced" - rebalances to new pods
+    #nginx.ingress.kubernetes.io/canary: "true"
+    #nginx.ingress.kubernetes.io/canary-weight: 1  # 1%
 spec:
   # cert manager will auto-create SSL cert for this address and put it in named secret
   tls:
