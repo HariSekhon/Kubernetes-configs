@@ -50,12 +50,12 @@ metadata:
     #nginx.ingress.kubernetes.io/canary: "true"
     #nginx.ingress.kubernetes.io/canary-weight: 1  # 1%
 spec:
-  # cert manager will auto-create SSL cert for this address and put it in named secret
   tls:
     # XXX: Edit
   - hosts:
     - APP.DOMAIN.COM
-    secretName: APP-DOMAIN-tls
+    # SSL cert auto-generated for this FQDN by Cert Manager ACME integration (see cert-manager.yaml) and saved to this secret name
+    secretName: APP-tls
   rules:
     # XXX: Edit
   - host: APP.DOMAIN.COM
