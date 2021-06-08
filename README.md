@@ -1,35 +1,35 @@
-Kubernetes Templates
+Kubernetes configs
 ====================
 
-[![Travis CI](https://img.shields.io/travis/harisekhon/kubernetes-templates/master?logo=travis&label=Travis%20CI)](https://travis-ci.org/HariSekhon/Kubernetes-templates)
+[![Travis CI](https://img.shields.io/travis/harisekhon/kubernetes-configs/master?logo=travis&label=Travis%20CI)](https://travis-ci.org/HariSekhon/Kubernetes-configs)
 [![CI Builds Overview](https://img.shields.io/badge/CI%20Builds-Overview%20Page-blue?logo=circleci)](https://bitbucket.org/harisekhon/devops-bash-tools/src/master/STATUS.md)
-[![Repo on Azure DevOps](https://img.shields.io/badge/repo-Azure%20DevOps-0078D7?logo=azure%20devops)](https://dev.azure.com/harisekhon/GitHub/_git/Kubernetes-templates)
-[![Repo on GitHub](https://img.shields.io/badge/repo-GitHub-2088FF?logo=github)](https://github.com/HariSekhon/Kubernetes-Templates)
-[![Repo on GitLab](https://img.shields.io/badge/repo-GitLab-FCA121?logo=gitlab)](https://gitlab.com/HariSekhon/Kubernetes-Templates)
-[![Repo on BitBucket](https://img.shields.io/badge/repo-BitBucket-0052CC?logo=bitbucket)](https://bitbucket.org/HariSekhon/Kubernetes-Templates)
+[![Repo on Azure DevOps](https://img.shields.io/badge/repo-Azure%20DevOps-0078D7?logo=azure%20devops)](https://dev.azure.com/harisekhon/GitHub/_git/Kubernetes-configs)
+[![Repo on GitHub](https://img.shields.io/badge/repo-GitHub-2088FF?logo=github)](https://github.com/HariSekhon/Kubernetes-configs)
+[![Repo on GitLab](https://img.shields.io/badge/repo-GitLab-FCA121?logo=gitlab)](https://gitlab.com/HariSekhon/Kubernetes-configs)
+[![Repo on BitBucket](https://img.shields.io/badge/repo-BitBucket-0052CC?logo=bitbucket)](https://bitbucket.org/HariSekhon/Kubernetes-configs)
 
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/HariSekhon/Kubernetes-templates?logo=github)](https://github.com/HariSekhon/Kubernetes-templates/commits/master)
-[![Lines of Config](https://img.shields.io/badge/lines%20of%20config-4.9k-lightgrey?logo=codecademy)](https://github.com/HariSekhon/Kubernetes-templates)
-[![GitHub stars](https://img.shields.io/github/stars/HariSekhon/Kubernetes-templates?logo=github)](https://github.com/HariSekhon/Kubernetes-templates//stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/HariSekhon/Kubernetes-templates?logo=github)](https://github.com/HariSekhon/Kubernetes-templates/network)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/HariSekhon/Kubernetes-configs?logo=github)](https://github.com/HariSekhon/Kubernetes-configs/commits/master)
+[![Lines of Config](https://img.shields.io/badge/lines%20of%20config-4.9k-lightgrey?logo=codecademy)](https://github.com/HariSekhon/Kubernetes-configs)
+[![GitHub stars](https://img.shields.io/github/stars/HariSekhon/Kubernetes-configs?logo=github)](https://github.com/HariSekhon/Kubernetes-configs//stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/HariSekhon/Kubernetes-configs?logo=github)](https://github.com/HariSekhon/Kubernetes-configs/network)
 
-[git.io/k8s-templates](https://git.io/k8s-templates)
+[git.io/k8s-configs](https://git.io/k8s-configs)
 
-Kubernetes YAML templates.
+Kubernetes YAML configurations & templates.
 
 Contains various Best Practices, Tips & Tricks learned in production environments.
 
-Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/kustomization.yaml).
+Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
 
-The [service.yaml](https://github.com/HariSekhon/Kubernetes-templates/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied IPs etc.
+The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied IPs etc.
 
 Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity.
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open these URLs from the current file via a hotkey!)
 
-[.envrc](https://github.com/HariSekhon/Kubernetes-templates/blob/master/.envrc) - use with `direnv` to auto-load correct Kubernetes context isolated to current shell to avoid race conditions between shells and scripts caused by naively changing the global `~/.kube/config` context
+[.envrc](https://github.com/HariSekhon/Kubernetes-configs/blob/master/.envrc) - use with `direnv` to auto-load correct Kubernetes context isolated to current shell to avoid race conditions between shells and scripts caused by naively changing the global `~/.kube/config` context
 
-Shortcut symlinks are for faster instantiation from these templates using the standard kubernetes shortcuts such as `new pvc.yaml` - see the [Templates](https://github.com/HariSekhon/Templates) repo for more details on the `new` command to fast create new files from templates.
+Shortcut symlinks are for faster instantiation from these configs using the standard kubernetes shortcuts such as `new pvc.yaml` - see the [Templates](https://github.com/HariSekhon/Templates) repo for more details on the `new` command to fast create new files from templates.
 
 Forked from the [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-tools) repo, this is now a submodule of the [Templates](https://github.com/HariSekhon/Templates) repo which is a submodule of the DevOps [Bash](https://github.com/harisekhon/devops-bash-tools), [Perl](https://github.com/HariSekhon/DevOps-Perl-tools) and [Python](https://github.com/harisekhon/devops-python-tools) tools repos.
 
@@ -52,6 +52,6 @@ Forked from the [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-to
 
 * [Dockerfiles](https://github.com/HariSekhon/Dockerfiles) - 50+ DockerHub public images for Docker & Kubernetes - Hadoop, Kafka, ZooKeeper, HBase, Cassandra, Solr, SolrCloud, Presto, Apache Drill, Nifi, Spark, Mesos, Consul, Riak, OpenTSDB, Jython, Advanced Nagios Plugins & DevOps Tools repos on Alpine, CentOS, Debian, Fedora, Ubuntu, Superset, H2O, Serf, Alluxio / Tachyon, FakeS3
 
-[![Stargazers over time](https://starchart.cc/HariSekhon/Kubernetes-templates.svg)](https://starchart.cc/HariSekhon/Kubernetes-templates)
+[![Stargazers over time](https://starchart.cc/HariSekhon/Kubernetes-configs.svg)](https://starchart.cc/HariSekhon/Kubernetes-configs)
 
-[git.io/k8s-templates](https://git.io/k8s-templates)
+[git.io/k8s-configs](https://git.io/k8s-configs)
