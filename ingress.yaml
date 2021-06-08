@@ -39,7 +39,7 @@ metadata:
     #nginx.ingress.kubernetes.io/canary: "true"
     #nginx.ingress.kubernetes.io/canary-weight: 1  # 1%
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    # XXX: Edit to make available externally or apply common ingress.patch.yaml
+    # XXX: Edit to make available externally or apply common ingress.patch.yaml with shared IP list eg. Cloudflare
     nginx.ingress.kubernetes.io/whitelist-source-range: |
       10.0.0.0/8,
       172.16.0.0/16,
