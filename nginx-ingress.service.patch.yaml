@@ -32,6 +32,7 @@ spec:
   # XXX: lock down generated GKE firewall rule to Cloudflare IP blocks, Office, VPN etc.
 #  loadBalancerSourceRanges:
 #    # Cloudflare IPs - only allow these Proxied IPs
+#    # https://www.cloudflare.com/en-gb/ips/
 #    - 103.21.244.0/22
 #    - 103.22.200.0/22
 #    - 103.31.4.0/22
