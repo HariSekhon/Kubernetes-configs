@@ -21,30 +21,16 @@ kind: Ingress
 metadata:
   name: ignored
   annotations:
-    # 10.0.0.0/8      = internal networks
-    # 62.31.105.234   = Webtrends optimize tool
-    # 213.123.137.249 = Webtrends optimize tool
-    #
-    # CloudFlare IP blocks:
-    #
-#    "103.21.244.0/22",
-#    "103.22.200.0/22",
-#    "103.31.4.0/22",
-#    "104.16.0.0/12",
-#    "108.162.192.0/18",
-#    "131.0.72.0/22",
-#    "141.101.64.0/18",
-#    "162.158.0.0/15",
-#    "172.64.0.0/13",
-#    "173.245.48.0/20",
-#    "188.114.96.0/20",
-#    "190.93.240.0/20",
-#    "197.234.240.0/22",
-#    "198.41.128.0/17"
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    # XXX: Edit to make available externally
     nginx.ingress.kubernetes.io/whitelist-source-range: |
       10.0.0.0/8,
-      62.31.105.234/32,
-      213.123.137.249/32,
+      172.16.0.0/16,
+      192.168.0.0/16,
+      # https://www.cloudflare.com/en-gb/ips/ - XXX: remove this line
       103.21.244.0/22,
       103.22.200.0/22,
       103.31.4.0/22,
