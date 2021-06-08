@@ -19,6 +19,8 @@
 
 # Optimizations patch for all nginx-based ingresses including security whitelisted IPs and configuration tweaks
 
+# Applied via Kustomize
+
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
