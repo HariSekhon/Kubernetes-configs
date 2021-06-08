@@ -13,7 +13,11 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# Patch to apply common Nginx Ingress settings such a IP filters and tuning to all Ingress
+# ============================================================================ #
+#           I n g r e s s   C o m m o n   S e t t i n g s   P a t c h
+# ============================================================================ #
+
+# Optimizations patch for all nginx-based ingresses including security whitelisted IPs and configuration tweaks
 
 ---
 apiVersion: extensions/v1beta1
@@ -45,8 +49,6 @@ metadata:
       190.93.240.0/20,
       197.234.240.0/22,
       198.41.128.0/17
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       more_set_headers "server: nginx";
       more_clear_headers "x-powered-by";
