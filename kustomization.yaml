@@ -103,14 +103,14 @@ patches:
     kind: CronJob
 
   # apply the same firewall and tuning to all Ingresses without duplicating lots of config
-- path: ./nginx-ingress.ingress.patch.yaml
+- path: ./ingress.nginx.patch.yaml
   target:
     kind: Ingress
     annotationSelector: kubernetes.io/ingress.class=nginx
 
 # =============
 # JSON Patching - not my favourite way of doing it, prefer patchesStrategicMerge above
-#                 the only reason to use this is because not all resources or fields support strategic merge patches
+#                 the only reason to use this is because not all resources or fields support strategic merge patches, or if you need to add to an array
 #
 #   https://github.com/kubernetes-sigs/kustomize/blob/master/examples/jsonpatch.md
 #   https://tools.ietf.org/html/rfc6902
@@ -126,6 +126,17 @@ patches:
 #    - op: replace
 #      path: /some/existing/path
 #      value: new value
+
+# XXX: Danger: breaks regular existing services
+#patchesJson6902:
+#- target:
+#    version: v1
+#    group: apps
+#    kind: Deployment
+#    name: ingress-nginx-controller
+#    namespace: ingress-nginx
+#  path: nginx-ingress.passthrough.patch.yaml
+
 
 # =======================
 # Images + Tags overrides
