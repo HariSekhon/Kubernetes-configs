@@ -13,7 +13,9 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# Needed for ArgoCD Ingress but carries a significant performance penalty
+# XXX: Danger - this breaks all existing normal ingress terminated SSL services
+
+# This switch was supposedly needed for ArgoCD ingress according to the docs but I've gotten it working without this so don't apply this patch to your nginx ingress controller
 
 - op: add
   path: /spec/template/spec/containers/0/args/1
