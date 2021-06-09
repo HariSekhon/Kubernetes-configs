@@ -18,12 +18,6 @@
 #                          A r g o C D   I n g r e s s
 # ============================================================================ #
 
-# XXX: use with caution
-#
-# requires enabling --enable-ssl-passthrough on nginx ingress, which has a performance penalty, and can break existing services
-#
-# see nginx-ingress.passthrough.patch.yaml
-
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -33,13 +27,13 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    # If you encounter a redirect loop or are getting a 307 response code
-    # then you need to force the nginx ingress to connect to the backend using HTTPS.
+    # without this gets infinite 307 redirects, regardless of whether you use servicePort http or https
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    #kubernetes.io/tls-acme: "true"
+    #nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # XXX: ignore the docs, don't do this, the nginx ingress controller change required breaks normal services
+    #nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     # XXX: Edit to make available externally or apply common ingress.nginx.patch.yaml with shared IP list eg. Cloudflare
     nginx.ingress.kubernetes.io/whitelist-source-range: |
       10.0.0.0/8,
@@ -51,8 +45,7 @@ spec:
     # XXX: Edit
   - hosts:
     - argocd.DOMAIN.COM
-    #secretName: argocd-tls
-    secretName: argocd-secret  # do not change, this is provided by Argo CD
+    secretName: argocd-tls  # don't need to use argocd-secret provided by ArgoCD, docs are wrong on this
   rules:
     # XXX: Edit
   - host: argocd.DOMAIN.COM
