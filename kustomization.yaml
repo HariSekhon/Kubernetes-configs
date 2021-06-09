@@ -127,7 +127,7 @@ patches:
 #      path: /some/existing/path
 #      value: new value
 
-# XXX: Danger: breaks regular existing services
+# XXX: Danger - this breaks all existing normal ingress terminated SSL services
 #patchesJson6902:
 #- target:
 #    version: v1
