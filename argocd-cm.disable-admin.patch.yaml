@@ -20,10 +20,14 @@
 # Disables the default admin user after SSO integration eg. to Azure Active Directory
 #
 #   https://argoproj.github.io/argo-cd/operator-manual/user-management/
+
+# XXX: Check your UI login and CLI login works too before applying this:
 #
+#   argocd login argocd.$domain --sso --grpc-web
+
 # Apply like so:
 #
-#   run: echo kubectl patch configmap argocd --namespace argocd --patch "$(cat argocd-cm.patch.yaml)"
+#   run: kubectl patch configmap argocd --namespace argocd --patch "$(cat argocd-cm.disable-admin.patch.yaml)"
 #
 # Check it's disabled via:
 #
