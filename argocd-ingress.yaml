@@ -15,7 +15,7 @@
 #
 
 # ============================================================================ #
-#                          A r g o C D   I n g r e s s
+#                  A r g o C D   I n g r e s s   -   H T T P S
 # ============================================================================ #
 
 ---
@@ -51,7 +51,6 @@ spec:
   - host: argocd.DOMAIN.COM
     http:
       paths:
-        # XXX: Edit
       - path: /
         backend:
           serviceName: argocd-server
