@@ -48,7 +48,7 @@ spec:
     # XXX: Edit
   - hosts:
     - argocd-grpc.DOMAIN.COM
-    secretName: argocd-grpc-tls
+    secretName: argocd-server-grpc-tls  # XXX: docs are wrong, don't use argocd-secret, if changed later Cert Manager will wipe it out along with the other secrets in there!
   rules:
     # XXX: Edit
   - host: argocd-grpc.DOMAIN.COM
