@@ -21,7 +21,7 @@
 #
 # Apply like so:
 #
-#   run: echo kubectl patch configmap argocd --namespace argocd --patch "$(cat argocd-cm.patch.yaml)"
+#   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat argocd-cm.patch.yaml)"
 
 ---
 apiVersion: v1
@@ -33,6 +33,7 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
 data:
+  url: https://argocd.DOMAIN.COM/
   # ===========
   # https://argoproj.github.io/argo-cd/operator-manual/declarative-setup/#repositories
   repositories: |
@@ -108,8 +109,8 @@ data:
 
     - url: git@github.com:ORG  # for all repos with this prefix url
       sshPrivateKeySecret:
-        name: my-secret
-        key: sshPrivateKey
+        name: github-ssh-key  # kubectl create secret generic github-ssh-key -n argocd --from-file=private-key=$HOME/.ssh/github_key
+        key: private-key
 
   # ===================
   # Add SSH public keys for git repo hosts here if necessary
