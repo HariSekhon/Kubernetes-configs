@@ -31,7 +31,10 @@ resources:
 
 patchesStrategicMerge:
 - argocd-cm.patch.yaml
-- argocd-cm.disable-admin.patch.yaml
+# Azure AD SSO
+#- argocd-cm.azure-ad.patch.yaml
+#- argocd-rbac-cm.patch.yaml
+#- argocd-cm.disable-admin.patch.yaml
 
 #patchesJson6902:
 #- target:
