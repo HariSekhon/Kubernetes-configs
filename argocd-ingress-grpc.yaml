@@ -20,6 +20,10 @@
 
 # https://argoproj.github.io/argo-cd/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts
 
+# GRPC requires HTTP/2
+#
+# https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-http2
+
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
