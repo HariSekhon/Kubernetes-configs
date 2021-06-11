@@ -23,7 +23,14 @@
 #
 # https://tools.ietf.org/html/rfc6902
 
+# Apply:
+#
+#   run: kubectl patch $object $name --namespace $namespace --type json --patch "$(cat patch.json.yaml)"
+
 ---
 - op: replace
   path: /path/to/key
   value: string_or_struct
+- op: add
+  path: /path/to/array/command/-
+  value: --extra-switch
