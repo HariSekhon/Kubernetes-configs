@@ -32,3 +32,12 @@ resources:
 patchesStrategicMerge:
 - argocd-cm.patch.yaml
 - argocd-cm.disable-admin.patch.yaml
+
+patchesJson6902:
+- target:
+    version: v1
+    group: apps
+    kind: Deployment
+    name: argocd-server
+    namespace: argocd
+  path: argocd-server.http.patch.yaml
