@@ -32,5 +32,5 @@
   path: /path/to/key
   value: string_or_struct
 - op: add
-  path: /path/to/array/command/-
+  path: /spec/template/spec/containers/0/command/-
   value: --extra-switch
