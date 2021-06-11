@@ -47,7 +47,7 @@ spec:
     # XXX: Edit
   - hosts:
     - argocd.DOMAIN.COM
-    secretName: argocd-tls  # don't need to use argocd-secret provided by ArgoCD, docs are wrong on this
+    secretName: argocd-server-tls  # XXX: docs are wrong, don't use argocd-secret, if changed later Cert Manager will wipe it out along with the other secrets in there!
   rules:
     # XXX: Edit
   - host: argocd.DOMAIN.COM
