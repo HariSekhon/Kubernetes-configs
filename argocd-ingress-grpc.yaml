@@ -51,4 +51,4 @@ spec:
       - path: /
         backend:
           serviceName: argocd-server
-          servicePort: http
+          servicePort: http  # requires argocd-server.http.patch.yaml
