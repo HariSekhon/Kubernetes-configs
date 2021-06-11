@@ -33,6 +33,7 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
 data:
+  # ===========
   # https://argoproj.github.io/argo-cd/operator-manual/declarative-setup/#repositories
   repositories: |
     # XXX: Edit all fields below
@@ -58,6 +59,7 @@ data:
       #  name: my-secret
       #  key: githubAppPrivateKey
 
+    # ===========
     # Helm repos:
     - type: helm
       url: https://storage.googleapis.com/istio-prerelease/daily-build/master-latest-daily/charts
@@ -81,6 +83,7 @@ data:
         name: my-secret
         key: key
 
+    # ==================
     # Shared Credentials between repositories
     #
     #     https://argoproj.github.io/argo-cd/operator-manual/declarative-setup/#repository-credentials
@@ -108,7 +111,10 @@ data:
         name: my-secret
         key: sshPrivateKey
 
-  # Add SSH public keys for git repo hosts here if necessary - use your ~/.ssh/known_hosts or good old 'ssh-keyscan' to get these
+  # ===================
+  # Add SSH public keys for git repo hosts here if necessary
+  #
+  # use your ~/.ssh/known_hosts or good old 'ssh-keyscan' to get these
   #
   #     https://argoproj.github.io/argo-cd/operator-manual/declarative-setup/#ssh-known-host-public-keys
   #
