@@ -1,0 +1,44 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-06-11 17:03:23 +0100 (Fri, 11 Jun 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/kubernetes-templates
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                             A r g o C D   R B A C
+# ============================================================================ #
+
+# https://argoproj.github.io/argo-cd/operator-manual/rbac/
+
+# Patch to configure ArgoCD RBAC groups eg. for Azure AD SSO
+#
+# Apply like so:
+#
+#   run: kubectl patch configmap argocd-rbac-cm --namespace argocd --patch "$(cat argocd-rbac-cm.patch.yaml)"
+#
+# Validate while kubectl context is on k8s cluster where Argo is installed:
+#
+#        argocd-util settings rbac validate --namespace argocd --policy-file argocd-rbac-cm.patch.yaml
+
+---
+data:
+  policy.default: role:readonly
+  policy.csv: |
+      p, role:org-admin, applications, *, */*, allow
+      p, role:org-admin, clusters, get, *, allow
+      p, role:org-admin, repositories, get, *, allow
+      p, role:org-admin, repositories, create, *, allow
+      p, role:org-admin, repositories, update, *, allow
+      p, role:org-admin, repositories, delete, *, allow
+      # XXX: Edit this with a group id from your SSO eg. Azure AD
+      g, "84ce98d1-e359-4f3b-85af-985b458de3c6", role:org-admin
+  scopes: '[roles, email]'
