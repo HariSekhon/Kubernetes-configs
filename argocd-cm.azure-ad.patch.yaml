@@ -19,6 +19,15 @@
 
 # https://argoproj.github.io/argo-cd/operator-manual/user-management/microsoft/#azure-ad-app-registration-auth-using-oidc
 
+# 1. Register App in Azure:
+#
+#     https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app
+#
+# 2. Populate XXX: Edit fields in this and argocd-rbac-cm.patch.yaml
+#
+# 3. Apply both patches, then Log In via Azure button will appear in UI
+
+
 # Patch to configure ArgoCD settings configmap
 #
 # Apply like so:
