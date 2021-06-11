@@ -25,7 +25,7 @@
 
 # Apply:
 #
-#   run: kubectl patch $object $name --namespace $namespace --type json --patch "$(cat patch.json.yaml)"
+#   run: kubectl patch $object $name --namespace $namespace --type json --patch "$(cat patch.yaml)"
 
 ---
 - op: replace
