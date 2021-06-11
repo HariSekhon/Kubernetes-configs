@@ -13,10 +13,18 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# ArgoCD - disable the default admin user after SSO integration eg. to Azure Active Directory
+# ============================================================================ #
+#            A r g o C D   S e t t i n g s   C o n f i g   P a t c h
+# ============================================================================ #
+
+# Disables the default admin user after SSO integration eg. to Azure Active Directory
 #
 #   https://argoproj.github.io/argo-cd/operator-manual/user-management/
-
+#
+# Apply like so:
+#
+#   run: echo kubectl patch configmap argocd --namespace argocd --patch "$(cat argocd-cm.patch.yaml)"
+#
 # Check it's disabled via:
 #
 #   argocd account get --account admin
@@ -26,9 +34,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-cm
-  namespace: argocd
+  namespace: argocd  # must be namespace where ArgoCD was installed - usually 'argocd'
   labels:
     app.kubernetes.io/name: argocd-cm
-    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
 data:
   admin.enabled: "false"
