@@ -18,6 +18,8 @@
 #                  A r g o C D   I n g r e s s   -   H T T P S
 # ============================================================================ #
 
+# https://argoproj.github.io/argo-cd/operator-manual/ingress/#option-2-multiple-ingress-objects-and-hosts
+
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
