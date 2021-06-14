@@ -28,7 +28,13 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-cm
-  namespace: argocd  # must be namespace where ArgoCD was installed - usually 'argocd'
+  # defining namespace leads to this error in Kustomize 3.1.0 and 4.1.3:
+  #
+  #   Error: no matches for Id ~G_v1_ConfigMap|argocd|argocd-cm; failed to find unique target for patch ~G_v1_ConfigMap|argocd-cm
+  #
+  # After much testing this is because the base ArgoCD manifest cluster-install for 2.0.3 defined in argocd-kustomization.yaml comes without namespaces specified, and the namespace override must occur after this patching
+  #
+  #namespace: argocd  # breaks kustomize patching of argocd base
   labels:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
