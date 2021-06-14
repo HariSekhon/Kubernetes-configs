@@ -30,6 +30,7 @@
 #        argocd-util settings rbac validate --namespace argocd --policy-file argocd-rbac-cm.patch.yaml
 
 ---
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-rbac-cm
