@@ -30,6 +30,13 @@
 #        argocd-util settings rbac validate --namespace argocd --policy-file argocd-rbac-cm.patch.yaml
 
 ---
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd  # must be namespace where ArgoCD was installed - usually 'argocd'
+  labels:
+    app.kubernetes.io/name: argocd-rbac-cm
+    app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
 data:
   policy.default: role:readonly
   policy.csv: |
