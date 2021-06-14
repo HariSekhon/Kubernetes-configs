@@ -33,6 +33,7 @@ resources:
 #- clusters-secrets.yaml
 #- repos-secrets.yaml
 
+# XXX: don't define namespace in these patches, will break patching, see argocd-cm.patch.yaml for details why
 patchesStrategicMerge:
 - argocd-cm.patch.yaml
 # Azure AD SSO
