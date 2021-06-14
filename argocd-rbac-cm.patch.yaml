@@ -34,7 +34,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-rbac-cm
-  namespace: argocd  # must be namespace where ArgoCD was installed - usually 'argocd'
+  #namespace: argocd  # breaks patching, see argocd-cm.patch.yaml for details why
   labels:
     app.kubernetes.io/name: argocd-rbac-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
