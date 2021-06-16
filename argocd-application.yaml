@@ -17,23 +17,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-	# XXX: Edit
+  # XXX: Edit
   name: APP
   namespace: argocd  # must be whichever namespace you installed ArgoCD to - usually 'argocd' by default
-	# enable finalizer if you want removal of ArgoCD application to cause a cascading delete to the underlying Kubernetes objects eg. deployments
-	#finalizers:
+  # enable finalizer if you want removal of ArgoCD application to cause a cascading delete to the underlying Kubernetes objects eg. deployments
+  #finalizers:
   #  - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-		# XXX: Edit - url to Git repo containing your k8s manifests
+    # XXX: Edit - url to Git repo containing your k8s manifests
     repoURL: https://github.com/argoproj/argocd-example-apps.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
     targetRevision: HEAD
-		# XXX: Edit - path to k8s manifiests
+    # XXX: Edit - path to k8s manifiests
     path: dir/path/to/k8s/manifests
-	  #chart: APP # specify chart instead of path if deploying a Helm app
+    #chart: APP # specify chart instead of path if deploying a Helm app
   destination:
-		# XXX: Edit - this is in-cluster URL, edit to external master URL if you need to deploy to other clusters
+    # XXX: Edit - this is in-cluster URL, edit to external master URL if you need to deploy to other clusters
     server: https://kubernetes.default.svc
-		# XXX: Edit - where to deploy APP to
+    # XXX: Edit - where to deploy APP to
     namespace: NAMESPACE
