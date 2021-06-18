@@ -42,6 +42,11 @@ spec:
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace
+  #- group: scheduling.k8s.io
+  #  kind: PriorityClass
+  #- group: storage.k8s.io
+  #  kind: StorageClass
+
   # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceBlacklist:
   - group: ''
@@ -50,12 +55,30 @@ spec:
     kind: LimitRange
   - group: ''
     kind: NetworkPolicy
-  # Deny all namespaced-scoped resources from being created, except for Deployment and StatefulSet
+
+  # Deny all namespaced-scoped resources from being created, except for ones explicitly listed here
+  # populated by script argocd_namespace_resource_whitelist.sh from https://github.com/HariSekhon/DevOps-Bash-tools/
   namespaceResourceWhitelist:
-  - group: 'apps'
+  - group: ''
+    kind: ConfigMap
+  - group: batch
+    kind: CronJob
+  - group: apps
     kind: Deployment
-  - group: 'apps'
+  - group: autoscaling
+    kind: HorizontalPodAutoscaler
+  - group: extensions
+    kind: Ingress
+  - group: policy
+    kind: PodDisruptionBudget
+  - group: ''
+    kind: Service
+  - group: ''
+    kind: ServiceAccount
+  - group: apps
     kind: StatefulSet
+  - group: autoscaling.k8s.io
+    kind: VerticalPodAutoscaler
 
   roles:
   # A role which provides read-only access to all applications in the project
