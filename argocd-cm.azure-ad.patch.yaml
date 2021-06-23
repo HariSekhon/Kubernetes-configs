@@ -48,6 +48,8 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
 data:
+  # XXX: Edit
+  url: https://argocd.DOMAIN.COM/
   oidc.config: |
     name: Azure
     # XXX: Edit tenant
