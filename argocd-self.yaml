@@ -36,3 +36,6 @@ spec:
   destination:
     server: https://kubernetes.default.svc  # in-cluster URL
     namespace: argocd  # should be same as namespace above
+  syncPolicy:
+    automated:
+      selfHeal: true
