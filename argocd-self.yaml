@@ -30,7 +30,7 @@ spec:
   source:
     # XXX: Edit
     repoURL: https://github.com/HariSekhon/Kubernetes-configs.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
-    targetRevision: HEAD
+    targetRevision: HEAD  # branch / tag / SHA commit
     # XXX: Edit
     path: dir/path/to/k8s/manifests
   destination:
