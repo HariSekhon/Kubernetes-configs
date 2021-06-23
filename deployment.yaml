@@ -216,6 +216,11 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP  # K8S API path
+        - name: CLOUD_SQL_INSTANCE
+          valueFrom:
+            configMapKeyRef:
+              key: cloud-sql-instance
+              name: my-configmap
         - name: MYSECRET
           valueFrom:
             secretKeyRef:
