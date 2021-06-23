@@ -36,8 +36,16 @@ resources:
 
 # XXX: don't define namespace in these patches, will break patching, see argocd-cm.patch.yaml for details why
 patchesStrategicMerge:
+# General ArgoCD Settings:
+#
 - argocd-cm.patch.yaml
-# Azure AD SSO
+#
+# Kustomize - download specific version:
+#
+#- argocd-server.kustomize.patch.yaml
+#
+# Azure AD SSO patches:
+#
 #- argocd-cm.azure-ad.patch.yaml
 #- argocd-rbac-cm.patch.yaml
 #- argocd-cm.disable-admin.patch.yaml
