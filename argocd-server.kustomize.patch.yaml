@@ -1,0 +1,57 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-04-21 10:52:12 +0100 (Wed, 21 Apr 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#          A r g o C D   K u s t o m i z e   V e r s i o n   P a t c h
+# ============================================================================ #
+
+# Patch ArgoCD server to download an exact version of Kustomize
+
+# Apply:
+#
+#   run: kubectl patch deployment argocd-server --namespace argocd --patch "$(cat argocd-server.kustomize.patch.yaml)"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: download-tools
+        image: alpine:3.8
+        command: [sh, -c]
+        env:
+          # XXX: Edit Kustomize version here
+        - name: KUSTOMIZE_VERSION
+          value: 4.1.3
+        args:
+        - wget -qO- https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv$(KUSTOMIZE_VERSION)/kustomize_v$(KUSTOMIZE_VERSION)_linux_amd64.tar.gz | tar -xvzf - &&
+          mv kustomize /custom-tools/
+        volumeMounts:
+        - mountPath: /custom-tools
+          name: custom-tools
+      containers:
+      - name: argocd-server
+        volumeMounts:
+        - mountPath: /usr/local/bin/kustomize
+          name: custom-tools
+          subPath: kustomize
+      volumes:
+      - emptyDir: {}
+        name: custom-tools
