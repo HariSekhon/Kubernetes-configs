@@ -47,4 +47,4 @@ spec:
     #automated: {}  # without self-healing or pruning
     automated:
       selfHeal: true
-      #prune: true
+      prune: false   # safe by default
