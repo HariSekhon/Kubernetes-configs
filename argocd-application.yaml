@@ -44,7 +44,7 @@ spec:
     # XXX: Edit - where to deploy APP to
     namespace: NAMESPACE
   syncPolicy:
-    #automated: {}  # without self-healing
+    #automated: {}  # without self-healing or pruning
     automated:
       selfHeal: true
       #prune: true
