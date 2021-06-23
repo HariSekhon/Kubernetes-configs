@@ -26,6 +26,7 @@ bases:                     # // is intentional to only copy from this path down
 - github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3
 
 resources:
+- argocd-self.yaml  # GitOps self-management tracking of ArgoCD config itself
 - argocd-ingress.yaml
 - argocd-ingress-grpc.yaml
 #- argocd-project.yaml
