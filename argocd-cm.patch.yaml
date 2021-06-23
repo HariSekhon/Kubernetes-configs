@@ -48,7 +48,6 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
 data:
-  url: https://argocd.DOMAIN.COM/
   # ===========
   # https://argoproj.github.io/argo-cd/operator-manual/declarative-setup/#repositories
   repositories: |
