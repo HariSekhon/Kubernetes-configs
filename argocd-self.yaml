@@ -39,3 +39,4 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
+      prune: false
