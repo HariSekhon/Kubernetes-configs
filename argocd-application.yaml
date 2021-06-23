@@ -43,3 +43,7 @@ spec:
     server: https://kubernetes.default.svc
     # XXX: Edit - where to deploy APP to
     namespace: NAMESPACE
+  syncPolicy:
+    #automated: {}  # without self-healing
+    automated:
+      selfHeal: true
