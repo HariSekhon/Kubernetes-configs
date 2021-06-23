@@ -19,9 +19,18 @@
 
 # Patch to configure ArgoCD settings configmap
 #
-# Apply like so:
+# Download argocd-util:
+#
+#   docker run --rm -ti -w /host -v ~/bin:/host argoproj/argocd cp /usr/local/bin/argocd-util ./argocd-util
+#
+# Validate:
+#
+#   argocd-util settings validate --argocd-cm-path ./argocd-cm.patch.yaml
+#
+# Apply:
 #
 #   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat argocd-cm.patch.yaml)"
+#
 
 ---
 apiVersion: v1
