@@ -119,8 +119,9 @@ spec:
       - name: NAME
         image: postgres:9.6
         ports:
-        - name: NAME
+        - name: postgres
           containerPort: 5432
+          protocol: TCP
         #securityContext:
         #  privileged: true
         env:
