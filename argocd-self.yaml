@@ -13,6 +13,12 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#           A r g o C D   G i t O p s   S e l f   M a n a g e m e n t
+# ============================================================================ #
+
+# manages ArgoCD itself via GitOps tracking and updating from ArgoCD configs in given Git repo
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
