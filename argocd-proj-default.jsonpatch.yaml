@@ -31,3 +31,6 @@
   value:
   - namespace: argocd
     server: https://kubernetes.default.svc
+- op: add
+  path: /spec/description
+  value: Locked down to only be used by ArgoCD
