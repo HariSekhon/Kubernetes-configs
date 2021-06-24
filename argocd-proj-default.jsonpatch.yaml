@@ -34,3 +34,7 @@
 - op: add
   path: /spec/description
   value: Locked down to only be used by ArgoCD
+- op: add
+  path: /spec/orphanedResources
+  value:
+    warn: false
