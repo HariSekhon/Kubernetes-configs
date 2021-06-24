@@ -30,6 +30,9 @@ metadata:
 spec:
   # XXX: Edit
   description: DESCRIPTION
+  # give UI option to show orphaned resources but don't raise annoying warnings as this is quite common
+  orphanedResources:
+    warn: false
 
   # Allow manifests to deploy from any Git repos
   sourceRepos:
