@@ -58,6 +58,10 @@ patchesStrategicMerge:
 #- argocd-cm.azure-ad.patch.yaml
 #- argocd-rbac-cm.patch.yaml
 #- argocd-cm.disable-admin.patch.yaml
+#
+# GitHub Webhook Secret:
+#
+#- argocd-secret.github-webhook.patch.yaml
 
 # ArgoCD default project can't be modified via Kustomize because it is not in the remote base objects
 #patchesJson6902:
