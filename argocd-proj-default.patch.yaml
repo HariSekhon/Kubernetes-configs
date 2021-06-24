@@ -34,6 +34,8 @@
 #  #namespace: argocd  # remote base doesn't specify namespace
 spec:
   description: Locked down to only be used by ArgoCD
+  orphanedResources:
+    warn: false
 
   #sourceRepos:
   #- '*'
