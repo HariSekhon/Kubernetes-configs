@@ -13,6 +13,10 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                          A r g o C D   P r o j e c t
+# ============================================================================ #
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
