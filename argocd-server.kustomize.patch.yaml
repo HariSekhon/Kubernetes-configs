@@ -17,17 +17,17 @@
 #          A r g o C D   K u s t o m i z e   V e r s i o n   P a t c h
 # ============================================================================ #
 
-# Patch ArgoCD server to download an exact version of Kustomize
+# Patch ArgoCD repo server to download an specific version of Kustomize with which to generate manifests
 
 # Apply:
 #
-#   run: kubectl patch deployment argocd-server --namespace argocd --patch "$(cat argocd-server.kustomize.patch.yaml)"
+#   run: kubectl patch deployment argocd-repo-server --namespace argocd --patch "$(cat argocd-repo-server.kustomize.patch.yaml)"
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: argocd-server
+  name: argocd-repo-server
   #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.patch.yaml for details why
 spec:
   template:
@@ -47,7 +47,7 @@ spec:
         - mountPath: /custom-tools
           name: custom-tools
       containers:
-      - name: argocd-server
+      - name: argocd-repo-server
         volumeMounts:
         - mountPath: /usr/local/bin/kustomize
           name: custom-tools
