@@ -30,12 +30,12 @@ metadata:
 spec:
   # XXX: Edit
   description: DESCRIPTION
-  # Allow manifests to deploy from any Git repos
 
+  # Allow manifests to deploy from any Git repos
   sourceRepos:
   - '*'
-  # Only permit applications to deploy to the guestbook namespace in the same cluster
 
+  # Only permit applications to deploy to the NAMESPACE namespace in the same cluster
   destinations:
   # XXX: Edit
   - namespace: NAMESPACE
