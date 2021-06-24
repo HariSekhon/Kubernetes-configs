@@ -25,7 +25,7 @@ namespace: argocd
 bases:                      # // is intentional to only copy from this path down
 #- github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3
 #
-# but // causes this error in Kustomize 3 (the argocd-repo-server.kustomize.patch.yaml upgrades Kustomize and should fix this too):
+# but // causes this error in Kustomize 3.5 (the argocd-repo-server.kustomize.patch.yaml upgrades Kustomize and should fix this too):
 #
 #     Error: accumulating resources: accumulateFile "accumulating resources from 'github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3': evalsymlink failure on '/tmp/git@repo/argocd/overlay/github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.0.3' : lstat /tmp/git@repo/argocd/overlay/github.com: no such file or directory", accumulateDirector: "recursed accumulation of path '/tmp/kustomize-881686007/repo': accumulating resources: accumulateFile \"accumulating resources from '../namespace-install': evalsymlink failure on '/tmp/kustomize-881686007/namespace-install' : lstat /tmp/kustomize-881686007/namespace-install: no such file or directory\", loader.New \"Error loading ../namespace-install with git: url lacks host: ../namespace-install, dir: evalsymlink failure on '/tmp/kustomize-881686007/namespace-install' : lstat /tmp/kustomize-881686007/namespace-install: no such file or directory, get: invalid source string: ../namespace-install\""
 #
@@ -49,7 +49,7 @@ patchesStrategicMerge:
 #
 # Kustomize - download specific version:
 #
-#- argocd-server.kustomize.patch.yaml
+#- argocd-repo-server.kustomize.patch.yaml
 #
 # Azure AD SSO patches:
 #
