@@ -19,6 +19,8 @@
 
 # auto-tracks and loads other ArgoCD applications
 
+# shows secrets and appproject in argocd namespace as orphans, but does not remove them when pruning as they were never managed by this app
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
