@@ -27,7 +27,7 @@ kind: Application
 metadata:
   name: apps
   namespace: argocd  # must be whichever namespace you installed ArgoCD to - usually 'argocd' by default
-  # enable finalizer if you want removal of this to remove all ArgoCD apps in a cascading delete to the managed objects like a prune
+  # don't enable finalizer unless you want a cascading delete of all managed apps when you remove this app
   #finalizers:
   #  - resources-finalizer.argocd.argoproj.io
 spec:
