@@ -51,3 +51,5 @@ spec:
     automated:
       selfHeal: true
       prune: false   # safe by default
+    syncOptions:
+    - ApplyOutOfSyncOnly=false  # true is quicker but doesn't record history, cannot rollback, and hooks aren't run
