@@ -39,7 +39,7 @@ resources:
 - argocd-ingress.yaml
 - argocd-ingress-grpc.yaml
 #- argocd-project.yaml
-#- argocd-application.yaml
+- argocd-apps.yaml
 #- clusters-secrets.yaml
 #- repos-secrets.yaml
 
