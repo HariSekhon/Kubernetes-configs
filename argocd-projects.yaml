@@ -23,7 +23,7 @@
 # - to clear this you'd have to delete the project which may require deleting the apps, which may require disabling argocd app auto-sync, apps auto-sync,
 #   deleting all apps in the project (watch out none have finalizers to cascading delete your deployments), and then kubectl delete appproject $project -n argocd
 
-# shows secrets and appproject in argocd namespace as orphans, but does not remove them when pruning as they were never managed by this app
+# shows secrets and non-managed appprojects in argocd namespace as orphans, but does not remove them when pruning as they were never managed by this app
 
 ---
 apiVersion: argoproj.io/v1alpha1
