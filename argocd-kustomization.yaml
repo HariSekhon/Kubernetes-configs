@@ -56,8 +56,8 @@ patchesStrategicMerge:
 # Azure AD SSO patches:
 #
 #- argocd-cm.azure-ad.patch.yaml
+#- argocd-cm.users.patch.yaml
 #- argocd-rbac-cm.patch.yaml
-#- argocd-cm.disable-admin.patch.yaml
 #
 # GitHub Webhook Secret:
 #
