@@ -1,0 +1,42 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-06-25 16:11:30 +0100 (Fri, 25 Jun 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#              A r g o C D   P a r a m e t e r   O v e r r i d e s
+# ============================================================================ #
+
+# https://argo-cd.readthedocs.io/en/stable/user-guide/parameters/#store-overrides-in-git
+
+# Overrides the given image name with the given tag
+#
+# Declaractive tool specific overrides eg. for Kustomize or Helm
+#
+# For Dev/Staging environments where you are auto-releasing every commit push hashref build, you probably instead want non-GitOps commands eg.
+#
+#   argocd app set v2-dev --kustomize-image "eu.gcr.io/$CLOUSDK_CORE_PROJECT/$image:$tag"
+#
+
+# This file should be named such in the app k8s source directory:
+#
+#   .argocd-source.yaml
+#   .argocd-source-<appname>.yaml   -   for a directory containing multiple apps
+#
+# .argocd-source.yaml is evaluated first, then .argocd-source-<appname>.yaml which can override the former
+
+---
+kustomize:
+  images:
+    #- eu.gcr.io/MYPROJECT/MYIMAGE:MYTAG
+    - myimage:mytag
