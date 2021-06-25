@@ -14,7 +14,7 @@
 #
 
 # ============================================================================ #
-#                      A r g o C D   A p p   o f   A p p s
+#                      A r g o C D   A p p - o f - A p p s
 # ============================================================================ #
 
 # auto-tracks and loads other ArgoCD applications
@@ -27,7 +27,7 @@ kind: Application
 metadata:
   name: apps
   namespace: argocd  # must be whichever namespace you installed ArgoCD to - usually 'argocd' by default
-  # enable finalizer if you want removal of ArgoCD application to cause a cascading delete to the underlying Kubernetes objects eg. deployments
+  # enable finalizer if you want removal of this to remove all ArgoCD apps in a cascading delete to the managed objects like a prune
   #finalizers:
   #  - resources-finalizer.argocd.argoproj.io
 spec:
