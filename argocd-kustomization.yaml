@@ -38,8 +38,8 @@ resources:
 - argocd-self.yaml  # GitOps self-management tracking of ArgoCD config itself
 - argocd-ingress.yaml
 - argocd-ingress-grpc.yaml
-- argocd-projects.yaml
-- argocd-apps.yaml
+- argocd-projects.yaml  # auto-loads projects under k8s/argocd/projects
+- argocd-apps.yaml      # auto-loads applications under k8s/argocd/apps
 #- clusters-secrets.yaml
 #- repos-secrets.yaml
 
