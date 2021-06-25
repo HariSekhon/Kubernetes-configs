@@ -19,6 +19,10 @@
 
 # auto-tracks and loads ArgoCD projects
 
+# if projects managed like this were manually precreated it may result in a stuck spinning state in the 'projects' app tree view waiting to delete project state
+# - to clear this you'd have to delete the project which may require deleting the apps, which may require disabling argocd app auto-sync, apps auto-sync,
+#   deleting all apps in the project (watch out none have finalizers to cascading delete your deployments), and then kubectl delete appproject $project -n argocd
+
 # shows secrets and appproject in argocd namespace as orphans, but does not remove them when pruning as they were never managed by this app
 
 ---
