@@ -19,7 +19,7 @@
 
 # manages a given Kubnernetes application via Kustomize or Helm
 
-# if using argocd-app.yaml App-of-Apps pattern you can just drop this into the k8s/argocd/apps directory in git to add it dynamically,
+# if using argocd-apps.yaml App-of-Apps pattern you can just drop this into the k8s/argocd/apps directory in git to add it dynamically,
 # or conversely delete or rename it to a different suffix such .disabled to have it auto-removed from ArgoCD apps
 
 ---
