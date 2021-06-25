@@ -17,6 +17,11 @@
 #                          A r g o C D   P r o j e c t
 # ============================================================================ #
 
+# manages a given ArgoCD project and settings
+
+# if using argocd-projects.yaml App-of-Projects pattern you can just drop this into the k8s/argocd/projects directory in git to add it dynamically,
+# or conversely delete or rename it to a different suffix such .disabled to have it auto-removed from ArgoCD
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
