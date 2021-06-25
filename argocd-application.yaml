@@ -36,7 +36,7 @@ spec:
     repoURL: https://github.com/argoproj/argocd-example-apps.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
     targetRevision: HEAD
     # XXX: Edit - path to k8s manifiests
-    path: dir/path/to/k8s/manifests
+    path: dir/path/to/k8s/manifests  # relative to root of git repo so no leading slash
     #chart: APP # specify chart instead of path if deploying a Helm app
   destination:
     # XXX: Edit - this is in-cluster URL, edit to external master URL if you need to deploy to other clusters
