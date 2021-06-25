@@ -27,7 +27,7 @@ kind: Application
 metadata:
   name: projects
   namespace: argocd  # must be whichever namespace you installed ArgoCD to - usually 'argocd' by default
-  # enable finalizer if you want removal of ArgoCD application to cause a cascading delete to the underlying Kubernetes objects eg. deployments
+  # don't enable finalizer otherwise it'll cause a cascading delete of projects if this app is removed
   #finalizers:
   #  - resources-finalizer.argocd.argoproj.io
 spec:
