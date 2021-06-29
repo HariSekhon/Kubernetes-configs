@@ -34,6 +34,8 @@ metadata:
     # see also k8s_pod_disruption_budget.yaml
     # XXX: set to true if this can be evicted, otherwise this can prevent cluster autoscaler from scaling down the nodepool
     cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    # adds ArgoCD link symbol in the UI next to object
+    #link.argocd.argoproj.io/external-link: http://www.domain.com/path
 spec:
   replicas: 3  # XXX: don't define replicas if using HPA, overriding this during deployments which could cause load issues
   serviceName: NAME
