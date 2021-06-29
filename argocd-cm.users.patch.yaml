@@ -38,7 +38,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-cm
-  #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.patch.yaml for details why
+  #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.repos.patch.yaml for details why
   labels:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD

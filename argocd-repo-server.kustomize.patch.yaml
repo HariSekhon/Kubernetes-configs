@@ -28,7 +28,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-repo-server
-  #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.patch.yaml for details why
+  #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.repos.patch.yaml for details why
 spec:
   template:
     spec:

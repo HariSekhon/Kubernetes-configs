@@ -43,7 +43,7 @@ resources:
 #- clusters-secrets.yaml
 #- repos-secrets.yaml
 
-# XXX: don't define namespace in these patches, will break patching, see argocd-cm.patch.yaml for details why
+# XXX: don't define namespace in these patches, will break patching, see argocd-cm.repos.patch.yaml for details why
 patchesStrategicMerge:
 # Repos:
 #
