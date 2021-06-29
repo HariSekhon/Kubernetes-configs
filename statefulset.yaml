@@ -35,7 +35,7 @@ metadata:
     # XXX: set to true if this can be evicted, otherwise this can prevent cluster autoscaler from scaling down the nodepool
     cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
 spec:
-  replicas: 3
+  replicas: 3  # XXX: don't define replicas if using HPA, overriding this during deployments which could cause load issues
   serviceName: NAME
   selector:
     matchLabels:
