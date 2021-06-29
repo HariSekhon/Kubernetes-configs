@@ -50,7 +50,7 @@ spec:
       app: APP
       role: master
       tier: backend
-  replicas: 3
+  replicas: 3  # XXX: don't define replicas if using HPA, overriding this during deployments which could cause load issues
   template:
     metadata:
       labels:
