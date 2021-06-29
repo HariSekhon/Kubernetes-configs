@@ -47,7 +47,7 @@ resources:
 patchesStrategicMerge:
 # General ArgoCD Settings:
 #
-- argocd-cm.patch.yaml
+- argocd-cm.repos.patch.yaml
 #
 # Kustomize - download specific version:
 #
