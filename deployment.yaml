@@ -35,6 +35,8 @@ metadata:
   annotations:
     # see also k8s_pod_disruption_budget.yaml
     cluster-autoscaler.kubernetes.io/safe-to-evict: "true"  # set to "false" for apps that don't like disruption, but that might prevent pods with emptyDir volumes getting rescheduled, preventing cluster autoscaler from scaling down the node pool
+    # adds ArgoCD link symbol in the UI next to object
+    #link.argocd.argoproj.io/external-link: http://www.domain.com/path
 spec:
   paused: False
   revisionHistoryLimit: 10  # how many ReplicaSets specs to retain for rollbacks
