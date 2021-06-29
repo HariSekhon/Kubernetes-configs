@@ -25,11 +25,11 @@
 #
 # Validate:
 #
-#   argocd-util settings validate --argocd-cm-path ./argocd-cm.patch.yaml
+#   argocd-util settings validate --argocd-cm-path ./argocd-cm.repos.patch.yaml
 #
 # Apply:
 #
-#   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat argocd-cm.patch.yaml)"
+#   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat argocd-cm.repos.patch.yaml)"
 #
 
 ---
