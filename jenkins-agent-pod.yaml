@@ -66,6 +66,9 @@ spec:
               operator: In
               values:
               - jenkins-agent
+  # needed for argocd container to /home/jenkins/agent/workspace/<pipeline>@tmp/durable-888973f9/jenkins-log.txt, otherwise Permission Denied
+  securityContext:
+    runAsUser: 0
   containers:
   - name: gcloud-sdk  # do not name this 'jnlp', without that container this'll never come up properly to execute the build
     image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
