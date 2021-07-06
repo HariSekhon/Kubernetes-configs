@@ -97,8 +97,13 @@ spec:
         cpu: 500m
         memory: 500Mi
   # Skaffold - CI/CD CLI automation tool
+  #
+  # find available versions using tool in DevOps Python tools repo (https://github.com/HariSekhon/DevOps-Python-tools):
+  #
+  #   docker_registry_show_tags.py -H gcr.io -P 443 -S k8s-skaffold/skaffold
+  #
   - name: skaffold
-    image: gcr.io/k8s-skaffold/skaffold:v1.27.0
+    image: gcr.io/k8s-skaffold/skaffold:v1.41.0
     command:
       - cat
     tty: true
