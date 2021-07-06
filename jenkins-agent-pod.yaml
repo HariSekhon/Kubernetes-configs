@@ -102,7 +102,7 @@ spec:
   #
   #   docker_registry_show_tags.py -H gcr.io -P 443 -S k8s-skaffold/skaffold
   #
-  # but this v1.41.0 seems ahead of publicised release v1.27.0, which is probably more stable:
+  # but latest v1.41.0 seems ahead of publicised release v1.27.0, which is probably more stable:
   #
   #   https://github.com/GoogleContainerTools/skaffold/releases
   #
