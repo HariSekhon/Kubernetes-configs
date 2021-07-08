@@ -96,7 +96,7 @@ spec:
       limits:
         cpu: 500m
         memory: 500Mi
-  # Skaffold - CI/CD CLI automation tool
+  # Skaffold - CI/CD CLI automation tool - also contains jq
   #
   # can find available versions using tool in DevOps Python tools repo (https://github.com/HariSekhon/DevOps-Python-tools):
   #
