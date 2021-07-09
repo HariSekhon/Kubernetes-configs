@@ -4,7 +4,7 @@
 #  Author: Hari Sekhon
 #  Date: 2020-06-02 17:43:35 +0100 (Tue, 02 Jun 2020)
 #
-#  https://github.com/harisekhon/Kubernetes-configs
+#  https://github.com/HariSekhon/Kubernetes-Configs
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
