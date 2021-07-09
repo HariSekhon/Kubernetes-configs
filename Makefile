@@ -20,8 +20,12 @@ default: build
 	@:
 
 .PHONY: build
-build:
+build: init
 	@echo "nothing to build"
+
+.PHONY: init
+init:
+	git submodule update --init --recursive
 
 .PHONY: bash-tools
 bash-tools:
