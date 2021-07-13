@@ -76,7 +76,24 @@ patchesStrategicMerge:
 #    name: default
 #  path: argocd-proj-default.jsonpatch.yaml
 
-# XXX: enable to disable autosync for all apps while doing development eg. with Skaffold
+# XXX: disable ArgoCD + Apps auto-sync, then click to disable the auto-sync on a specific app for development out of working directory, eg. using Skaffold
+#patchesJson6902:
+#- target:
+#    group: argoproj.io
+#    version: v1alpha1
+#    kind: Application
+#    name: argocd
+#    namespace: argocd
+#  path: argocd-disable-autosync.patch.yaml
+#- target:
+#    group: argoproj.io
+#    version: v1alpha1
+#    kind: Application
+#    name: apps
+#    namespace: argocd
+#  path: argocd-disable-autosync.patch.yaml
+
+# XXX: disable autosync for all apps while doing development eg. with Skaffold - you probably want the more targeted approach above
 #patches:
 #- path: argocd-disable-autosync.patch.yaml
 #  target:
