@@ -130,8 +130,8 @@ patches:
 # XXX: Danger - this breaks all existing normal ingress terminated SSL services
 #patchesJson6902:
 #- target:
-#    version: v1
 #    group: apps
+#    version: v1
 #    kind: Deployment
 #    name: ingress-nginx-controller
 #    namespace: ingress-nginx
