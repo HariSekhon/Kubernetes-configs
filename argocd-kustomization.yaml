@@ -75,3 +75,12 @@ patchesStrategicMerge:
 #    kind: AppProject
 #    name: default
 #  path: argocd-proj-default.jsonpatch.yaml
+
+# XXX: enable to disable autosync for all apps while doing development eg. with Skaffold
+#patches:
+#- path: argocd-disable-autosync.patch.yaml
+#  target:
+#    group: argoproj.io
+#    version: v1alpha1
+#    kind: Application
+#    namespace: argocd
