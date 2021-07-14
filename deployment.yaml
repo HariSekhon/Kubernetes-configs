@@ -273,14 +273,12 @@ spec:
             # 100m = 1/10th of CPU core
             cpu: 100m
             memory: 100Mi # MiB
-        volumes:
-        - name: APP-vol
-          # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
-          claimName: APP-dynamic-pvc
-          readOnly: true
         volumeMounts:
         - name: APP-vol
           mountPath: /mnt/APP-vol
+        - name: env
+          mountPath: /app/.env
+          subPath: .env
         securityContext:
           capabilities:
             add: ["IPC_LOCK"]  # allow mlock to avoid paging ram to disk, for security or performance eg. NoSQL low latency datastores
@@ -312,3 +310,14 @@ spec:
           # The default Cloud SQL proxy image runs as the
           # "nonroot" user and group (uid: 65532) by default.
           runAsNonRoot: true
+      volumes:
+      - name: APP-vol
+        # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
+        claimName: APP-dynamic-pvc
+        readOnly: true
+      - name: env
+        configMap:
+          name: myconfigmap
+          items:
+          - key: .env
+            path: .env
