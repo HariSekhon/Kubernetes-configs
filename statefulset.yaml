@@ -182,6 +182,9 @@ spec:
         volumeMounts:
         - name: pgdata
           mountPath: /var/lib/pgsql
+        - name: env
+          mountPath: /app/.env
+          subPath: .env
       #
       # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhost
       #
@@ -201,6 +204,13 @@ spec:
           # The default Cloud SQL proxy image runs as the
           # "nonroot" user and group (uid: 65532) by default.
           runAsNonRoot: true
+      volumes:
+      - name: env
+        configMap:
+          name: myconfigmap
+          items:
+          - key: .env
+            path: .env
   volumeClaimTemplates:
   - metadata:
       name: pgdata
