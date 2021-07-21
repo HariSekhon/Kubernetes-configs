@@ -26,6 +26,8 @@
 #
 # Metrics Server is automatically available on GKE but may need to be added on EKS
 
+# XXX: HPA may break with lack of metrics - <unknown>/70% - if containers are added to pod without resource requests section
+
 ---
 apiVersion: autoscaling/v1
 #apiVersion: autoscaling/v2beta2  # k8s 1.6+ - scale using the largest of multiple metrics
