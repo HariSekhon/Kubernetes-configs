@@ -51,5 +51,6 @@ data:
       p, role:org-admin, repositories, update, *, allow
       p, role:org-admin, repositories, delete, *, allow
       # XXX: Edit this with a group id from your SSO eg. Azure AD
+      # XXX: AAD group usage requires "groupMembershipClaims": "All" in the App Registration manifest
       g, "84ce98d1-e359-4f3b-85af-985b458de3c6", role:org-admin
   scopes: '[roles, email]'
