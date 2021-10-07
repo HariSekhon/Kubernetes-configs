@@ -28,6 +28,8 @@ metadata:
   namespace: jenkins
   labels:
   app: jenkins-agent
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
 spec:
   priorityClassName: high-priority  # requires priorityclass.yaml
   affinity:
