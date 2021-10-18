@@ -76,7 +76,9 @@ spec:
   # set a static IP to reuse if recreated
 #  loadBalancerIP: x.x.x.x
 
-  # generates GKE firewall rule k8s-fw-<hash> which defaults to 0.0.0.0/0 otherwise
+  # updates AWS / GKE firewall rules which default to inbound 0.0.0.0/0 otherwise
+  #               GKE k8s-fw-<hash>
+  #         AWS security group rule named k8s-elb-<hash>
 #  loadBalancerSourceRanges:
 #    # VPN / Office addresses etc...
 #    - x.x.x.x/32
