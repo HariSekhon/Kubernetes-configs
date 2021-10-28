@@ -1,0 +1,93 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2019-11-25 13:47:16 +0000 (Mon, 25 Nov 2019)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                               B u i l d K i t e
+# ============================================================================ #
+
+# XXX: You must create a secret 'buildkite-agent-token' for this to load and connect to your account:
+#
+#   kubectl -n buildkite create secret generic buildkite-agent-token --from-literal=buildkite-agent-token=<secret_from_this_page>
+#
+# You can find the secret agent token on this page:
+#
+#   https://buildkite.com/organizations/hari-sekhon/agents#setup-docker
+#
+# Additional docs:
+#
+#   https://buildkite.com/docs/agent/v3/docker
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buildkite-agent
+  namespace: buildkite
+  labels:
+    app: buildkite-agent
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+spec:
+  paused: False
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: buildkite-agent
+  template:
+    metadata:
+      labels:
+        app: buildkite-agent
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                - SPOT
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                - spot
+      containers:
+      - name: buildkite-agent
+        #image: buildkite/agent:ubuntu
+        #imagePullPolicy: Always
+        image: buildkite/agent:3-ubuntu
+        #securityContext:
+        #  privileged: true
+        env:
+        - name: BUILDKITE_AGENT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: buildkite-agent-token
+              key: buildkite-agent-token
+        resources:
+          limits:
+            cpu: 1
+            memory: 4Gi
+          requests:
+            cpu: 200m
+            memory: 256Mi
