@@ -20,9 +20,9 @@
 
 # XXX: You must create a secret 'buildkite-agent-token' for this to load and connect to your account:
 #
-#   kubectl -n buildkite create secret generic buildkite-agent-token --from-literal=buildkite-agent-token=<secret_from_this_page>
+#   kubectl -n buildkite create secret generic buildkite-agent-token --from-literal=buildkite-agent-token=<secret_token>
 #
-# You can find the secret agent token on this page:
+# You can find the secret agent token on this page when you are logged in:
 #
 #   https://buildkite.com/organizations/hari-sekhon/agents#setup-docker
 #
@@ -76,8 +76,6 @@ spec:
         #image: buildkite/agent:ubuntu
         #imagePullPolicy: Always
         image: buildkite/agent:3-ubuntu
-        #securityContext:
-        #  privileged: true
         env:
         - name: BUILDKITE_AGENT_TOKEN
           valueFrom:
