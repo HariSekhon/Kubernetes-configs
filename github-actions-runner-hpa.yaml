@@ -18,6 +18,9 @@
 #               G i t H u b   A c t i o n s   R u n n e r   H P A
 # ============================================================================ #
 
+# See Also: https://github.com/actions-runner-controller/actions-runner-controller
+
+
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
