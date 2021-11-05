@@ -18,8 +18,6 @@
 #                   G i t H u b   A c t i o n s   R u n n e r
 # ============================================================================ #
 
-# XXX: WARNING: GitHub advises these only be used for Private repos to prevent arbitrary code execution on your runners via Pull Requests (or you can set "Allow local actions only" in the Actions Runners configuration in the repo or org)
-
 # You can find the secret agent token on this page when you are logged in:
 #
 #   https://github.com/<USER>/<REPO>/settings/actions/runners/new?arch=x64&os=linux
