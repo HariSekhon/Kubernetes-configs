@@ -1,0 +1,34 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-05 04:11:45 +0000 (Fri, 05 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#               G i t H u b   A c t i o n s   R u n n e r   H P A
+# ============================================================================ #
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: github-actions-runner-hpa
+  namespace: github-actions
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: github-actions-runner
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
