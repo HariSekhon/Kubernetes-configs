@@ -80,6 +80,7 @@ spec:
         - --token
         - <TOKEN>  # XXX: replace
         - --unattended
+        - --ephemeral  # take 1 job and exit. Avoids job interrupts from scaling down
         resources:
           limits:
             cpu: 1
