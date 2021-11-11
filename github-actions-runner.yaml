@@ -99,7 +99,7 @@ spec:
         # XXX: kubectl create secret generic -n github-actions github-actions-runner-token --from-literal=github-actions-runner-token=TOKEN
         #        or
         #      use a script like gcp_secrets_to_kubernetes.sh to load it from GCP Secret Manager (see https://github.com/HariSekhon/DevOps-Bash-tools)
-        - $GITHUB_ACTIONS_RUNNER_TOKEN
+        - $(GITHUB_ACTIONS_RUNNER_TOKEN)
         - --unattended
         - --ephemeral
         env:
