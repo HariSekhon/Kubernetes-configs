@@ -96,9 +96,18 @@ spec:
         - --url
         - https://github.com/<REPO_OR_ORG>  # XXX: replace
         - --token
-        - <TOKEN>  # XXX: replace
+        # XXX: kubectl create secret generic -n github-actions github-actions-runner-token --from-literal=github-actions-runner-token=TOKEN
+        #        or
+        #      use a script like gcp_secrets_to_kubernetes.sh to load it from GCP Secret Manager (see https://github.com/HariSekhon/DevOps-Bash-tools)
+        - $(GITHUB_ACTIONS_RUNNER_TOKEN)
         - --unattended
-        - --ephemeral  # take 1 job and exit. Avoids job interrupts from scaling down
+        - --ephemeral
+        env:
+        - name: GITHUB_ACTIONS_RUNNER_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-actions-runner-token
+              key: github-actions-runner-token
         resources:
           limits:
             cpu: 1
