@@ -52,11 +52,11 @@ spec:
         app: github-actions-runner
     spec:
       affinity:
+        # avoid preemption which can cause build failures
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            preference:
-              matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
               - key: cloud.google.com/gke-preemptible
                 operator: DoesNotExist
               - key: eks.amazonaws.com/capacityType
@@ -67,6 +67,26 @@ spec:
                 operator: NotIn
                 values:
                 - spot
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: topology.kubernetes.io/zone
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - github-actions-runner
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - github-actions-runner
       containers:
       - name: github-actions-runner
         #image: harisekhon/github-actions-runner:2.284
