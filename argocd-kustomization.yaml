@@ -43,6 +43,7 @@ resources:
 - argocd-apps.yaml      # auto-loads applications under k8s/argocd/apps
 #- clusters-secrets.yaml
 #- repos-secrets.yaml
+#- argocd-ssh-known-hosts-cm.yaml
 
 # XXX: don't define namespace in these patches, will break patching, see argocd-cm.repos.patch.yaml for details why
 patchesStrategicMerge:
