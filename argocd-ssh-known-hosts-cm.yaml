@@ -17,12 +17,16 @@
 #                  A r g o C D   S S H   K n o w n   H o s t s
 # ============================================================================ #
 
+# Bug Fix for GitHub key security updates:
+#
+#   https://github.com/argoproj/argo-cd/issues/7723
+
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-ssh-known-hosts-cm
-  namespace: argocd
+  #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.repos.patch.yaml for details why
   labels:
     app.kubernetes.io/name: argocd-ssh-known-hosts-cm
     app.kubernetes.io/part-of: argocd
