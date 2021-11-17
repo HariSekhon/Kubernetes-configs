@@ -43,6 +43,8 @@ resources:
 - argocd-apps.yaml      # auto-loads applications under k8s/argocd/apps
 #- clusters-secrets.yaml
 #- repos-secrets.yaml
+#
+# would clash with the cluster-install version from the remote base - use only to update SSH known hosts keys if necessary
 #- argocd-ssh-known-hosts-cm.yaml
 
 # XXX: don't define namespace in these patches, will break patching, see argocd-cm.repos.patch.yaml for details why
