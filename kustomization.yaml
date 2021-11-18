@@ -120,10 +120,21 @@ patches:
     kind: Ingress
     annotationSelector: kubernetes.io/ingress.class=nginx
 
-# in test / feature environments - run all deployments on preemptible machines to save costs
+# in test / feature environments - run all deployments and statefulsets on preemptible machines to save costs
 - path: ./preemptible.jsonpatch.yaml
   target:
     kind: Deployment
+- path: ./preemptible.jsonpatch.yaml
+  target:
+    kind: StatefulSet
+
+# in test / feature environments - run all deployments and statefulsets with a single replica to save costs
+- path: ./replicas.jsonpatch.yaml
+  target:
+    kind: Deployment
+- path: ./replicas.jsonpatch.yaml
+  target:
+    kind: StatefulSet
 
 # in test / feature environments - scale down all HPAs to save costs
 - path: ./hpa.replicas.jsonpatch.yaml
