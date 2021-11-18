@@ -120,6 +120,12 @@ patches:
     kind: Ingress
     annotationSelector: kubernetes.io/ingress.class=nginx
 
+# in test / feature environments - scale down all HPAs to save costs
+- path: ./hpa.replicas.jsonpatch.yaml
+  target:
+    kind: HorizontalPodAutoscaler
+
+
 # =============
 # JSON Patching - not my favourite way of doing it, prefer patchesStrategicMerge above
 #                 the only reason to use this is because not all resources or fields support strategic merge patches, or if you need to add to an array
