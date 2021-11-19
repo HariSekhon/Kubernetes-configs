@@ -1,0 +1,39 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-19 18:32:53 +0000 (Fri, 19 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#               P o l a r i s   C l u s t e r R o l e   P a t c h
+# ============================================================================ #
+
+# Avoids lots of error logs in the pod failing to query API resources, as per:
+#
+#   https://github.com/FairwindsOps/polaris/issues/671
+
+# Apply:
+#
+#   run: kubectl patch clusterrole polaris --type json --patch "$(cat clusterrole.jsonpatch.yaml)"
+
+---
+- op: add
+  path: /rules/0
+  value:
+    apiGroups:
+    - "*"
+    resources:
+    - "*"
+    verbs:
+    - get
+    - list
