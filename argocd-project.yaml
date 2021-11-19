@@ -49,6 +49,12 @@ spec:
   - namespace: NAMESPACE
   # XXX: Edit - this is fine for in-cluster deployments, otherwise give external Master URL for deployments to other clusters
     server: https://kubernetes.default.svc
+  - namespace: argocd
+  # XXX: Edit - this is fine for in-cluster deployments, otherwise give external Master URL for deployments to other clusters
+    server: https://kubernetes.default.svc
+  - namespace: polaris
+  # XXX: Edit - this is fine for in-cluster deployments, otherwise give external Master URL for deployments to other clusters
+    server: https://kubernetes.default.svc
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
@@ -71,6 +77,10 @@ spec:
   # Deny all namespaced-scoped resources from being created, except for ones explicitly listed here
   # populated by script argocd_namespace_resource_whitelist.sh from https://github.com/HariSekhon/DevOps-Bash-tools/
   namespaceResourceWhitelist:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
   - group: ''
     kind: ConfigMap
   - group: batch
