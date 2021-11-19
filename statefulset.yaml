@@ -113,10 +113,16 @@ spec:
                 - APP
       #serviceAccountName: NAME
       securityContext:
+        privileged: false
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
         # see pod-security-policy.yaml for wider enforcement
         runAsNonRoot: true
         #runAsUser: 0   # not recommended
-        fsGroup: 1000  # chown mounts to this gid
+        fsGroup: 1000   # group to own volumeMounts so they can be written to by the user-level process
+        capabilities:
+          drop:
+            - ALL
       containers:
       - name: NAME
         image: postgres:9.6
