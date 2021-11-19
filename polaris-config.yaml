@@ -18,6 +18,10 @@
 # ============================================================================ #
 
 # Tune Polaris scanning behaviour here
+#
+# Adapted from example config here:
+#
+#   https://raw.githubusercontent.com/FairwindsOps/polaris/master/examples/config.yaml
 
 ---
 checks:
