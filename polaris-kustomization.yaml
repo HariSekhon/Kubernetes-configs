@@ -23,3 +23,6 @@ kind: Kustomization
 bases:
 #- https://github.com/fairwindsops/polaris/releases/latest/download/dashboard.yaml
 - https://github.com/fairwindsops/polaris/releases/download/4.2.0/dashboard.yaml
+
+resources:
+- polaris-ingress.yaml
