@@ -62,10 +62,10 @@ spec:
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
-  - group: rbac.authorization.k8s.io
-    kind: ClusterRole
-  - group: rbac.authorization.k8s.io
-    kind: ClusterRoleBinding
+  #- group: rbac.authorization.k8s.io
+  #  kind: ClusterRole
+  #- group: rbac.authorization.k8s.io
+  #  kind: ClusterRoleBinding
   - group: ''
     kind: Namespace
   #- group: scheduling.k8s.io
