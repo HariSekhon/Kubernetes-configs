@@ -62,6 +62,10 @@ spec:
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
   - group: ''
     kind: Namespace
   #- group: scheduling.k8s.io
@@ -81,10 +85,6 @@ spec:
   # Deny all namespaced-scoped resources from being created, except for ones explicitly listed here
   # populated by script argocd_namespace_resource_whitelist.sh from https://github.com/HariSekhon/DevOps-Bash-tools/
   namespaceResourceWhitelist:
-  - group: rbac.authorization.k8s.io
-    kind: ClusterRole
-  - group: rbac.authorization.k8s.io
-    kind: ClusterRoleBinding
   - group: ''
     kind: ConfigMap
   - group: batch
