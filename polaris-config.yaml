@@ -33,8 +33,8 @@ checks:
   readinessProbeMissing: warning
   livenessProbeMissing: warning
   #metadataAndNameMismatched: ignore  # BUG: not found - https://github.com/FairwindsOps/polaris/issues/668
-  pdbDisruptionsIsZero: warning
-  missingPodDisruptionBudget: ignore
+  #pdbDisruptionsIsZero: warning
+  #missingPodDisruptionBudget: ignore
 
   # efficiency
   cpuRequestsMissing: warning
