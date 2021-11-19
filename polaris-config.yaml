@@ -28,7 +28,7 @@ checks:
   pullPolicyNotAlways: ignore  # default: warning
   readinessProbeMissing: warning
   livenessProbeMissing: warning
-  metadataAndNameMismatched: ignore
+  #metadataAndNameMismatched: ignore  # BUG: not found - https://github.com/FairwindsOps/polaris/issues/668
   pdbDisruptionsIsZero: warning
   missingPodDisruptionBudget: ignore
 
