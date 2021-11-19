@@ -62,6 +62,7 @@ spec:
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
+  # needed for Polaris kustomization
   #- group: rbac.authorization.k8s.io
   #  kind: ClusterRole
   #- group: rbac.authorization.k8s.io
