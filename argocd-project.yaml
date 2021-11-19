@@ -51,7 +51,11 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: argocd
     server: https://kubernetes.default.svc  # XXX: Edit
+  - namespace: jenkins
+    server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: polaris
+    server: https://kubernetes.default.svc  # XXX: Edit
+  - namespace: selenium
     server: https://kubernetes.default.svc  # XXX: Edit
 
   # Deny all cluster-scoped resources from being created, except for Namespace
