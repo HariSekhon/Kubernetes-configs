@@ -26,3 +26,10 @@ bases:
 
 resources:
 - polaris-ingress.yaml
+
+# seems to eventually load without this, albeit with a lot of errors in the polaris-dashboard pod logs
+#patches:
+#- path: polaris-clusterrole.jsonpatch.yaml
+#  target:
+#    kind: ClusterRole
+#    name: polaris
