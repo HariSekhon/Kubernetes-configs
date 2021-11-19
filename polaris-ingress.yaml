@@ -1,0 +1,51 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-19 17:40:57 +0000 (Fri, 19 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/harisekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                         P o l a r i s   I n g r e s s
+# ============================================================================ #
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: polaris
+  namespace: polaris
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # XXX: Edit to make available externally or apply common ingress.nginx.patch.yaml with shared IP list eg. Cloudflare
+    nginx.ingress.kubernetes.io/whitelist-source-range: |
+      10.0.0.0/8,
+      172.16.0.0/16,
+      192.168.0.0/16
+spec:
+  tls:
+    # XXX: Edit
+  - hosts:
+    - APP.DOMAIN.COM
+    secretName: polaris-tls
+  rules:
+    # XXX: Edit
+  - host: APP.DOMAIN.COM
+    http:
+      paths:
+        # XXX: Edit
+      - path: /
+        backend:
+          serviceName: polaris-dashboard
+          servicePort: 80
