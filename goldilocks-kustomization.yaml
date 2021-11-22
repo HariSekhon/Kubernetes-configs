@@ -29,6 +29,11 @@ patchesStrategicMerge:
 
 resources:
 - goldilocks-namespace.yaml
+# helm repo add fairwinds-stable https://charts.fairwinds.com/stable
+# helm template goldilocks fairwinds-stable/goldilocks --version 4.0.2 --values goldilocks-values.yaml > helm.yaml
+- helm.yaml
+
+# Prefer Helm values + override above instead of this:
 #
 # Manifests below are from:
 #
@@ -57,12 +62,12 @@ resources:
 #
 #   ls */*.yaml | sed 's/^/- /' >> kustomization.yaml
 #
-- controller/clusterrole.yaml
-- controller/clusterrolebinding.yaml
-- controller/deployment.yaml
-- controller/serviceaccount.yaml
-- dashboard/clusterrole.yaml
-- dashboard/clusterrolebinding.yaml
-- dashboard/deployment.yaml
-- dashboard/service.yaml
-- dashboard/serviceaccount.yaml
+#- controller/clusterrole.yaml
+#- controller/clusterrolebinding.yaml
+#- controller/deployment.yaml
+#- controller/serviceaccount.yaml
+#- dashboard/clusterrole.yaml
+#- dashboard/clusterrolebinding.yaml
+#- dashboard/deployment.yaml
+#- dashboard/service.yaml
+#- dashboard/serviceaccount.yaml
