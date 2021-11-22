@@ -28,7 +28,7 @@ patchesStrategicMerge:
 - goldilocks-namespace-enable.patch.yaml
 
 resources:
-- namespace.yaml
+- goldilocks-namespace.yaml
 #
 # Manifests below are from:
 #
