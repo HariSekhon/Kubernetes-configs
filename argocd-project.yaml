@@ -94,7 +94,9 @@ spec:
     kind: Deployment
   - group: autoscaling
     kind: HorizontalPodAutoscaler
-  - group: extensions
+  - group: extensions  # old ingress
+    kind: Ingress
+  - group: networking.k8s.io/v1  # new ingress
     kind: Ingress
   - group: policy
     kind: PodDisruptionBudget
