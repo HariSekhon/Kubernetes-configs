@@ -1,0 +1,68 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-22 11:54:55 +0000 (Mon, 22 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                G o l d i l o c k s   K u s t o m i z a t i o n
+# ============================================================================ #
+
+# Ties together the Goldilocks controller and dashboard for ArgoCD deployments since ArgoCD doesn't recurse these directories and also the manifests from Goldilocks doesn't include the namespace or label
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: goldilocks
+
+#patchesStrategicMerge:
+#- deployment.patch.yaml
+
+resources:
+- namespace.yaml
+#
+# Manifests below are from:
+#
+#   git clone https://github.com/FairwindsOps/goldilocks.git
+#   cd goldilocks
+#   cp -a hacks/manifests/* .
+#
+# as per:
+#
+#   https://goldilocks.docs.fairwinds.com/installation/#installation-2
+#
+# Lack of globbing support sucks:
+#
+#   - controller/*.yaml
+#   - dashboard/*.yaml
+#
+#       https://github.com/kubernetes-sigs/kustomize/issues/3205
+#
+#   even the kustomize edit workaround his this bug:
+#
+#     for x in controller/*.yaml dashboard/*.yaml; do kustomize edit add resource "$x"; done
+#
+#       https://github.com/kubernetes-sigs/kustomize/issues/4304
+#
+# Workaround:
+#
+#   ls */*.yaml | sed 's/^/- /' >> kustomization.yaml
+#
+- controller/clusterrole.yaml
+- controller/clusterrolebinding.yaml
+- controller/deployment.yaml
+- controller/serviceaccount.yaml
+- dashboard/clusterrole.yaml
+- dashboard/clusterrolebinding.yaml
+- dashboard/deployment.yaml
+- dashboard/service.yaml
+- dashboard/serviceaccount.yaml
