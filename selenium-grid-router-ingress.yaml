@@ -19,7 +19,8 @@
 # ============================================================================ #
 
 ---
-apiVersion: extensions/v1beta1
+#apiVersion: extensions/v1beta1  # old
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: selenium-router
@@ -45,6 +46,11 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix  # for new networking.k8s.io/v1
         backend:
-          serviceName: selenium-router
-          servicePort: 4444
+          #serviceName: selenium-router
+          #servicePort: 4444
+          service:
+            name: selenium-router
+            port:
+              number: 4444

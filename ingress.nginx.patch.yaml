@@ -22,7 +22,8 @@
 # Applied via Kustomize
 
 ---
-apiVersion: extensions/v1beta1
+#apiVersion: extensions/v1beta1  # old
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ignored
