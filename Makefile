@@ -33,8 +33,14 @@ bash-tools:
 		curl -L https://git.io/bash-bootstrap | sh; \
 	fi
 
+.PHONY: pluto
+pluto:
+	if command -v pluto &>/dev/null; then \
+		pluto detect-files -d . ; \
+	fi
+
 .PHONY: test
-test: bash-tools
+test: bash-tools pluto
 	check_pytools.sh
 
 .PHONY: wc
