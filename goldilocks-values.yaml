@@ -36,7 +36,7 @@ dashboard:
   resources:
     limits:
       cpu: 100m
-      memory: 160Mi
+      memory: 256Mi  # OOM'd at 160Mi
     requests:
       cpu: 100m
-      memory: 160Mi
+      memory: 256Mi
