@@ -1,0 +1,30 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-22 12:48:31 +0000 (Mon, 22 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                  G o l d i l o c k s   H e l m   V a l u e s
+# ============================================================================ #
+
+# helm show values fairwinds-stable/goldilocks
+
+---
+controller:
+  resources:
+    limits:
+      cpu: 30m
+      memory: 160Mi
+    requests:
+      cpu: 30m
+      memory: 160Mi
