@@ -15,7 +15,11 @@
 
 # Enable Goldilocks on a given namespace declaratively
 #   or
-# kubectl label ns MYNAMESPACE goldilocks.fairwinds.com/enabled=true
+# kubectl label ns MYAPP goldilocks.fairwinds.com/enabled=true
+#
+# eg.
+#
+# for namespace in argocd goldilocks jenkins polaris selenium; do kubectl label ns "$namespace" goldilocks.fairwinds.com/enabled=true; done
 
 ---
 apiVersion: v1
