@@ -53,13 +53,13 @@ resources:
 #
 #       https://github.com/kubernetes-sigs/kustomize/issues/3205
 #
-#   even the kustomize edit workaround his this bug:
+#   even the kustomize edit workaround his this bug, which upgrade to Kustomize 4.4.1 solved:
 #
 #     for x in controller/*.yaml dashboard/*.yaml; do kustomize edit add resource "$x"; done
 #
 #       https://github.com/kubernetes-sigs/kustomize/issues/4304
 #
-# Workaround:
+# Workaround (also good because it doesn't strip your comments out of the kustomization.yaml):
 #
 #   ls */*.yaml | sed 's/^/- /' >> kustomization.yaml
 #
