@@ -13,7 +13,9 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# Enable Goldilocks on a given namespace
+# Enable Goldilocks on a given namespace declaratively
+#   or
+# kubectl label ns MYNAMESPACE goldilocks.fairwinds.com/enabled=true
 
 ---
 apiVersion: v1
