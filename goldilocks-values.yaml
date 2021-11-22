@@ -19,12 +19,24 @@
 
 # helm show values fairwinds-stable/goldilocks
 
+# default 32Mi limit was too low even to run against goldilocks namespace
+#
+#    https://github.com/FairwindsOps/goldilocks/issues/392
+
 ---
 controller:
   resources:
     limits:
-      cpu: 30m
-      memory: 160Mi
+      cpu: 100m
+      memory: 256Mi
     requests:
-      cpu: 30m
-      memory: 160Mi
+      cpu: 100m
+      memory: 26Mi
+dashboard:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
