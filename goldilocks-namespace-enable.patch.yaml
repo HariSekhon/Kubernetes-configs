@@ -21,7 +21,7 @@
 #
 # for namespace in argocd goldilocks jenkins polaris selenium; do kubectl label ns "$namespace" goldilocks.fairwinds.com/enabled=true; done
 
-# Pre-existing VPAs may clash and need to be removed before triggering Goldilocks to create the VPAs again:
+# Pre-existing VPAs may clash and need to be removed before triggering Goldilocks to create the VPAs again (seems to create the VPAs within around 5 minutes otherwise):
 #
 #   kubectl exec -ti deploy/goldilocks-controller -- /goldilocks create-vpas -n MYNAMESPACE
 
