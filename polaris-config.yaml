@@ -35,7 +35,7 @@ checks:
   # these next three require Polaris 4 - see https://github.com/FairwindsOps/polaris/issues/668
   metadataAndNameMismatched: ignore
   pdbDisruptionsIsZero: warning
-  missingPodDisruptionBudget: ignore
+  missingPodDisruptionBudget: warning  # default: ignore
 
   # efficiency
   cpuRequestsMissing: warning
