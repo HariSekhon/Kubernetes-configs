@@ -65,7 +65,7 @@ spec:
         # XXX: Edit
       #- path: /APP
       - path: /
-        pathType: Prefix
+        pathType: Prefix  # for new networking.k8s.io/v1
         backend:
           #serviceName: APP-svc  # Old, for extensions/v1beta1
           #servicePort: 80
