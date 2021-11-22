@@ -52,4 +52,5 @@ spec:
           service:
             name: teamcity
             port:
-              number: 8111
+              #number: 8111
+              name: teamcity-ui

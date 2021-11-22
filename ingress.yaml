@@ -73,3 +73,5 @@ spec:
             name: APP-svc  # XXX: Edit
             port:
               number: 80
+              # or
+              #name: http
