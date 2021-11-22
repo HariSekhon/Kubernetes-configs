@@ -73,6 +73,14 @@ resources:
 - service.yaml
 #- cronjob.yaml
 #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
+#
+# XXX: Helm + Kustomize
+#
+#   helm show values "$repo/$chart" > values.yaml
+#   helm template "$name" "$repo/$chart" -f values.yaml --version 4.0.2 > helm.yaml
+#
+- helm.yaml
+
 
 # ========================
 # Strategic Merge Patching
