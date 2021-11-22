@@ -28,15 +28,15 @@ controller:
   resources:
     limits:
       cpu: 100m
-      memory: 256Mi
+      memory: 320Mi
     requests:
       cpu: 100m
-      memory: 26Mi
+      memory: 320Mi
 dashboard:
   resources:
     limits:
       cpu: 100m
-      memory: 256Mi
+      memory: 160Mi
     requests:
       cpu: 100m
-      memory: 256Mi
+      memory: 160Mi
