@@ -29,6 +29,7 @@ patchesStrategicMerge:
 
 resources:
 - goldilocks-namespace.yaml
+- goldilocks-ingress.yaml
 # helm repo add fairwinds-stable https://charts.fairwinds.com/stable
 # helm template goldilocks fairwinds-stable/goldilocks --version 4.0.2 --values goldilocks-values.yaml > helm.yaml
 - helm.yaml
