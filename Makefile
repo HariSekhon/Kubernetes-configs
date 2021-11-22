@@ -33,6 +33,25 @@ bash-tools:
 		curl -L https://git.io/bash-bootstrap | sh; \
 	fi
 
+# ========
+# Polaris breaks on JSON Patches - target more specific YAMLs than the whole dir
+#
+#	https://github.com/FairwindsOps/polaris/issues/667
+#
+.PHONY: polaris
+polaris:
+	if command -v polaris &>/dev/null; then \
+		polaris audit --audit-path "$$PWD" ---config ./polaris-config.yaml -f pretty --only-show-failed-tests ; \
+	fi
+
+.PHONY: docker-polaris
+docker-polaris:
+	if command -v docker &>/dev/null; then \
+		docker run --rm -ti -v "$$PWD:/pwd" quay.io/fairwinds/polaris:4.2.0 polaris audit --audit-path /pwd -f pretty --config /pwd/polaris-config.yaml -f pretty --only-show-failed-tests ; \
+	fi
+
+# ========
+
 .PHONY: pluto
 pluto:
 	if command -v pluto &>/dev/null; then \
