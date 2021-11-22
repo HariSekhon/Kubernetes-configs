@@ -24,8 +24,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: goldilocks
 
-#patchesStrategicMerge:
-#- deployment.patch.yaml
+patchesStrategicMerge:
+- goldilocks-namespace-enable.patch.yaml
 
 resources:
 - namespace.yaml
