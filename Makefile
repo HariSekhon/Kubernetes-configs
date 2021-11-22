@@ -40,7 +40,7 @@ pluto:
 	fi
 
 .PHONY: test
-test: bash-tools pluto
+test: bash-tools
 	check_pytools.sh
 
 .PHONY: wc
