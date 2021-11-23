@@ -23,6 +23,8 @@
 #
 #    https://github.com/FairwindsOps/goldilocks/issues/392
 
+# Both services OOM'd at 160Mi even with light usage, Goldilocks recommended ~320Mi
+
 ---
 controller:
   resources:
@@ -36,7 +38,7 @@ dashboard:
   resources:
     limits:
       cpu: 100m
-      memory: 256Mi  # OOM'd at 160Mi
+      memory: 320Mi
     requests:
       cpu: 100m
-      memory: 256Mi
+      memory: 320Mi
