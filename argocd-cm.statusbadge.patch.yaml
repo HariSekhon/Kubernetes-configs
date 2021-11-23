@@ -25,11 +25,11 @@
 
 # Download argocd-util:
 #
-#   docker run --rm -ti -w /host -v ~/bin:/host argoproj/argocd cp /usr/local/bin/argocd-util ./argocd-util
+#   curl -sSL https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/install_argocd.sh | bash
 #
 # Validate:
 #
-#   argocd-util settings validate --argocd-cm-path ./argocd-cm.statusbadge.patch.yaml
+#   argocd admin settings validate --argocd-cm-path ./argocd-cm.statusbadge.patch.yaml
 #
 # Apply:
 #
