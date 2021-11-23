@@ -27,7 +27,9 @@
 #
 # Validate while kubectl context is on k8s cluster where Argo is installed:
 #
-#        argocd-util settings rbac validate --namespace argocd --policy-file argocd-rbac-cm.patch.yaml
+#        curl -sSL https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/install_argocd.sh | bash
+#
+#        argocd admin settings rbac validate --namespace argocd --policy-file argocd-rbac-cm.patch.yaml
 
 ---
 apiVersion: v1
