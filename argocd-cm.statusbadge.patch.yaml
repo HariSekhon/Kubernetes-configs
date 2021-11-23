@@ -23,7 +23,7 @@
 #
 #   $ARGOCD_SERVER_URL/api/badge?name=$APP_NAME
 
-# Download argocd-util:
+# Download argocd CLI:
 #
 #   curl -sSL https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/install_argocd.sh | bash
 #
