@@ -19,7 +19,7 @@
 
 # Patch to configure ArgoCD settings configmap
 #
-# Download argocd-util:
+# Download argocd CLI:
 #
 #   curl -sSL https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/install_argocd.sh | bash
 #
