@@ -25,7 +25,7 @@
   value:
     limits:
       cpu: 500m
-      memory: 256Mi
+      memory: 300Mi
     requests:
       cpu: 100m
-      memory: 100Mi
+      memory: 150Mi
