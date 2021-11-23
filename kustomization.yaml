@@ -76,6 +76,7 @@ resources:
 #
 # XXX: Helm + Kustomize
 #
+#   helm repo add fairwinds-stable https://charts.fairwinds.com/stable
 #   helm show values "$repo/$chart" > values.yaml
 #   helm template "$name" "$repo/$chart" -f values.yaml --version 4.0.2 > helm.yaml
 #
