@@ -104,10 +104,10 @@ spec:
         resources:
           limits:
             cpu: 2
-            memory: 4Gi
+            memory: 5Gi
           requests:
             cpu: 100m    # server takes 7m resting
-            memory: 1.4Gi  # server takes 800-900Mi resting, but easily gets to 1300-1400Mi once you have a bunch of pipelines
+            memory: 3Gi  # server takes 800-900Mi resting, but easily gets to 2-3 GB once you have a bunch of pipelines
         volumeMounts:
         - mountPath: /var/jenkins_home
           name: jenkins-home
