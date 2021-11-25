@@ -29,7 +29,7 @@ kind: Kustomization
 namespace: argocd
 
 # Add resources from a URL - notice this is not the same as the browse path which is https://github.com/argoproj/argo-cd/tree/master/manifests/cluster-install
-bases:                      # // is intentional to only copy from this path down
+#bases:                      # // is intentional to only copy from this path down
 #- github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3
 #
 # but // causes this error in Kustomize 3.5 (the argocd-repo-server.kustomize.patch.yaml upgrades Kustomize and should fix this too):
@@ -37,9 +37,11 @@ bases:                      # // is intentional to only copy from this path down
 #     Error: accumulating resources: accumulateFile "accumulating resources from 'github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3': evalsymlink failure on '/tmp/git@repo/argocd/overlay/github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.0.3' : lstat /tmp/git@repo/argocd/overlay/github.com: no such file or directory", accumulateDirector: "recursed accumulation of path '/tmp/kustomize-881686007/repo': accumulating resources: accumulateFile \"accumulating resources from '../namespace-install': evalsymlink failure on '/tmp/kustomize-881686007/namespace-install' : lstat /tmp/kustomize-881686007/namespace-install: no such file or directory\", loader.New \"Error loading ../namespace-install with git: url lacks host: ../namespace-install, dir: evalsymlink failure on '/tmp/kustomize-881686007/namespace-install' : lstat /tmp/kustomize-881686007/namespace-install: no such file or directory, get: invalid source string: ../namespace-install\""
 #
 # so keep it simple, this works:
-- github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.0.3
+#- github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.0.3
 
 resources:
+#- https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/v2.1.7/manifests/ha/install.yaml
 - argocd-self.yaml  # GitOps self-management tracking of ArgoCD config itself
 - argocd-ingress.yaml
 - argocd-ingress-grpc.yaml
