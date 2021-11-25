@@ -44,11 +44,10 @@ spec:
   - namespace: argocd  # should be the ArgoCD installation namespace
     server: https://kubernetes.default.svc
 
-  # Deny all cluster-scoped resources from being created, except for Namespace
-#  clusterResourceWhitelist:
-#  - group: ''
-#    kind: Namespace
-  #- group: scheduling.k8s.io
-  #  kind: PriorityClass
-  #- group: storage.k8s.io
-  #  kind: StorageClass
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
