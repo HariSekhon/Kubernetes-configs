@@ -53,6 +53,8 @@ spec:
     server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: github-actions
     server: https://kubernetes.default.svc  # XXX: Edit
+  - namespace: goldilocks
+    server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: jenkins
     server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: polaris
