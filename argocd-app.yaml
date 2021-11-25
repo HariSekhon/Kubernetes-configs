@@ -36,7 +36,8 @@ spec:
   project: default
   source:
     # XXX: Edit - url to Git repo containing your k8s manifests
-    repoURL: https://github.com/argoproj/argocd-example-apps.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
+    #repoURL: https://github.com/argoproj/argocd-example-apps.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
+    repoURL: git@github.com:argoproj/argocd-example-apps.git
     targetRevision: HEAD
     # XXX: Edit - path to k8s manifiests
     path: dir/path/to/k8s/manifests  # relative to root of git repo so no leading slash
