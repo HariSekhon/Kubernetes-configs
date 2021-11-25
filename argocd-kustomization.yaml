@@ -17,6 +17,10 @@
 #                    A r g o C D   K u s t o m i z a t i o n
 # ============================================================================ #
 
+# initial admin password:
+#
+#   kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
+
 # run: argocd app sync argocd --local $PWD --dry-run
 
 ---
