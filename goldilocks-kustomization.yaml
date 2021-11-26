@@ -35,15 +35,16 @@ resources:
 #
 #   helm_template.sh https://charts.fairwinds.com/stable fairwinds-stable/goldilocks --version 4.0.2 -f goldilocks-values.yaml > helm.yaml
 #
-- helm.yaml
+#- helm.yaml
 
-# dynamic versioned (not using because its too new and only has valuesInline, doesn't support a revision controlled values.yaml):
-#helmCharts:
-#- name: goldilocks
-#  repo: https://charts.fairwinds.com/stable
-#  version: 4.0.2
-#  releaseName: goldilocks
-#  namespace: kube-system
+# dynamic versioned:
+helmCharts:
+- name: goldilocks
+  repo: https://charts.fairwinds.com/stable
+  version: 4.0.2
+  releaseName: goldilocks
+  namespace: goldilocks
+  valuesFile: goldilocks-values.yaml
 
 
 # ============================================================================ #
