@@ -31,10 +31,23 @@ resources:
 - goldilocks-namespace.yaml
 - goldilocks-ingress.yaml
 #
+# versioned stable copy (commit to vcs):
+#
 #   helm_template.sh https://charts.fairwinds.com/stable fairwinds-stable/goldilocks --version 4.0.2 -f goldilocks-values.yaml > helm.yaml
 #
 - helm.yaml
 
+# dynamic versioned (not using because its too new and only has valuesInline, doesn't support a revision controlled values.yaml:
+#helmCharts:
+#- name: goldilocks
+#  repo: https://charts.fairwinds.com/stable
+#  version: 4.0.2
+#  releaseName: goldilocks
+#  namespace: kube-system
+
+# ============================================================================ #
+# Old
+#
 # Prefer Helm values + override above instead of this:
 #
 # Manifests below are from:
