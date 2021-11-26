@@ -41,6 +41,13 @@ resources:
 - eks-cluster-autoscaler.yaml
 - metrics-server.yaml
 
+
+# ============================================================================ #
+#                    E n v i r o n m e n t   S p e c i f i c
+# ============================================================================ #
+
+# XXX: if using this as a base, move this section to the calling kustomization as these are environment specific
+
 patchesJson6902:
 - target:
     version: v1
