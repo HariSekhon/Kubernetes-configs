@@ -80,6 +80,16 @@ resources:
 #
 - helm.yaml
 
+# dynamic versioned:
+#   # currently only supports valuesInline, doesn't support using an external revision controlled values.yaml
+#   # for critical things like cluster-autoscaler, safer to push through git
+#helmCharts:
+#- name: <chart_name>
+#  repo: <url>
+#  version: <version>
+#  releaseName: <release_name>
+#  namespace: <namespace>
+
 
 # ========================
 # Strategic Merge Patching
