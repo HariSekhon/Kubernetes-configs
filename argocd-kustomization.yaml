@@ -79,6 +79,7 @@ patchesStrategicMerge:
 
 # ArgoCD doesn't come with default resources - https://github.com/argoproj/argo-cd/issues/7772
 patches:
+  # XXX: seems missing from newer 2.1 HA install but this matching is silently ignored
 - path: argocd-resources.argocd-application-controller.jsonpatch.yaml
   target:
     name: argocd-application-controller
