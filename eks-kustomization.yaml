@@ -23,5 +23,6 @@ kind: Kustomization
 #namespace: kube-system
 
 bases:
-- ./cluster-autoscaler  # XXX: copy environment section from cluster-autoscaler to here for base override customizations for specific environment
-- ./metrics-server
+- ../../bases/cluster-autoscaler  # XXX: copy environment section from cluster-autoscaler to here for base override customizations for specific environment
+- ../../bases/metrics-server
+- ../../bases/vpa
