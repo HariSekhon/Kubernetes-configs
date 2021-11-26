@@ -25,6 +25,8 @@ The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/
 
 Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity.
 
+Helm + Kustomize integration, see [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) for `helm_template.sh` helper referenced in specific `*-kustomization.yaml`.
+
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open these URLs from the current file via a hotkey!)
 
 [.envrc](https://github.com/HariSekhon/Kubernetes-configs/blob/master/.envrc) - use with `direnv` to auto-load correct Kubernetes context isolated to current shell to avoid race conditions between shells and scripts caused by naively changing the global `~/.kube/config` context
