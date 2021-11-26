@@ -22,8 +22,20 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-bases:
-- https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+resources:
+#- https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+#
+# specific revision controlled version:
+#
+#   https://artifacthub.io/packages/helm/metrics-server/metrics-server
+#
+#   version=3.7.0
+#   if ! helm repo list | grep -q "^metrics-server[[:space:]]"; then helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/; fi
+#   helm template metrics-server -n kube-system metrics-server/metrics-server --version "$version" > metrics-server.yaml
+#
+- metrics-server.yaml
+
 
 patchesJson6902:
 - target:
@@ -33,4 +45,4 @@ patchesJson6902:
   patch: |-
     - op: add
       path: /spec/template/spec/containers/0/args/0
-      value: --kubelet-insecure-tls  # because Docker Desktop doesn't have an SSL cert supporting it's private IP address that the metric server is scraping metrics from the API
+      value: --kubelet-insecure-tls  # because Docker Desktop K8s doesn't have an SSL cert supporting its private IP address that the metric server is scraping metrics from the API
