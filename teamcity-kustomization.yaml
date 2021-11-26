@@ -40,3 +40,6 @@ resources:
 - ./teamcity-server-serviceaccount.yaml
 - ./teamcity-server.yaml
 - ./teamcity-service.yaml
+
+patchesStrategicMerge:
+- goldilocks-namespace-enable.patch.yaml
