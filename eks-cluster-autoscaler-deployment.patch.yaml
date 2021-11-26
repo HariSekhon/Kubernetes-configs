@@ -23,7 +23,7 @@
 
 ---
 - op: add
-  path: /spec/template/metadata/annotations/cluster-autoscaler.kubernetes.io~1safe-to-evict
+  path: /spec/template/metadata/annotations/cluster-autoscaler.kubernetes.io~1safe-to-evict  # ~1 is escape for /
   value: "false"
 - op: replace
   path: /spec/template/spec/containers/0/command/6  # XXX: WARNING: must update if the underlying array position changes - limitation of JSON Pointer targeting
