@@ -107,6 +107,7 @@ patchesStrategicMerge:
 #
 #   https://github.com/kubernetes-sigs/kustomize/blob/master/examples/patchMultipleObjects.md
 #
+# XXX: missing objects are silently ignored, eg. when apps change deployment names between versions
 patches:
 #- path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
 #  target:
