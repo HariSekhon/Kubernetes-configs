@@ -20,12 +20,17 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: polaris
+
 bases:
 #- https://github.com/fairwindsops/polaris/releases/latest/download/dashboard.yaml
 - https://github.com/fairwindsops/polaris/releases/download/4.2.0/dashboard.yaml
 
 resources:
 - polaris-ingress.yaml
+
+patchesStrategicMerge:
+- goldilocks-namespace-enable.patch.yaml
 
 # seems to eventually load without this, albeit with a lot of errors in the polaris-dashboard pod logs
 #patches:
