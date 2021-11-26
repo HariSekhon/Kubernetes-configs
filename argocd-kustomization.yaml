@@ -76,6 +76,8 @@ patchesStrategicMerge:
 # Status Badge:
 #
 #- argocd-cm.repos.patch.yaml
+#
+- goldilocks-namespace-enable.patch.yaml
 
 # ArgoCD doesn't come with default resources - https://github.com/argoproj/argo-cd/issues/7772
 patches:
