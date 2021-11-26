@@ -42,3 +42,6 @@ resources:
 - ./jenkins-server.yaml
 - ./jenkins-service-discovery.yaml
 - ./jenkins-service-ui.yaml
+
+patchesStrategicMerge:
+- goldilocks-namespace-enable.patch.yaml
