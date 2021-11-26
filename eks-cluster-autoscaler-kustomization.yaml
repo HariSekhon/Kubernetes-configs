@@ -47,9 +47,6 @@ resources:
 #  releaseName: cluster-autoscaler
 #  namespace: kube-system
 
-patchesStrategicMerge:
-- goldilocks-namespace-enable.patch.yaml
-
 
 # ============================================================================ #
 #                    E n v i r o n m e n t   S p e c i f i c
