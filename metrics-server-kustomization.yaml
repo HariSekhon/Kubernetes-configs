@@ -30,7 +30,7 @@ resources:
 #
 # - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 #
-# stable copy:
+# stable copy (commit to vcs):
 #
 #   curl -L -o metrics-server.yaml https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 #
