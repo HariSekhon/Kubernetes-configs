@@ -14,18 +14,20 @@
 #
 
 # ============================================================================ #
-#    E K S   C l u s t e r   A u t o s c a l e r   K u s t o m i z a t i o n
+#                       E K S   K u s t o m i z a t i o n
 # ============================================================================ #
 
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: kube-system
+#namespace: kube-system
 
 resources:
-# could source this dynamically but this is so important that it's better to take a local stable copy
+# could source these dynamically but these is so important so it's better to take a local stable copy
 # curl -o eks-cluster-autoscaler.yaml https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
 - eks-cluster-autoscaler.yaml
+# curl -o metrics-server.yaml https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+- metrics-server.yaml
 
 patchesJson6902:
 - target:
