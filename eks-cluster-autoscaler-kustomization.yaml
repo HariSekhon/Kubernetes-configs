@@ -39,6 +39,14 @@ resources:
 #
 - eks-cluster-autoscaler.yaml
 
+# dynamic versioned (this is so critical would rather push it through git):
+#helmCharts:
+#- name: cluster-autoscaler
+#  repo: https://kubernetes.github.io/autoscaler
+#  version: 9.10.8
+#  releaseName: cluster-autoscaler
+#  namespace: kube-system
+
 
 # ============================================================================ #
 #                    E n v i r o n m e n t   S p e c i f i c
