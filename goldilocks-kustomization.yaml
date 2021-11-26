@@ -45,6 +45,7 @@ resources:
 #  releaseName: goldilocks
 #  namespace: kube-system
 
+
 # ============================================================================ #
 # Old
 #
