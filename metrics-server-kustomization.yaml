@@ -17,7 +17,7 @@
 #            M e t r i c s   S e r v e r   K u s t o m i z a t i o n
 # ============================================================================ #
 
-# Quick way of getting Metrics Server on Kubernetes on Docker Desktop for testing HPA
+# Quick way of getting Metrics Server on Kubernetes on Docker Desktop for testing HPA/VPA
 
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
