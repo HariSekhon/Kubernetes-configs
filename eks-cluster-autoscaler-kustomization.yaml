@@ -54,4 +54,6 @@ images:
   #
   #   https://github.com/HariSekhon/DevOps-Bash-tools
   #
+  #   kubernetes_autoscaler_release.sh
+  #
   newTag: v1.21.1  # XXX: Edit
