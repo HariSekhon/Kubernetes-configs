@@ -1,0 +1,57 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-26 09:59:08 +0000 (Fri, 26 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#    E K S   C l u s t e r   A u t o s c a l e r   K u s t o m i z a t i o n
+# ============================================================================ #
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: kube-system
+
+resources:
+# could source this dynamically but this is so important that it's better to take a local stable copy
+# curl -o eks-cluster-autoscaler.yaml https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+- eks-cluster-autoscaler.yaml
+
+patchesJson6902:
+- target:
+    version: v1
+    kind: Deployment
+    name: cluster-autoscaler
+  path: eks-cluster-autoscaler-deployment.patch.yaml
+- target:
+    version: v1
+    kind: ServiceAccount
+    name: cluster-autoscaler
+  path: eks-cluster-autoscaler-serviceaccount.patch.yaml
+
+images:
+- name: k8s.gcr.io/autoscaling/cluster-autoscaler
+  #
+  # choose cluster autoscaler version compatible with your Kubernetes major + minor version:
+  #
+  #   https://github.com/kubernetes/autoscaler/releases
+  #
+  # will usually look like this, perhaps a .1 release
+  #
+  #   kubectl version -o json | jq -r '.serverVersion | "v" + .major + "." + .minor + ".0" | gsub("[+]"; "")'
+  #
+  # find the latest release quickly using kubernetes_autoscaler_release.sh in DevOps Bash tools:
+  #
+  #   https://github.com/HariSekhon/DevOps-Bash-tools
+  #
+  newTag: v1.21.1  # XXX: Edit
