@@ -37,7 +37,7 @@ resources:
 #
 - helm.yaml
 
-# dynamic versioned (not using because its too new and only has valuesInline, doesn't support a revision controlled values.yaml:
+# dynamic versioned (not using because its too new and only has valuesInline, doesn't support a revision controlled values.yaml):
 #helmCharts:
 #- name: goldilocks
 #  repo: https://charts.fairwinds.com/stable
