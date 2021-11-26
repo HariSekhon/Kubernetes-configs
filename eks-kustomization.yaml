@@ -23,10 +23,12 @@ kind: Kustomization
 #namespace: kube-system
 
 resources:
-# could source these dynamically but these is so important so it's better to take a local stable copy
-# curl -o eks-cluster-autoscaler.yaml https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+# could source these dynamically via url but these are important so it's better to take a local stable copy
+#
+#   curl -o eks-cluster-autoscaler.yaml https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+#   curl -o metrics-server.yaml https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+#
 - eks-cluster-autoscaler.yaml
-# curl -o metrics-server.yaml https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 - metrics-server.yaml
 
 patchesJson6902:
