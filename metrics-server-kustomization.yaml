@@ -26,7 +26,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+# dynamic latest:
+#
 # - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+#
+# stable copy:
+#
+#   curl -L -o metrics-server.yaml https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+#
+# versioned stable copy:
 #
 #   https://artifacthub.io/packages/helm/metrics-server/metrics-server
 #
