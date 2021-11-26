@@ -159,6 +159,7 @@ patches:
 #   https://github.com/kubernetes-sigs/kustomize/blob/master/examples/jsonpatch.md
 #   https://tools.ietf.org/html/rfc6902
 #
+# XXX: missing objects are silently ignored, eg. when apps change deployment names between versions
 #patchesJson6902:
 #- target:
 #    version: v1
