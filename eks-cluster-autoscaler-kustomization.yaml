@@ -28,6 +28,16 @@ resources:
 #   curl -o eks-cluster-autoscaler.yaml https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
 #   curl -L -o metrics-server.yaml https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 #
+# for production, specific revision controlled version:
+#
+# check for latest helm version here:
+#
+#   https://artifacthub.io/packages/helm/metrics-server/metrics-server
+#
+#   version=3.7.0
+#   if ! helm repo list | grep -q "^metrics-server[[:space:]]"; then helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/; fi
+#   helm template metrics-server -n kube-system metrics-server/metrics-server --version "$version" > metrics-server.yaml
+#
 - eks-cluster-autoscaler.yaml
 - metrics-server.yaml
 
