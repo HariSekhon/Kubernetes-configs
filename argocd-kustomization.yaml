@@ -92,9 +92,17 @@ patches:
     kind: Deployment
     group: apps
     version: v1
+  # XXX: not present in 2.1 HA install but silently ignored
 - path: argocd-resources.argocd-redis.jsonpatch.yaml
   target:
     name: argocd-redis
+    kind: Deployment
+    group: apps
+    version: v1
+  # XXX: only present in HA install
+- path: argocd-resources.argocd-redis-ha-haproxy.jsonpatch.yaml
+  target:
+    name: argocd-redis-ha-haproxy
     kind: Deployment
     group: apps
     version: v1
