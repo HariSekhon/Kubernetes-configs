@@ -30,8 +30,9 @@ patchesStrategicMerge:
 resources:
 - goldilocks-namespace.yaml
 - goldilocks-ingress.yaml
-# if ! helm repo list | grep -q "^fairwinds-stable"; then helm repo add fairwinds-stable https://charts.fairwinds.com/stable; fi
-# helm template goldilocks fairwinds-stable/goldilocks --version 4.0.2 --values goldilocks-values.yaml > helm.yaml
+#
+#   helm_template.sh https://charts.fairwinds.com/stable fairwinds-stable/goldilocks --version 4.0.2 -f goldilocks-values.yaml > helm.yaml
+#
 - helm.yaml
 
 # Prefer Helm values + override above instead of this:
