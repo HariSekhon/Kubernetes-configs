@@ -1,0 +1,42 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-27 11:10:49 +0000 (Sat, 27 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+replicaCount: 1
+nameOverride: timescaledb
+
+patroni:
+  postgresql:
+    pg_hba:
+    - local     all             postgres                              peer
+    - local     all             all                                   md5
+    - host      internal        postgres           10.0.0.0/8         trust
+    - hostnossl all,replication all                all                reject
+    - hostssl   all             all                127.0.0.1/32       md5
+    - hostssl   all             all                ::1/128            md5
+    - hostssl   replication     standby            all                md5
+    - hostssl   all             all                all                md5
+
+loadBalancer:
+  enabled: true
+  port: 5432
+  spec:
+    loadBalancerSourceRanges:
+    - 10.0.0.0/8
+
+persistentVolumes:
+  data:
+    enabled: true
+    size: 50Gi
