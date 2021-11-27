@@ -77,7 +77,7 @@ patchesStrategicMerge:
 #
 # Status Badge:
 #
-#- argocd-cm.repos.patch.yaml
+#- argocd-cm.statusbadge.patch.yaml
 #
 # done in argocd-namespace.yaml
 #- goldilocks-namespace-enable.patch.yaml
