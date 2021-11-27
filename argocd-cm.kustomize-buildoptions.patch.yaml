@@ -1,0 +1,46 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-27 10:38:53 +0000 (Sat, 27 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#            A r g o C D   S e t t i n g s   C o n f i g   P a t c h
+# ============================================================================ #
+
+# Patch to configure ArgoCD settings configmap
+#
+# Download argocd CLI:
+#
+#   curl -sSL https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/install_argocd.sh | bash
+#
+# Validate:
+#
+#   argocd admin settings validate --argocd-cm-path ./argocd-cm.repos.patch.yaml
+#
+# Apply:
+#
+#   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat argocd-cm.kustomize-buildoptions.patch.yaml)"
+#
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.repos.patch.yaml for details why
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
+data:
+  kustomize.buildOptions: --enable-helm
+  #kustomize.buildOptions.v4.4.0: <other_options>
