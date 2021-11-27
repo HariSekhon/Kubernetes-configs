@@ -62,7 +62,8 @@ patchesStrategicMerge:
 #
 # Kustomize - download specific version:
 #
-#- argocd-repo-server.kustomize.patch.yaml
+- argocd-repo-server.kustomize.patch.yaml
+- argocd-cm.kustomize-buildoptions.patch.yaml
 #
 # Azure AD SSO patches:
 #
