@@ -28,4 +28,6 @@ kind: Namespace
 metadata:
   name: NAMESPACE # eg. myapp
   labels:
-    goldilocks.fairwinds.com/enabled: true
+    # "true" must be string, otherwise gets
+    #  The request is invalid: patch: Invalid value: "map[metadata:map[labels:map[app.kubernetes.io/instance:<nil> goldilocks.fairwinds.com/enabled:true] resourceVersion:24479876]]": unrecognized type: string
+    goldilocks.fairwinds.com/enabled: "true"
