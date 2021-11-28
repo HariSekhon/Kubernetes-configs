@@ -32,8 +32,14 @@ resources:
 patchesStrategicMerge:
 - goldilocks-namespace-enable.patch.yaml
 
+patches:
+- path: polaris-resources.dashboard.jsonpatch.yaml
+  target:
+    name: polaris-dashboard
+    kind: Deployment
+    group: apps
+    version: v1
 # seems to eventually load without this, albeit with a lot of errors in the polaris-dashboard pod logs
-#patches:
 #- path: polaris-clusterrole.jsonpatch.yaml
 #  target:
 #    kind: ClusterRole
