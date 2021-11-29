@@ -59,6 +59,8 @@ spec:
     server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: polaris
     server: https://kubernetes.default.svc  # XXX: Edit
+  - namespace: prometheus
+    server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: selenium
     server: https://kubernetes.default.svc  # XXX: Edit
 
