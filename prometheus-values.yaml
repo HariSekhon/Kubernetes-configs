@@ -16,7 +16,7 @@
 ---
 alertmanager:
   enabled: true
-  baseURL: "http://localhost:9093"
+  #baseURL: "http://localhost:9093"
   persistentVolume:
     size: 2Gi
   resources:
