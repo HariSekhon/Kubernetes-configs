@@ -96,7 +96,7 @@ spec:
     kind: CronJob
   - group: batch
     kind: Job
-	- group: apps
+  - group: apps
     kind: DaemonSet
   - group: apps
     kind: Deployment
@@ -106,7 +106,7 @@ spec:
     kind: Ingress
   - group: networking.k8s.io  # new ingress
     kind: Ingress
-	- group: ''
+  - group: ''
     kind: PersistentVolumeClaim
   - group: policy
     kind: PodDisruptionBudget
