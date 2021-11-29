@@ -31,4 +31,4 @@ helmCharts:
   version: 15.0.1
   releaseName: prometheus
   namespace: prometheus
-  #valuesFiles: values.yaml
+  valuesFiles: prometheus-values.yaml
