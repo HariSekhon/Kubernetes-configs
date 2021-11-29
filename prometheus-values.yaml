@@ -37,6 +37,8 @@ nodeExporter:
        memory: 256Mi
 
 server:
+  statefulset:
+    enable: true  # avoids "Multi-Attach error for volume pvc... Volume is already used by pod(s) prometheus-server-..." that happens during deployment update bringing 2nd pod online and getting jammed
   retention: "15d"
   persistentVolume:
     size: 8Gi
