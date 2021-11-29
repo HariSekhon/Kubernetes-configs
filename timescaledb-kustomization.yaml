@@ -1,6 +1,6 @@
 #
 #  Author: Hari Sekhon
-#  Date: 2021-11-26 09:59:08 +0000 (Fri, 26 Nov 2021)
+#  Date: 2021-11-27 11:09:02 +0000 (Sat, 27 Nov 2021)
 #
 #  vim:ts=2:sts=2:sw=2:et
 #
@@ -14,15 +14,18 @@
 #
 
 # ============================================================================ #
-#                       E K S   K u s t o m i z a t i o n
+#               T i m e s c a l e D B   K u s t o m i z a t i o n
 # ============================================================================ #
 
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-#namespace: kube-system
+namespace: timescaledb
 
-bases:
-- ../../bases/eks-cluster-autoscaler  # XXX: copy environment section from eks-cluster-autoscaler to here for base override customizations for specific environment
-- ../../bases/metrics-server
-- ../../bases/vpa
+helmCharts:
+- name: timescaledb-single
+  repo: https://charts.timescale.com
+  version: 0.8.2
+  releaseName: timescaledb
+  namespace: timescaledb
+  valuesFile: timescaledb-values.yaml

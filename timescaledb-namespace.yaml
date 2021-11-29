@@ -1,6 +1,6 @@
 #
 #  Author: Hari Sekhon
-#  Date: 2021-11-26 19:20:47 +0000 (Fri, 26 Nov 2021)
+#  Date: 2021-11-27 11:12:05 +0000 (Sat, 27 Nov 2021)
 #
 #  vim:ts=2:sts=2:sw=2:et
 #
@@ -15,14 +15,14 @@
 #
 
 # ============================================================================ #
-#                        A r g o C D   N a m e s p a c e
+#                   T i m e s c a l e D B   N a m e s p a c e
 # ============================================================================ #
 
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: argocd
+  name: timescaledb
   labels:
     # "true" must be string, otherwise gets
     #  The request is invalid: patch: Invalid value: "map[metadata:map[labels:map[app.kubernetes.io/instance:<nil> goldilocks.fairwinds.com/enabled:true] resourceVersion:24479876]]": unrecognized type: string

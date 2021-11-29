@@ -1,6 +1,6 @@
 #
 #  Author: Hari Sekhon
-#  Date: 2021-11-26 09:59:08 +0000 (Fri, 26 Nov 2021)
+#  Date: 2021-11-28 12:14:45 +0000 (Sun, 28 Nov 2021)
 #
 #  vim:ts=2:sts=2:sw=2:et
 #
@@ -14,15 +14,18 @@
 #
 
 # ============================================================================ #
-#                       E K S   K u s t o m i z a t i o n
+#       P o l a r i s   D a s h b o a r d   R e s o u r c e s   P a t c h
 # ============================================================================ #
 
----
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-#namespace: kube-system
+# run: kubectl patch deploy polaris-dashboard -n polaris --type json --patch "$(cat polaris-resources.dashboard.jsonpatch.yaml)"
 
-bases:
-- ../../bases/eks-cluster-autoscaler  # XXX: copy environment section from eks-cluster-autoscaler to here for base override customizations for specific environment
-- ../../bases/metrics-server
-- ../../bases/vpa
+---
+- op: add
+  path: /spec/template/spec/containers/0/resources
+  value:
+    limits:
+      cpu: 150m      # default upstream
+      memory: 512Mi  # default upstream
+    requests:
+      cpu: 100m      # default upstream
+      memory: 256Mi  # default: 128Mi

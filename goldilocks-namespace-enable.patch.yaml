@@ -31,4 +31,4 @@ kind: Namespace
 metadata:
   name: goldilocks  # XXX: Edit - set to any namespace you want to enable Goldilocks for
   labels:
-    goldilocks.fairwinds.com/enabled: true
+    goldilocks.fairwinds.com/enabled: "true"

@@ -92,6 +92,8 @@ spec:
     kind: ConfigMap
   - group: batch
     kind: CronJob
+  - group: batch
+    kind: Job
   - group: apps
     kind: Deployment
   - group: autoscaling
