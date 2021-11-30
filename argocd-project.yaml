@@ -77,6 +77,14 @@ spec:
   #  kind: PriorityClass
   #- group: storage.k8s.io
   #  kind: StorageClass
+  #
+  # for kube-prometheus-stack
+  - group: policy
+    kind: PodSecurityPolicy
+  - group: admissionregistration.k8s.io
+    kind: MutatingWebhookConfiguration
+  - group: admissionregistration.k8s.io
+    kind: ValidatingWebhookConfiguration
 
   # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceBlacklist:
@@ -115,6 +123,8 @@ spec:
   - group: rbac.authorization.k8s.io
     kind: RoleBinding
   - group: ''
+    kind: Secret
+  - group: ''
     kind: Service
   - group: ''
     kind: ServiceAccount
@@ -122,6 +132,9 @@ spec:
     kind: StatefulSet
   - group: autoscaling.k8s.io
     kind: VerticalPodAutoscaler
+  # for kube-prometheus-stack
+  - group: monitoring.coreos.com
+    kind: '*'
 
   roles:
   # A role which provides read-only access to all applications in the project
