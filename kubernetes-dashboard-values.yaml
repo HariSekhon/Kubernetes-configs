@@ -1,0 +1,31 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-30 17:12:11 +0000 (Tue, 30 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#             K u b e r n e t e s   D a s h b o a r d   V a l u e s
+# ============================================================================ #
+
+# helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+# helm show values kubernetes-dashboard/kubernetes-dashboard
+
+---
+replicaCount: 1
+resources:
+  requests:
+    cpu: 100m
+    memory: 200Mi
+  limits:
+    cpu: 2
+    memory: 200Mi
