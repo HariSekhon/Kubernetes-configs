@@ -1,0 +1,47 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-30 18:55:57 +0000 (Tue, 30 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+name: Polaris
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - dev
+      - staging
+      - production
+
+jobs:
+  polaris:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Audit
+        uses: fairwindsops/polaris@master
+        with:
+          #version: 4.0.7
+          #
+          # doesn't work on this repo because of:
+          #
+          #   https://github.com/FairwindsOps/polaris/issues/667
+          #
+          #   and can't exclude files:
+          #
+          #     https://github.com/FairwindsOps/polaris/issues/670
+          #
+          args: polaris audit --audit-path . -f pretty --only-show-failed-tests
