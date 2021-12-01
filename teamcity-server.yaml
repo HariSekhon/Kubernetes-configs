@@ -97,6 +97,8 @@ spec:
         livenessProbe:
           httpGet:
             path: /login.html
+            # not tested yet, may only apply to newer versions - https://youtrack.jetbrains.com/issue/TW-27675#focus=Comments-27-5577005.0-0
+            #path: /app/rest/health?locator=global:true
             port: 8111
           #initialDelaySeconds: 120  # normally initializes in around this time
           initialDelaySeconds: 900   # may take longer due to complete initialization recovery after pod migration
