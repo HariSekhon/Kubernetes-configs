@@ -44,4 +44,6 @@ jobs:
           #
           #     https://github.com/FairwindsOps/polaris/issues/670
           #
+          # the better solution is to run in Kubernetes, see polaris*.yaml at the top level of this repo
+          #
           args: polaris audit --audit-path . -f pretty --only-show-failed-tests
