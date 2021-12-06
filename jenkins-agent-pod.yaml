@@ -133,6 +133,19 @@ spec:
       limits:
         cpu: 500m
         memory: 500Mi
+  # for gitOpsK8sUpdate Jenkins shared library at https://github.com/HariSekhon/Templates/blob/master/vars/gitOpsK8sUpdate.groovy
+  - name: git-kustomize
+    image: harisekhon/git-kustomize:latest
+    command:
+      - cat
+    tty: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 50Mi
+      limits:
+        cpu: 500m
+        memory: 500Mi
   # generic CLI container
   - name: busybox
     image: busybox
