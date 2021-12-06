@@ -26,6 +26,8 @@
 # Both services OOM'd at 160Mi even with light usage, Goldilocks recommended ~320Mi
 
 ---
+image:
+  tag: v4.1.0  # XXX: temporary override until new Helm chart is out to get non-clashing prefixed VPAs
 controller:
   resources:
     limits:
