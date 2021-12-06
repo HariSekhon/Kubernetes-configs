@@ -24,21 +24,39 @@ namespace: polaris
 
 bases:
 #- https://github.com/fairwindsops/polaris/releases/latest/download/dashboard.yaml
-- https://github.com/fairwindsops/polaris/releases/download/4.2.0/dashboard.yaml
+#- https://github.com/fairwindsops/polaris/releases/download/4.2.0/dashboard.yaml
+
+# only if downloading dashboard.yaml
+#patchesStrategicMerge:
+#- goldilocks-namespace-enable.patch.yaml
 
 resources:
+- polaris-namespace.yaml
 - polaris-ingress.yaml
+#
+# versioned stable copy (commit to vcs):
+#
+#   helm_template.sh https://charts.fairwinds.com/stable fairwinds-stable/polaris --version 4.2.1 -f polaris-values.yaml > helm.yaml
+#
+#- helm.yaml
 
-patchesStrategicMerge:
-- goldilocks-namespace-enable.patch.yaml
+# dynamic versioned:
+helmCharts:
+- name: polaris
+  repo: https://charts.fairwinds.com/stable
+  version: 4.2.1
+  releaseName: polaris
+  namespace: polaris
+  valuesFile: polaris-values.yaml
 
-patches:
-- path: polaris-resources.dashboard.jsonpatch.yaml
-  target:
-    name: polaris-dashboard
-    kind: Deployment
-    group: apps
-    version: v1
+#patches:
+## required if installing from the dashboard.yaml, but not if using helm
+#- path: polaris-resources.dashboard.jsonpatch.yaml
+#  target:
+#    name: polaris-dashboard
+#    kind: Deployment
+#    group: apps
+#    version: v1
 # seems to eventually load without this, albeit with a lot of errors in the polaris-dashboard pod logs
 #- path: polaris-clusterrole.jsonpatch.yaml
 #  target:
