@@ -90,7 +90,7 @@ resources:
 #  version: <version>
 #  releaseName: <release_name>
 #  namespace: <namespace>
-#  valuesFiles: values.yaml
+#  valuesFile: values.yaml
 
 
 # ========================
