@@ -17,6 +17,10 @@
 #       P o l a r i s   D a s h b o a r d   R e s o u r c e s   P a t c h
 # ============================================================================ #
 
+# Patches https://github.com/fairwindsops/polaris/releases/download/4.2.0/dashboard.yaml
+#
+# which doesn't have resources otherwise, else use helm chart (see polaris-kustomization.yaml)
+
 # run: kubectl patch deploy polaris-dashboard -n polaris --type json --patch "$(cat polaris-resources.dashboard.jsonpatch.yaml)"
 
 ---
