@@ -15,9 +15,14 @@ Kubernetes configs
 
 [git.io/k8s-configs](https://git.io/k8s-configs)
 
+
+### Intro
+
 Advanced Kubernetes YAML configurations & templates, based on my experiences running Kubernetes in production at different companies.
 
 Contains various Best Practices, Tips & Tricks learned over time in production environments.
+
+### Templates
 
 Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
 
