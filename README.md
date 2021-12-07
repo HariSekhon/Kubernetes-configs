@@ -33,7 +33,12 @@ Real-world app deployment examples, tuning and patches are found in the more spe
 
 ## CI/CD
 
-Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity can be found in `jenkins-*.yaml` and `teamcity-*.yaml`.
+Advanced auto-scaling production-grade CI/CD on Kubernetes:
+
+- [ArgoCD](https://argoproj.github.io/cd/) - deployment, configs and optimizations. Start here: [argocd-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/argocd-kustomization.yaml)
+- [Jenkins](https://www.jenkins.io/) - jenkins server and dynamically scaling agents on kubernetes. Start here: [jenkins-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/jenkins-kustomization.yaml)
+- [TeamCity](https://www.jetbrains.com/teamcity/) - teamcity server and dynamically scaling agents on kubernetes. Start here: [teamcity-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/teamcity-kustomization.yaml)
+- [Selenium Grid](https://www.selenium.dev/documentation/grid/) - simple and distributed auto-scaling deployments. Start here: [selenium-grid-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-kustomization.yaml) / [selenium-grid-distributed-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-distributed-kustomization.yaml)
 
 ## Helm + Kustomize integration
 
