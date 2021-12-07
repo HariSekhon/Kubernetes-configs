@@ -19,9 +19,13 @@ Advanced Kubernetes YAML configurations & templates, based on my experiences run
 
 Contains various Best Practices, Tips & Tricks learned over time in production environments.
 
-Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) or the more specific `<app>-kustomization.yaml` and `app-*.yaml` configs.
+Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
 
 The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied IPs etc.
+
+### Apps
+
+Real-world app deployment examples, tuning and patches are found in the more specific `<app>-kustomization.yaml` and `app-*.yaml` configs.
 
 ### CI/CD
 
