@@ -74,12 +74,19 @@ resources:
 #- cronjob.yaml
 #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
 #
+# =====================
 # XXX: Helm + Kustomize
+#
+# helm_template.sh is a convenience script if downloading the helm template output for serving out of Git, get it here:
+#
+#     https://github.com/harisekhon/devops-bash-tools
 #
 #   helm_template.sh "$repo_url" "$repo/$chart" -f values.yaml --version "$version" > helm.yaml
 #
-- helm.yaml
+#- helm.yaml
 
+# OR
+#
 # dynamic versioned:
 #
 #   # for critical things like cluster-autoscaler, safer to push through git
