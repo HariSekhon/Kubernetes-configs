@@ -23,9 +23,9 @@ Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/bl
 
 The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied IPs etc.
 
-Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity can be found in `jenkins-*.yaml` or `teamcity-*.yaml`.
+Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity can be found in `jenkins-*.yaml` and `teamcity-*.yaml`.
 
-Helm + Kustomize integration, see [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) for `helm_template.sh` helper referenced in specific `*-kustomization.yaml`.
+Helm + Kustomize integration, see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) and [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) for the `helm_template.sh` helper script referenced in specific `*-kustomization.yaml`.
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open these URLs from the current file via a hotkey!)
 
