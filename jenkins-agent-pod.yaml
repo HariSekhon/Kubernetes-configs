@@ -74,6 +74,7 @@ spec:
   containers:
   - name: gcloud-sdk  # do not name this 'jnlp', without that container this'll never come up properly to execute the build
     image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+    imagePullPolicy: Always
     # works without this
     command:
     - cat
@@ -136,6 +137,7 @@ spec:
   # for gitOpsK8sUpdate Jenkins shared library at https://github.com/HariSekhon/Templates/blob/master/vars/gitOpsK8sUpdate.groovy
   - name: git-kustomize
     image: harisekhon/git-kustomize:latest
+    imagePullPolicy: Always
     command:
       - cat
     tty: true
