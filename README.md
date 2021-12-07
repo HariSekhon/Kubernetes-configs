@@ -38,7 +38,10 @@ Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity can be
 
 ### Helm + Kustomize integration
 
-See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) and [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) for the `helm_template.sh` helper script referenced in specific `*-kustomization.yaml`.
+See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) for 2 methods provided:
+
+1. template the Helm chart to Git and serve from there (see [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) for the `helm_template.sh` convenience script)
+2. dynamically load the Helm chart with a `values.yaml`, then patch override anything the chart doesn't directly support
 
 ### Further Documention
 
