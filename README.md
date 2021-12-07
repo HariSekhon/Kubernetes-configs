@@ -15,28 +15,27 @@ Kubernetes configs
 
 [git.io/k8s-configs](https://git.io/k8s-configs)
 
-
-### Intro
+## Intro
 
 Advanced Kubernetes YAML configurations & templates, based on my experiences running Kubernetes in production at different companies.
 
 Contains various Best Practices, Tips & Tricks learned over time in production environments.
 
-### Templates
+## Templates
 
 Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
 
 The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied IPs etc.
 
-### Apps
+## Apps
 
 Real-world app deployment examples, tuning and patches are found in the more specific `<app>-kustomization.yaml` and `<app>-*.yaml` configs.
 
-### CI/CD
+## CI/CD
 
 Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity can be found in `jenkins-*.yaml` and `teamcity-*.yaml`.
 
-### Helm + Kustomize integration
+## Helm + Kustomize integration
 
 See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) for 2 methods provided:
 
@@ -45,20 +44,19 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 
 ...then patch override anything the chart doesn't directly support using the standard Kustomize patching examples given in the [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
 
-### Further Documention
+## Further Documention
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open these URLs from the current file via a hotkey!)
 
-### Environment Enhancements
+## Environment Enhancements
 
 [.envrc](https://github.com/HariSekhon/Kubernetes-configs/blob/master/.envrc) - use with `direnv` to auto-load correct Kubernetes context isolated to current shell to avoid race conditions between shells and scripts caused by naively changing the global `~/.kube/config` context
 
 Shortcut symlinks are for faster instantiation from these configs using the standard kubernetes shortcuts such as `new pvc.yaml` - see the [Templates](https://github.com/HariSekhon/Templates) repo for more details on the `new` command to fast create new files from templates.
 
-### History
+## History
 
 Forked from the [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-tools) repo, this is now a submodule of the [Templates](https://github.com/HariSekhon/Templates) repo which is a submodule of the DevOps [Bash](https://github.com/harisekhon/devops-bash-tools), [Perl](https://github.com/HariSekhon/DevOps-Perl-tools) and [Python](https://github.com/harisekhon/devops-python-tools) tools repos.
-
 
 ### See Also:
 
