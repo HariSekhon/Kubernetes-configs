@@ -23,15 +23,25 @@ Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/bl
 
 The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied IPs etc.
 
+#### CI/CD
+
 Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity can be found in `jenkins-*.yaml` and `teamcity-*.yaml`.
 
-Helm + Kustomize integration, see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) and [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) for the `helm_template.sh` helper script referenced in specific `*-kustomization.yaml`.
+#### Helm + Kustomize integration
+
+See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) and [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) for the `helm_template.sh` helper script referenced in specific `*-kustomization.yaml`.
+
+#### Further Documention
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open these URLs from the current file via a hotkey!)
+
+#### Environment Enhancements
 
 [.envrc](https://github.com/HariSekhon/Kubernetes-configs/blob/master/.envrc) - use with `direnv` to auto-load correct Kubernetes context isolated to current shell to avoid race conditions between shells and scripts caused by naively changing the global `~/.kube/config` context
 
 Shortcut symlinks are for faster instantiation from these configs using the standard kubernetes shortcuts such as `new pvc.yaml` - see the [Templates](https://github.com/HariSekhon/Templates) repo for more details on the `new` command to fast create new files from templates.
+
+#### History
 
 Forked from the [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-tools) repo, this is now a submodule of the [Templates](https://github.com/HariSekhon/Templates) repo which is a submodule of the DevOps [Bash](https://github.com/harisekhon/devops-bash-tools), [Perl](https://github.com/HariSekhon/DevOps-Perl-tools) and [Python](https://github.com/harisekhon/devops-python-tools) tools repos.
 
