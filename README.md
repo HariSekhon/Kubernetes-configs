@@ -15,15 +15,15 @@ Kubernetes configs
 
 [git.io/k8s-configs](https://git.io/k8s-configs)
 
-Kubernetes YAML configurations & templates.
+Advanced Kubernetes YAML configurations & templates, based on my experiences running Kubernetes in production at different companies.
 
-Contains various Best Practices, Tips & Tricks learned in production environments.
+Contains various Best Practices, Tips & Tricks learned over time in production environments.
 
-Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
+Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) or the more specific `<app>-kustomization.yaml` and `app-*.yaml` configs.
 
 The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) contains config for using static public IP and locking down your GKE generated GCP firewall rules, Cloudflare proxied IPs etc.
 
-Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity.
+Advanced auto-scaling CI/CD on Kubernetes using both Jenkins and TeamCity can be found in `jenkins-*.yaml` or `teamcity-*.yaml`.
 
 Helm + Kustomize integration, see [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) for `helm_template.sh` helper referenced in specific `*-kustomization.yaml`.
 
