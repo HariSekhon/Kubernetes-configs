@@ -30,7 +30,7 @@ The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/
 
 ### Apps
 
-Real-world app deployment examples, tuning and patches are found in the more specific `<app>-kustomization.yaml` and `app-*.yaml` configs.
+Real-world app deployment examples, tuning and patches are found in the more specific `<app>-kustomization.yaml` and `<app>-*.yaml` configs.
 
 ### CI/CD
 
