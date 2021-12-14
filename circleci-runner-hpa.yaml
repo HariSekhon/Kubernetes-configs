@@ -31,4 +31,4 @@ spec:
     name: circleci-runner
   minReplicas: 1
   maxReplicas: 5
-  targetCPUUtilizationPercentage: 70
+  targetCPUUtilizationPercentage: 90
