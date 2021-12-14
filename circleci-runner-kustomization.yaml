@@ -26,5 +26,5 @@ namespace: circleci
 
 resources:
 - circleci-namespace.yaml
-- circleci-serviceaccount.yaml
+- circleci-runner-serviceaccount.yaml
 - circleci-runner-deployment.yaml
