@@ -186,16 +186,17 @@ spec:
       terminationMessagePolicy: File  # FallbackToLogsOnError to use container logs if message file is empty upon container error
       #serviceAccountName: NAME
       securityContext:
-        privileged: false
-        #allowPrivilegeEscalation: false  # fails validation, not found
-        #readOnlyRootFilesystem: true     # fails validation, not found
-        # see pod-security-policy.yaml for wider enforcement
         runAsNonRoot: true
         #runAsUser: 0   # not recommended
         fsGroup: 1000   # group to own volumeMounts so they can be written to by the user-level process
-        capabilities:
-          drop:
-            - ALL
+        # these all fail validation, not found
+        #privileged: false
+        #allowPrivilegeEscalation: false
+        #readOnlyRootFilesystem: true
+        # see pod-security-policy.yaml for wider enforcement
+        #capabilities:
+        #  drop:
+        #    - ALL
       initContainers:
       - name: init-files
         image: alpine/git
