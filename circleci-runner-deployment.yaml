@@ -79,11 +79,15 @@ spec:
       automountServiceAccountToken: false
       #securityContext:
       #  runAsNonRoot: true  # Error: container has runAsNonRoot and image has non-numeric user (circleci), cannot verify user is non-root
+      terminationGracePeriodSeconds: 7200  # should be the same as the job timeout setting to allow the launch-agent to drain
       containers:
       - name: circleci-runner
         image: circleci/runner:launch-agent
         #image: harisekhon/circleci-runner  # contains extra build dependencies
         imagePullPolicy: Always  # since this is a mutable tag
+        #
+        # https://circleci.com/docs/2.0/runner-config-reference/
+        #
         env:
         - name: CIRCLECI_RESOURCE_CLASS
           #value: harisekhon/k8s-runner
@@ -96,6 +100,14 @@ spec:
             secretKeyRef:
               name: circleci-runner
               key: token
+        - name: LAUNCH_AGENT_RUNNER_MODE
+          value: single-task  # by exiting we can scale down more easily
+        - name: LAUNCH_AGENT_RUNNER_IDLE_TIMEOUT
+          value: 10m
+        - name: LAUNCH_AGENT_RUNNER_MAX_RUN_TIME
+          value: 2h  # default: 5 hours
+        #- name: LAUNCH_AGENT_RUNNER_NAME
+        #  value: somename  # defaults to the hostname, in this case the pod name
         livenessProbe:
           exec:
             command:
