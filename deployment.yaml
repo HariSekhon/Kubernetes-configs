@@ -96,12 +96,7 @@ spec:
             nodeSelectorTerms:
             - matchExpressions:
               # AND's everything under this matchExpression
-              - key: kubernetes.io/e2e-az-name
-                operator: In # NotIn, Exists, DoesNotExist
-                # OR's the values
-                values:
-                - europe-west-1b
-                - europe-west-1c
+              #
               # XXX: remove this if the pod is safe to preempt
               #
               # Node preemption:
@@ -123,6 +118,13 @@ spec:
                 operator: NotIn
                 values:
                 - spot
+              #
+              - key: kubernetes.io/e2e-az-name
+                operator: In # NotIn, Exists, DoesNotExist
+                # OR's the values
+                values:
+                - europe-west-1b
+                - europe-west-1c
         #podAffinity:
         podAntiAffinity:
           # XXX: spread app across AZs
