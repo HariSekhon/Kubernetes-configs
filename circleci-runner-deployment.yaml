@@ -100,12 +100,16 @@ spec:
             secretKeyRef:
               name: circleci-runner
               key: token
-        - name: LAUNCH_AGENT_RUNNER_MODE
-          value: single-task  # by exiting we can scale down more easily
         - name: LAUNCH_AGENT_RUNNER_MAX_RUN_TIME
           value: 2h  # default: 5 hours
+        #
+        # these two only cause only cause Completed state exits and container restarts in the same pod, racking up restarts rather than graceful scale-down
+        #
+        #- name: LAUNCH_AGENT_RUNNER_MODE
+        #  value: single-task
         #- name: LAUNCH_AGENT_RUNNER_IDLE_TIMEOUT
-        #  value: 10m  # only causes agent to move to Completed state and restart the container in the same pod, racking up restarts rather than graceful scale-down
+        #  value: 10m
+        #
         #- name: LAUNCH_AGENT_RUNNER_NAME
         #  value: somename  # defaults to the hostname, in this case the pod name
         livenessProbe:
