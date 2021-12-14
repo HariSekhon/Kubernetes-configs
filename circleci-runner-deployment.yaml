@@ -53,7 +53,7 @@ spec:
   selector:
     matchLabels:
       app: circleci-runner
-  replicas: 1  # XXX: don't define replicas if using HPA - currently no safe scale-down mechanism so using static replicas
+  #replicas: 1  # XXX: don't define replicas if using HPA
   template:
     metadata:
       labels:
