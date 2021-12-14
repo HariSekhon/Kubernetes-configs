@@ -77,8 +77,8 @@ spec:
       restartPolicy: Always
       serviceAccountName: circleci-runner
       automountServiceAccountToken: false
-      securityContext:
-        runAsNonRoot: true
+      #securityContext:
+      #  runAsNonRoot: true  # Error: container has runAsNonRoot and image has non-numeric user (circleci), cannot verify user is non-root
       containers:
       - name: circleci-runner
         image: circleci/runner:launch-agent
