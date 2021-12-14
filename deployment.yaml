@@ -187,8 +187,8 @@ spec:
       #serviceAccountName: NAME
       securityContext:
         privileged: false
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
+        #allowPrivilegeEscalation: false  # fails validation, not found
+        #readOnlyRootFilesystem: true     # fails validation, not found
         # see pod-security-policy.yaml for wider enforcement
         runAsNonRoot: true
         #runAsUser: 0   # not recommended
