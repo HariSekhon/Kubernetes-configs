@@ -103,7 +103,7 @@ spec:
         - name: LAUNCH_AGENT_RUNNER_MAX_RUN_TIME
           value: 2h  # default: 5 hours
         #
-        # these two only cause only cause Completed state exits and container restarts in the same pod, racking up restarts rather than graceful scale-down
+        # these two aren't of much benefit as they merely cause Completed state exits and container restarts in the same pod, racking up the Restart count for the pod
         #
         #- name: LAUNCH_AGENT_RUNNER_MODE
         #  value: single-task
