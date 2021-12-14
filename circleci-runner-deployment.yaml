@@ -23,7 +23,7 @@
 #
 #   1. Runner Token, generate it using CircleCI CLI like so:
 #
-#         circleci runner resource-class create <org>/<name> "description" --generate-token
+#         circleci runner resource-class create <namespace>/<resource> "description" --generate-token
 #     eg.
 #         circleci runner resource-class create harisekhon/k8s-runner "Kubernetes Runner" --generate-token
 #
@@ -35,7 +35,7 @@
 #
 #   3. Configure the CircleCI resource-class this agent should registry against
 #
-#       kubectl create configmap circleci-runner -n circleci --from-literal=resource-class=<org>/<runner_name>
+#       kubectl create configmap circleci-runner -n circleci --from-literal=resource-class=<namespace>/<resource>
 #   eg.
 #       kubectl create configmap circleci-runner -n circleci --from-literal=resource-class=harisekhon/k8s-runner
 
