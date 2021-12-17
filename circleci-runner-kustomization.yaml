@@ -17,7 +17,10 @@
 #           C i r c l e C I   R u n n e r   K u s t o m i z a t i o n
 # ============================================================================ #
 
-# CircleCI's Helm chart wasn't published anywhere, was only 0.0.1 and only in git repo, no charts repo url so couldn't use in Kustomize, also lacked functionality and optimizations found
+# As of Dec 2021:
+#
+# - CircleCI's Helm chart wasn't published anywhere, was only 0.0.1 and only in git repo, no charts repo url so couldn't use in Kustomize, also lacked functionality and optimizations added here, such as no eviction and avoiding preemption
+# - CircleCI doesn't support auto-scaling, only explicit always running replicas, so have used and tested an HPA with a termination grade period greater than configured runner max run time
 
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
