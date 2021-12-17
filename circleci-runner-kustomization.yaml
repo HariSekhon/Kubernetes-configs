@@ -33,3 +33,6 @@ resources:
 - circleci-runner-configmap.yaml
 - circleci-runner-deployment.yaml
 - circleci-runner-hpa.yaml
+
+patchesStrategicMerge:
+- goldilocks-namespace-enable.patch.yaml
