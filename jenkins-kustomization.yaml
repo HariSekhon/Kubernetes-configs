@@ -17,6 +17,10 @@
 #                   J e n k i n s   K u s t o m i z a t i o n
 # ============================================================================ #
 
+# Default admin password:
+#
+#   kubectl_secret_values.sh jenkins -n jenkins
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
