@@ -41,3 +41,13 @@ resources:
 
 patchesStrategicMerge:
 - goldilocks-namespace-enable.patch.yaml
+
+# OR
+
+helmCharts:
+- name: jenkins
+  repo: https://charts.jenkins.io
+  version: 3.9.4
+  releaseName: jenkins
+  namespace: jenkins
+  valuesFile: jenkins-values.yaml
