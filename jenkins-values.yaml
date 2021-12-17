@@ -117,6 +117,7 @@ controller:
     - workflow-aggregator:2.6
     - git:4.10.0
     - configuration-as-code:1.54
+    - blueocean:1.25.2
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
