@@ -17,29 +17,15 @@
 #                   J e n k i n s   K u s t o m i z a t i o n
 # ============================================================================ #
 
-# Ties all the Jenkins resources together for an easy one-shot deployment
-
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: jenkins
 
 resources:
-- ./priorityclass.yaml
-- ./storageclass-gcp-standard-resizeable.yaml
-- ./jenkins-namespace.yaml
-# Either use custom definitions or use the Helm Chart below
-#
-# only enable this if using permanent agents on k8s, otherwise see jenkins-agent-pod.yaml for dynamic auto-scaling on k8s
-#- ./jenkins-agent.yaml
-- ./jenkins-agent-serviceaccount.yaml
-- ./jenkins-ingress.yaml
-- ./jenkins-server-role.yaml
-- ./jenkins-server-rolebinding.yaml
-- ./jenkins-server-serviceaccount.yaml
-- ./jenkins-server.yaml
-- ./jenkins-service-discovery.yaml
-- ./jenkins-service-ui.yaml
+- jenkins-namespace.yaml
+- priorityclass.yaml
+#- storageclass-gcp-standard-resizeable.yaml
 
 patchesStrategicMerge:
 - goldilocks-namespace-enable.patch.yaml
@@ -51,3 +37,16 @@ helmCharts:
   releaseName: jenkins
   namespace: jenkins
   valuesFile: jenkins-values.yaml
+
+# Older - Helm chart above has more automation with plugin management and JCasC (Jenkins Configuration as Code) with auto-reload
+#
+## only enable this if using permanent agents on k8s, otherwise see jenkins-agent-pod.yaml for dynamic auto-scaling on k8s
+##- jenkins-agent.yaml
+#- jenkins-agent-serviceaccount.yaml
+#- jenkins-ingress.yaml
+#- jenkins-server-role.yaml
+#- jenkins-server-rolebinding.yaml
+#- jenkins-server-serviceaccount.yaml
+#- jenkins-server.yaml
+#- jenkins-service-discovery.yaml
+#- jenkins-service-ui.yaml
