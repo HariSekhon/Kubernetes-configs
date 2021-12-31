@@ -25,6 +25,9 @@ namespace: prometheus
 resources:
 - prometheus-namespace.yaml
 
+patchesStrategicMerge:
+- goldilocks-namespace-enable.patch.yaml
+
 helmCharts:
 - name: prometheus
   repo: https://prometheus-community.github.io/helm-charts
