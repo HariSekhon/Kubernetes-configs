@@ -99,7 +99,7 @@ spec:
       limits:
         cpu: "1"
         memory: 1Gi
-  # more containers if you want to run different stages in different containers eg. to wget -O- | jq ...
+  # more containers if you want to run different stages in different containers eg. to 'wget -O- | jq ...'
   - name: jq
     image: stedolan/jq
     command:
@@ -163,6 +163,19 @@ spec:
         memory: 500Mi
   - name: terraform
     image: hashicorp/terraform:1.1.2  # XXX: set this to match the Terraform version you need
+    #imagePullPolicy: Always
+    command:
+      - cat
+    tty: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 50Mi
+      limits:
+        cpu: 500m
+        memory: 500Mi
+  - name: terragrunt
+    image: alpine/terragrunt:1.1.2  # XXX: set this to match the Terraform version you need
     #imagePullPolicy: Always
     command:
       - cat
