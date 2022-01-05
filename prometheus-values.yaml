@@ -13,6 +13,14 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                       P r o m e t h e u s   V a l u e s
+# ============================================================================ #
+
+# helm repo add prometheus https://prometheus-community.github.io/helm-charts
+#
+# helm show values prometheus/prometheus >> prometheus-values.yaml
+
 ---
 alertmanager:
   enabled: true
