@@ -38,3 +38,8 @@ helmCharts:
   releaseName: ingress-nginx
   namespace: ingress-nginx
   valuesFile: ingress-nginx-values.yaml
+
+# for Dev enable this to reduce replicas to 1
+#patches:
+#- ingress-nginx-pdb.patch.yaml
+#- ingress-nginx-replicas.patch.yaml
