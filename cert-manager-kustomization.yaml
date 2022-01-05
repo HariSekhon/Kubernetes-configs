@@ -31,6 +31,7 @@ resources:
 # OR helm + namespace.yaml
 #
 - cert-manager-namespace.yaml
+#- cert-manager-clusterissuer.yaml  # XXX: configure this before enabling
 
 helmCharts:
 - name: cert-manager
