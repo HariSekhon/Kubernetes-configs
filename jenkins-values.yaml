@@ -120,6 +120,7 @@ controller:
     - blueocean:1.25.2
     - opentelemetry:1.0.1
     - prometheus:2.1.0.3
+    - cloudbees-disk-usage-simple:0.10  # for prometheus plugin to get disk usage from instead of scanning cloud storage itself or disabling disk space reporting
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
