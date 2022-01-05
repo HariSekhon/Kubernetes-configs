@@ -89,7 +89,17 @@ resources:
 #
 # dynamic versioned:
 #
-#   # for critical things like cluster-autoscaler, safer to push through git
+#   # for critical things like cluster-autoscaler, safer to push through git instead
+#
+#   helm repo add <name> <url>
+#
+#   Find latest version:
+#
+#     helm search repo <chart>
+#
+#   Find configurable values:
+#
+#     helm show values <name>/<chart>
 #
 #helmCharts:
 #- name: <chart_name>
