@@ -119,6 +119,7 @@ controller:
     - configuration-as-code:1.54
     - blueocean:1.25.2
     - opentelemetry:1.0.1
+    - prometheus:2.1.0.3
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
