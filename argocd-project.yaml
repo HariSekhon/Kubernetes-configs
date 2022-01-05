@@ -51,6 +51,8 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: argocd
     server: https://kubernetes.default.svc  # XXX: Edit
+  - namespace: cert-manager
+    server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: circleci
     server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: github-actions
