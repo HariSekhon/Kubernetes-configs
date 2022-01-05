@@ -17,7 +17,10 @@
 #                  G o l d i l o c k s   H e l m   V a l u e s
 # ============================================================================ #
 
-# helm show values fairwinds-stable/goldilocks
+# helm repo add fairwinds-stable https://charts.fairwinds.com/stable
+#
+# helm show values fairwinds-stable/goldilocks >> goldilocks-values.yaml
+
 
 # default 32Mi limit was too low even to run against goldilocks namespace
 #
