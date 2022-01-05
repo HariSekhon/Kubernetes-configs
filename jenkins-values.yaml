@@ -21,7 +21,7 @@
 
 # helm repo add jenkins https://charts.jenkins.io
 #
-# helm show values jenkins/jenkins
+# helm show values jenkins/jenkins >> jenkins-values.yaml
 
 ---
 controller:
