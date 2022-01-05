@@ -13,6 +13,14 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                          P o l a r i s   V a l u e s
+# ============================================================================ #
+
+# helm repo add fairwinds-stable https://charts.fairwinds.com/stable
+#
+# helm show values fairwinds-stable/polaris >> polaris-values.yaml
+
 ---
 # config -- The (polaris configuration)[https://github.com/FairwindsOps/polaris#configuration]. If not provided then the (default)[https://github.com/FairwindsOps/polaris/blob/master/examples/config.yaml] config from Polaris is used.
 config: null
