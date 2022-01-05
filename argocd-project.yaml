@@ -57,6 +57,8 @@ spec:
     server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: goldilocks
     server: https://kubernetes.default.svc  # XXX: Edit
+  - namespace: ingress-nginx
+    server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: jenkins
     server: https://kubernetes.default.svc  # XXX: Edit
   - namespace: kubernetes-dashboard
@@ -75,6 +77,8 @@ spec:
   #  kind: ClusterRole
   #- group: rbac.authorization.k8s.io
   #  kind: ClusterRoleBinding
+  - group: networking.k8s.io
+    kind: IngressClass
   - group: ''
     kind: Namespace
   #- group: scheduling.k8s.io
