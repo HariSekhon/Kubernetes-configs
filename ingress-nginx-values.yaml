@@ -1,0 +1,135 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-01-05 12:24:42 +0000 (Wed, 05 Jan 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#              N g i n x   I n g r e s s   C h a r t   V a l u e s
+# ============================================================================ #
+
+# helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+#
+# helm show values ingress-nginx/ingress-nginx >> ingress-nginx-values.yaml
+
+---
+controller:
+  name: controller
+  replicaCount: 3
+  minAvailable: 2
+  # copied from deployment.yaml - see there for comments and more details
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: cloud.google.com/gke-preemptible
+            operator: DoesNotExist
+          - key: eks.amazonaws.com/capacityType
+            operator: NotIn
+            values:
+            - SPOT
+          - key: kubernetes.azure.com/scalesetpriority
+            operator: NotIn
+            values:
+            - spot
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - topologyKey: topology.kubernetes.io/zone
+        labelSelector:
+          matchExpressions:
+          - key: app
+            operator: In
+            values:
+            - ingress-nginx
+      - topologyKey: kubernetes.io/hostname
+        labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - ingress-nginx
+
+  ## Define requests resources to avoid probe issues due to CPU utilization in busy nodes
+  ## ref: https://github.com/kubernetes/ingress-nginx/issues/4735#issuecomment-551204903
+  ## Ideally, there should be no limits.
+  ## https://engineering.indeedblog.com/blog/2019/12/cpu-throttling-regression-fix/
+  #resources:
+  ##  limits:
+  ##    cpu: 100m
+  ##    memory: 90Mi
+  #  requests:
+  #    cpu: 100m
+  #    memory: 90Mi
+
+  ## HPA (Mutually exclusive with keda autoscaling)
+  #autoscaling:
+  #  enabled: false
+  #  minReplicas: 1
+  #  maxReplicas: 11
+  #  targetCPUUtilizationPercentage: 50
+  #  targetMemoryUtilizationPercentage: 50
+  #  behavior: {}
+  #    # scaleDown:
+  #    #   stabilizationWindowSeconds: 300
+  #    #  policies:
+  #    #   - type: Pods
+  #    #     value: 1
+  #    #     periodSeconds: 180
+  #    # scaleUp:
+  #    #   stabilizationWindowSeconds: 300
+  #    #   policies:
+  #    #   - type: Pods
+  #    #     value: 2
+  #    #     periodSeconds: 60
+
+  #service:
+  #  enabled: true
+  #  # clusterIP: ""
+  #  ## List of IP addresses at which the controller services are available
+  #  ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
+  #  ##
+  #  #externalIPs: []
+  #
+  #  # loadBalancerIP: ""
+  #  loadBalancerSourceRanges: []
+  #
+  #  #enableHttp: true
+  #  #enableHttps: true
+  #
+  #  ## Set external traffic policy to: "Local" to preserve source IP on providers supporting it.
+  #  ## Ref: https://kubernetes.io/docs/tutorials/services/source-ip/#source-ip-for-services-with-typeloadbalancer
+  #  # externalTrafficPolicy: ""
+  #
+  #  ## Must be either "None" or "ClientIP" if set. Kubernetes will default to "None".
+  #  ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+  #  # sessionAffinity: ""
+  #
+  #  type: LoadBalancer
+  #  external:
+  #    enabled: true
+  #
+  #  ## Enables an additional internal load balancer (besides the external one).
+  #  ## Annotations are mandatory for the load balancer to come up. Varies with the cloud service.
+  #  internal:
+  #    enabled: false
+  #    annotations: {}
+  #
+  #    # loadBalancerIP: ""
+  #
+  #    ## Restrict access For LoadBalancer service. Defaults to 0.0.0.0/0.
+  #    loadBalancerSourceRanges: []
+  #
+  #    ## Set external traffic policy to: "Local" to preserve source IP on
+  #    ## providers supporting it
+  #    ## Ref: https://kubernetes.io/docs/tutorials/services/source-ip/#source-ip-for-services-with-typeloadbalancer
+  #    # externalTrafficPolicy: ""
