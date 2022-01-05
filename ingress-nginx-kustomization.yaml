@@ -1,0 +1,37 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-01-05 12:16:24 +0000 (Wed, 05 Jan 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                I n g r e s s   N g i n x   C o n t r o l l e r
+# ============================================================================ #
+
+# Find latest version:
+#
+#   helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+#
+#   helm search repo ingress-nginx
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: ingress-nginx
+
+helmCharts:
+- name: ingress-nginx
+  repo: https://kubernetes.github.io/ingress-nginx
+  version: 4.0.13
+  releaseName: ingress-nginx
+  namespace: ingress-nginx
+  valuesFile: ingress-nginx-values.yaml
