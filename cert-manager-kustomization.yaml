@@ -30,7 +30,7 @@ resources:
 #
 # OR helm + namespace.yaml
 #
-- namespace.yaml
+- cert-manager-namespace.yaml
 
 helmCharts:
 - name: cert-manager
