@@ -19,6 +19,6 @@
 
 # helm repo add <name> <url>
 #
-# helm show values <name>/<chart>
+# helm show values <name>/<chart> >> values.yaml
 
 ---
