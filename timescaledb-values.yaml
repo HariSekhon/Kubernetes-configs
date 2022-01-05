@@ -13,6 +13,14 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                      T i m e s c a l e D B   V a l u e s
+# ============================================================================ #
+
+# helm repo add timescaledb https://charts.timescale.com
+#
+# helm show values timescaledb/timescaledb-single >> timescaledb-values.yaml
+
 ---
 replicaCount: 1
 nameOverride: timescaledb
