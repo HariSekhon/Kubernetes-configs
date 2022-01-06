@@ -26,7 +26,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: ingress-nginx
+#namespace: ingress-nginx  # Do not set in case it overrides resources needed in kube-system
 
 resources:
 - ingress-nginx-namespace.yaml
