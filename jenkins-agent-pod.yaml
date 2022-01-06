@@ -189,8 +189,8 @@ spec:
         memory: 500Mi
   - name: tfsec
     #image: aquasec/tfsec:v0.63
-    #image: aquasec/tfsec-ci:latest  # no entrypoint
-    image: aquasec/tfsec:latest      # doesn't matter since entrypoint is replaced by cat to allow exec'ing into container in Pipeline stages
+    #image: aquasec/tfsec-ci:latest  # no entrypoint, same version tags as aquasec/tfsec
+    image: aquasec/tfsec:latest      # tfsec-ci not needed since entrypoint is overridden by cat to allow exec'ing into container in Pipeline stages
     imagePullPolicy: Always
     command:
       - cat
