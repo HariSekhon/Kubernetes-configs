@@ -218,6 +218,7 @@ spec:
         memory: 200Mi
   # generic CLI container
   - name: busybox
+    #image: busybox:3
     image: busybox:latest
     imagePullPolicy: Always
     command:
