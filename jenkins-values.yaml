@@ -113,14 +113,18 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:1.30.11
-    - workflow-aggregator:2.6
-    - git:4.10.0
+    - kubernetes:1.31.2                               # https://plugins.jenkins.io/kubernetes/
+    - workflow-aggregator:2.6                         # https://plugins.jenkins.io/workflow-aggregator/  # Pipelines
+    - git:4.10.1                                      # https://plugins.jenkins.io/git/
     - configuration-as-code:1.54
-    - blueocean:1.25.2
-    - opentelemetry:1.0.1
-    - prometheus:2.1.0.3
-    - cloudbees-disk-usage-simple:0.10  # for prometheus plugin to get disk usage from instead of scanning cloud storage itself or disabling disk space reporting
+    - blueocean:1.25.2                                # https://plugins.jenkins.io/blueocean/
+    # gives AWSAccessKeyId and AWSSecretKey fields in Jenkins Credentials API
+    - aws-credentials:1.33                            # https://plugins.jenkins.io/aws-credentials/
+    - aws-secrets-manager-credentials-provider:0.5.6  # https://plugins.jenkins.io/aws-secrets-manager-credentials-provider/
+    - opentelemetry:1.0.1                             # https://plugins.jenkins.io/opentelemetry/  # for Jaeger
+    - prometheus:2.0.10                               # https://plugins.jenkins.io/prometheus/
+    # for prometheus plugin to get disk usage from instead of scanning cloud storage itself or disabling disk space reporting
+    - cloudbees-disk-usage-simple:0.10                # https://plugins.jenkins.io/cloudbees-disk-usage-simple/
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
