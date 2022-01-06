@@ -26,7 +26,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: kubernetes-dashboard
+#namespace: kubernetes-dashboard  # Do not override helm chart, can cause issues
 
 resources:
 - kubernetes-dashboard-namespace.yaml
