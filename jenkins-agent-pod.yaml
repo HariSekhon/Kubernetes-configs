@@ -216,6 +216,20 @@ spec:
       limits:
         cpu: 500m
         memory: 200Mi
+  - name: liquibase
+    #image: liquibase/liquibase:4.6
+    image: liquibase/liquibase:latest
+    imagePullPolicy: Always
+    command:
+      - cat
+    tty: true
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        cpu: 500m
+        memory: 200Mi
   # generic CLI container
   - name: busybox
     #image: busybox:3
