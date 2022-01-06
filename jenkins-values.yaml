@@ -121,6 +121,11 @@ controller:
     # gives AWSAccessKeyId and AWSSecretKey fields in Jenkins Credentials API
     - aws-credentials:1.33                            # https://plugins.jenkins.io/aws-credentials/
     - aws-secrets-manager-credentials-provider:0.5.6  # https://plugins.jenkins.io/aws-secrets-manager-credentials-provider/
+    - gcp-secrets-manager-credentials-provider:0.2.6  # https://plugins.jenkins.io/gcp-secrets-manager-credentials-provider/
+    - google-cloudbuild:0.2.6                         # https://plugins.jenkins.io/google-cloudbuild/
+    - azure-credentials:98.vf9c2fdfde55c              # https://plugins.jenkins.io/azure-credentials/
+    - azure-keyvault:131.v867845ef6ae9                # https://plugins.jenkins.io/azure-keyvault/
+    - hashicorp-vault-plugin:336.v182c0fbaaeb7        # https://plugins.jenkins.io/hashicorp-vault-plugin/
     - opentelemetry:1.0.1                             # https://plugins.jenkins.io/opentelemetry/  # for Jaeger
     - prometheus:2.0.10                               # https://plugins.jenkins.io/prometheus/
     # for prometheus plugin to get disk usage from instead of scanning cloud storage itself or disabling disk space reporting
