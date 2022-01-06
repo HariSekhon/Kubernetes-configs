@@ -116,7 +116,7 @@ controller:
     - kubernetes:1.31.2                               # https://plugins.jenkins.io/kubernetes/
     - workflow-aggregator:2.6                         # https://plugins.jenkins.io/workflow-aggregator/  # Pipelines
     - git:4.10.1                                      # https://plugins.jenkins.io/git/
-    - configuration-as-code:1.54
+    - configuration-as-code:1.55                      # https://plugins.jenkins.io/configuration-as-code/
     - blueocean:1.25.2                                # https://plugins.jenkins.io/blueocean/
     # gives AWSAccessKeyId and AWSSecretKey fields in Jenkins Credentials API
     - aws-credentials:1.33                            # https://plugins.jenkins.io/aws-credentials/
