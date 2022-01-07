@@ -17,6 +17,10 @@
 #                 C l o u d B e e s   K u s t o m i z a t i o n
 # ============================================================================ #
 
+# https://docs.cloudbees.com/docs/cloudbees-ci/latest/kubernetes-install-guide/installing-kubernetes-using-helm
+#
+# https://docs.cloudbees.com/docs/cloudbees-ci/latest/eks-install-guide/installing-eks-using-helm
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
