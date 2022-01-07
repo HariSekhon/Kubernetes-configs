@@ -37,7 +37,7 @@ metadata:
     # adds ArgoCD link symbol in the UI next to object
     #link.argocd.argoproj.io/external-link: http://www.domain.com/path
 spec:
-  replicas: 3  # XXX: don't define replicas if using HPA, overriding this during deployments which could cause load issues
+  replicas: 3  # XXX: don't define replicas if using HPA, otherwise gets overridden and reset to this number every deploy which could cause load or data sharding issues
   serviceName: NAME
   selector:
     matchLabels:
