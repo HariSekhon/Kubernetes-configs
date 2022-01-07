@@ -1,0 +1,114 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-01-06 10:53:55 +0000 (Thu, 06 Jan 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#             C l o u d b e e s   C o r e   C h a r t   V a l u e s
+# ============================================================================ #
+
+# helm repo add cloudbees https://charts.cloudbees.com/public/cloudbees
+#
+# helm show values cloudbees/cloudbees-core >> cloudbees-values.yaml
+
+---
+# Operations Center options
+OperationsCenter:
+  # OperationsCenter.Enabled -- Disable for particular use case like setting up namespaces to host masters only
+  Enabled: true
+
+  # OperationsCenter.Platform -- Enables specific settings depending on the platform
+  # platform specific values are: `eks`, `aws`, `gke`, `aks`, `openshift`, `openshift4`
+  # Note: `openshift` maps to OpenShift 3.x
+  Platform: standard
+
+  # OperationsCenter.HostName -- The hostname used to access Operations Center through the ingress controller.
+  HostName: null
+
+  # OperationsCenter.Protocol -- the protocol used to access CJOC. Possible values are http/https.
+  Protocol: http
+  # Protocol: https
+
+  # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container
+  Resources:
+    Limits:
+      Cpu: 1
+      Memory: 2G
+    Requests:
+      Cpu: 1
+      Memory: 2G
+
+# Master options
+Master:
+  # Master.Enabled -- Whether to create the resources required to schedule masters.
+  Enabled: true
+  # Master.OperationsCenterNamespace -- When deploying Master resources, this grants an Operations Center deployed in another namespace the right to deploy masters
+  OperationsCenterNamespace: null
+
+Persistence:
+  # Persistence.StorageClass -- Persistent Volume Storage Class for Jenkins Home
+  # If defined, storageClassName: <storageClass>.
+  # If set to "-", storageClassName: "", which disables dynamic provisioning.
+  # If undefined (the default) or set to null, the default storage class will be used,
+  # unless specified otherwise below.
+  # If setting OperationsCenter.Platform == gke, a storage class backed with
+  # SSD drives will be created by this chart and used automatically.
+  #
+  # StorageClass: "-"
+  StorageClass: null
+
+  # On AKS, use the following
+  # StorageClass: "managed-premium"
+
+  # Persistence.AccessMode -- Access mode for the PVC ([doc](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes))
+  AccessMode: ReadWriteOnce
+
+  # Persistence.Size -- Size of the Operations Center volume
+  Size: 20Gi
+
+# Master hibernation
+Hibernation:
+  # Hibernation.Enabled -- Whether to enable the [Hibernation](https://docs.cloudbees.com/docs/cloudbees-ci/latest/cloud-admin-guide/managing-masters#_hibernation_of_managed_masters) feature
+  Enabled: false
+
+PodSecurityPolicy:
+  # Requires rbac.installCluster = true
+  #
+  # PodSecurityPolicy.Enabled -- Enables [Pod Security Policies](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) support
+  # Enable only if the cluster supports it.
+  Enabled: false
+
+NetworkPolicy:
+  # NetworkPolicy.Enabled -- Enable only if the cluster supports it. Read the [documentation](https://kubernetes.io/docs/concepts/services-networking/network-policies/) to understand what this is about.
+  Enabled: false
+
+### Install Default RBAC roles and bindings
+#rbac:
+#  # rbac.install -- Install `role`/`rolebindings`/`serviceAccount`.
+#  # If false (and rbac is enabled in the cluster anyway), provide valid names for all service accounts.
+#  install: true
+#
+#  # rbac.installCluster -- Install `clusterrole`/`clusterrolebinding`
+#  # These cluster roles are optional but prevent usage of some features, so we recommend setting them up.
+#  # Defaults to true, except on Openshift 3 where it defaults to false
+#  # Please refer to templates/cjoc-clusterrole-master-management.yaml in the chart
+#  #installCluster: true
+#
+#  # rbac.serviceAccountName -- Name of the service account Operations Center will run as
+#  serviceAccountName: cjoc
+#  # rbac.masterServiceAccountName -- Name of the service account Jenkins masters will run as
+#  masterServiceAccountName: jenkins
+#  # rbac.agentServiceAccountName -- Name of the service account Jenkins agents will run as
+#  agentsServiceAccountName: jenkins-agents
+#  # rbac.hibernationMonitorServiceAccountName -- Name of the service account the Hibernation monitor will run as (if enabled)
+#  hibernationMonitorServiceAccountName: managed-master-hibernation-monitor
