@@ -25,7 +25,7 @@ metadata:
   name: cloud-sql-proxy
   namespace: NAMESPACE
 spec:
-  maxUnavailable: 1
+  maxUnavailable: 25%
   selector:
     matchLabels:
       app: cloud-sql-proxy
