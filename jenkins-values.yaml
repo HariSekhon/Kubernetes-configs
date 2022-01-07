@@ -111,7 +111,12 @@ controller:
   # Optionally assign a known public LB IP
   # loadBalancerIP: 1.2.3.4
 
-  # List of plugins to be install during Jenkins controller start
+  # List of plugins to be installed during Jenkins controller start
+  #
+  # changing this triggers a jenkins restart, but the configmap may be updated after the jenkins pod starts, so you may need to:
+  #
+  #   kubectl rollout restart sts -n jenkins jenkins
+  #
   installPlugins:
     - kubernetes:1.31.2                               # https://plugins.jenkins.io/kubernetes/
     - workflow-aggregator:2.6                         # https://plugins.jenkins.io/workflow-aggregator/  # Pipelines
