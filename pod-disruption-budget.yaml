@@ -32,8 +32,9 @@ metadata:
   name: zk-pdb
   namespace: NAMESPACE
 spec:
-  # minAvailable: 4  # < 1.7 - must calculate yourself, eg 2/3, or 4/5
-  maxUnavailable: 1  # 1.7+
+  # minAvailable and maxUnavailable are mutually exclusive
+  # minAvailable: 4    # < 1.7  - must calculate yourself, eg 2/3, or 4/5
+  maxUnavailable: 25%  #   1.7+ - XXX: do not set to integers, you may cause outages if replicas <= maxUnavailable
   selector:
     matchLabels:
       app: zookeeper
