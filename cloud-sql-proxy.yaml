@@ -76,7 +76,8 @@ spec:
         command:
         - /cloud_sql_proxy
         - "-ip_address_types=PRIVATE"
-        - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:5432"
+        #- "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:3306"  # mysql
+        - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:5432"   # postgres
         env:
         - name: CLOUD_SQL_INSTANCE
           valueFrom:
@@ -86,12 +87,14 @@ spec:
               key: cloud-sql-instance
         readinessProbe:
           tcpSocket:
-            port: 5432
+            #port: 3306  # mysql
+            port: 5432   # postgres
           periodSeconds: 5
         livenessProbe:
           tcpSocket:
-            port: 5432
-          failureThreshold: 5
+            #port: 3306  # mysql
+            port: 5432   # postgres
+          failureThreshold: 10
         resources:
           requests:
             cpu: 100m
