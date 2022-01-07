@@ -85,6 +85,7 @@ spec:
               # XXX: Edit
               name: my-configmap
               key: cloud-sql-instance
+        # XXX: healthchecks rely on external access via the -instances cli arg above having '=tcp:0.0.0.0:<port>' otherwise Cloud SQL Proxy listens on 127.0.0.1 and health check from k8s will get connection refused
         readinessProbe:
           tcpSocket:
             #port: 3306  # mysql
