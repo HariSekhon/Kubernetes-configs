@@ -43,10 +43,9 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      #maxUnavailable: 25%
-      maxUnavailable: 1
-      #maxSurge: 25%
-      maxSurge: 1
+      # XXX: Do not set maxUnavailable to integers, you may cause outages in environments where the replica counts are patched down or the HPA has scaled down
+      maxUnavailable: 25%  # default: 25% - rounds down to int replicas
+      maxSurge: 25%        # default: 25% - rounds up int replicas - set higher for faster deployments for apps with long load times to ready eg. webapps with pre-loaded local cache
   selector:
     matchLabels:
       app: APP
