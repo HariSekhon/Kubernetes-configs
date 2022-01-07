@@ -32,3 +32,7 @@ helmCharts:
   releaseName: cloudbees-core
   namespace: cloudbees-core
   valuesFile: cloudbees-values.yaml
+
+# if you're not ready to have an ingress letting things through
+#patches:
+#  - ingress-disable.patch.yaml
