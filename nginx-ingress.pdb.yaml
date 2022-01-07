@@ -25,7 +25,7 @@ metadata:
   name: ingress-nginx
   namespace: ingress-nginx
 spec:
-  maxUnavailable: 1
+  maxUnavailable: 25%
   selector:
     matchLabels:
       app.kubernetes.io/name: ingress-nginx
