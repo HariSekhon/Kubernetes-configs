@@ -187,6 +187,19 @@ spec:
       limits:
         cpu: 500m
         memory: 500Mi
+  - name: jfrog-cli
+    image: releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.10.1
+    #imagePullPolicy: Always
+    command:
+      - cat
+    tty: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 50Mi
+      limits:
+        cpu: 500m
+        memory: 500Mi
   - name: tfsec
     #image: aquasec/tfsec:v0.63
     #image: aquasec/tfsec-ci:latest  # no entrypoint, same version tags as aquasec/tfsec
