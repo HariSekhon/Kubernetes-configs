@@ -17,6 +17,8 @@
 #                      A r g o C D   A p p l i c a t i o n
 # ============================================================================ #
 
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#applications
+
 # manages a given Kubnernetes application via Kustomize or Helm
 
 # if using argocd-apps.yaml App-of-Apps pattern you can just drop this into the k8s/argocd/apps directory in git to add it dynamically,
@@ -47,6 +49,8 @@ spec:
     #
     # ================================================
     # straight Helm (prefer Kustomize way above as it's more declarative)
+    #
+    #   https://argo-cd.readthedocs.io/en/stable/user-guide/helm/
     #
     # XXX: values file must be set non-GitOps, eg:
     #
