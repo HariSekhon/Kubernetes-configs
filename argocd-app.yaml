@@ -35,13 +35,28 @@ metadata:
 spec:
   project: default
   source:
+    # ================================================
+    # Kustomize / Manifests (including Kustomize+Helm)
+    #
     # XXX: Edit - url to Git repo containing your k8s manifests
     #repoURL: https://github.com/argoproj/argocd-example-apps.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
     repoURL: git@github.com:argoproj/argocd-example-apps.git
     targetRevision: HEAD
     # XXX: Edit - path to k8s manifiests
     path: dir/path/to/k8s/manifests  # relative to root of git repo so no leading slash
+    #
+    # ================================================
+    # straight Helm (prefer Kustomize way above as it's more declarative)
+    #
+    # XXX: values file must be set non-GitOps, eg:
+    #
+    #       argocd app set APP --values values.yaml
+    #
     #chart: APP # specify chart instead of path if deploying a Helm app
+    #repoURL: https://artifacthub.io/packages/helm/<ORG>/<CHART>
+    #targetRevision: N.N.N
+    #helm:
+    #  releaseName: APP
   destination:
     # XXX: Edit - this is in-cluster URL, edit to external master URL if you need to deploy to other clusters
     server: https://kubernetes.default.svc
