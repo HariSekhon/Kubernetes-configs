@@ -17,6 +17,8 @@
 #             A r g o C D   S e t t i n g s   U s e r s   P a t c h
 # ============================================================================ #
 
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/
+
 # ArgoCD Local User Management
 #
 #   https://argoproj.github.io/argo-cd/operator-manual/user-management/
