@@ -53,7 +53,7 @@ controller:
   # containerEnv:
   #   - name: http_proxy
   #     value: "http://192.168.64.1:3128"
-  javaOpts: -Xms3g -Xmx3g -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC
+  javaOpts: -Xms3G -Xmx3G -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC
   # jenkinsOpts: ""
   # If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
   # The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
