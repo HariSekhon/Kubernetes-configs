@@ -128,15 +128,19 @@ controller:
     - github:1.34.1                                   # https://plugins.jenkins.io/github/
     - ssh-agent:1.23                                  # https://plugins.jenkins.io/ssh-agent/
     - ansicolor:1.0.1                                 # https://plugins.jenkins.io/ansicolor/
+    - greenballs:1.15.1                               # https://plugins.jenkins.io/greenballs/
     - antisamy-markup-formatter:2.7                   # https://plugins.jenkins.io/antisamy-markup-formatter/
     - slack:2.49                                      # https://plugins.jenkins.io/slack/
-    #- ws-cleanup:0.40                                # https://plugins.jenkins.io/ws-cleanup/
     - cloudbees-jenkins-advisor:3.3.2                 # https://plugins.jenkins.io/cloudbees-jenkins-advisor/
     - plugin-usage-plugin:2.1                         # https://plugins.jenkins.io/plugin-usage-plugin/
+    - thinBackup:1.10                                 # https://plugins.jenkins.io/thinBackup/
+    # SSO
     - azure-ad:189.v2da14dccdb43 # XXX: EOL Feb 2024  # https://plugins.jenkins.io/azure-ad/
+    # Code Quality
     - sonar:2.14                                      # https://plugins.jenkins.io/sonar/
     - allure-jenkins-plugin:2.29.0                    # https://plugins.jenkins.io/allure-jenkins-plugin/
-    - clover:4.12.1                                   # https://plugins.jenkins.io/clover/
+    #- clover:4.12.1                                   # https://plugins.jenkins.io/clover/
+    # Cloud & Credentials
     # gives AWSAccessKeyId and AWSSecretKey fields in Jenkins Credentials API
     - aws-credentials:1.33                            # https://plugins.jenkins.io/aws-credentials/
     - aws-secrets-manager-credentials-provider:0.5.6  # https://plugins.jenkins.io/aws-secrets-manager-credentials-provider/
@@ -145,10 +149,27 @@ controller:
     - azure-credentials:98.vf9c2fdfde55c              # https://plugins.jenkins.io/azure-credentials/
     - azure-keyvault:131.v867845ef6ae9                # https://plugins.jenkins.io/azure-keyvault/
     - hashicorp-vault-plugin:336.v182c0fbaaeb7        # https://plugins.jenkins.io/hashicorp-vault-plugin/
+    # Metrics
+    - monitoring:1.90.0                               # https://plugins.jenkins.io/monitoring/
     - opentelemetry:1.0.1                             # https://plugins.jenkins.io/opentelemetry/  # for Jaeger
     - prometheus:2.0.10                               # https://plugins.jenkins.io/prometheus/
     # for prometheus plugin to get disk usage from instead of scanning cloud storage itself or disabling disk space reporting
     - cloudbees-disk-usage-simple:0.10                # https://plugins.jenkins.io/cloudbees-disk-usage-simple/
+    #- ws-cleanup:0.40                                 # https://plugins.jenkins.io/ws-cleanup/
+    #- compress-artifacts:1.10                         # https://plugins.jenkins.io/compress-artifacts/
+    #- cloudbees-folder:6.17                           # https://plugins.jenkins.io/cloudbees-folder/
+    #- view-job-filters:2.3                            # https://plugins.jenkins.io/view-job-filters/
+    #- dashboard-view:2.18                             # https://plugins.jenkins.io/dashboard-view/
+    #- maven-plugin:3.16                               # https://plugins.jenkins.io/maven-plugin/
+    #- junit:1.53                                      # https://plugins.jenkins.io/junit/
+    #- mailer:391.ve4a_38c1b_cf4b_                     # https://plugins.jenkins.io/mailer/
+    #- jira:3.6                                        # https://plugins.jenkins.io/jira/
+    #- codedeploy:1.23                                 # https://plugins.jenkins.io/codedeploy/  # AWS CodeDeploy
+    #- metrics:4.0.2.8                                 # https://plugins.jenkins.io/metrics/
+    #- github-pullrequest:0.4.0                        # https://plugins.jenkins.io/github-pullrequest/
+    #- terraform:1.0.10                                # https://plugins.jenkins.io/terraform/
+    #- nodejs:1.5.0                                    # https://plugins.jenkins.io/nodejs/
+    #- role-strategy:3.2.0                             # https://plugins.jenkins.io/role-strategy/  # don't need this if using Azure AD plugin matrix-based security
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
