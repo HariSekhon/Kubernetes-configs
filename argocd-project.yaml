@@ -17,6 +17,8 @@
 #                          A r g o C D   P r o j e c t
 # ============================================================================ #
 
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#projects
+
 # manages a given ArgoCD project and settings
 
 # if using argocd-projects.yaml App-of-Projects pattern you can just drop this into the k8s/argocd/projects directory in git to add it dynamically,
