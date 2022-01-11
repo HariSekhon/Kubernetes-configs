@@ -17,6 +17,8 @@
 #          A r g o C D   K u s t o m i z e   V e r s i o n   P a t c h
 # ============================================================================ #
 
+# https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/
+
 # Patch ArgoCD repo server to download an specific version of Kustomize with which to generate manifests
 
 # Apply:
