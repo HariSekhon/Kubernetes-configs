@@ -17,6 +17,8 @@
 #                  A r g o C D   S S H   K n o w n   H o s t s
 # ============================================================================ #
 
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#ssh-known-host-public-keys
+
 # Bug Fix for GitHub key security updates:
 #
 #   https://github.com/argoproj/argo-cd/issues/7723
