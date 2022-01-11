@@ -124,7 +124,9 @@ controller:
     - configuration-as-code:1.55                      # https://plugins.jenkins.io/configuration-as-code/
     - blueocean:1.25.2                                # https://plugins.jenkins.io/blueocean/
     - ansicolor:1.0.1                                 # https://plugins.jenkins.io/ansicolor/
+    - cloudbees-jenkins-advisor:3.3.2                 # https://plugins.jenkins.io/cloudbees-jenkins-advisor/
     - sonar:2.14                                      # https://plugins.jenkins.io/sonar/
+    - clover:4.12.1                                   # https://plugins.jenkins.io/clover/
     # gives AWSAccessKeyId and AWSSecretKey fields in Jenkins Credentials API
     - aws-credentials:1.33                            # https://plugins.jenkins.io/aws-credentials/
     - aws-secrets-manager-credentials-provider:0.5.6  # https://plugins.jenkins.io/aws-secrets-manager-credentials-provider/
