@@ -18,6 +18,8 @@
 #          A r g o C D   D i s a b l e   A u t o - S y n c   P a t c h
 # ============================================================================ #
 
+# https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/
+
 # Disables auto-sync for ArgoCD, self, apps
 #
 # eg. to be able to run Skaffold for live development without ArgoCD resetting the apps to the Git version
