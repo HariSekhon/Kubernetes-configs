@@ -76,6 +76,7 @@ spec:
         command:
         - /cloud_sql_proxy
         - "-ip_address_types=PRIVATE"
+        # XXX: trade off exposing listener on 0.0.0.0 required for having a kubernetes health check
         #- "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:3306"  # mysql
         - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:5432"   # postgres
         env:
