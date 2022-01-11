@@ -17,6 +17,8 @@
 #            A r g o C D   S e t t i n g s   C o n f i g   P a t c h
 # ============================================================================ #
 
+# https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/
+
 # Patch to configure ArgoCD settings configmap
 #
 # Download argocd CLI:
