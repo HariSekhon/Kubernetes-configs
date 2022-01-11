@@ -296,7 +296,7 @@ spec:
               - -c
               - nodetool drain
       #
-      # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhost
+      # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhosta (see also cloud-sql-proxy*.yaml for a standalone shared deployment & service)
       #
       #   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
       #
@@ -309,11 +309,36 @@ spec:
         command:
         - /cloud_sql_proxy
         - "-ip_address_types=PRIVATE"
+        # XXX: trade off exposing listener on 0.0.0.0 required for having a kubernetes health check
         - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:5432"  # populate CLOUD_SQL_INSTANCE env var via configmap, must also specify a port (eg. 5432 for PostgreSQL or 3306 for MySQL, or else a -dir option if using socket dir)
         securityContext:
           # The default Cloud SQL proxy image runs as the
           # "nonroot" user and group (uid: 65532) by default.
           runAsNonRoot: true
+        env:
+        - name: CLOUD_SQL_INSTANCE
+          valueFrom:
+            configMapKeyRef:
+              # XXX: Edit
+              name: my-configmap
+              key: cloud-sql-instance
+        readinessProbe:
+          tcpSocket:
+            #port: 3306  # mysql
+            port: 5432   # postgres
+          periodSeconds: 5
+        livenessProbe:
+          tcpSocket:
+            #port: 3306  # mysql
+            port: 5432   # postgres
+          failureThreshold: 10
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: "1"
+            memory: 2Gi
       volumes:
       - name: APP-vol
         # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
