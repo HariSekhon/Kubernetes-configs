@@ -17,6 +17,8 @@
 #      A r g o C D   S e t t i n g s   S t a t u s   B a d g e   P a t c h
 # ============================================================================ #
 
+# https://argo-cd.readthedocs.io/en/stable/user-guide/status-badge/
+
 # Patch to configure ArgoCD settings configmap to enable status badge
 
 # Status badge is unauthenticated available at:
