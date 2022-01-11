@@ -81,7 +81,7 @@ spec:
         #  value: "--prefix=/jenkins"
         - name: JAVA_OPTS
                                    # XXX: Edit footerURL
-          value: -Dhudson.footerURL=http://MY.DOMAIN.COM -Xms3G -Xmx3G -XX:+UseG1GC
+          value: -Dhudson.footerURL=http://MY.DOMAIN.COM -Xms3G -Xmx3G -XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC
         # readiness probe is pointless really. this isn't a web farm pool, we want to get the UI no matter what state it is in
 #        readinessProbe:
 #          httpGet:
