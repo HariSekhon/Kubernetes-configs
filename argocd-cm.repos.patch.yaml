@@ -61,7 +61,7 @@ data:
       #  key: username
 
     - url: git@github.com:ORG/REPO
-      #sshPrivateKeySecret:
+      #sshPrivateKeySecret:  # XXX: use Shared Credential SSH Key between the repos instead, see further down
       #  name: my-secret
       #  key: sshPrivateKey
 
@@ -122,6 +122,8 @@ data:
         key: githubAppPrivateKey
 
     - url: git@github.com:ORG  # for all repos with this prefix url
+      # XXX: GitHub.com security changes mean this SSH key must be generated without RSA due to avoid error 'You're using an RSA key with SHA-1, which is no longer allowed. Please use a newer client or a different key type.'
+      #      eg. ssh-keygen -t ed25519 -f ~/.ssh/argocd-ed25519
       sshPrivateKeySecret:
         name: github-ssh-key  # kubectl create secret generic github-ssh-key -n argocd --from-file=private-key=$HOME/.ssh/github_key
         key: private-key
