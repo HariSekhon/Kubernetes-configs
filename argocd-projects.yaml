@@ -17,6 +17,8 @@
 #                  A r g o C D   A p p - o f - P r o j e c t s
 # ============================================================================ #
 
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern
+
 # auto-tracks and loads ArgoCD projects
 
 # if projects managed like this were manually precreated it may result in a stuck spinning state in the 'projects' app tree view waiting to delete project state
