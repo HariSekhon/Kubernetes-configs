@@ -235,6 +235,21 @@ spec:
         cpu: 500m
         memory: 200Mi
   # ==================================================
+  # https://semgrep.dev/
+  - name: semgrep
+    image: returntocorp/semgrep-agent:v1
+    imagePullPolicy: Always
+    command:
+      - cat
+    tty: true
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        cpu: 500m
+        memory: 200Mi
+  # ==================================================
   # https://hub.docker.com/r/aquasec/trivy
   - name: trivy
     #image: aquasec/trivy:0.22.0
