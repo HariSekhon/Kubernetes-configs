@@ -135,6 +135,7 @@ controller:
     - plugin-usage-plugin:2.1                         # https://plugins.jenkins.io/plugin-usage-plugin/
     - thinBackup:1.10                                 # https://plugins.jenkins.io/thinBackup/
     # SSO
+    - saml:2.0.9                                      # https://plugins.jenkins.io/saml/  # use instead of Azure AD plugin which is EOL Feb 2024
     - azure-ad:189.v2da14dccdb43 # XXX: EOL Feb 2024  # https://plugins.jenkins.io/azure-ad/
     # Code Quality
     - sonar:2.14                                      # https://plugins.jenkins.io/sonar/
