@@ -266,6 +266,22 @@ spec:
         cpu: 500m
         memory: 200Mi
   # ==================================================
+  # https://hub.docker.com/r/bridgecrew/checkov
+  - name: checkov
+    #image: bridgecrew/checkov:2.0.715
+    image: bridgecrew/checkov:latest
+    imagePullPolicy: Always
+    command:
+      - cat
+    tty: true
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        cpu: 500m
+        memory: 200Mi
+  # ==================================================
   # https://hub.docker.com/r/liquibase/liquibase
   - name: liquibase
     #image: liquibase/liquibase:4.6
