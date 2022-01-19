@@ -27,11 +27,6 @@ on:
 
 jobs:
   pluto:
+    name: Pluto
+    uses: HariSekhon/GitHub-Actions/.github/workflows/pluto.yaml@master
     timeout-minutes: 5
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Pluto
-        uses: FairwindsOps/pluto/github-action@master
-      - name: Use pluto
-        run: |
-          pluto detect-files -d .
