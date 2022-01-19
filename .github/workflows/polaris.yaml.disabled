@@ -27,23 +27,5 @@ on:
 
 jobs:
   polaris:
-    timeout-minutes: 5
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Audit
-        uses: fairwindsops/polaris@master
-        with:
-          #version: 4.0.7
-          #
-          # doesn't work on this repo because of:
-          #
-          #   https://github.com/FairwindsOps/polaris/issues/667
-          #
-          #   and can't exclude files:
-          #
-          #     https://github.com/FairwindsOps/polaris/issues/670
-          #
-          # the better solution is to run in Kubernetes, see polaris*.yaml at the top level of this repo
-          #
-          args: polaris audit --audit-path . -f pretty --only-show-failed-tests
+    name: Polaris
+    uses: HariSekhon/GitHub-Actions/.github/workflows/polaris.yaml@master
