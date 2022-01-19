@@ -13,6 +13,16 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# Fails on JSON patches:
+#
+#   https://github.com/FairwindsOps/polaris/issues/667
+#
+#   and can't exclude files:
+#
+#     https://github.com/FairwindsOps/polaris/issues/670
+#
+#   the better solution is to run in Kubernetes, see polaris*.yaml at the top level of this repo
+
 ---
 name: Polaris
 
