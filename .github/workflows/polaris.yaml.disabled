@@ -27,13 +27,16 @@
 name: Polaris
 
 on:
-  push:
-    branches:
-      - master
-      - main
-      - dev
-      - staging
-      - production
+  #push:
+  #  branches:
+  #    - master
+  #    - main
+  #    - dev
+  #    - staging
+  #    - production
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1'
 
 jobs:
   polaris:
