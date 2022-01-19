@@ -40,7 +40,7 @@ Advanced auto-scaling production-grade CI/CD on Kubernetes:
 
 - [ArgoCD](https://argoproj.github.io/cd/) - deployment, configs and optimizations. Start here: [argocd-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/argocd-kustomization.yaml)
 - [Jenkins](https://www.jenkins.io/) - jenkins server and dynamically scaling agents on kubernetes. Start here: [jenkins-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/jenkins-kustomization.yaml)
-  - see also: [Jenkins](https://github.com/HariSekhon/Jenkins) repo with advanced Jenkinsfile and Jenkins Shared Library
+  - see also: [Jenkins](https://github.com/HariSekhon/Jenkins) repo with advanced Jenkinsfile & Jenkins Shared Library
 - [TeamCity](https://www.jetbrains.com/teamcity/) - teamcity server and dynamically scaling agents on kubernetes. Start here: [teamcity-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/teamcity-kustomization.yaml)
 - [Selenium Grid](https://www.selenium.dev/documentation/grid/) - simple and distributed auto-scaling deployments. Start here: [selenium-grid-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-kustomization.yaml) / [selenium-grid-distributed-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-distributed-kustomization.yaml)
 
@@ -71,9 +71,13 @@ Forked from the [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-to
 
 - [DevOps Bash Tools](https://github.com/harisekhon/devops-bash-tools) - 700+ DevOps Bash Scripts, Advanced `.bashrc`, `.vimrc`, `.screenrc`, `.tmux.conf`, `.gitconfig`, CI configs & Utility Code Library - AWS, GCP, Kubernetes, Docker, Kafka, Hadoop, SQL, BigQuery, Hive, Impala, PostgreSQL, MySQL, LDAP, DockerHub, Jenkins, Spotify API & MP3 tools, Git tricks, GitHub API, GitLab API, BitBucket API, Code & build linting, package management for Linux / Mac / Python / Perl / Ruby / NodeJS / Golang, and lots more random goodies
 
-- [SQL Scripts](https://github.com/HariSekhon/SQL-scripts) - 100+ SQL Scripts - PostgreSQL, MySQL, AWS Athena, Google BigQuery
+- [Jenkins](https://github.com/harisekhon/jenkins) - Advanced Jenkinsfile & Jenkins Shared Library
+
+- [GitHub-Actions](https://github.com/HariSekhon/GitHub-Actions) - GitHub Actions master template & GitHub Actions Shared Workflows library
 
 - [Templates](https://github.com/HariSekhon/Templates) - dozens of Code & Config templates - AWS, GCP, Docker, Jenkins, Terraform, Vagrant, Puppet, Python, Bash, Go, Perl, Java, Scala, Groovy, Maven, SBT, Gradle, Make, GitHub Actions Workflows, CircleCI, Jenkinsfile, Makefile, Dockerfile, docker-compose.yml, M4 etc.
+
+- [SQL Scripts](https://github.com/HariSekhon/SQL-scripts) - 100+ SQL Scripts - PostgreSQL, MySQL, AWS Athena, Google BigQuery
 
 - [DevOps Python Tools](https://github.com/harisekhon/devops-python-tools) - 80+ DevOps CLI tools for AWS, GCP, Hadoop, HBase, Spark, Log Anonymizer, Ambari Blueprints, AWS CloudFormation, Linux, Docker, Spark Data Converters & Validators (Avro / Parquet / JSON / CSV / INI / XML / YAML), Elasticsearch, Solr, Travis CI, Pig, IPython
 
