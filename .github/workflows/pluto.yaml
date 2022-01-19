@@ -29,4 +29,3 @@ jobs:
   pluto:
     name: Pluto
     uses: HariSekhon/GitHub-Actions/.github/workflows/pluto.yaml@master
-    timeout-minutes: 5
