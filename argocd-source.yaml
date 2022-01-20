@@ -33,6 +33,10 @@
 #
 #     argocd app set v2-dev --kustomize-image "eu.gcr.io/$CLOUSDK_CORE_PROJECT/$image:$tag"
 #
+#       or
+#
+#     https://github.com/argoproj-labs/argocd-image-updater
+#
 
 # This file should be named such in the app k8s source directory:
 #
