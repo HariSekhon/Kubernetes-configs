@@ -23,9 +23,15 @@
 #
 # Declaractive tool specific overrides eg. for Kustomize or Helm
 #
-# For Dev/Staging environments where you are auto-releasing every commit push hashref build, you probably instead want non-GitOps commands eg.
+# For Dev/Staging environments where you are auto-releasing every commit push hashref build, your two options are:
 #
-#   argocd app set v2-dev --kustomize-image "eu.gcr.io/$CLOUSDK_CORE_PROJECT/$image:$tag"
+#   GitOps - kustomize edit set image ... && git commit
+#
+#     eg. https://github.com/HariSekhon/Jenkins/blob/master/vars/gitOpsK8sUpdate.groovy
+#
+#   non-GitOps - argocd app set ...
+#
+#     argocd app set v2-dev --kustomize-image "eu.gcr.io/$CLOUSDK_CORE_PROJECT/$image:$tag"
 #
 
 # This file should be named such in the app k8s source directory:
