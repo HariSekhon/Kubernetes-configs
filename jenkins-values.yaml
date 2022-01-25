@@ -171,7 +171,7 @@ controller:
     #- terraform:1.0.10                                # https://plugins.jenkins.io/terraform/
     #- nodejs:1.5.0                                    # https://plugins.jenkins.io/nodejs/
     #- role-strategy:3.2.0                             # https://plugins.jenkins.io/role-strategy/  # don't need this if using Azure AD plugin matrix-based security
-    #- conditional-buildstep:1.4.1                     # https://plugins.jenkins.io/conditional-buildstep/  # useless for Pipeline jobs, only useful to old freestyle jobs
+    #- conditional-buildstep:1.4.1                     # https://plugins.jenkins.io/conditional-buildstep/  # useless for Pipeline jobs, only useful to old freestyle jobs, and not flexible enough for change freeze periods either
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
