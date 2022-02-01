@@ -341,3 +341,8 @@ spec:
       limits:
         cpu: 200m
         memory: 200Mi
+    volumeMounts:
+    #- mountPath: /home/jenkins/agent
+    - mountPath: /tmp/lint
+      name: workspace-volume
+      readOnly: false
