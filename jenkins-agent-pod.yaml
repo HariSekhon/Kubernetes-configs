@@ -321,3 +321,23 @@ spec:
   #  command:
   #    - cat
   #  tty: true
+  # ==================================================
+  # https://github.com/megalinter/megalinter
+  # https://hub.docker.com/r/megalinter/megalinter
+  # generic CLI container
+  - name: megalinter
+    image: megalinter/megalinter:v5
+    imagePullPolicy: Always
+    command:
+      - cat
+    env:
+      - name: VALIDATE_ALL_CODEBASE
+        value: 'true'
+    tty: true
+    resources:
+      requests:
+        cpu: 50m
+        memory: 50Mi
+      limits:
+        cpu: 200m
+        memory: 200Mi
