@@ -36,11 +36,11 @@ spec:
     servicePort: 80
   rules:
     # XXX: Edit
-  - host: APP.DOMAIN.COM
-    http:
-      paths:
-        # XXX: Edit
-      - path: /APP
-        backend:
-          serviceName: APP-mcs
-          servicePort: 80
+    - host: APP.DOMAIN.COM
+      http:
+        paths:
+          # XXX: Edit
+          - path: /APP
+            backend:
+              serviceName: APP-mcs
+              servicePort: 80

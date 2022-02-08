@@ -49,7 +49,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
-    - ""
+      - ""
     resources:
       - pods
       - nodes
@@ -185,9 +185,9 @@ spec:
             - --kubelet-use-node-status-port
             - --metric-resolution=15s
           ports:
-          - name: https
-            protocol: TCP
-            containerPort: 4443
+            - name: https
+              protocol: TCP
+              containerPort: 4443
           livenessProbe:
             failureThreshold: 3
             httpGet:

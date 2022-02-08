@@ -66,51 +66,51 @@ spec:
           # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
-              # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
-              - key: eks.amazonaws.com/capacityType
-                operator: NotIn
-                values:
-                - SPOT
-              # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
-              - key: kubernetes.azure.com/scalesetpriority
-                operator: NotIn
-                values:
-                - spot
+              - matchExpressions:
+                  # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
         #podAffinity:
         podAntiAffinity:
           # XXX: spread app across AZs
           # XXX: use preferred if num_replicas > num_AZs
 #          preferredDuringSchedulingIgnoredDuringExecution:
-#          - weight: 100
-#            podAffinityTerm:
-#              topologyKey: topology.kubernetes.io/zone
-#              labelSelector:
-#                matchExpressions:
-#                - key: app
-#                  operator: In
-#                  values:
-#                  - APP
+#            - weight: 100
+#              podAffinityTerm:
+#                topologyKey: topology.kubernetes.io/zone
+#                labelSelector:
+#                  matchExpressions:
+#                    - key: app
+#                      operator: In
+#                      values:
+#                        - APP
           requiredDuringSchedulingIgnoredDuringExecution:
             # XXX: spread app across AZs
-          - topologyKey: topology.kubernetes.io/zone
-            labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - APP
+            - topologyKey: topology.kubernetes.io/zone
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - APP
             # XXX: spread app across hosts (default prefers spread, whereas this requires it)
-          - topologyKey: kubernetes.io/hostname
-            labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - APP
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - APP
       #serviceAccountName: NAME
       securityContext:
         privileged: false
@@ -124,114 +124,114 @@ spec:
           drop:
             - ALL
       containers:
-      - name: NAME
-        image: postgres:9.6
-        ports:
-        - name: postgres
-          containerPort: 5432
-          protocol: TCP
-        #securityContext:
-        #  privileged: true
-        env:
-        - name: HEAP_SIZE
-          value: 1G
-        - name: CASSANDRA_SEEDS
-          value: cassandra-0.cassandra.svc.cluster.local,cassandra-1.cassandra.svc.cluster.local,cassandra-2.cassandra.svc.cluster.local
-        - name: POD_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP  # K8S API path
-        - name: CLOUD_SQL_INSTANCE
-          valueFrom:
-            configMapKeyRef:
-              key: cloud-sql-instance
-              name: my-configmap
-        - name: MYSECRET
-          valueFrom:
-            secretKeyRef:
-              name: my-secret
-              key: my-secret
-        #lifecycle:
-        # postStart:
-        #   exec:
-        #     command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
-        # preStop:
-        #   exec:
-        #     # recent nginx-ingress already has this, but still a decent example to gracefully finish connections on your own nginx via SIGQUIT not SIGTERM
-        #     # also remember to increase terminationGracePeriodSeconds
-        #     command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
-        readinessProbe:
-          # http, tcp or exec
-          #httpGet:
-          #  path: /healthz
-          #  port: 8080
-          # only uncomment if you can't use http check, must comment/delete http check otherwise will get this error:
-          # invalid: spec.containers[0].livenessProbe.tcpSocket: Forbidden: may not specify more than 1 handler type
-          tcpSocket:
-            port: 5432
-          initialDelaySeconds: 0 # default
-          successThreshold: 1    # default
-          failureThreshold: 3    # default
-          periodSeconds: 10      # default (interval)
-          timeoutSeconds: 1      # default
-        livenessProbe:
-          #httpGet:
-          #  path: /healthz
-          #  port: 8080
-          tcpSocket:
-            port: 5432
-          initialDelaySeconds: 0 # default
-          successThreshold: 1    # default
-          failureThreshold: 3    # default
-          periodSeconds: 10      # default (interval)
-          timeoutSeconds: 1      # default
-        volumeMounts:
-        - name: pgdata
-          mountPath: /var/lib/pgsql
-        - name: env
-          mountPath: /app/.env
-          subPath: .env
-      #
-      # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhost
-      #
-      #   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
-      #
-      # Set up Workload Identity integration between k8s SA + GCP SA
-      #
-      #   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine#workload-identity
-      #
-      - name: cloud-sql-proxy
-        image: gcr.io/cloudsql-docker/gce-proxy:1.17
-        command:
-        - /cloud_sql_proxy
-        - "-ip_address_types=PRIVATE"
-        - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:5432"  # populate CLOUD_SQL_INSTANCE env var via configmap, must also specify a port (eg. 5432 for PostgreSQL or 3306 for MySQL, or else a -dir option if using socket dir)
-        securityContext:
-          # The default Cloud SQL proxy image runs as the
-          # "nonroot" user and group (uid: 65532) by default.
-          runAsNonRoot: true
+        - name: NAME
+          image: postgres:9.6
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          #securityContext:
+          #  privileged: true
+          env:
+            - name: HEAP_SIZE
+              value: 1G
+            - name: CASSANDRA_SEEDS
+              value: cassandra-0.cassandra.svc.cluster.local,cassandra-1.cassandra.svc.cluster.local,cassandra-2.cassandra.svc.cluster.local
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP  # K8S API path
+            - name: CLOUD_SQL_INSTANCE
+              valueFrom:
+                configMapKeyRef:
+                  key: cloud-sql-instance
+                  name: my-configmap
+            - name: MYSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: my-secret
+          #lifecycle:
+          #  postStart:
+          #    exec:
+          #      command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+          #  preStop:
+          #    exec:
+          #      # recent nginx-ingress already has this, but still a decent example to gracefully finish connections on your own nginx via SIGQUIT not SIGTERM
+          #      # also remember to increase terminationGracePeriodSeconds
+          #      command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
+          readinessProbe:
+            # http, tcp or exec
+            #httpGet:
+            #  path: /healthz
+            #  port: 8080
+            # only uncomment if you can't use http check, must comment/delete http check otherwise will get this error:
+            # invalid: spec.containers[0].livenessProbe.tcpSocket: Forbidden: may not specify more than 1 handler type
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 0 # default
+            successThreshold: 1    # default
+            failureThreshold: 3    # default
+            periodSeconds: 10      # default (interval)
+            timeoutSeconds: 1      # default
+          livenessProbe:
+            #httpGet:
+            #  path: /healthz
+            #  port: 8080
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 0 # default
+            successThreshold: 1    # default
+            failureThreshold: 3    # default
+            periodSeconds: 10      # default (interval)
+            timeoutSeconds: 1      # default
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/pgsql
+            - name: env
+              mountPath: /app/.env
+              subPath: .env
+        #
+        # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhost
+        #
+        #   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
+        #
+        # Set up Workload Identity integration between k8s SA + GCP SA
+        #
+        #   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine#workload-identity
+        #
+        - name: cloud-sql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.17
+          command:
+            - /cloud_sql_proxy
+            - "-ip_address_types=PRIVATE"
+            - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:5432"  # populate CLOUD_SQL_INSTANCE env var via configmap, must also specify a port (eg. 5432 for PostgreSQL or 3306 for MySQL, or else a -dir option if using socket dir)
+          securityContext:
+            # The default Cloud SQL proxy image runs as the
+            # "nonroot" user and group (uid: 65532) by default.
+            runAsNonRoot: true
       volumes:
-      - name: env
-        configMap:
-          name: myconfigmap
-          items:
-          - key: .env
-            path: .env
+        - name: env
+          configMap:
+            name: myconfigmap
+            items:
+              - key: .env
+                path: .env
   volumeClaimTemplates:
-  - metadata:
-      name: pgdata
-    spec:
-      # XXX: use a storageclass-*.yaml to:
-      #      - set a "reclaimPolicy: Retain" for safety to avoid data loss if deleting/recreating the namespace with the pvc
-      #        (it still requires a manual recovery for this easy mistake to make but at least the data isn't deleted)
-      #      - choose disk type (SSD vs spinning disk)
-      #      - make disk dynamically resizeable (eg. on GCP)
-      #storageClassName: ssd
-      #storageClassName: ssd-resizeable
-      #storageClassName: standard-resizeable
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          # resize here doesn't affect the PVC, must edit the PVC directly to trigger the provider resize, didn't even need a pod cycle in GCP testing
-          storage: 10Gi
+    - metadata:
+        name: pgdata
+      spec:
+        # XXX: use a storageclass-*.yaml to:
+        #      - set a "reclaimPolicy: Retain" for safety to avoid data loss if deleting/recreating the namespace with the pvc
+        #        (it still requires a manual recovery for this easy mistake to make but at least the data isn't deleted)
+        #      - choose disk type (SSD vs spinning disk)
+        #      - make disk dynamically resizeable (eg. on GCP)
+        #storageClassName: ssd
+        #storageClassName: ssd-resizeable
+        #storageClassName: standard-resizeable
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            # resize here doesn't affect the PVC, must edit the PVC directly to trigger the provider resize, didn't even need a pod cycle in GCP testing
+            storage: 10Gi

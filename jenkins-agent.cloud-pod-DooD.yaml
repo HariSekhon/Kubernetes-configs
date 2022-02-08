@@ -45,62 +45,62 @@ spec:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
-        - matchExpressions:
-          - key: cloud.google.com/gke-preemptible
-            operator: DoesNotExist
-          - key: eks.amazonaws.com/capacityType
-            operator: NotIn
-            values:
-            - SPOT
-          - key: kubernetes.azure.com/scalesetpriority
-            operator: NotIn
-            values:
-            - spot
+          - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                  - SPOT
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                  - spot
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 100
-        podAffinityTerm:
-          topologyKey: topology.kubernetes.io/zone
-          labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - jenkins-agent
-      - weight: 100
-        podAffinityTerm:
-          topologyKey: kubernetes.io/hostname
-          labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - jenkins-agent
+        - weight: 100
+          podAffinityTerm:
+            topologyKey: topology.kubernetes.io/zone
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - jenkins-agent
+        - weight: 100
+          podAffinityTerm:
+            topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - jenkins-agent
   securityContext:
     runAsUser: 0    # required to access docker.sock
     #fsGroup: 1000  # jenkins gid to access docker.sock, but fails to change socket group owner in container
   containers:
     # must override this exact container name as this is where builds get executed
-  - name: jnlp
-    # there is no lts tag at this time
-    #image: jenkins/inbound-agent:4.6-1
-    # based off jenkins/inbound-agent but with docker command installed
-    image: harisekhon/jenkins-agent-docker:4.6
-    imagePullPolicy: IfNotPresent
-    resources:
-      limits:
-        cpu: 2
-        memory: 3Gi
-      requests:
-        cpu: 100m      # agent takes 6m resting, don't overallocate, drives node pool scaling costing $$$
-        memory: 500Mi  # agent takes 108Mi resting, plus whatever you run in the CI pipeline
-    volumeMounts:
-      # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
-    - name: docker-sock
-      mountPath: /var/run/docker.sock
+    - name: jnlp
+      # there is no lts tag at this time
+      #image: jenkins/inbound-agent:4.6-1
+      # based off jenkins/inbound-agent but with docker command installed
+      image: harisekhon/jenkins-agent-docker:4.6
+      imagePullPolicy: IfNotPresent
+      resources:
+        limits:
+          cpu: 2
+          memory: 3Gi
+        requests:
+          cpu: 100m      # agent takes 6m resting, don't overallocate, drives node pool scaling costing $$$
+          memory: 500Mi  # agent takes 108Mi resting, plus whatever you run in the CI pipeline
+      volumeMounts:
+        # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
   volumes:
     # XXX: for DooD - Docker-out-of-Docker - only do this if you trust all Jenkins users!!!
-  - name: docker-sock
-    hostPath:
-      path: /var/run/docker.sock
-      type: Socket
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
+        type: Socket

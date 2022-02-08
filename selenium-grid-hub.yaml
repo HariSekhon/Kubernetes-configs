@@ -34,8 +34,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-     maxSurge: 25%
-     maxUnavailable: 0
+      maxSurge: 25%
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -46,78 +46,78 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
-              - key: eks.amazonaws.com/capacityType
-                operator: NotIn
-                values:
-                - SPOT
-              - key: kubernetes.azure.com/scalesetpriority
-                operator: NotIn
-                values:
-                - spot
-      securityContext:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
+          securityContext:
         runAsNonRoot: true
       containers:
-      - name: selenium-hub
-        #image: selenium/hub:3.141.59
-        image: selenium/hub:4.0.0
-        ports:
-        - containerPort: 4444  # UI
-        - containerPort: 5555  # needed for status in webdriver protocol
-        env:
-        - name: JAVA_OPTS
-          value: "-Xms1G -Xmx1G"
-        - name: SE_NODE_SESSION_TIMEOUT
-          value: "300"  # default
-        # these settings are needed to get Grid 3.x hub to register nodes properly
-        - name: POOL_MAX
-          value: "500"
-        - name: GRID_NEW_SESSION_WAIT_TIMEOUT
-          value: "-1"
-        - name: GRID_JETTY_MAX_THREADS
-          value: "-1"
-        - name: GRID_NODE_POLLING
-          value: "5000"
-        - name: GRID_CLEAN_UP_CYCLE
-          value: "5000"
-        - name: GRID_TIMEOUT
-          value: "600"
-        - name: GRID_BROWSER_TIMEOUT
-          value: "600"
-        - name: GRID_MAX_SESSION
-          value: "12"
-        - name: GRID_UNREGISTER_IF_STILL_DOWN_AFTER
-          value: "30000"
-        # can take it down under high load as it becomes less responsive
-        #readinessProbe:
-        #  httpGet:
-        #    # don't use /wd/hub/ - it returns HTTP/2 500 if no nodes are attached
-        #    #path: /wd/hub/
-        #    path: /status
-        #    #path: /wd/hub/status
-        #    #path: /  # works too
-        #    port: 4444
-        #  initialDelaySeconds: 10
-        #livenessProbe:
-        #  httpGet:
-        #    path: /status
-        #    #path: /wd/hub/status
-        #    port: 4444
-        #  initialDelaySeconds: 30
-        readinessProbe:
-          tcpSocket:
-            port: 4444
-          initialDelaySeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 4444
-          initialDelaySeconds: 30
-        resources:
-          limits:
-            cpu: 4
-            memory: 4Gi
-          requests:
-            cpu: 500m
-            memory: 1.2Gi
+        - name: selenium-hub
+          #image: selenium/hub:3.141.59
+          image: selenium/hub:4.0.0
+          ports:
+            - containerPort: 4444  # UI
+            - containerPort: 5555  # needed for status in webdriver protocol
+          env:
+            - name: JAVA_OPTS
+              value: "-Xms1G -Xmx1G"
+            - name: SE_NODE_SESSION_TIMEOUT
+              value: "300"  # default
+            # these settings are needed to get Grid 3.x hub to register nodes properly
+            - name: POOL_MAX
+              value: "500"
+            - name: GRID_NEW_SESSION_WAIT_TIMEOUT
+              value: "-1"
+            - name: GRID_JETTY_MAX_THREADS
+              value: "-1"
+            - name: GRID_NODE_POLLING
+              value: "5000"
+            - name: GRID_CLEAN_UP_CYCLE
+              value: "5000"
+            - name: GRID_TIMEOUT
+              value: "600"
+            - name: GRID_BROWSER_TIMEOUT
+              value: "600"
+            - name: GRID_MAX_SESSION
+              value: "12"
+            - name: GRID_UNREGISTER_IF_STILL_DOWN_AFTER
+              value: "30000"
+          # can take it down under high load as it becomes less responsive
+          #readinessProbe:
+          #  httpGet:
+          #    # don't use /wd/hub/ - it returns HTTP/2 500 if no nodes are attached
+          #    #path: /wd/hub/
+          #    path: /status
+          #    #path: /wd/hub/status
+          #    #path: /  # works too
+          #    port: 4444
+          #  initialDelaySeconds: 10
+          #livenessProbe:
+          #  httpGet:
+          #    path: /status
+          #    #path: /wd/hub/status
+          #    port: 4444
+          #  initialDelaySeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: 4444
+            initialDelaySeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 4444
+            initialDelaySeconds: 30
+          resources:
+            limits:
+              cpu: 4
+              memory: 4Gi
+            requests:
+              cpu: 500m
+              memory: 1.2Gi

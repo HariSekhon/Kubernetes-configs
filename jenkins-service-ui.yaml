@@ -28,7 +28,7 @@ spec:
   selector:
     app: jenkins-server
   ports:
-  - name: jenkins-ui
-    protocol: TCP
-    port: 8080
-    targetPort: 8080
+    - name: jenkins-ui
+      protocol: TCP
+      port: 8080
+      targetPort: 8080

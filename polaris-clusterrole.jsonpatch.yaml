@@ -31,9 +31,9 @@
   path: /rules/0
   value:
     apiGroups:
-    - "*"
+      - "*"
     resources:
-    - "*"
+      - "*"
     verbs:
-    - get
-    - list
+      - get
+      - list

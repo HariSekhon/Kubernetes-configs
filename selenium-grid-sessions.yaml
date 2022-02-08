@@ -41,45 +41,45 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
-              - key: eks.amazonaws.com/capacityType
-                operator: NotIn
-                values:
-                - SPOT
-              - key: kubernetes.azure.com/scalesetpriority
-                operator: NotIn
-                values:
-                - spot
+              - matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
       securityContext:
         runAsNonRoot: true
       containers:
-      - name: selenium-sessions
-        image: selenium/sessions:4.0.0
-        ports:
-        - containerPort: 5556
-        env:
-        - name: JAVA_OPTS
-          value: "-Xmx512m"
-        - name: SE_EVENT_BUS_HOST
-          value: "selenium-event-bus"
-        - name: SE_EVENT_BUS_PUBLISH_PORT
-          value: "4442"
-        - name: SE_EVENT_BUS_SUBSCRIBE_PORT
-          value: "4443"
-        readinessProbe:
-          tcpSocket:
-            port: 5556
-          initialDelaySeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 5556
-          initialDelaySeconds: 30
-        resources:
-          limits:
-            cpu: 2
-            memory: 1Gi
-          requests:
-            cpu: 100m
-            memory: 600Mi
+        - name: selenium-sessions
+          image: selenium/sessions:4.0.0
+          ports:
+            - containerPort: 5556
+          env:
+            - name: JAVA_OPTS
+              value: "-Xmx512m"
+            - name: SE_EVENT_BUS_HOST
+              value: "selenium-event-bus"
+            - name: SE_EVENT_BUS_PUBLISH_PORT
+              value: "4442"
+            - name: SE_EVENT_BUS_SUBSCRIBE_PORT
+              value: "4443"
+          readinessProbe:
+            tcpSocket:
+              port: 5556
+            initialDelaySeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 5556
+            initialDelaySeconds: 30
+          resources:
+            limits:
+              cpu: 2
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 600Mi

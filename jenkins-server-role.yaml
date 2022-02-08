@@ -22,6 +22,6 @@ metadata:
   namespace: jenkins
   name: jenkins-server
 rules:
-- apiGroups: ["", "apps"] # "" indicates the core API group
-  resources: ["*"]
-  verbs: ["*"]
+  - apiGroups: ["", "apps"] # "" indicates the core API group
+    resources: ["*"]
+    verbs: ["*"]

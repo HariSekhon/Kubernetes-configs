@@ -51,16 +51,16 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            preference:
-              matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
+              - matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - topologyKey: topology.kubernetes.io/zone
@@ -71,39 +71,39 @@ spec:
                     values:
                       - cloud-sql-proxy
       containers:
-      - name: cloud-sql-proxy
-        image: gcr.io/cloudsql-docker/gce-proxy:1.17
-        command:
-        - /cloud_sql_proxy
-        - "-ip_address_types=PRIVATE"
-        # XXX: trade off exposing listener on 0.0.0.0 required for having a kubernetes health check
-        #- "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:3306"  # mysql
-        - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:5432"   # postgres
-        env:
-        - name: CLOUD_SQL_INSTANCE
-          valueFrom:
-            configMapKeyRef:
-              # XXX: Edit
-              name: my-configmap
-              key: cloud-sql-instance
-        # XXX: healthchecks rely on external access via the -instances cli arg above having '=tcp:0.0.0.0:<port>' otherwise Cloud SQL Proxy listens on 127.0.0.1 and health check from k8s will get connection refused
-        readinessProbe:
-          tcpSocket:
-            #port: 3306  # mysql
-            port: 5432   # postgres
-          periodSeconds: 5
-        livenessProbe:
-          tcpSocket:
-            #port: 3306  # mysql
-            port: 5432   # postgres
-          failureThreshold: 10
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: "1"
-            memory: 2Gi
-        securityContext:
-          # runs as uid/gid 65532 by default
-          runAsNonRoot: true
+        - name: cloud-sql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.17
+          command:
+            - /cloud_sql_proxy
+            - "-ip_address_types=PRIVATE"
+            # XXX: trade off exposing listener on 0.0.0.0 required for having a kubernetes health check
+            #- "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:3306"  # mysql
+            - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:5432"   # postgres
+          env:
+            - name: CLOUD_SQL_INSTANCE
+              valueFrom:
+                configMapKeyRef:
+                  # XXX: Edit
+                  name: my-configmap
+                  key: cloud-sql-instance
+          # XXX: healthchecks rely on external access via the -instances cli arg above having '=tcp:0.0.0.0:<port>' otherwise Cloud SQL Proxy listens on 127.0.0.1 and health check from k8s will get connection refused
+          readinessProbe:
+            tcpSocket:
+              #port: 3306  # mysql
+              port: 5432   # postgres
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              #port: 3306  # mysql
+              port: 5432   # postgres
+            failureThreshold: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 2Gi
+          securityContext:
+            # runs as uid/gid 65532 by default
+            runAsNonRoot: true

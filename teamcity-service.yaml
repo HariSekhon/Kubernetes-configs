@@ -28,7 +28,7 @@ spec:
   selector:
     app: teamcity-server
   ports:
-  - name: teamcity-ui
-    protocol: TCP
-    port: 8111
-    targetPort: 8111
+    - name: teamcity-ui
+      protocol: TCP
+      port: 8111
+      targetPort: 8111

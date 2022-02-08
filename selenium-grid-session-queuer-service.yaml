@@ -30,7 +30,7 @@ spec:
   selector:
     app: selenium-session-queuer
   ports:
-  - name: queuer
-    protocol: TCP
-    port: 5559
-    targetPort: 5559
+    - name: queuer
+      protocol: TCP
+      port: 5559
+      targetPort: 5559

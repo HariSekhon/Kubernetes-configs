@@ -37,7 +37,7 @@ metadata:
   annotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
 spec:
-  paused: False
+  paused: false
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -56,62 +56,62 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
-              - key: eks.amazonaws.com/capacityType
-                operator: NotIn
-                values:
-                - SPOT
-              - key: kubernetes.azure.com/scalesetpriority
-                operator: NotIn
-                values:
-                - spot
+              - matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              topologyKey: topology.kubernetes.io/zone
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - github-actions-runner
-          - weight: 100
-            podAffinityTerm:
-              topologyKey: kubernetes.io/hostname
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - github-actions-runner
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: topology.kubernetes.io/zone
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - github-actions-runner
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - github-actions-runner
       containers:
-      - name: github-actions-runner
-        #image: harisekhon/github-actions-runner:2.284
-        image: harisekhon/github-actions-runner:latest
-        #imagePullPolicy: Always
-        args:
-        - --url
-        - https://github.com/<REPO_OR_ORG>  # XXX: replace
-        - --token
-        # XXX: kubectl create secret generic -n github-actions github-actions-runner-token --from-literal=github-actions-runner-token=TOKEN
-        #        or
-        #      use a script like gcp_secrets_to_kubernetes.sh to load it from GCP Secret Manager (see https://github.com/HariSekhon/DevOps-Bash-tools)
-        - $(GITHUB_ACTIONS_RUNNER_TOKEN)
-        - --unattended
-        - --ephemeral
-        env:
-        - name: GITHUB_ACTIONS_RUNNER_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: github-actions-runner-token
-              key: github-actions-runner-token
-        resources:
-          limits:
-            cpu: 1
-            memory: 4Gi
-          requests:
-            cpu: 200m
-            memory: 256Mi
+        - name: github-actions-runner
+          #image: harisekhon/github-actions-runner:2.284
+          image: harisekhon/github-actions-runner:latest
+          #imagePullPolicy: Always
+          args:
+            - --url
+            - https://github.com/<REPO_OR_ORG>  # XXX: replace
+            - --token
+            # XXX: kubectl create secret generic -n github-actions github-actions-runner-token --from-literal=github-actions-runner-token=TOKEN
+            #        or
+            #      use a script like gcp_secrets_to_kubernetes.sh to load it from GCP Secret Manager (see https://github.com/HariSekhon/DevOps-Bash-tools)
+            - $(GITHUB_ACTIONS_RUNNER_TOKEN)
+            - --unattended
+            - --ephemeral
+          env:
+            - name: GITHUB_ACTIONS_RUNNER_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-actions-runner-token
+                  key: github-actions-runner-token
+          resources:
+            limits:
+              cpu: 1
+              memory: 4Gi
+            requests:
+              cpu: 200m
+              memory: 256Mi

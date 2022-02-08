@@ -43,133 +43,133 @@ spec:
 
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-  - '*'
+    - '*'
 
   # Only permit applications to deploy to the NAMESPACE namespace in the same cluster
   destinations:
-  # XXX: Edit
-  - namespace: NAMESPACE  # default namespace, overridden in k8s manifests
-  # XXX: Edit - this is fine for in-cluster deployments, otherwise give external Master URL for deployments to other clusters
-    server: https://kubernetes.default.svc
-  - namespace: kube-system  # needed for Cert Manager roles for cainjector leader election
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: argocd
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: cert-manager
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: circleci
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: github-actions
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: goldilocks
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: ingress-nginx
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: jenkins
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: kubernetes-dashboard
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: polaris
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: prometheus
-    server: https://kubernetes.default.svc  # XXX: Edit
-  - namespace: selenium
-    server: https://kubernetes.default.svc  # XXX: Edit
+    # XXX: Edit
+    - namespace: NAMESPACE  # default namespace, overridden in k8s manifests
+    # XXX: Edit - this is fine for in-cluster deployments, otherwise give external Master URL for deployments to other clusters
+      server: https://kubernetes.default.svc
+    - namespace: kube-system  # needed for Cert Manager roles for cainjector leader election
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: argocd
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: cert-manager
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: circleci
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: github-actions
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: goldilocks
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: ingress-nginx
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: jenkins
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: kubernetes-dashboard
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: polaris
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: prometheus
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: selenium
+      server: https://kubernetes.default.svc  # XXX: Edit
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
-  # needed for Polaris kustomization
-  #- group: rbac.authorization.k8s.io
-  #  kind: ClusterRole
-  #- group: rbac.authorization.k8s.io
-  #  kind: ClusterRoleBinding
-  - group: apiextensions.k8s.io
-    kind: CustomResourceDefinition  # needed for Cert-Manager
-  - group: networking.k8s.io
-    kind: IngressClass
-  - group: ''
-    kind: Namespace
-  #- group: scheduling.k8s.io
-  #  kind: PriorityClass
-  #- group: storage.k8s.io
-  #  kind: StorageClass
-  #
-  # for kube-prometheus-stack
-  - group: policy
-    kind: PodSecurityPolicy
-  - group: admissionregistration.k8s.io
-    kind: MutatingWebhookConfiguration
-  - group: admissionregistration.k8s.io
-    kind: ValidatingWebhookConfiguration
+    # needed for Polaris kustomization
+    #- group: rbac.authorization.k8s.io
+    #  kind: ClusterRole
+    #- group: rbac.authorization.k8s.io
+    #  kind: ClusterRoleBinding
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition  # needed for Cert-Manager
+    - group: networking.k8s.io
+      kind: IngressClass
+    - group: ''
+      kind: Namespace
+    #- group: scheduling.k8s.io
+    #  kind: PriorityClass
+    #- group: storage.k8s.io
+    #  kind: StorageClass
+    #
+    # for kube-prometheus-stack
+    - group: policy
+      kind: PodSecurityPolicy
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
 
   # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceBlacklist:
-  - group: ''
-    kind: ResourceQuota
-  - group: ''
-    kind: LimitRange
-  - group: ''
-    kind: NetworkPolicy
+    - group: ''
+      kind: ResourceQuota
+    - group: ''
+      kind: LimitRange
+    - group: ''
+      kind: NetworkPolicy
 
   # Deny all namespaced-scoped resources from being created, except for ones explicitly listed here
   # populated by script argocd_namespace_resource_whitelist.sh from https://github.com/HariSekhon/DevOps-Bash-tools/
   namespaceResourceWhitelist:
-  - group: ''
-    kind: ConfigMap
-  - group: batch
-    kind: CronJob
-  - group: batch
-    kind: Job
-  - group: apps
-    kind: DaemonSet
-  - group: apps
-    kind: Deployment
-  - group: autoscaling
-    kind: HorizontalPodAutoscaler
-  - group: extensions  # old ingress
-    kind: Ingress
-  - group: networking.k8s.io  # new ingress
-    kind: Ingress
-  - group: ''
-    kind: PersistentVolumeClaim
-  - group: policy
-    kind: PodDisruptionBudget
-  - group: rbac.authorization.k8s.io
-    kind: Role
-  - group: rbac.authorization.k8s.io
-    kind: RoleBinding
-  - group: ''
-    kind: Secret
-  - group: ''
-    kind: Service
-  - group: ''
-    kind: ServiceAccount
-  - group: apps
-    kind: StatefulSet
-  - group: autoscaling.k8s.io
-    kind: VerticalPodAutoscaler
-  # for kube-prometheus-stack
-  - group: monitoring.coreos.com
-    kind: '*'
+    - group: ''
+      kind: ConfigMap
+    - group: batch
+      kind: CronJob
+    - group: batch
+      kind: Job
+    - group: apps
+      kind: DaemonSet
+    - group: apps
+      kind: Deployment
+    - group: autoscaling
+      kind: HorizontalPodAutoscaler
+    - group: extensions  # old ingress
+      kind: Ingress
+    - group: networking.k8s.io  # new ingress
+      kind: Ingress
+    - group: ''
+      kind: PersistentVolumeClaim
+    - group: policy
+      kind: PodDisruptionBudget
+    - group: rbac.authorization.k8s.io
+      kind: Role
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+    - group: ''
+      kind: Secret
+    - group: ''
+      kind: Service
+    - group: ''
+      kind: ServiceAccount
+    - group: apps
+      kind: StatefulSet
+    - group: autoscaling.k8s.io
+      kind: VerticalPodAutoscaler
+    # for kube-prometheus-stack
+    - group: monitoring.coreos.com
+      kind: '*'
 
   roles:
-  # A role which provides read-only access to all applications in the project
-  - name: read-only
-    description: Read-only privileges to NAME  # XXX: Edit
-    policies:
-    - p, proj:my-project:read-only, applications, get, NAME/*, allow  # XXX: Edit
-    groups:
-    # XXX: Edit
-    - my-oidc-group
+    # A role which provides read-only access to all applications in the project
+    - name: read-only
+      description: Read-only privileges to NAME  # XXX: Edit
+      policies:
+        - p, proj:my-project:read-only, applications, get, NAME/*, allow  # XXX: Edit
+      groups:
+        # XXX: Edit
+        - my-oidc-group
 
-  # A role which provides sync privileges to only the guestbook-dev application, e.g. to provide
-  # sync privileges to a CI system
-  - name: ci-role
-    description: Sync privileges for guestbook-dev
-    policies:
-    # XXX: Edit
-    - p, proj:PROJECT:ci-role, applications, sync, NAME/APP, allow
-    # NOTE: JWT tokens can only be generated by the API server and the token is not persisted
-    # anywhere by Argo CD. It can be prematurely revoked by removing the entry from this list.
-    jwtTokens:
-    - iat: 1535390316
+    # A role which provides sync privileges to only the guestbook-dev application, e.g. to provide
+    # sync privileges to a CI system
+    - name: ci-role
+      description: Sync privileges for guestbook-dev
+      policies:
+      # XXX: Edit
+        - p, proj:PROJECT:ci-role, applications, sync, NAME/APP, allow
+      # NOTE: JWT tokens can only be generated by the API server and the token is not persisted
+      # anywhere by Argo CD. It can be prematurely revoked by removing the entry from this list.
+      jwtTokens:
+        - iat: 1535390316

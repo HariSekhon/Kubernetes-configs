@@ -28,7 +28,7 @@ spec:
   selector:
     app: jenkins-server
   ports:
-  - name: jenkins-discovery
-    protocol: TCP
-    port: 50000
-    targetPort: 50000
+    - name: jenkins-discovery
+      protocol: TCP
+      port: 50000
+      targetPort: 50000

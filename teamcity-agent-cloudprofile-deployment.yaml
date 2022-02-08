@@ -62,104 +62,104 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
-              - key: eks.amazonaws.com/capacityType
-                operator: NotIn
-                values:
-                - SPOT
-              - key: kubernetes.azure.com/scalesetpriority
-                operator: NotIn
-                values:
-                - spot
+              - matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              topologyKey: topology.kubernetes.io/zone
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - teamcity-agent
-          - weight: 100
-            podAffinityTerm:
-              topologyKey: kubernetes.io/hostname
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - teamcity-agent
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: topology.kubernetes.io/zone
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - teamcity-agent
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - teamcity-agent
       securityContext:
         #runAsUser: 0
         # set mount point group to gid of teamcity process
         fsGroup: 1000
 #      initContainers:
-#      - name: init
-#        image: busybox:latest
-#        # XXX: it's either this or run teamcity-agent as root to access the socket
-#        #      Perm/Group changes are not propagated to the host's /var/run/docker.sock but there
-#        #      is still a serious risk of malicious builds running docker containers as root
-#        #      you must trust your developers, and preferably segregate to a separate CI k8s cluster
-#        command: ['/bin/chgrp', '1000', '/var/run/docker.sock']
-#        #command: ['/bin/sh', '-c', 'chgrp 1000 /var/run/docker.sock && chmod 0660 /var/run/docker.sock']
-#        volumeMounts:
-#          - name: var-run-docker-sock
-#            mountPath: /var/run/docker.sock
+#        - name: init
+#          image: busybox:latest
+#          # XXX: it's either this or run teamcity-agent as root to access the socket
+#          #      Perm/Group changes are not propagated to the host's /var/run/docker.sock but there
+#          #      is still a serious risk of malicious builds running docker containers as root
+#          #      you must trust your developers, and preferably segregate to a separate CI k8s cluster
+#          command: ['/bin/chgrp', '1000', '/var/run/docker.sock']
+#          #command: ['/bin/sh', '-c', 'chgrp 1000 /var/run/docker.sock && chmod 0660 /var/run/docker.sock']
+#          volumeMounts:
+#            - name: var-run-docker-sock
+#              mountPath: /var/run/docker.sock
       containers:
-      - name: teamcity-agent
-        #image: jetbrains/teamcity-agent:2020.2.1
-        # DOCKER_IN_DOCKER - must use linux-sudo image or run entire container as root since Docker must be started by root
-        image: jetbrains/teamcity-agent:2020.2.1-linux-sudo
-        ports:
-        - containerPort: 9090
-        securityContext:
-          # required for DOCKER_IN_DOCKER
-          privileged: true
-        env:
-        - name: AGENT_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: DOCKER_IN_DOCKER
-          value: start
-        - name: SERVER_URL
-          value: http://teamcity-server.teamcity.svc.cluster.local:8111
-        readinessProbe:
-          tcpSocket:
-            port: 9090
-          initialDelaySeconds: 30
-          successThreshold: 1
-          failureThreshold: 3
-          periodSeconds: 5
-          timeoutSeconds: 5
-        livenessProbe:
-          tcpSocket:
-            port: 9090
-          initialDelaySeconds: 150  # takes ~ 1:20 - 2:30 for port to pass healthcheck
-          successThreshold: 1
-          failureThreshold: 10
-          periodSeconds: 5
-          timeoutSeconds: 5
-        resources:
-          limits:
-            cpu: 2
-            # TeamCity agent's 2 processes JVM heaps are -Xmx384m and -Xmx16m, plus overheads and wiggle room = 1Gi
-            # + build processes which could take a couple GB each = 3Gi
-            memory: 3Gi
-          requests:
-            cpu: 100m    # 6m resting
-            memory: 1Gi  # 700-850Mi resting + pipeline progs
-        # don't mount /var/run/docker.sock or you'll be using the underlying host's Docker instead of TeamCity's DOCKER_IN_DOCKER, which exposes too much of the underlying k8s but also you'll get errors like this from the underlying host when the docker wrapper tries to mount all the buildagent paths:
-        # docker: Error response from daemon: error while creating mount source path '/opt/buildagent/temp/buildTmp': mkdir /opt/buildagent: read-only file system.
-#        volumeMounts:
-#        - name: var-run-docker-sock
-#          mountPath: /var/run/docker.sock
+        - name: teamcity-agent
+          #image: jetbrains/teamcity-agent:2020.2.1
+          # DOCKER_IN_DOCKER - must use linux-sudo image or run entire container as root since Docker must be started by root
+          image: jetbrains/teamcity-agent:2020.2.1-linux-sudo
+          ports:
+            - containerPort: 9090
+          securityContext:
+            # required for DOCKER_IN_DOCKER
+            privileged: true
+          env:
+            - name: AGENT_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: DOCKER_IN_DOCKER
+              value: start
+            - name: SERVER_URL
+              value: http://teamcity-server.teamcity.svc.cluster.local:8111
+          readinessProbe:
+            tcpSocket:
+              port: 9090
+            initialDelaySeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 5
+            timeoutSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 9090
+            initialDelaySeconds: 150  # takes ~ 1:20 - 2:30 for port to pass healthcheck
+            successThreshold: 1
+            failureThreshold: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 2
+              # TeamCity agent's 2 processes JVM heaps are -Xmx384m and -Xmx16m, plus overheads and wiggle room = 1Gi
+              # + build processes which could take a couple GB each = 3Gi
+              memory: 3Gi
+            requests:
+              cpu: 100m    # 6m resting
+              memory: 1Gi  # 700-850Mi resting + pipeline progs
+          # don't mount /var/run/docker.sock or you'll be using the underlying host's Docker instead of TeamCity's DOCKER_IN_DOCKER, which exposes too much of the underlying k8s but also you'll get errors like this from the underlying host when the docker wrapper tries to mount all the buildagent paths:
+          # docker: Error response from daemon: error while creating mount source path '/opt/buildagent/temp/buildTmp': mkdir /opt/buildagent: read-only file system.
+  #        volumeMounts:
+  #          - name: var-run-docker-sock
+  #            mountPath: /var/run/docker.sock
 #      volumes:
-#      - name: var-run-docker-sock
-#        hostPath:
-#          path: /var/run/docker.sock
-#          type: Socket
+#        - name: var-run-docker-sock
+#          hostPath:
+#            path: /var/run/docker.sock
+#            type: Socket

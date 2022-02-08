@@ -46,21 +46,21 @@ spec:
   # cert manager will auto-create SSL cert for this address and put it in named secret
   tls:
     # XXX: Edit
-  - hosts:
-    - argocd.DOMAIN.COM
-    secretName: argocd-server-tls  # XXX: docs are wrong, don't use argocd-secret, if changed later Cert Manager will wipe it out along with the other secrets in there!
+    - hosts:
+        - argocd.DOMAIN.COM
+      secretName: argocd-server-tls  # XXX: docs are wrong, don't use argocd-secret, if changed later Cert Manager will wipe it out along with the other secrets in there!
   rules:
     # XXX: Edit
-  - host: argocd.DOMAIN.COM
-    http:
-      paths:
-      - path: /
-        pathType: Prefix  # for new networking.k8s.io/v1
-        backend:
-          #serviceName: argocd-server
-          #servicePort: https
-          service:
-            name: argocd-server
-            port:
-              #number: 443
-              name: https
+    - host: argocd.DOMAIN.COM
+      http:
+        paths:
+          - path: /
+            pathType: Prefix  # for new networking.k8s.io/v1
+            backend:
+              #serviceName: argocd-server
+              #servicePort: https
+              service:
+                name: argocd-server
+                port:
+                  #number: 443
+                  name: https

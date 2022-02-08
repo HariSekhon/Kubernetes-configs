@@ -37,20 +37,20 @@ metadata:
 spec:
   tls:
     # XXX: Edit
-  - hosts:
-    - selenium.DOMAIN.COM
-    secretName: selenium-router-tls
+    - hosts:
+        - selenium.DOMAIN.COM
+      secretName: selenium-router-tls
   rules:
     # XXX: Edit
-  - host: selenium.DOMAIN.COM
-    http:
-      paths:
-      - path: /
-        pathType: Prefix  # for new networking.k8s.io/v1
-        backend:
-          #serviceName: selenium-router
-          #servicePort: 4444
-          service:
-            name: selenium-router
-            port:
-              number: 4444
+    - host: selenium.DOMAIN.COM
+      http:
+        paths:
+          - path: /
+            pathType: Prefix  # for new networking.k8s.io/v1
+            backend:
+              #serviceName: selenium-router
+              #servicePort: 4444
+              service:
+                name: selenium-router
+                port:
+                  number: 4444

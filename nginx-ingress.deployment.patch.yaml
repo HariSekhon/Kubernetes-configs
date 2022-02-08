@@ -37,38 +37,38 @@ spec:
         nodeAffinity:
           # XXX: prefer non-preemptible VMs unless unavailable
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            preference:
-              matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
         podAntiAffinity:
           # XXX: use preferred if num_replicas > num_AZs
 #          preferredDuringSchedulingIgnoredDuringExecution:
-#          - weight: 100
-#            podAffinityTerm:
-#              # XXX: spread ingress pods across AZs for resilience
-#              topologyKey: topology.kubernetes.io/zone
-#              labelSelector:
-#                matchExpressions:
-#                - key: app.kubernetes.io/name
-#                  operator: In
-#                  values:
-#                  - ingress-nginx
+#            - weight: 100
+#              podAffinityTerm:
+#                # XXX: spread ingress pods across AZs for resilience
+#                topologyKey: topology.kubernetes.io/zone
+#                labelSelector:
+#                  matchExpressions:
+#                    - key: app.kubernetes.io/name
+#                      operator: In
+#                      values:
+#                        - ingress-nginx
           requiredDuringSchedulingIgnoredDuringExecution:
             # XXX: spread ingress pods across AZs for resilience
-          - topologyKey: topology.kubernetes.io/zone
-            labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - ingress-nginx
-            # XXX: spread ingress pods across hosts (default prefers spread, whereas this requires it)
-          - topologyKey: kubernetes.io/hostname
-            labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - ingress-nginx
+            - topologyKey: topology.kubernetes.io/zone
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - ingress-nginx
+              # XXX: spread ingress pods across hosts (default prefers spread, whereas this requires it)
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - ingress-nginx

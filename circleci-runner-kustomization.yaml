@@ -28,11 +28,11 @@ kind: Kustomization
 namespace: circleci
 
 resources:
-- circleci-namespace.yaml
-- circleci-runner-serviceaccount.yaml
-- circleci-runner-configmap.yaml
-- circleci-runner-deployment.yaml
-- circleci-runner-hpa.yaml
+  - circleci-namespace.yaml
+  - circleci-runner-serviceaccount.yaml
+  - circleci-runner-configmap.yaml
+  - circleci-runner-deployment.yaml
+  - circleci-runner-hpa.yaml
 
 patchesStrategicMerge:
-- goldilocks-namespace-enable.patch.yaml
+  - goldilocks-namespace-enable.patch.yaml

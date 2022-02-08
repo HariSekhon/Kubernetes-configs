@@ -33,22 +33,22 @@ spec:
   selector:
     app: selenium-hub
   ports:
-  - name: web
-    protocol: TCP
-    port: 4444
-    targetPort: 4444
-  # Grid 4+ only
-  - name: publish
-    protocol: TCP
-    port: 4442
-    targetPort: 4442
-  # Grid 4+ only
-  - name: subscribe
-    protocol: TCP
-    port: 4443
-    targetPort: 4443
-  # needed for status in webdriver protocol
-  - name: node
-    protocol: TCP
-    port: 5555
-    targetPort: 5555
+    - name: web
+      protocol: TCP
+      port: 4444
+      targetPort: 4444
+    # Grid 4+ only
+    - name: publish
+      protocol: TCP
+      port: 4442
+      targetPort: 4442
+    # Grid 4+ only
+    - name: subscribe
+      protocol: TCP
+      port: 4443
+      targetPort: 4443
+    # needed for status in webdriver protocol
+    - name: node
+      protocol: TCP
+      port: 5555
+      targetPort: 5555

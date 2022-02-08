@@ -49,7 +49,7 @@ spec:
   #
   startingDeadlineSeconds: 3600  # (re)start up to an hour late
   concurrencyPolicy: Forbid  # Allow / Forbid / Replace - start new job if old job is still running (default: Allow, in which case your jobs should be idempotent)
-  suspend: False  # set to True to prevent new job executions (counted as missed jobs)
+  suspend: false  # set to true to prevent new job executions (counted as missed jobs)
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   jobTemplate:
@@ -58,13 +58,13 @@ spec:
         name: NAME
       spec:
         containers:
-        - name: NAME
-          image: perl
-          # takes about a minute to execute
-          command:
-          - perl
-          args:
-          - -Mbignum=bpi
-          - -wle
-          - print bpi(2000)
+          - name: NAME
+            image: perl
+            # takes about a minute to execute
+            command:
+              - perl
+            args:
+              - -Mbignum=bpi
+              - -wle
+              - print bpi(2000)
         restartPolicy: Never

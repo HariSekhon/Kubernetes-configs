@@ -22,8 +22,8 @@ metadata:
   name: teamcity-server
   namespace: teamcity
 subjects:
-- kind: ServiceAccount
-  name: teamcity-server
+  - kind: ServiceAccount
+    name: teamcity-server
 roleRef:
   kind: Role
   name: teamcity-server

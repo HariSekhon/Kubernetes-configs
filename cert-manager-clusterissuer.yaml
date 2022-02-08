@@ -52,9 +52,9 @@ spec:
       #
       # https://cert-manager.io/docs/configuration/acme/http01/
       #
-    - http01:
-        ingress:
-          class: nginx
+      - http01:
+          ingress:
+            class: nginx
 
       # XXX: DNS - if ingress is not publicly accessible (eg. only via VPN) then must use DNS validation
       #            LetsEncrypt doesn't provide public IPs to whitelist and can change any time
@@ -65,28 +65,28 @@ spec:
       #
       # https://cert-manager.io/docs/configuration/acme/dns01/
       #
-    - dns01:
-        # https://docs.cert-manager.io/en/latest/tasks/issuers/setup-acme/dns01/google.html
-        cloudDNS:
-          # The ID of the GCP project
-          project: $PROJECT_ID
-          # XXX: create this secret with service account key
-          serviceAccountSecretRef:
-            name: clouddns-dns01-solver-svc-acct
-            key: key.json
-      # empty selector matches all domains
-      #selector: {}
+      - dns01:
+          # https://docs.cert-manager.io/en/latest/tasks/issuers/setup-acme/dns01/google.html
+          cloudDNS:
+            # The ID of the GCP project
+            project: $PROJECT_ID
+            # XXX: create this secret with service account key
+            serviceAccountSecretRef:
+              name: clouddns-dns01-solver-svc-acct
+              key: key.json
+        # empty selector matches all domains
+        #selector: {}
 
-    - dns01:
-        # https://cert-manager.io/docs/configuration/acme/dns01/cloudflare/
-        cloudflare:
-          email: my-cloudflare-account@mydomain.com
-          # XXX: create this k8s secret
-          # kubectl create secret generic cloudflare-api-token
-          apiTokenSecretRef:
-            name: cloudflare-api-token
-            key: cloudflare-api-token
-      # use Cloudflare to resolve challenges example.org
-      #selector:
-      #  dnsNames:
-      #  - example.org
+      - dns01:
+          # https://cert-manager.io/docs/configuration/acme/dns01/cloudflare/
+          cloudflare:
+            email: my-cloudflare-account@mydomain.com
+            # XXX: create this k8s secret
+            # kubectl create secret generic cloudflare-api-token
+            apiTokenSecretRef:
+              name: cloudflare-api-token
+              key: cloudflare-api-token
+        # use Cloudflare to resolve challenges example.org
+        #selector:
+        #  dnsNames:
+        #  - example.org

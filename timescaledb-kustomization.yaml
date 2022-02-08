@@ -23,12 +23,12 @@ kind: Kustomization
 #namespace: timescaledb  # Do not override helm chart, can cause issues
 
 patchesStrategicMerge:
-- goldilocks-namespace-enable.patch.yaml
+  - goldilocks-namespace-enable.patch.yaml
 
 helmCharts:
-- name: timescaledb-single
-  repo: https://charts.timescale.com
-  version: 0.8.2
-  releaseName: timescaledb
-  namespace: timescaledb
-  valuesFile: timescaledb-values.yaml
+  - name: timescaledb-single
+    repo: https://charts.timescale.com
+    version: 0.8.2
+    releaseName: timescaledb
+    namespace: timescaledb
+    valuesFile: timescaledb-values.yaml

@@ -28,21 +28,21 @@ alertmanager:
   persistentVolume:
     size: 2Gi
   resources:
-     limits:
-       cpu: 100m
-       memory: 512Mi
-     requests:
-       cpu: 50m
-       memory: 300Mi
+    limits:
+      cpu: 100m
+      memory: 512Mi
+    requests:
+      cpu: 50m
+      memory: 300Mi
 
 nodeExporter:
   resources:
-     limits:
-       cpu: 100m
-       memory: 512Mi
-     requests:
-       cpu: 100m
-       memory: 256Mi
+    limits:
+      cpu: 100m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
 
 server:
   statefulset:
@@ -51,12 +51,12 @@ server:
   persistentVolume:
     size: 8Gi
   resources:
-     limits:
-       cpu: 100m
-       memory: 3Gi
-     requests:
-       cpu: 100m
-       memory: 2Gi
+    limits:
+      cpu: 100m
+      memory: 3Gi
+    requests:
+      cpu: 100m
+      memory: 2Gi
 
 pushgateway:
   persistentVolume:

@@ -30,7 +30,7 @@ spec:
   selector:
     app: selenium-sessions
   ports:
-  - name: sessions
-    protocol: TCP
-    port: 5556
-    targetPort: 5556
+    - name: sessions
+      protocol: TCP
+      port: 5556
+      targetPort: 5556

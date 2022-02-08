@@ -31,33 +31,33 @@ controller:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
-        - matchExpressions:
-          - key: cloud.google.com/gke-preemptible
-            operator: DoesNotExist
-          - key: eks.amazonaws.com/capacityType
-            operator: NotIn
-            values:
-            - SPOT
-          - key: kubernetes.azure.com/scalesetpriority
-            operator: NotIn
-            values:
-            - spot
+          - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                  - SPOT
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                  - spot
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-      - topologyKey: topology.kubernetes.io/zone
-        labelSelector:
-          matchExpressions:
-          - key: app
-            operator: In
-            values:
-            - ingress-nginx
-      - topologyKey: kubernetes.io/hostname
-        labelSelector:
+        - topologyKey: topology.kubernetes.io/zone
+          labelSelector:
             matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - ingress-nginx
+              - key: app
+                operator: In
+                values:
+                  - ingress-nginx
+        - topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - ingress-nginx
 
   ## Define requests resources to avoid probe issues due to CPU utilization in busy nodes
   ## ref: https://github.com/kubernetes/ingress-nginx/issues/4735#issuecomment-551204903

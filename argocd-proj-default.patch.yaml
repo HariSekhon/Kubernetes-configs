@@ -41,13 +41,13 @@ spec:
   #- '*'
 
   destinations:
-  - namespace: argocd  # should be the ArgoCD installation namespace
-    server: https://kubernetes.default.svc
+    - namespace: argocd  # should be the ArgoCD installation namespace
+      server: https://kubernetes.default.svc
 
   clusterResourceWhitelist:
-  - group: '*'
-    kind: '*'
+    - group: '*'
+      kind: '*'
 
   namespaceResourceWhitelist:
-  - group: '*'
-    kind: '*'
+    - group: '*'
+      kind: '*'

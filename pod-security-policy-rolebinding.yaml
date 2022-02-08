@@ -38,7 +38,7 @@ roleRef:
   kind: ClusterRole
   name: restricted-pods-role
 subjects:
-# Example: All service accounts in default namespace
-- apiGroup: rbac.authorization.k8s.io
-  kind: Group
-  name: system:serviceaccounts
+  # Example: All service accounts in default namespace
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:serviceaccounts

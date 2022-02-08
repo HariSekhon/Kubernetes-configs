@@ -37,21 +37,21 @@ metadata:
 spec:
   tls:
     # XXX: Edit
-  - hosts:
-    - goldilocks.DOMAIN.COM
-    secretName: goldilocks-tls
+    - hosts:
+        - goldilocks.DOMAIN.COM
+      secretName: goldilocks-tls
   rules:
     # XXX: Edit
-  - host: goldilocks.DOMAIN.COM
-    http:
-      paths:
-        # XXX: Edit
-      - path: /
-        pathType: Prefix  # for new networking.k8s.io/v1
-        backend:
-          #serviceName: goldilocks-dashboard
-          #servicePort: 80
-          service:
-            name: goldilocks-dashboard
-            port:
-              number: 80
+    - host: goldilocks.DOMAIN.COM
+      http:
+        paths:
+          # XXX: Edit
+          - path: /
+            pathType: Prefix  # for new networking.k8s.io/v1
+            backend:
+              #serviceName: goldilocks-dashboard
+              #servicePort: 80
+              service:
+                name: goldilocks-dashboard
+                port:
+                  number: 80

@@ -41,41 +41,41 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
-              - key: eks.amazonaws.com/capacityType
-                operator: NotIn
-                values:
-                - SPOT
-              - key: kubernetes.azure.com/scalesetpriority
-                operator: NotIn
-                values:
-                - spot
+              - matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
       securityContext:
         runAsNonRoot: true
       containers:
-      - name: selenium-event-bus
-        image: selenium/event-bus:4.0.0
-        ports:
-        - containerPort: 4442
-        - containerPort: 4443
-        - containerPort: 5557
-        env:
-        - name: JAVA_OPTS
-          value: "-Xmx512m"
-        readinessProbe:
-          tcpSocket:
-            port: 4442
-          initialDelaySeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 4442
-          initialDelaySeconds: 30
-        resources:
-          limits:
-            cpu: 2
-            memory: 1Gi
-          requests:
-            cpu: 100m
-            memory: 600Mi
+        - name: selenium-event-bus
+          image: selenium/event-bus:4.0.0
+          ports:
+            - containerPort: 4442
+            - containerPort: 4443
+            - containerPort: 5557
+          env:
+            - name: JAVA_OPTS
+              value: "-Xmx512m"
+          readinessProbe:
+            tcpSocket:
+              port: 4442
+            initialDelaySeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 4442
+            initialDelaySeconds: 30
+          resources:
+            limits:
+              cpu: 2
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 600Mi

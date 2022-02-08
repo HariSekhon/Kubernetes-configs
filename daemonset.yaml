@@ -38,5 +38,5 @@ spec:
       nodeSelector:
         type: prod
       containers:
-      - name: fluentd
-        image: gcr.io/google-containers/fluentd-elasticsearch:1.20
+        - name: fluentd
+          image: gcr.io/google-containers/fluentd-elasticsearch:1.20

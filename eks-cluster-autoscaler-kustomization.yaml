@@ -23,29 +23,29 @@ kind: Kustomization
 #namespace: kube-system
 
 resources:
-# dynamic latest:
-#
-# - https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
-#
-# stable copy (commit to vcs):
-#
-#   curl -o eks-cluster-autoscaler.yaml https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
-#
-# versioned stable copy (requires more work, have to add AWS specific bits based on documentation here):
-#
-#   https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler
-#
-#   helm_template.sh https://kubernetes.github.io/autoscaler autoscaler/cluster-autoscaler --version 9.10.8 -n kube-system > eks-cluster-autoscaler.yaml
-#
-- eks-cluster-autoscaler.yaml
+  # dynamic latest:
+  #
+  # - https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+  #
+  # stable copy (commit to vcs):
+  #
+  #   curl -o eks-cluster-autoscaler.yaml https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+  #
+  # versioned stable copy (requires more work, have to add AWS specific bits based on documentation here):
+  #
+  #   https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler
+  #
+  #   helm_template.sh https://kubernetes.github.io/autoscaler autoscaler/cluster-autoscaler --version 9.10.8 -n kube-system > eks-cluster-autoscaler.yaml
+  #
+  - eks-cluster-autoscaler.yaml
 
 # dynamic versioned (this is so critical would rather push it through git):
 #helmCharts:
-#- name: cluster-autoscaler
-#  repo: https://kubernetes.github.io/autoscaler
-#  version: 9.10.8
-#  releaseName: cluster-autoscaler
-#  namespace: kube-system
+  #- name: cluster-autoscaler
+  #  repo: https://kubernetes.github.io/autoscaler
+  #  version: 9.10.8
+  #  releaseName: cluster-autoscaler
+  #  namespace: kube-system
 
 
 # ============================================================================ #
@@ -55,32 +55,32 @@ resources:
 # XXX: if using this as a base, move this section to the calling kustomization as these are environment specific
 
 patchesJson6902:
-- target:
-    version: v1
-    kind: Deployment
-    name: cluster-autoscaler
-  path: eks-cluster-autoscaler-deployment.patch.yaml
-- target:
-    version: v1
-    kind: ServiceAccount
-    name: cluster-autoscaler
-  path: eks-cluster-autoscaler-serviceaccount.patch.yaml
+  - target:
+      version: v1
+      kind: Deployment
+      name: cluster-autoscaler
+    path: eks-cluster-autoscaler-deployment.patch.yaml
+  - target:
+      version: v1
+      kind: ServiceAccount
+      name: cluster-autoscaler
+    path: eks-cluster-autoscaler-serviceaccount.patch.yaml
 
 images:
-- name: k8s.gcr.io/autoscaling/cluster-autoscaler
-  #
-  # choose cluster autoscaler version compatible with your Kubernetes major + minor version:
-  #
-  #   https://github.com/kubernetes/autoscaler/releases
-  #
-  # will usually look like this, perhaps a .1 release
-  #
-  #   kubectl version -o json | jq -r '.serverVersion | "v" + .major + "." + .minor + ".0" | gsub("[+]"; "")'
-  #
-  # find the latest release quickly using kubernetes_autoscaler_release.sh in DevOps Bash tools:
-  #
-  #   https://github.com/HariSekhon/DevOps-Bash-tools
-  #
-  #   kubernetes_autoscaler_release.sh
-  #
-  newTag: v1.21.1  # XXX: Edit
+  - name: k8s.gcr.io/autoscaling/cluster-autoscaler
+    #
+    # choose cluster autoscaler version compatible with your Kubernetes major + minor version:
+    #
+    #   https://github.com/kubernetes/autoscaler/releases
+    #
+    # will usually look like this, perhaps a .1 release
+    #
+    #   kubectl version -o json | jq -r '.serverVersion | "v" + .major + "." + .minor + ".0" | gsub("[+]"; "")'
+    #
+    # find the latest release quickly using kubernetes_autoscaler_release.sh in DevOps Bash tools:
+    #
+    #   https://github.com/HariSekhon/DevOps-Bash-tools
+    #
+    #   kubernetes_autoscaler_release.sh
+    #
+    newTag: v1.21.1  # XXX: Edit

@@ -31,11 +31,11 @@ spec:
         #runAsUser: 0   # not recommended
         #fsGroup: 1000   # group to own volumeMounts so they can be written to by the user-level process
       initContainers:
-      - name: chown
-        image: busybox
-        # XXX: Edit <id>:<gid> and /path
-        command: ['sh', '-c', 'chown -R 8983:8983 /var/solr']
-        volumeMounts:
-        # XXX: Edit to match containers
-        - name: var-solr
-          mountPath: /var/solr/
+        - name: chown
+          image: busybox
+          # XXX: Edit <id>:<gid> and /path
+          command: ['sh', '-c', 'chown -R 8983:8983 /var/solr']
+          volumeMounts:
+            # XXX: Edit to match containers
+            - name: var-solr
+              mountPath: /var/solr/

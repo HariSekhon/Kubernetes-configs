@@ -53,25 +53,25 @@ metadata:
 spec:
   tls:
     # XXX: Edit
-  - hosts:
-    - APP.DOMAIN.COM
-    # SSL cert auto-generated for this FQDN by Cert Manager ACME integration (see cert-manager.yaml) and saved to this secret name
-    secretName: APP-tls
+    - hosts:
+        - APP.DOMAIN.COM
+      # SSL cert auto-generated for this FQDN by Cert Manager ACME integration (see cert-manager.yaml) and saved to this secret name
+      secretName: APP-tls
   rules:
     # XXX: Edit
-  - host: APP.DOMAIN.COM
-    http:
-      paths:
-        # XXX: Edit
-      #- path: /APP
-      - path: /
-        pathType: Prefix  # for new networking.k8s.io/v1
-        backend:
-          #serviceName: APP-svc  # Old, for extensions/v1beta1
-          #servicePort: 80
-          service:
-            name: APP-svc  # XXX: Edit
-            port:
-              number: 80
-              # or
-              #name: http
+    - host: APP.DOMAIN.COM
+      http:
+        paths:
+          # XXX: Edit
+          #- path: /APP
+          - path: /
+            pathType: Prefix  # for new networking.k8s.io/v1
+            backend:
+              #serviceName: APP-svc  # Old, for extensions/v1beta1
+              #servicePort: 80
+              service:
+                name: APP-svc  # XXX: Edit
+                port:
+                  number: 80
+                  # or
+                  #name: http

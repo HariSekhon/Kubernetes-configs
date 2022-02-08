@@ -33,35 +33,35 @@ spec:
             nodeAffinity:
               preferredDuringSchedulingIgnoredDuringExecution:
                 # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
-              - weight: 100
-                preference:
-                  matchExpressions:
-                  - key: cloud.google.com/gke-preemptible
-                    operator: Exists
+                - weight: 100
+                  preference:
+                    matchExpressions:
+                      - key: cloud.google.com/gke-preemptible
+                        operator: Exists
                 # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
-              - weight: 100
-                preference:
-                  matchExpressions:
-                  - key: eks.amazonaws.com/capacityType
-                    operator: In
-                    values:
-                    - SPOT
+                - weight: 100
+                  preference:
+                    matchExpressions:
+                      - key: eks.amazonaws.com/capacityType
+                        operator: In
+                        values:
+                          - SPOT
                 # Azure: https://docs.microsoft.com/en-us/azure/aks/spot-node-pool
-              - weight: 100
-                preference:
-                  matchExpressions:
-                  - key: kubernetes.azure.com/scalesetpriority
-                    operator: In
-                    values:
-                    - spot
+                - weight: 100
+                  preference:
+                    matchExpressions:
+                      - key: kubernetes.azure.com/scalesetpriority
+                        operator: In
+                        values:
+                          - spot
           tolerations:
-          # XXX: this must be set yourself on AWS EKS / GCP GKE
-          - key: preemptible
-            operator: Equal
-            value: "true"
-            effect: NoSchedule
-          # automatically set on Azure AKS
-          - key: kubernetes.azure.com/scalesetpriority
-            operator: Equal
-            value: spot
-            effect: NoSchedule
+            # XXX: this must be set yourself on AWS EKS / GCP GKE
+            - key: preemptible
+              operator: Equal
+              value: "true"
+              effect: NoSchedule
+            # automatically set on Azure AKS
+            - key: kubernetes.azure.com/scalesetpriority
+              operator: Equal
+              value: spot
+              effect: NoSchedule

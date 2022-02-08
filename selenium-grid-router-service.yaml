@@ -30,7 +30,7 @@ spec:
   selector:
     app: selenium-router
   ports:
-  - name: router
-    protocol: TCP
-    port: 4444
-    targetPort: 4444
+    - name: router
+      protocol: TCP
+      port: 4444
+      targetPort: 4444

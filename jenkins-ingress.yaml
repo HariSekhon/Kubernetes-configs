@@ -35,22 +35,22 @@ metadata:
       192.168.0.0/16
 spec:
   tls:
-  - hosts:
-    # XXX: Edit
-    - jenkins.MYDOMAIN.COM
-    secretName: jenkins-tls
+    - hosts:
+        # XXX: Edit
+        - jenkins.MYDOMAIN.COM
+      secretName: jenkins-tls
   rules:
     # XXX: Edit
-  - host: jenkins.MYDOMAIN.COM
-    http:
-      paths:
-      - path: /
-        pathType: Prefix  # for new networking.k8s.io/v1
-        backend:
-          #serviceName: jenkins-ui
-          #servicePort: jenkins-ui
-          service:
-            name: jenkins-ui
-            port:
-              #number: 8080
-              name: jenkins-ui
+    - host: jenkins.MYDOMAIN.COM
+      http:
+        paths:
+          - path: /
+            pathType: Prefix  # for new networking.k8s.io/v1
+            backend:
+              #serviceName: jenkins-ui
+              #servicePort: jenkins-ui
+              service:
+                name: jenkins-ui
+                port:
+                  #number: 8080
+                  name: jenkins-ui

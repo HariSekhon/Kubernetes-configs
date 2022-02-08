@@ -43,20 +43,20 @@ metadata:
 spec:
   tls:
     # XXX: Edit
-  - hosts:
-    - spinnaker.DOMAIN.COM
-    secretName: spinnaker-deck-tls
+    - hosts:
+        - spinnaker.DOMAIN.COM
+      secretName: spinnaker-deck-tls
   rules:
     # XXX: Edit
-  - host: spinnaker.DOMAIN.COM
-    http:
-      paths:
-      - path: /
-        pathType: Prefix  # for new networking.k8s.io/v1
-        backend:
-          #serviceName: spin-deck
-          #servicePort: 9000
-          service:
-            name: spin-desk
-            port:
-              number: 9000
+    - host: spinnaker.DOMAIN.COM
+      http:
+        paths:
+          - path: /
+            pathType: Prefix  # for new networking.k8s.io/v1
+            backend:
+              #serviceName: spin-deck
+              #servicePort: 9000
+              service:
+                name: spin-desk
+                port:
+                  number: 9000

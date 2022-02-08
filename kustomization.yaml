@@ -67,23 +67,23 @@ commonLabels:
 # ========================
 
 resources:
-- namespace.yaml
-- deployment.yaml
-- statefulset.yaml
-- service.yaml
-#- cronjob.yaml
-#- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
-#
-# =====================
-# XXX: Helm + Kustomize
-#
-# helm_template.sh is a convenience script if downloading the helm template output for serving out of Git, get it here:
-#
-#     https://github.com/harisekhon/devops-bash-tools
-#
-#   helm_template.sh "$repo_url" "$repo/$chart" -f values.yaml --version "$version" > helm.yaml
-#
-#- helm.yaml
+  - namespace.yaml
+  - deployment.yaml
+  - statefulset.yaml
+  - service.yaml
+  #- cronjob.yaml
+  #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
+  #
+  # =====================
+  # XXX: Helm + Kustomize
+  #
+  # helm_template.sh is a convenience script if downloading the helm template output for serving out of Git, get it here:
+  #
+  #     https://github.com/harisekhon/devops-bash-tools
+  #
+  #   helm_template.sh "$repo_url" "$repo/$chart" -f values.yaml --version "$version" > helm.yaml
+  #
+  #- helm.yaml
 
 # OR
 #
@@ -102,12 +102,12 @@ resources:
 #     helm show values <name>/<chart>
 #
 #helmCharts:
-#- name: <chart_name>
-#  repo: <url>
-#  version: <version>
-#  releaseName: <release_name>
-#  namespace: <namespace>
-#  valuesFile: values.yaml
+#  - name: <chart_name>
+#    repo: <url>
+#    version: <version>
+#    releaseName: <release_name>
+#    namespace: <namespace>
+#    valuesFile: values.yaml
 
 
 # ========================
@@ -115,20 +115,20 @@ resources:
 #
 # must name metadata.name [and often metadata.namespace] in order to match exact resources from the above yamls to match + patch
 patchesStrategicMerge:
-# labels the namespace for Goldilocks to VPA + analyze
-- goldilocks-namespace-enable.patch.yaml
+  # labels the namespace for Goldilocks to VPA + analyze
+  - goldilocks-namespace-enable.patch.yaml
 
   # overrides replica counts / memory / ports across environments etc - anything that could be defined in a normal deployment
-#- deployment.patch.yaml
+  #- deployment.patch.yaml
 
   # set in cronjob.yml now - besides this is too generic without metadata.name necessary for patching selection, designed to be called from CLI as a fix
-#- cronjob-fix-stale.patch.yaml
+  #- cronjob-fix-stale.patch.yaml
 
   # enable to override LoadBalancer to NodePort for testing locally
-#- service-nodeport.patch.yaml
+  #- service-nodeport.patch.yaml
 
   # quick fix temporary init container to reset things like mount point permissions / owner mismatch - a common problem, easily solved this way
-#- init-container-fix.patch.yaml
+  #- init-container-fix.patch.yaml
 
 # =====================
 # Multi-Object Patching
@@ -139,47 +139,47 @@ patchesStrategicMerge:
 #
 # XXX: missing objects are silently ignored, eg. when apps change deployment names between versions
 patches:
-#- path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
-#  target:
-#    group: <optional group>
-#    version: <optional version>
-#    kind: <optional kind>
-#    name: <optional name>
-#    namespace: <optional namespace>
-#    labelSelector: <optional label selector>
-#    annotationSelector: <optional annotation selector>
+#  - path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
+#    target:
+#      group: <optional group>
+#      version: <optional version>
+#      kind: <optional kind>
+#      name: <optional name>
+#      namespace: <optional namespace>
+#      labelSelector: <optional label selector>
+#      annotationSelector: <optional annotation selector>
 
   # make cronjobs preemptible if this kustomization is used on dev/staging environments
-- path: cronjob-preemptible.patch.yaml
-  target:
-    kind: CronJob
+  - path: cronjob-preemptible.patch.yaml
+    target:
+      kind: CronJob
 
   # apply the same firewall and tuning to all Ingresses without duplicating lots of config
-- path: ./ingress.nginx.patch.yaml
-  target:
-    kind: Ingress
-    annotationSelector: kubernetes.io/ingress.class=nginx
+  - path: ./ingress.nginx.patch.yaml
+    target:
+      kind: Ingress
+      annotationSelector: kubernetes.io/ingress.class=nginx
 
-# in test / feature environments - run all deployments and statefulsets on preemptible machines to save costs
-- path: ./preemptible.jsonpatch.yaml
-  target:
-    kind: Deployment
-- path: ./preemptible.jsonpatch.yaml
-  target:
-    kind: StatefulSet
+  # in test / feature environments - run all deployments and statefulsets on preemptible machines to save costs
+  - path: ./preemptible.jsonpatch.yaml
+    target:
+      kind: Deployment
+  - path: ./preemptible.jsonpatch.yaml
+    target:
+      kind: StatefulSet
 
-# in test / feature environments - run all deployments and statefulsets with a single replica to save costs
-- path: ./replicas.jsonpatch.yaml
-  target:
-    kind: Deployment
-- path: ./replicas.jsonpatch.yaml
-  target:
-    kind: StatefulSet
+  # in test / feature environments - run all deployments and statefulsets with a single replica to save costs
+  - path: ./replicas.jsonpatch.yaml
+    target:
+      kind: Deployment
+  - path: ./replicas.jsonpatch.yaml
+    target:
+      kind: StatefulSet
 
-# in test / feature environments - scale down all HPAs to save costs
-- path: ./hpa.replicas.jsonpatch.yaml
-  target:
-    kind: HorizontalPodAutoscaler
+  # in test / feature environments - scale down all HPAs to save costs
+  - path: ./hpa.replicas.jsonpatch.yaml
+    target:
+      kind: HorizontalPodAutoscaler
 
 
 # =============
@@ -191,26 +191,26 @@ patches:
 #
 # XXX: missing objects are silently ignored, eg. when apps change deployment names between versions
 #patchesJson6902:
-#- target:
-#    version: v1
-#    kind: Deployment
-#    name: NAME
-#  path: some.patch.yaml
-#  # OR inline
-#  patch: |-
-#    - op: replace
-#      path: /some/existing/path
-#      value: new value
+#  - target:
+#      version: v1
+#      kind: Deployment
+#      name: NAME
+#    path: some.patch.yaml
+#    # OR inline
+#    patch: |-
+#      - op: replace
+#        path: /some/existing/path
+#        value: new value
 
 # XXX: Danger - this breaks all existing normal ingress terminated SSL services
 #patchesJson6902:
-#- target:
-#    group: apps
-#    version: v1
-#    kind: Deployment
-#    name: ingress-nginx-controller
-#    namespace: ingress-nginx
-#  path: nginx-ingress.passthrough.patch.yaml
+#  - target:
+#      group: apps
+#      version: v1
+#      kind: Deployment
+#      name: ingress-nginx-controller
+#      namespace: ingress-nginx
+#    path: nginx-ingress.passthrough.patch.yaml
 
 
 # =======================
@@ -219,21 +219,21 @@ patches:
 #   can use newName and/or newTag
 #
 images:
-- name: eu.gcr.io/myproject/myimage
-  newName: eu.gcr.io/myproject/myotherimage
-  newTag: "latest"
+  - name: eu.gcr.io/myproject/myimage
+    newName: eu.gcr.io/myproject/myotherimage
+    newTag: "latest"
 
 # =======================
 
 configMapGenerator:
-# useful for straight mounts to files
-#- name: my-config-files
-#  files:
-#    - file1.properties
-#    - file2.properties
-# useful for extracting to environment variables
-- name: my-env
-  namespace: NAMESPACE
-  literals:
-  - env=dev
-  - version=latest
+  # useful for straight mounts to files
+  #- name: my-config-files
+  #  files:
+  #    - file1.properties
+  #    - file2.properties
+  # useful for extracting to environment variables
+  - name: my-env
+    namespace: NAMESPACE
+    literals:
+      - env=dev
+      - version=latest

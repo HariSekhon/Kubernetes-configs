@@ -41,7 +41,7 @@ metadata:
   annotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
 spec:
-  paused: False
+  paused: false
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -58,34 +58,34 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            preference:
-              matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
-              - key: eks.amazonaws.com/capacityType
-                operator: NotIn
-                values:
-                - SPOT
-              - key: kubernetes.azure.com/scalesetpriority
-                operator: NotIn
-                values:
-                - spot
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
       containers:
-      - name: buildkite-agent
-        #image: buildkite/agent:ubuntu
-        #imagePullPolicy: Always
-        image: buildkite/agent:3-ubuntu
-        env:
-        - name: BUILDKITE_AGENT_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: buildkite-agent-token
-              key: buildkite-agent-token
-        resources:
-          limits:
-            cpu: 1
-            memory: 4Gi
-          requests:
-            cpu: 200m
-            memory: 256Mi
+        - name: buildkite-agent
+          #image: buildkite/agent:ubuntu
+          #imagePullPolicy: Always
+          image: buildkite/agent:3-ubuntu
+          env:
+            - name: BUILDKITE_AGENT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: buildkite-agent-token
+                  key: buildkite-agent-token
+          resources:
+            limits:
+              cpu: 1
+              memory: 4Gi
+            requests:
+              cpu: 200m
+              memory: 256Mi

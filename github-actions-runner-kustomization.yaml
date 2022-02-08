@@ -23,9 +23,9 @@ kind: Kustomization
 namespace: github-actions
 
 resources:
-- github-actions-namespace.yaml
-- github-actions-runner.yaml
-- github-actions-runner-hpa.yaml
+  - github-actions-namespace.yaml
+  - github-actions-runner.yaml
+  - github-actions-runner-hpa.yaml
 
 patchesStrategicMerge:
-- goldilocks-namespace-enable.patch.yaml
+  - goldilocks-namespace-enable.patch.yaml

@@ -48,77 +48,77 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: cloud.google.com/gke-preemptible
-                operator: DoesNotExist
-              - key: eks.amazonaws.com/capacityType
-                operator: NotIn
-                values:
-                - SPOT
-              - key: kubernetes.azure.com/scalesetpriority
-                operator: NotIn
-                values:
-                - spot
+              - matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
       terminationGracePeriodSeconds: 120
       securityContext:
         #runAsUser: 0
         fsGroup: 1000
       serviceAccountName: jenkins-server
       containers:
-      - name: jenkins-server
-        #image: jenkins/jenkins:2.228
-        # XXX: beware this may auto-upgrade and you may have to upgrade all plugins to fix broken configuration pages
-        # XXX: better to fix this to a specific version
-        image: jenkins/jenkins:lts
-        ports:
-        - name: http  # UI
-          containerPort: 8080
-        - name: jnlp  # agents contact server on this port
-          containerPort: 50000
-        # if you have a reverse proxy or an ingress with a routing prefix such as /jenkins, tell Jenkins about it
-        env:
-        #- name: JENKINS_OPTS
-        #  value: "--prefix=/jenkins"
-        - name: JAVA_OPTS
-                                   # XXX: Edit footerURL
-          value: -Dhudson.footerURL=http://MY.DOMAIN.COM -Xms3G -Xmx3G -XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC
-        # readiness probe is pointless really. this isn't a web farm pool, we want to get the UI no matter what state it is in
-#        readinessProbe:
-#          httpGet:
-#            path: /login
-#            port: 8080
-#          initialDelaySeconds: 30
-#          successThreshold: 1
-#          failureThreshold: 5
-#          periodSeconds: 5
-#          timeoutSeconds: 5
-        livenessProbe:
-          httpGet:
-            # other pages are auth protected and return 403
-            path: /login
-            port: 8080
-          initialDelaySeconds: 120
-          successThreshold: 1
-          failureThreshold: 10
-          periodSeconds: 5
-          timeoutSeconds: 5
-        resources:
-          limits:
-            cpu: 2
-            memory: 5Gi
-          requests:
-            cpu: 100m    # server takes 7m resting
-            memory: 3Gi  # server takes 800-900Mi resting, but easily gets to 2-3 GB once you have a bunch of pipelines
-        volumeMounts:
-        - mountPath: /var/jenkins_home
-          name: jenkins-home
+        - name: jenkins-server
+          #image: jenkins/jenkins:2.228
+          # XXX: beware this may auto-upgrade and you may have to upgrade all plugins to fix broken configuration pages
+          # XXX: better to fix this to a specific version
+          image: jenkins/jenkins:lts
+          ports:
+            - name: http  # UI
+              containerPort: 8080
+            - name: jnlp  # agents contact server on this port
+              containerPort: 50000
+          # if you have a reverse proxy or an ingress with a routing prefix such as /jenkins, tell Jenkins about it
+          env:
+            #- name: JENKINS_OPTS
+            #  value: "--prefix=/jenkins"
+            - name: JAVA_OPTS
+                                     # XXX: Edit footerURL
+              value: -Dhudson.footerURL=http://MY.DOMAIN.COM -Xms3G -Xmx3G -XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC
+          # readiness probe is pointless really. this isn't a web farm pool, we want to get the UI no matter what state it is in
+  #        readinessProbe:
+  #          httpGet:
+  #            path: /login
+  #            port: 8080
+  #          initialDelaySeconds: 30
+  #          successThreshold: 1
+  #          failureThreshold: 5
+  #          periodSeconds: 5
+  #          timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              # other pages are auth protected and return 403
+              path: /login
+              port: 8080
+            initialDelaySeconds: 120
+            successThreshold: 1
+            failureThreshold: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 2
+              memory: 5Gi
+            requests:
+              cpu: 100m    # server takes 7m resting
+              memory: 3Gi  # server takes 800-900Mi resting, but easily gets to 2-3 GB once you have a bunch of pipelines
+          volumeMounts:
+            - mountPath: /var/jenkins_home
+              name: jenkins-home
   volumeClaimTemplates:
-  - metadata:
-      name: jenkins-home
-    spec:
-      storageClassName: gcp-standard-resizeable
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 20Gi
+    - metadata:
+        name: jenkins-home
+      spec:
+        storageClassName: gcp-standard-resizeable
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 20Gi

@@ -25,14 +25,14 @@ kind: Kustomization
 namespace: kube-system
 
 resources:
-- https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+  - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
 patchesJson6902:
-- target:
-    version: v1
-    kind: Deployment
-    name: metrics-server
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/args/0
-      value: --kubelet-insecure-tls  # because Docker Desktop K8s doesn't have an SSL cert supporting its private IP address that the metric server is scraping metrics from the API
+  - target:
+      version: v1
+      kind: Deployment
+      name: metrics-server
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/args/0
+        value: --kubelet-insecure-tls  # because Docker Desktop K8s doesn't have an SSL cert supporting its private IP address that the metric server is scraping metrics from the API

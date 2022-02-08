@@ -50,27 +50,27 @@ spec:
         app: stress
     spec:
       containers:
-      - image: vish/stress
-        imagePullPolicy: Always
-        name: stress
-        args:
-        - -cpus
-        - "2"
-        - -mem-total
-        - 950Mi
-        - -mem-alloc-size
-        - 100Mi
-        - -mem-alloc-sleep
-        - 1s
-        resources:
-          limits:
-            cpu: 1
-            memory: 4Gi
-          requests:
-            cpu: 0.5
-            memory: 2500Mi
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
+        - image: vish/stress
+          imagePullPolicy: Always
+          name: stress
+          args:
+            - -cpus
+            - "2"
+            - -mem-total
+            - 950Mi
+            - -mem-alloc-size
+            - 100Mi
+            - -mem-alloc-sleep
+            - 1s
+          resources:
+            limits:
+              cpu: 1
+              memory: 4Gi
+            requests:
+              cpu: 0.5
+              memory: 2500Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

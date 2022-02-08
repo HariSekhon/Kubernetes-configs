@@ -36,23 +36,23 @@ spec:
     name: NAME
   goals:
     metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 70
+      - type: Resource
+        resource:
+          name: cpu
+          target:
+            type: Utilization
+            averageUtilization: 70
   constraints:
     global:
       minReplicas: 3
       maxReplicas: 5
-    containerControlledResources: [ memory ]
+    containerControlledResources: [memory]
     container:
-    - name: '*'
-      requests:
-        minAllowed:
-          memory: 256Mi
-        maxAllowed:
-          memory: 2Gi
+      - name: '*'
+        requests:
+          minAllowed:
+            memory: 256Mi
+          maxAllowed:
+            memory: 2Gi
   policy:
     updateMode: Auto

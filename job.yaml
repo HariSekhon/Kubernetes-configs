@@ -34,15 +34,15 @@ spec:
       name: NAME
     spec:
       containers:
-      - name: NAME
-        image: perl
-        # takes about a minute to execute
-        command:
-        - perl
-        args:
-        - -Mbignum=bpi
-        - -wle
-        - print bpi(2000)
+        - name: NAME
+          image: perl
+          # takes about a minute to execute
+          command:
+            - perl
+          args:
+            - -Mbignum=bpi
+            - -wle
+            - print bpi(2000)
       restartPolicy: Never
   # exponential backoff retries of job - 10 => 20 => 40 secs...
   backoffLimit: 6  # default, max job retries

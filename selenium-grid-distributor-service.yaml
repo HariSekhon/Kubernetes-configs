@@ -30,7 +30,7 @@ spec:
   selector:
     app: selenium-distributor
   ports:
-  - name: distributor
-    protocol: TCP
-    port: 5553
-    targetPort: 5553
+    - name: distributor
+      protocol: TCP
+      port: 5553
+      targetPort: 5553

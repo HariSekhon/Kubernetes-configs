@@ -23,9 +23,9 @@ kind: Kustomization
 namespace: buildkite
 
 resources:
-- buildkite-namespace.yaml
-- buildkite-agent.yaml
-- buildkite-hpa.yaml
+  - buildkite-namespace.yaml
+  - buildkite-agent.yaml
+  - buildkite-hpa.yaml
 
 patchesStrategicMerge:
-- goldilocks-namespace-enable.patch.yaml
+  - goldilocks-namespace-enable.patch.yaml

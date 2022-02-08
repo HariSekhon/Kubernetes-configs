@@ -37,21 +37,21 @@ metadata:
 spec:
   tls:
     # XXX: Edit
-  - hosts:
-    - APP.DOMAIN.COM
-    secretName: polaris-tls
+    - hosts:
+        - APP.DOMAIN.COM
+      secretName: polaris-tls
   rules:
     # XXX: Edit
-  - host: APP.DOMAIN.COM
-    http:
-      paths:
-        # XXX: Edit
-      - path: /
-        pathType: Prefix  # for new networking.k8s.io/v1
-        backend:
-          #serviceName: polaris-dashboard
-          #servicePort: 80
-          service:
-            name: polaris-dashboard
-            port:
-              number: 80
+    - host: APP.DOMAIN.COM
+      http:
+        paths:
+          # XXX: Edit
+          - path: /
+            pathType: Prefix  # for new networking.k8s.io/v1
+            backend:
+              #serviceName: polaris-dashboard
+              #servicePort: 80
+              service:
+                name: polaris-dashboard
+                port:
+                  number: 80

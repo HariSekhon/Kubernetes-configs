@@ -105,11 +105,11 @@ controller:
   # LoadBalancerSourcesRange is a list of allowed CIDR values, which are combined with ServicePort to
   # set allowed inbound rules on the security group assigned to the controller load balancer
   loadBalancerSourceRanges:
-  - 10.0.0.0/8
-  - 172.16.0.0/12
-  - 192.168.0.0/16
-  # Optionally assign a known public LB IP
-  # loadBalancerIP: 1.2.3.4
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    # Optionally assign a known public LB IP
+    # loadBalancerIP: 1.2.3.4
 
   # List of plugins to be installed during Jenkins controller start
   #
@@ -325,17 +325,17 @@ controller:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
-        - matchExpressions:
-          - key: cloud.google.com/gke-preemptible
-            operator: DoesNotExist
-          - key: eks.amazonaws.com/capacityType
-            operator: NotIn
-            values:
-            - SPOT
-          - key: kubernetes.azure.com/scalesetpriority
-            operator: NotIn
-            values:
-            - spot
+          - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                  - SPOT
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                  - spot
   #priorityClassName: high-priority  # created by jenkins-kustomization.yaml
 
   ingress:

@@ -29,12 +29,12 @@ kind: Kustomization
 #namespace: kubernetes-dashboard  # Do not override helm chart, can cause issues
 
 resources:
-- kubernetes-dashboard-namespace.yaml
+  - kubernetes-dashboard-namespace.yaml
 
 helmCharts:
-- name: kubernetes-dashboard
-  repo: https://kubernetes.github.io/dashboard/
-  version: 5.0.4
-  releaseName: kubernetes-dashboard
-  namespace: kubernetes-dashboard
-  valuesFile: kubernetes-dashboard-values.yaml
+  - name: kubernetes-dashboard
+    repo: https://kubernetes.github.io/dashboard/
+    version: 5.0.4
+    releaseName: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+    valuesFile: kubernetes-dashboard-values.yaml

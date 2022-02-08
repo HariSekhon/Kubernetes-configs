@@ -35,22 +35,22 @@ metadata:
       192.168.0.0/16
 spec:
   tls:
-  - hosts:
-    # XXX: Edit
-    - teamcity.MYDOMAIN.COM
-    secretName: teamcity-tls
+    - hosts:
+        # XXX: Edit
+        - teamcity.MYDOMAIN.COM
+      secretName: teamcity-tls
   rules:
     # XXX: Edit
-  - host: teamcity.MYDOMAIN.COM
-    http:
-      paths:
-      - path: /
-        pathType: Prefix  # for new networking.k8s.io/v1
-        backend:
-          #serviceName: teamcity
-          #servicePort: teamcity-ui
-          service:
-            name: teamcity
-            port:
-              #number: 8111
-              name: teamcity-ui
+    - host: teamcity.MYDOMAIN.COM
+      http:
+        paths:
+          - path: /
+            pathType: Prefix  # for new networking.k8s.io/v1
+            backend:
+              #serviceName: teamcity
+              #servicePort: teamcity-ui
+              service:
+                name: teamcity
+                port:
+                  #number: 8111
+                  name: teamcity-ui

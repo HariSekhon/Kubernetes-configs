@@ -37,37 +37,37 @@ spec:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
-        - matchExpressions:
-          - key: cloud.google.com/gke-preemptible
-            operator: DoesNotExist
-          - key: eks.amazonaws.com/capacityType
-            operator: NotIn
-            values:
-            - SPOT
-          - key: kubernetes.azure.com/scalesetpriority
-            operator: NotIn
-            values:
-            - spot
+          - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                  - SPOT
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                  - spot
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 100
-        podAffinityTerm:
-          topologyKey: topology.kubernetes.io/zone
-          labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - jenkins-agent
-      - weight: 100
-        podAffinityTerm:
-          topologyKey: kubernetes.io/hostname
-          labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - jenkins-agent
+        - weight: 100
+          podAffinityTerm:
+            topologyKey: topology.kubernetes.io/zone
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - jenkins-agent
+        - weight: 100
+          podAffinityTerm:
+            topologyKey: kubernetes.io/hostname
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - jenkins-agent
   # needed for argocd container to /home/jenkins/agent/workspace/<pipeline>@tmp/durable-888973f9/jenkins-log.txt, otherwise Permission Denied
   securityContext:
     runAsUser: 0
@@ -75,290 +75,290 @@ spec:
     # ==================================================
     # https://cloud.google.com/sdk/docs/downloads-docker
     # https://hub.docker.com/r/google/cloud-sdk/
-  - name: gcloud-sdk  # do not name this 'jnlp', without that container this'll never come up properly to execute the build
-    image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
-    imagePullPolicy: Always
-    # works without this
-    command:
-    - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 300m  # actually takes 800m but overcontend rather than spawning too many nodes for bursty workload
-        memory: 300Mi # uses around 250Mi
-      limits:
-        cpu: "1"
-        memory: 1Gi
-  # ==================================================
-  # https://hub.docker.com/r/amazon/aws-cli
-  - name: aws-cli
-    image: amazon/aws-cli:2.4.7
-    #imagePullPolicy: Always
-    command:
-    - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 300m
-        memory: 300Mi
-      limits:
-        cpu: "1"
-        memory: 1Gi
-  # ==================================================
-  # https://hub.docker.com/r/stedolan/jq
-  - name: jq
-    image: stedolan/jq
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 100m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 500Mi
-  # ==================================================
-  # Skaffold - CI/CD CLI automation tool - also contains jq
-  #
-  # can find available versions using tool in DevOps Python tools repo (https://github.com/HariSekhon/DevOps-Python-tools):
-  #
-  #   docker_registry_show_tags.py -H gcr.io -P 443 -S k8s-skaffold/skaffold
-  #
-  # but latest v1.41.0 seems ahead of publicised release v1.27.0, which is probably more stable:
-  #
-  #   https://github.com/GoogleContainerTools/skaffold/releases
-  #
-  - name: skaffold
-    image: gcr.io/k8s-skaffold/skaffold:v1.27.0
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 100m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 500Mi
-  # ==================================================
-  # https://hub.docker.com/r/argoproj/argocd
-  # ArgoCD - to integrate Jenkins CI -> ArgoCD via sync deployment call - https://argoproj.github.io/argo-cd/user-guide/ci_automation/#synchronize-the-app-optional
-  - name: argocd
-    image: argoproj/argocd:v2.0.3
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 100m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 500Mi
-  # ==================================================
-  # https://hub.docker.com/r/harisekhon/git-kustomize
-  # for gitOpsK8sUpdate Jenkins shared library at https://github.com/HariSekhon/Templates/blob/master/vars/gitOpsK8sUpdate.groovy
-  - name: git-kustomize
-    image: harisekhon/git-kustomize:latest
-    imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 100m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 500Mi
-  # ==================================================
-  # https://hub.docker.com/r/hashicorp/terraform
-  - name: terraform
-    image: hashicorp/terraform:1.1.2  # XXX: set this to match the Terraform version you need
-    #imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 100m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 500Mi
-  # ==================================================
-  # https://hub.docker.com/r/alpine/terragrunt
-  - name: terragrunt
-    image: alpine/terragrunt:1.1.2  # XXX: set this to match the Terraform version you need
-    #imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 100m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 500Mi
-  # ==================================================
-  # https://jfrog.com/getcli/
-  - name: jfrog-cli
-    image: releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.10.1
-    #imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 100m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 500Mi
-  # ==================================================
-  # https://hub.docker.com/r/aquasec/tfsec
-  - name: tfsec
-    #image: aquasec/tfsec:v0.63
-    #image: aquasec/tfsec-ci:latest  # no entrypoint, same version tags as aquasec/tfsec
-    image: aquasec/tfsec:latest      # tfsec-ci not needed since entrypoint is overridden by cat to allow exec'ing into container in Pipeline stages
-    imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 50m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 200Mi
-  # ==================================================
-  # https://semgrep.dev/
-  - name: semgrep
-    image: returntocorp/semgrep-agent:v1
-    imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 50m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 200Mi
-  # ==================================================
-  # https://hub.docker.com/r/aquasec/trivy
-  - name: trivy
-    #image: aquasec/trivy:0.22.0
-    image: aquasec/trivy:latest
-    imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 50m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 200Mi
-  # ==================================================
-  # https://hub.docker.com/r/bridgecrew/checkov
-  - name: checkov
-    #image: bridgecrew/checkov:2.0.715
-    image: bridgecrew/checkov:latest
-    imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 50m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 200Mi
-  # ==================================================
-  # https://hub.docker.com/r/checkmarx/kics
-  - name: kics
-    #image: checkmarx/kics:v1.5.0
-    image: checkmarx/kics:latest
-    imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 50m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 200Mi
-  # ==================================================
-  # https://hub.docker.com/r/liquibase/liquibase
-  - name: liquibase
-    #image: liquibase/liquibase:4.6
-    image: liquibase/liquibase:latest
-    imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 50m
-        memory: 50Mi
-      limits:
-        cpu: 500m
-        memory: 200Mi
-  # ==================================================
-  # https://hub.docker.com/_/busybox
-  # generic CLI container
-  - name: busybox
-    #image: busybox:3
-    image: busybox:latest
-    imagePullPolicy: Always
-    command:
-      - cat
-    tty: true
-    resources:
-      requests:
-        cpu: 50m
-        memory: 50Mi
-      limits:
-        cpu: 200m
-        memory: 200Mi
-  # ==================================================
-  # https://hub.docker.com/_/golang
-  #- name: golang
-  #  image: golang:1.10
-  #  command:
-  #    - cat
-  #  tty: true
-  # ==================================================
-  # https://github.com/megalinter/megalinter
-  # https://hub.docker.com/r/megalinter/megalinter
-  # generic CLI container
-  - name: megalinter
-    image: megalinter/megalinter:v5
-    imagePullPolicy: Always
-    command:
-      - cat
-    env:
-      - name: VALIDATE_ALL_CODEBASE
-        value: 'true'
-    tty: true
-    resources:
-      requests:
-        cpu: 50m
-        memory: 50Mi
-      limits:
-        cpu: 200m
-        memory: 200Mi
-    volumeMounts:
-    #- mountPath: /home/jenkins/agent
-    - mountPath: /tmp/lint
-      name: workspace-volume
-      readOnly: false
+    - name: gcloud-sdk  # do not name this 'jnlp', without that container this'll never come up properly to execute the build
+      image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+      imagePullPolicy: Always
+      # works without this
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 300m  # actually takes 800m but overcontend rather than spawning too many nodes for bursty workload
+          memory: 300Mi # uses around 250Mi
+        limits:
+          cpu: "1"
+          memory: 1Gi
+    # ==================================================
+    # https://hub.docker.com/r/amazon/aws-cli
+    - name: aws-cli
+      image: amazon/aws-cli:2.4.7
+      #imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 300m
+          memory: 300Mi
+        limits:
+          cpu: "1"
+          memory: 1Gi
+    # ==================================================
+    # https://hub.docker.com/r/stedolan/jq
+    - name: jq
+      image: stedolan/jq
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 500Mi
+    # ==================================================
+    # Skaffold - CI/CD CLI automation tool - also contains jq
+    #
+    # can find available versions using tool in DevOps Python tools repo (https://github.com/HariSekhon/DevOps-Python-tools):
+    #
+    #   docker_registry_show_tags.py -H gcr.io -P 443 -S k8s-skaffold/skaffold
+    #
+    # but latest v1.41.0 seems ahead of publicised release v1.27.0, which is probably more stable:
+    #
+    #   https://github.com/GoogleContainerTools/skaffold/releases
+    #
+    - name: skaffold
+      image: gcr.io/k8s-skaffold/skaffold:v1.27.0
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 500Mi
+    # ==================================================
+    # https://hub.docker.com/r/argoproj/argocd
+    # ArgoCD - to integrate Jenkins CI -> ArgoCD via sync deployment call - https://argoproj.github.io/argo-cd/user-guide/ci_automation/#synchronize-the-app-optional
+    - name: argocd
+      image: argoproj/argocd:v2.0.3
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 500Mi
+    # ==================================================
+    # https://hub.docker.com/r/harisekhon/git-kustomize
+    # for gitOpsK8sUpdate Jenkins shared library at https://github.com/HariSekhon/Templates/blob/master/vars/gitOpsK8sUpdate.groovy
+    - name: git-kustomize
+      image: harisekhon/git-kustomize:latest
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 500Mi
+    # ==================================================
+    # https://hub.docker.com/r/hashicorp/terraform
+    - name: terraform
+      image: hashicorp/terraform:1.1.2  # XXX: set this to match the Terraform version you need
+      #imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 500Mi
+    # ==================================================
+    # https://hub.docker.com/r/alpine/terragrunt
+    - name: terragrunt
+      image: alpine/terragrunt:1.1.2  # XXX: set this to match the Terraform version you need
+      #imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 500Mi
+    # ==================================================
+    # https://jfrog.com/getcli/
+    - name: jfrog-cli
+      image: releases-docker.jfrog.io/jfrog/jfrog-cli-v2:2.10.1
+      #imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 500Mi
+    # ==================================================
+    # https://hub.docker.com/r/aquasec/tfsec
+    - name: tfsec
+      #image: aquasec/tfsec:v0.63
+      #image: aquasec/tfsec-ci:latest  # no entrypoint, same version tags as aquasec/tfsec
+      image: aquasec/tfsec:latest      # tfsec-ci not needed since entrypoint is overridden by cat to allow exec'ing into container in Pipeline stages
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 200Mi
+    # ==================================================
+    # https://semgrep.dev/
+    - name: semgrep
+      image: returntocorp/semgrep-agent:v1
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 200Mi
+    # ==================================================
+    # https://hub.docker.com/r/aquasec/trivy
+    - name: trivy
+      #image: aquasec/trivy:0.22.0
+      image: aquasec/trivy:latest
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 200Mi
+    # ==================================================
+    # https://hub.docker.com/r/bridgecrew/checkov
+    - name: checkov
+      #image: bridgecrew/checkov:2.0.715
+      image: bridgecrew/checkov:latest
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 200Mi
+    # ==================================================
+    # https://hub.docker.com/r/checkmarx/kics
+    - name: kics
+      #image: checkmarx/kics:v1.5.0
+      image: checkmarx/kics:latest
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 200Mi
+    # ==================================================
+    # https://hub.docker.com/r/liquibase/liquibase
+    - name: liquibase
+      #image: liquibase/liquibase:4.6
+      image: liquibase/liquibase:latest
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 200Mi
+    # ==================================================
+    # https://hub.docker.com/_/busybox
+    # generic CLI container
+    - name: busybox
+      #image: busybox:3
+      image: busybox:latest
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 200m
+          memory: 200Mi
+    # ==================================================
+    # https://hub.docker.com/_/golang
+    #- name: golang
+    #  image: golang:1.10
+    #  command:
+    #    - cat
+    #  tty: true
+    # ==================================================
+    # https://github.com/megalinter/megalinter
+    # https://hub.docker.com/r/megalinter/megalinter
+    # generic CLI container
+    - name: megalinter
+      image: megalinter/megalinter:v5
+      imagePullPolicy: Always
+      command:
+        - cat
+      env:
+        - name: VALIDATE_ALL_CODEBASE
+          value: 'true'
+      tty: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 200m
+          memory: 200Mi
+      volumeMounts:
+        #- mountPath: /home/jenkins/agent
+        - mountPath: /tmp/lint
+          name: workspace-volume
+          readOnly: false

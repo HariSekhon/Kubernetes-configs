@@ -24,7 +24,7 @@ namespace: kube-system
 
 # dynamic latest:
 #bases:
-#- github.com/kubernetes/autoscaler/vertical-pod-autoscaler/deploy
+  #- github.com/kubernetes/autoscaler/vertical-pod-autoscaler/deploy
 
 # stable copy (commit to vcs):
 #
@@ -35,6 +35,14 @@ namespace: kube-system
 # stable versioned copy (commit to vcs) - quite different so above one is currently used:
 #
 #   helm_template.sh https://charts.fairwinds.com/stable fairwinds-stable/vpa -n kube-system --version 0.5.0 > vertical-pod-autoscaler-deployment.yaml
+#
+#resources:
+#  - vertical-pod-autoscaler-deployment.yaml
 
-resources:
-- vertical-pod-autoscaler-deployment.yaml
+helmCharts:
+  - name: vpa
+    repo: https://charts.fairwinds.com/stable
+    version: 0.5.0
+    releaseName: vpa
+    namespace: kube-system
+    #valuesFile: vpa-values.yaml

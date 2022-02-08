@@ -30,7 +30,7 @@ spec:
   capacity:
     storage: 10Gi
   accessModes:
-  - ReadWriteMany
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /nfs-exported
