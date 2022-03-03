@@ -25,20 +25,20 @@ kind: Kustomization
 namespace: selenium
 
 resources:
-  - ./priorityclass.yaml
-  - ./selenium-grid-namespace.yaml
+  - priorityclass.yaml
+  - selenium-grid-namespace.yaml
   # Master
-  - ./selenium-grid-hub-ingress.yaml
-  - ./selenium-grid-hub-service.yaml
-  - ./selenium-grid-hub.yaml
+  - selenium-grid-hub-ingress.yaml
+  - selenium-grid-hub-service.yaml
+  - selenium-grid-hub.yaml
   # Nodes
-  - ./selenium-grid-node-chrome.yaml
-  - ./selenium-grid-node-firefox.yaml
-  - ./selenium-grid-node-edge.yaml
+  - selenium-grid-node-chrome.yaml
+  - selenium-grid-node-firefox.yaml
+  - selenium-grid-node-edge.yaml
   # Nodes HPA
-  - ./selenium-grid-node-chrome-hpa.yaml
-  - ./selenium-grid-node-firefox-hpa.yaml
-  - ./selenium-grid-node-edge-hpa.yaml
+  - selenium-grid-node-chrome-hpa.yaml
+  - selenium-grid-node-firefox-hpa.yaml
+  - selenium-grid-node-edge-hpa.yaml
 
 # done in namespace now
 #patchesStrategicMerge:
