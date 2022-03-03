@@ -40,5 +40,6 @@ resources:
   - ./selenium-grid-node-firefox-hpa.yaml
   - ./selenium-grid-node-edge-hpa.yaml
 
-patchesStrategicMerge:
-  - goldilocks-namespace-enable.patch.yaml
+# done in namespace now
+#patchesStrategicMerge:
+#  - goldilocks-namespace-enable.patch.yaml
