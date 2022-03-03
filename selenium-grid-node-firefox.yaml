@@ -107,7 +107,7 @@ spec:
               cpu: 2
               memory: 1Gi
             requests:
-              cpu: 200m
+              cpu: 300m
               memory: 615Mi
           volumeMounts:
             - name: dshm
