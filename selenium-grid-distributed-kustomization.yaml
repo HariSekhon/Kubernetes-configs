@@ -25,32 +25,33 @@ kind: Kustomization
 namespace: selenium
 
 resources:
-  - ./priorityclass.yaml
-  - ./selenium-grid-namespace.yaml
+  - priorityclass.yaml
+  - selenium-grid-namespace.yaml
   # Master Components
-  - ./selenium-grid-router-ingress.yaml
-  - ./selenium-grid-router.yaml
-  - ./selenium-grid-distributor.yaml
-  - ./selenium-grid-event-bus.yaml
-  - ./selenium-grid-sessions.yaml
-  - ./selenium-grid-session-queuer.yaml
+  - selenium-grid-router-ingress.yaml
+  - selenium-grid-router.yaml
+  - selenium-grid-distributor.yaml
+  - selenium-grid-event-bus.yaml
+  - selenium-grid-sessions.yaml
+  - selenium-grid-session-queuer.yaml
   # Master Services
-  - ./selenium-grid-router-service.yaml
-  - ./selenium-grid-distributor-service.yaml
-  - ./selenium-grid-event-bus-service.yaml
-  - ./selenium-grid-sessions-service.yaml
-  - ./selenium-grid-session-queuer-service.yaml
+  - selenium-grid-router-service.yaml
+  - selenium-grid-distributor-service.yaml
+  - selenium-grid-event-bus-service.yaml
+  - selenium-grid-sessions-service.yaml
+  - selenium-grid-session-queuer-service.yaml
   # Nodes
-  - ./selenium-grid-node-chrome.yaml
-  - ./selenium-grid-node-firefox.yaml
-  - ./selenium-grid-node-edge.yaml
+  - selenium-grid-node-chrome.yaml
+  - selenium-grid-node-firefox.yaml
+  - selenium-grid-node-edge.yaml
   # Nodes HPA
-  - ./selenium-grid-node-chrome-hpa.yaml
-  - ./selenium-grid-node-firefox-hpa.yaml
-  - ./selenium-grid-node-edge-hpa.yaml
+  - selenium-grid-node-chrome-hpa.yaml
+  - selenium-grid-node-firefox-hpa.yaml
+  - selenium-grid-node-edge-hpa.yaml
 
-patchesStrategicMerge:
-  - goldilocks-namespace-enable.patch.yaml
+# done in namespace now
+#patchesStrategicMerge:
+#  - goldilocks-namespace-enable.patch.yaml
 
   #- path: ./selenium-grid-node-distributed.patch.yaml
   #  target:
