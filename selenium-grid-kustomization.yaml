@@ -19,6 +19,10 @@
 
 # Ties all the Selenium Grid resources together for an easy one-shot deployment
 
+# For fully distributed mode, see instead:
+#
+#   selenium-grid-distributed-kustomization.yaml
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
