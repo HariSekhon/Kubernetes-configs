@@ -59,7 +59,8 @@ spec:
       containers:
         - name: selenium-node-firefox
           #image: selenium/node-firefox:3.141.59
-          image: selenium/node-firefox:88.0  # requires Hub 4.0
+          #image: selenium/node-firefox:88.0  # requires Hub 4.0
+          image: selenium/node-firefox:4.1.2
           ports:
             - containerPort: 5555
             - containerPort: 5900  # VNC
@@ -74,9 +75,9 @@ spec:
             #  value: "selenium-hub"
             #- name: HUB_PORT_4444_TCP_PORT
             #  value: "4444"
-            # XXX: should be "selenium-event-bus" in fully distributed grid
             - name: SE_EVENT_BUS_HOST
               value: "selenium-hub"
+              #value: "selenium-event-bus"  # XXX: for fully distributed mode
             - name: SE_EVENT_BUS_PUBLISH_PORT
               value: "4442"
             - name: SE_EVENT_BUS_SUBSCRIBE_PORT
