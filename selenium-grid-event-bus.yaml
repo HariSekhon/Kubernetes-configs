@@ -56,7 +56,7 @@ spec:
         runAsNonRoot: true
       containers:
         - name: selenium-event-bus
-          image: selenium/event-bus:4.0.0
+          image: selenium/event-bus:4.1.2
           ports:
             - containerPort: 4442
             - containerPort: 4443
