@@ -24,6 +24,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 #namespace: goldilocks  # Do not override helm chart, can cause issues
 
+# done in namespace yaml now
 #patchesStrategicMerge:
   #- goldilocks-namespace-enable.patch.yaml
 

@@ -25,8 +25,9 @@ kind: Kustomization
 resources:
   - prometheus-namespace.yaml
 
-patchesStrategicMerge:
-  - goldilocks-namespace-enable.patch.yaml
+# done in namespace yaml now
+#patchesStrategicMerge:
+#  - goldilocks-namespace-enable.patch.yaml
 
 helmCharts:
   - name: kube-prometheus-stack

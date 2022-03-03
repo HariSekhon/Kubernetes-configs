@@ -27,5 +27,6 @@ resources:
   - buildkite-agent.yaml
   - buildkite-hpa.yaml
 
-patchesStrategicMerge:
-  - goldilocks-namespace-enable.patch.yaml
+# done in namespace yaml now
+#patchesStrategicMerge:
+#  - goldilocks-namespace-enable.patch.yaml

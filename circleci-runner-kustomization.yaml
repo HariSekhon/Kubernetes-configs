@@ -34,5 +34,6 @@ resources:
   - circleci-runner-deployment.yaml
   - circleci-runner-hpa.yaml
 
-patchesStrategicMerge:
-  - goldilocks-namespace-enable.patch.yaml
+# done in namespace yaml now
+#patchesStrategicMerge:
+#  - goldilocks-namespace-enable.patch.yaml
