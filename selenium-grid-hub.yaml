@@ -57,7 +57,7 @@ spec:
                     operator: NotIn
                     values:
                       - spot
-          securityContext:
+      securityContext:
         runAsNonRoot: true
       containers:
         - name: selenium-hub
