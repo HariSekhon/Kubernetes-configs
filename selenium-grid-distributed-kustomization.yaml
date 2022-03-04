@@ -37,13 +37,13 @@ resources:
   - selenium-grid-distributor.yaml
   - selenium-grid-event-bus.yaml
   - selenium-grid-sessions.yaml
-  - selenium-grid-session-queuer.yaml
+  - selenium-grid-session-queue.yaml
   # Master Services
   - selenium-grid-router-service.yaml
   - selenium-grid-distributor-service.yaml
   - selenium-grid-event-bus-service.yaml
   - selenium-grid-sessions-service.yaml
-  - selenium-grid-session-queuer-service.yaml
+  - selenium-grid-session-queue-service.yaml
   # Nodes
   - selenium-grid-node-chrome.yaml
   - selenium-grid-node-firefox.yaml
