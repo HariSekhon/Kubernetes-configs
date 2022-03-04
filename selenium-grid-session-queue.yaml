@@ -22,19 +22,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: selenium-session-queuer
+  name: selenium-session-queue
   namespace: selenium
   labels:
-    app: selenium-session-queuer
+    app: selenium-session-queue
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: selenium-session-queuer
+      app: selenium-session-queue
   template:
     metadata:
       labels:
-        app: selenium-session-queuer
+        app: selenium-session-queue
     spec:
       priorityClassName: high-priority
       affinity:
@@ -55,8 +55,8 @@ spec:
       securityContext:
         runAsNonRoot: true
       containers:
-        - name: selenium-session-queuer
-          image: selenium/session-queuer:4.1.2
+        - name: selenium-session-queue
+          image: selenium/session-queue:4.1.2
           ports:
             - containerPort: 5559
           env:
