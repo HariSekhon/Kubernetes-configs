@@ -66,10 +66,13 @@ spec:
       serviceAccountName: jenkins-server
       containers:
         - name: jenkins-server
-          #image: jenkins/jenkins:2.228
-          # XXX: beware this may auto-upgrade and you may have to upgrade all plugins to fix broken configuration pages
-          # XXX: better to fix this to a specific version
+          # XXX: BEWARE LTS tag will auto-upgrade - will inevitably break some plugins which could break SSO login or all pipelines referencing plugin method such as slackSend with the error below:
+          #
+          #         java.lang.NoSuchMethodError: 'com.google.common.hash.HashCode com.google.common.hash.HashFunction.hashString(java.lang.CharSequence)'
+          #
+          # XXX: FIX to a specific LTS version number
           image: jenkins/jenkins:lts
+          #image: jenkins/jenkins:2.228
           ports:
             - name: http  # UI
               containerPort: 8080
