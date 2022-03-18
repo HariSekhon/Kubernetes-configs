@@ -17,6 +17,8 @@
 #                   D a t a D o g   K u s t o m i z a t i o n
 # ============================================================================ #
 
+# https://docs.datadoghq.com/agent/kubernetes/?tab=helm
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
