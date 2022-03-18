@@ -1,0 +1,170 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-03-17 19:16:49 +0000 (Thu, 17 Mar 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                    D a t a D o g   C h a r t   V a l u e s
+# ============================================================================ #
+
+# https://docs.datadoghq.com/agent/kubernetes/helm/
+
+# helm repo add datadog https://helm.datadoghq.com
+#
+# helm show values datadog/datadog >> datadog-values.yaml
+
+---
+# registry -- Registry to use for all Agent images (default gcr.io)
+#registry: gcr.io/datadoghq			   # GCP (default)
+#registry: public.ecr.aws/datadog  # AWS
+#registry: docker.io/datadog       # DockerHub
+
+datadog:
+  # datadog.apiKey -- Your Datadog API key
+  # ref: https://app.datadoghq.com/account/settings#agent/kubernetes
+  #apiKey: <DATADOG_API_KEY> # DON'T DO THIS! Specify existing secret and load them without committing them to git
+
+  # datadog.apiKeyExistingSecret -- Use existing Secret which stores API key instead of creating a new one. The value should be set with the `api-key` key inside the secret.
+  ## If set, this parameter takes precedence over "apiKey".
+  apiKeyExistingSecret: datadog-agent
+
+  # datadog.appKey -- Datadog APP key required to use metricsProvider
+  ## If you are using clusterAgent.metricsProvider.enabled = true, you must set
+  ## a Datadog application key for read access to your metrics.
+  #appKey: <DATADOG_APP_KEY> # DON'T DO THIS! Specify existing secret and load them without committing them to git
+
+  # datadog.appKeyExistingSecret -- Use existing Secret which stores APP key instead of creating a new one. The value should be set with the `app-key` key inside the secret.
+  ## If set, this parameter takes precedence over "appKey".
+  #appKeyExistingSecret: datadog-agent
+
+  # datadog.site -- The site of the Datadog intake to send Agent data to
+  ## Set to 'datadoghq.eu' to send data to the EU site.
+  site: datadoghq.com
+
+  # datadog.dd_url -- The host of the Datadog intake server to send Agent data to, only set this option if you need the Agent to send data to a custom URL
+  ## Overrides the site setting defined in "site".
+  #dd_url:  # https://app.datadoghq.com
+
+  # datadog.logLevel -- Set logging verbosity, valid log levels are: trace, debug, info, warn, error, critical, off
+  logLevel: INFO
+
+  leaderElection: true
+  collectEvents: true
+  logs:
+    enabled: true
+    containerCollectAll: true
+    containerCollectUsingFiles: true
+    #autoMultiLineDetection: true
+
+clusterAgent:
+  enabled: true
+  resources: {}
+  # requests:
+  #   cpu: 200m
+  #   memory: 256Mi
+  # limits:
+  #   cpu: 200m
+  #   memory: 256Mi
+
+  volumeMounts: []
+
+agents:
+  enabled: true
+
+  containers:
+    agent:
+      env: []
+      envFrom: []
+      #   - configMapRef:
+      #       name: <CONFIGMAP_NAME>
+      #   - secretRef:
+      #       name: <SECRET_NAME>
+
+      resources: {}
+      #  requests:
+      #    cpu: 200m
+      #    memory: 256Mi
+      #  limits:
+      #    cpu: 200m
+      #    memory: 256Mi
+
+    processAgent:
+      env: []
+      envFrom: []
+      #   - configMapRef:
+      #       name: <CONFIGMAP_NAME>
+      #   - secretRef:
+      #       name: <SECRET_NAME>
+
+      resources: {}
+      #  requests:
+      #    cpu: 100m
+      #    memory: 200Mi
+      #  limits:
+      #    cpu: 100m
+      #    memory: 200Mi
+
+    traceAgent:
+      env:
+      envFrom: []
+      #   - configMapRef:
+      #       name: <CONFIGMAP_NAME>
+      #   - secretRef:
+      #       name: <SECRET_NAME>
+
+      resources: {}
+      #  requests:
+      #    cpu: 100m
+      #    memory: 200Mi
+      #  limits:
+      #    cpu: 100m
+      #    memory: 200Mi
+
+    systemProbe:
+      env: []
+      envFrom: []
+      #   - configMapRef:
+      #       name: <CONFIGMAP_NAME>
+      #   - secretRef:
+      #       name: <SECRET_NAME>
+
+      resources: {}
+      #  requests:
+      #    cpu: 100m
+      #    memory: 200Mi
+      #  limits:
+      #    cpu: 100m
+      #    memory: 200Mi
+
+    securityAgent:
+      env:
+      envFrom: []
+      #   - configMapRef:
+      #       name: <CONFIGMAP_NAME>
+      #   - secretRef:
+      #       name: <SECRET_NAME>
+
+      resources: {}
+      #  requests:
+      #    cpu: 100m
+      #    memory: 200Mi
+      #  limits:
+      #    cpu: 100m
+      #    memory: 200Mi
+
+  # agents.volumeMounts -- Specify additional volumes to mount in all containers of the agent pod
+  volumeMounts: []
+    #- name: my-config-map
+    #  subPath: my-config
+    #  mountPath: /etc/datadog-agent/conf.d/myapp.d/conf.yaml
+    #  readOnly: true
