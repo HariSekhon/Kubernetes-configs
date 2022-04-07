@@ -21,7 +21,7 @@
 # https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
 
 ---
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: NAME-schedule
