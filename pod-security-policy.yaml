@@ -27,7 +27,7 @@
 # https://github.com/kubernetes/examples/blob/master/staging/podsecuritypolicy/rbac/README.md
 
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodSecurityPolicy
 metadata:
   name: noprivpods
