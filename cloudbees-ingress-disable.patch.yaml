@@ -16,9 +16,9 @@
 # Disables the CloudBees Core CI ingress so it doesn't forward through the Nginx Ingress
 
 ---
-# it's using an old ingress object
-#apiVersion: networking.k8s.io/v1
-apiVersion: extensions/v1beta1
+# it's still using an old ingress object
+#apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cjoc
