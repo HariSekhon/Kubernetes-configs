@@ -17,6 +17,8 @@
 #                  K e y c l o a k   K u s t o m i z a t i o n
 # ============================================================================ #
 
+# https://artifacthub.io/packages/helm/bitnami/keycloak
+
 # https://github.com/bitnami/bitnami-docker-keycloak
 
 ---
