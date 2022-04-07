@@ -17,6 +17,8 @@
 #                                  Chart Values
 # ============================================================================ #
 
+# https://artifacthub.io/packages/helm/bitnami/keycloak
+
 # https://github.com/bitnami/bitnami-docker-keycloak
 
 # helm repo add bitnami https://charts.bitnami.com/bitnami
