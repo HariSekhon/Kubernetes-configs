@@ -1,0 +1,98 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-04-20 17:28:47 +0100 (Wed, 20 Apr 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#        C o n c o u r s e / C o n c o u r s e   C h a r t   V a l u e s
+# ============================================================================ #
+
+# helm repo add concourse https://concourse-charts.storage.googleapis.com/
+#
+# helm show values concourse/concourse >> concourse-values.yaml
+
+---
+#image: concourse/concourse
+#imageTag: "7.7.0"
+#imagePullPolicy: IfNotPresent
+
+## Configuration values for the Concourse application (worker and web components).
+## The values specified here are almost direct references to the flags under the
+## `concourse web` and `concourse worker` commands.
+##
+concourse:
+  ## Configurations for the `web` component based on the possible flags configurable
+  ## through the `concourse web` command.
+  ##
+  web:
+    clusterName:  # XXX: Edit
+
+## Configuration values for Concourse Web components.
+## For more information regarding the characteristics of
+## Concourse Web nodes, see https://concourse-ci.org/concourse-web.html.
+##
+web:
+  enabled: true
+  replicas: 1
+  args: ["web"]
+  livenessProbe:
+    failureThreshold: 5
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 3
+    httpGet:
+      path: /api/v1/info
+      port: atc
+  readinessProbe:
+    httpGet:
+      path: /api/v1/info
+      port: atc
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+
+worker:
+  enabled: true
+  kind: StatefulSet
+  cleanUpWorkDirOnStart: true
+  replicas: 2
+  minAvailable: 1
+  livenessProbe:
+    failureThreshold: 5
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 3
+    httpGet:
+      path: /
+      port: worker-hc
+  readinessProbe: {}
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "512Mi"
+
+persistence:
+  enabled: true
+
+  worker:
+    ## concourse data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    storageClass:
+    accessMode: ReadWriteOnce
+    size: 20Gi
