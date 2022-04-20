@@ -17,11 +17,12 @@
 #                 C o n c o u r s e   K u s t o m i z a t i o n
 # ============================================================================ #
 
-    # these both seem to ignores the Helm namespace - see https://github.com/concourse/concourse-chart/issues/298
+# both concourse/concourse and bitnami/concourse charts seem to ignore the Helm namespace - see https://github.com/concourse/concourse-chart/issues/298
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-# XXX: workaround for charts not adding namespace to all objects, resulting in deployments to 'default' namespace or similar
+# XXX: workaround for charts not adding namespace to all objects, resulting in many objects being created in default context's namespace - https://github.com/concourse/concourse-chart/issues/298
 namespace: concourse
 
 helmCharts:
@@ -34,7 +35,7 @@ helmCharts:
     #version: 1.0.16
     #
     releaseName: concourse
-    namespace: concourse  # concourse/concourse chart seems to ignore this, putting stuff in default context's namespace - https://github.com/concourse/concourse-chart/issues/298
+    namespace: concourse  # concourse/concourse and bitnami/concourse charts both seem to ignore this, putting stuff in default context's namespace - https://github.com/concourse/concourse-chart/issues/298
     # for concourse/concourse:
     valuesFile: concourse-values.yaml
     # for bitname/concourse:
