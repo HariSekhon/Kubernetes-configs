@@ -1,0 +1,41 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-04-20 17:54:59 +0100 (Wed, 20 Apr 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                 C o n c o u r s e   K u s t o m i z a t i o n
+# ============================================================================ #
+
+    # these both seem to ignores the Helm namespace - see https://github.com/concourse/concourse-chart/issues/298
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+# XXX: workaround for charts not adding namespace to all objects, resulting in deployments to 'default' namespace or similar
+namespace: concourse
+
+helmCharts:
+  - name: concourse
+    repo: https://concourse-charts.storage.googleapis.com/
+    version: 16.1.21
+    # or
+    # https://artifacthub.io/packages/helm/bitnami/concourse
+    #repo: https://charts.bitnami.com/bitnami
+    #version: 1.0.16
+    #
+    releaseName: concourse
+    namespace: concourse  # concourse/concourse chart seems to ignore this, putting stuff in default context's namespace - https://github.com/concourse/concourse-chart/issues/298
+    # for concourse/concourse:
+    valuesFile: concourse-values.yaml
+    # for bitname/concourse:
+    #valuesFile: concourse-values-bitnami.yaml
