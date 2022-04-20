@@ -1,0 +1,134 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-04-20 18:20:01 +0100 (Wed, 20 Apr 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#          B i t n a m i / C o n c o u r s e   C h a r t   V a l u e s
+# ============================================================================ #
+
+# helm repo add bitnami https://charts.bitnami.com/bitnami
+#
+# helm show values bitnami/concourse >> concourse-values.yaml
+
+---
+web:
+  enabled: true
+  baseUrl: /
+  logLevel: debug  # info, error
+  clusterName: ""
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 3
+    failureThreshold: 1
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 3
+    failureThreshold: 1
+    successThreshold: 1
+  startupProbe:
+    enabled: false
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 1
+    failureThreshold: 15
+    successThreshold: 1
+  resources:
+    limits: {}
+    requests: {}
+
+worker:
+  enabled: true
+  logLevel: debug  # info, error
+  replicaCount: 2
+  mode: deployment  # or statefulset - deployment uses ephemeral workers, doesn't retain state between restarts
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 3
+    failureThreshold: 1
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 3
+    failureThreshold: 1
+    successThreshold: 1
+  startupProbe:
+    enabled: false
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 1
+    failureThreshold: 15
+    successThreshold: 1
+  resources:
+    limits: {}
+    requests: {}
+  containerSecurityContext:
+    enabled: true
+    privileged: true
+    runAsUser: 0
+
+  # HPA
+  autoscaling:
+    enabled: false
+    maxReplicas: ""
+    minReplicas: ""
+    builtInMetrics: []
+    customMetrics: []
+
+  pdb:
+    create: true
+    minAvailable: 2
+    maxUnavailable: ""
+
+  psp:
+    create: false
+
+  persistence:
+    enabled: true
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 8Gi
+
+service:
+  web:
+    type: ClusterIP
+
+postgresql:
+  enabled: true
+  auth:
+    enablePostgresUser: false
+    username: bn_concourse
+    password: ""
+    database: bitnami_concourse
+    existingSecret: ""
+  architecture: standalone
+
+## All of these values are only used when postgresql.enabled is set to false
+externalDatabase:
+  host: localhost
+  port: 5432
+  user: bn_concourse
+  password: ""
+  database: bitnami_concourse
+  existingSecret: ""
+  existingSecretPasswordKey: ""
