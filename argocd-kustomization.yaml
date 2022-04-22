@@ -39,6 +39,12 @@ namespace: argocd
 # so keep it simple, this works:
 #- github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.0.3
 
+# or integrate the newer helm chart:
+#
+#   https://github.com/argoproj/argo-helm/tree/master/charts/argo-cd
+#
+# (see kustomization.yaml for how to do this)
+#
 resources:
   #- https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.1.7/manifests/ha/install.yaml
