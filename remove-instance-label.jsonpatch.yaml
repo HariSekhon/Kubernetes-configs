@@ -13,7 +13,9 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# Removes the label app.kubernetes.io/instance which causes SharedResourceWarning in ArgoCD when deploying Cert-Manager
+# Removes the label app.kubernetes.io/instance which causes SharedResourceWarning in ArgoCD when deploying Cert-Manager, eg:
+#
+#  SharedResourceWarning   CustomResourceDefinition/certificaterequests.cert-manager.io is part of applications cert-manager-production and cert-manager
 #
 #   https://github.com/argoproj/argo-cd/issues/6728
 
