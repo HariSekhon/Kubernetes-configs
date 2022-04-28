@@ -31,6 +31,12 @@
 - op: replace
   path: /path/to/key
   value: string_or_struct
+
+- op: remove
+  # slashes must be replaced with ~1 so 'app.kubernetes.io/instance'
+  #                             becomes 'app.kubernetes.io~1instance'
+  path: /metadata/labels/app.kubernetes.io~1instance
+
 - op: add
   path: /spec/template/spec/containers/0/command/-
   value: --extra-switch
