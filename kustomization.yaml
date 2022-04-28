@@ -181,7 +181,7 @@ patches:
     target:
       kind: HorizontalPodAutoscaler
 
-  # label app.kubernetes.io/instance=cert-manager causes warnings for all 6 Cert Manager CRDs in ArgoCD, eg.:
+  # label app.kubernetes.io/instance=cert-manager causes warnings for all 6 Cert Manager CRDs in ArgoCD, eg:
   #
   #  SharedResourceWarning 	CustomResourceDefinition/certificaterequests.cert-manager.io is part of applications cert-manager-production and cert-manager
   #
