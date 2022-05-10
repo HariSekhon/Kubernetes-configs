@@ -4,7 +4,7 @@
 #
 #  vim:ts=2:sts=2:sw=2:et
 #
-#  https://github.com/harisekhon/Kubernetes-configs
+#  https://github.com/HariSekhon/Kubernetes-configs
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
@@ -192,7 +192,7 @@ spec:
       initContainers:
         - name: init-files
           image: alpine/git
-          command: ['git', 'clone', 'https://github.com/harisekhon/devops-python-tools /data']
+          command: ['git', 'clone', 'https://github.com/HariSekhon/DevOps-Python-tools /data']
           volumeMounts:
             - name: app-vol
               mountPath: /data

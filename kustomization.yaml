@@ -79,7 +79,7 @@ resources:
   #
   # helm_template.sh is a convenience script if downloading the helm template output for serving out of Git, get it here:
   #
-  #     https://github.com/harisekhon/devops-bash-tools
+  #     https://github.com/HariSekhon/DevOps-Bash-tools
   #
   #   helm_template.sh "$repo_url" "$repo/$chart" -f values.yaml --version "$version" > helm.yaml
   #
