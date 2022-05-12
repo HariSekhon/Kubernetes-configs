@@ -3,6 +3,7 @@
 #  Date: 2020-12-15 11:39:45 +0000 (Tue, 15 Dec 2020)
 #
 #  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #
