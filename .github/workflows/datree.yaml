@@ -76,8 +76,8 @@ jobs:
     name: Datree
     uses: HariSekhon/GitHub-Actions/.github/workflows/datree.yaml@master
     with:
-      path: ${{ github.event.inputs.path }}
-      cliArguments: ${{ github.event.inputs.args }}
+      path: ${{ github.event.inputs.path || '*.y*ml' }}
+      cliArguments: ${{ github.event.inputs.args || '--only-k8s-files' }}
       isHelmChart: ${{ github.event.inputs.isHelmChart }}
       helmArguments: ${{ github.event.inputs.helmArguments }}
       isKustomization: ${{ github.event.inputs.isKustomization }}
