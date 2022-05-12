@@ -41,7 +41,7 @@ on:
     inputs:
       path:
         type: string
-        default: '**/*.y*ml'
+        default: '*.yaml'
         required: false
       # https://hub.datree.io/setup/cli-arguments
       args:
