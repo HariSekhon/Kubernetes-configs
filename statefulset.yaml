@@ -151,15 +151,6 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: my-secret
-          #lifecycle:
-          #  postStart:
-          #    exec:
-          #      command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
-          #  preStop:
-          #    exec:
-          #      # recent nginx-ingress already has this, but still a decent example to gracefully finish connections on your own nginx via SIGQUIT not SIGTERM
-          #      # also remember to increase terminationGracePeriodSeconds
-          #      command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
           readinessProbe:
             # http, tcp or exec
             #httpGet:
@@ -191,6 +182,16 @@ spec:
             - name: env
               mountPath: /app/.env
               subPath: .env
+          #lifecycle:
+          #  postStart:
+          #    exec:
+          #      command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+          #  preStop:
+          #    exec:
+          #      # recent nginx-ingress already has this, but still a decent example to gracefully finish connections on your own nginx via SIGQUIT not SIGTERM
+          #      # also remember to increase terminationGracePeriodSeconds
+          #      command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
+
         #
         # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhost
         #
