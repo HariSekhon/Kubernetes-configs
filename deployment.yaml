@@ -3,6 +3,7 @@
 #  Date: [% DATE  # 2019-11-25 13:47:16 +0000 (Mon, 25 Nov 2019) %]
 #
 #  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #
@@ -39,6 +40,8 @@ metadata:
     #link.argocd.argoproj.io/external-link: http://www.domain.com/path
 spec:
   paused: false
+  minReadySeconds: 0  # secs healthy before serving
+  progressDeadlineSeconds: 120
   revisionHistoryLimit: 10  # how many ReplicaSets specs to retain for rollbacks
   strategy:
     type: RollingUpdate
@@ -79,12 +82,12 @@ spec:
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 1  # 1 to 100, higher is stronger
               preference:
-                - matchExpressions:
-                    - key: accelerator-type
-                      operator: In
-                      values:
-                        - gpu
-                        - tpu
+                matchExpressions:
+                  - key: accelerator-type
+                    operator: In
+                    values:
+                      - gpu
+                      - tpu
               # XXX: prefer non-preemptible VMs unless unavailable
             - weight: 100
               preference:
@@ -176,12 +179,9 @@ spec:
           operator: Equal
           value: spot
           effect: NoSchedule
-      minReadySeconds: 0  # secs healthy before serving
-      progressDeadlineSeconds: 120
       terminationGracePeriodSeconds: 120  # how long between SIGTERM and SIGKILL (kill -9) - may want to set higher than default 30 secs eg. 1800 for Cassandra
       dnsPolicy: ClusterFirst # use coredns, Default uses node's dns resolution
       restartPolicy: Always
-      terminationMessagePolicy: File  # FallbackToLogsOnError to use container logs if message file is empty upon container error
       #serviceAccountName: NAME
       securityContext:
         # see pod-security-policy.yaml for wider enforcement
@@ -265,9 +265,11 @@ spec:
           volumeMounts:
             - name: APP-vol
               mountPath: /mnt/APP-vol
+              readOnly: true
             - name: env
               mountPath: /app/.env
               subPath: .env
+              readOnly: true
           securityContext:
             privileged: false
             allowPrivilegeEscalation: false
@@ -292,6 +294,7 @@ spec:
                   - -c
                   - nodetool drain
           terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File  # FallbackToLogsOnError to use container logs if message file is empty upon container error
         #
         # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhosta (see also cloud-sql-proxy*.yaml for a standalone shared deployment & service)
         #
@@ -339,8 +342,8 @@ spec:
       volumes:
         - name: APP-vol
           # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
-          claimName: APP-dynamic-pvc
-          readOnly: true
+          persistentVolumeClaim:
+            claimName: APP-dynamic-pvc
         - name: env
           configMap:
             name: myconfigmap
