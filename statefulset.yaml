@@ -3,6 +3,7 @@
 #  Date: [% DATE  # 2019-11-28 18:51:59 +0000 (Thu, 28 Nov 2019) %]
 #
 #  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #
@@ -42,8 +43,6 @@ spec:
   selector:
     matchLabels:
       app: APP
-  nodeSelector:
-    disktype: ssd
   template:
     metadata:
       labels:
@@ -113,16 +112,10 @@ spec:
                       - APP
       #serviceAccountName: NAME
       securityContext:
-        privileged: false
-        allowPrivilegeEscalation: false
-        readOnlyRootFilesystem: true
         # see pod-security-policy.yaml for wider enforcement
         runAsNonRoot: true
         #runAsUser: 0   # not recommended
         fsGroup: 1000   # group to own volumeMounts so they can be written to by the user-level process
-        capabilities:
-          drop:
-            - ALL
       containers:
         - name: NAME
           image: postgres:9.6
@@ -130,8 +123,11 @@ spec:
             - name: postgres
               containerPort: 5432
               protocol: TCP
-          #securityContext:
-          #  privileged: true
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           env:
             - name: HEAP_SIZE
               value: 1G
