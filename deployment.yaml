@@ -190,16 +190,16 @@ spec:
         fsGroup: 1000   # group to own volumeMounts so they can be written to by the user-level process
       initContainers:
         - name: init-files
-          image: alpine/git
+          image: alpine/git:latest
           command: ['git', 'clone', 'https://github.com/HariSekhon/DevOps-Python-tools /data']
           volumeMounts:
             - name: app-vol
               mountPath: /data
         - name: init-mysql-service
-          image: busybox
+          image: busybox:latest
           command: ['sh', '-c', 'until nslookup mysql; do echo waiting for mysql service DNS to come up; sleep 1; done']
         - name: init-mysql-endpoint
-          image: busybox
+          image: busybox:latest
           command: ['sh', '-c', 'until nc -z mysql 3306; do echo waiting for mysql endpoint port to come up; sleep 1; done']
       containers:
         - name: master
@@ -271,6 +271,7 @@ spec:
               subPath: .env
               readOnly: true
           securityContext:
+            runAsNonRoot: true
             privileged: false
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -335,10 +336,10 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 128Mi
+              memory: 128mi
             limits:
               cpu: "1"
-              memory: 2Gi
+              memory: 2gi
       volumes:
         - name: APP-vol
           # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
