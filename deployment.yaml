@@ -181,7 +181,6 @@ spec:
       terminationGracePeriodSeconds: 120  # how long between SIGTERM and SIGKILL (kill -9) - may want to set higher than default 30 secs eg. 1800 for Cassandra
       dnsPolicy: ClusterFirst # use coredns, Default uses node's dns resolution
       restartPolicy: Always
-      terminationMessagePath: /dev/termination-log
       terminationMessagePolicy: File  # FallbackToLogsOnError to use container logs if message file is empty upon container error
       #serviceAccountName: NAME
       securityContext:
@@ -229,15 +228,6 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: my-secret
-          #lifecycle:
-          # postStart:
-          #   exec:
-          #     command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
-          # preStop:
-          #   exec:
-          #     # recent nginx-ingress already has this, but still a decent example to gracefully finish connections on your own nginx via SIGQUIT not SIGTERM
-          #     # also remember to increase terminationGracePeriodSeconds
-          #     command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
           readinessProbe:
             # http, tcp or exec
             httpGet:
@@ -287,14 +277,21 @@ spec:
                 - ALL
               add: ["IPC_LOCK"]  # allow mlock to avoid paging ram to disk, for security or performance eg. NoSQL low latency datastores
           lifecycle:
+           #postStart:
+           #  exec:
+           #    command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
             # execute this when sending TERM to container
             preStop:
               # http call or exec
               exec:
+                # recent nginx-ingress already has this, but still a decent example to gracefully finish connections on your own nginx via SIGQUIT not SIGTERM
+                # also remember to increase terminationGracePeriodSeconds
+                #command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
                 command:
                   - /bin/sh
                   - -c
                   - nodetool drain
+          terminationMessagePath: /dev/termination-log
         #
         # GCP Cloud SQL Proxy sidecar - app can then connect to DB at localhosta (see also cloud-sql-proxy*.yaml for a standalone shared deployment & service)
         #
