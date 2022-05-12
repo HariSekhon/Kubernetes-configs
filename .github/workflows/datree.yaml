@@ -40,6 +40,7 @@ on:
       path:
         type: string
         required: false
+      # https://hub.datree.io/setup/cli-arguments
       args:
         type: string
         required: false
