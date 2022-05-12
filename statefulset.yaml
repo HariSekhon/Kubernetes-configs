@@ -124,7 +124,10 @@ spec:
               containerPort: 5432
               protocol: TCP
           securityContext:
+            runAsNonRoot: true
+            privileged: false
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -147,6 +150,13 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: my-secret
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128mi
+            limits:
+              cpu: "1"
+              memory: 2gi
           readinessProbe:
             # http, tcp or exec
             #httpGet:
@@ -207,6 +217,29 @@ spec:
             # The default Cloud SQL proxy image runs as the
             # "nonroot" user and group (uid: 65532) by default.
             runAsNonRoot: true
+            privileged: false
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128mi
+            limits:
+              cpu: "1"
+              memory: 2gi
+          readinessProbe:
+            tcpSocket:
+              #port: 3306  # mysql
+              port: 5432   # postgres
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              #port: 3306  # mysql
+              port: 5432   # postgres
+            failureThreshold: 10
       volumes:
         - name: env
           configMap:
