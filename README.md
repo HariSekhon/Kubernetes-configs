@@ -57,6 +57,18 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 
 ...then patch override anything the chart doesn't directly support using the standard Kustomize patching examples given in the [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
 
+## Production Ready Checklist
+
+- Healthchecks - readiness/liveness probes, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
+- Pod Disruption Budget - see [pod-disruption-budget.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-disruption-budget.yaml)
+- Horizontal Pod Autoscaler - see [horizontal-pod-autoscaler.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/horizontal-pod-autoscaler.yaml)
+- Lifecycle Management & Reconciliation - see` argocd*.yaml`
+- Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
+- Right-sizing - deploy `goldilocks*.yaml` to generate VPAs and recommendations
+- Ingress - see `ingress*.yaml`
+- SSL - see `cert-manager*.yaml` for auto SSL
+- Governance & Best Practices - see `polaris*.yaml`
+
 ## Further Documention
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open these URLs from the current file via a hotkey!)
