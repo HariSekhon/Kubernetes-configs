@@ -62,13 +62,14 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 
 - Healthchecks - readiness/liveness probes, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
 - Pod Disruption Budget - see [pod-disruption-budget.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-disruption-budget.yaml)
+- Pod [Anti-]Affinity - for HA across AZs, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
 - Horizontal Pod Autoscaler - see [horizontal-pod-autoscaler.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/horizontal-pod-autoscaler.yaml)
-- Lifecycle Management & Reconciliation - see` argocd*.yaml`
+- Apps Lifecycle Management - deploy `argocd*.yaml`
 - Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
 - Right-sizing - deploy `goldilocks*.yaml` to generate VPAs and recommendations
-- Ingress - see `ingress*.yaml`
-- SSL - see `cert-manager*.yaml` for auto SSL
-- Governance & Best Practices - see `polaris*.yaml`
+- Ingress - deploy `ingress*.yaml`
+- SSL - deploy `cert-manager*.yaml` for auto SSL
+- Governance, Security & Best Practices - deploy `polaris*.yaml` for recommendations
 
 ## Further Documention
 
