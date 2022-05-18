@@ -64,4 +64,4 @@ test: bash-tools
 
 .PHONY: wc
 wc:
-	find . -type f -name '*.yaml'  | xargs wc -l
+	find . -type f -name '*.yaml' -o -type f -name '*.json' | xargs wc -l
