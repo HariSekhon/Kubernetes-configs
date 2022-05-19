@@ -61,15 +61,15 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 ## Production Ready Checklist
 
 - Healthchecks - readiness/liveness probes, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- Pod Disruption Budget - see [pod-disruption-budget.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-disruption-budget.yaml)
-- Pod [Anti-]Affinity - for HA across AZs, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- Horizontal Pod Autoscaler - see [horizontal-pod-autoscaler.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/horizontal-pod-autoscaler.yaml)
-- Apps Lifecycle Management - deploy `argocd*.yaml`
+- Pod Disruption Budget - [pod-disruption-budget.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-disruption-budget.yaml)
+- Pod Anti-Affinity - stable vs preemptible, HA across AZs, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
+- Horizontal Pod Autoscaler - [horizontal-pod-autoscaler.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/horizontal-pod-autoscaler.yaml)
+- Apps Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) - `argocd*.yaml`
 - Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- Right-sizing - deploy `goldilocks*.yaml` to generate VPAs and recommendations
-- Ingress - deploy `ingress*.yaml`
-- SSL - deploy `cert-manager*.yaml` for auto SSL
-- Governance, Security & Best Practices - deploy `polaris*.yaml` for recommendations
+- Right-sizing - [Goldilocks](https://www.fairwinds.com/goldilocks -) - `goldilocks*.yaml` to generate VPAs and resource recommendations
+- Ingress - `ingress*.yaml`
+- SSL - [Cert Manager](https://cert-manager.io/) `cert-manager*.yaml` for auto SSL
+- Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) - `polaris*.yaml` for recommendations, eg. avoid running as root etc.
 
 ## Further Documention
 
