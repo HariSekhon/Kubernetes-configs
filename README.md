@@ -66,7 +66,7 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - Horizontal Pod Autoscaler - [horizontal-pod-autoscaler.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/horizontal-pod-autoscaler.yaml)
 - Apps Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) - `argocd*.yaml`
 - Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- Right-sizing - [Goldilocks](https://www.fairwinds.com/goldilocks -) - `goldilocks*.yaml` to generate VPAs and resource recommendations
+- Right-sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) - `goldilocks*.yaml` to generate VPAs and resource recommendations
 - Ingress - `ingress*.yaml`
 - SSL - [Cert Manager](https://cert-manager.io/) `cert-manager*.yaml` for auto SSL
 - Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) - `polaris*.yaml` for recommendations, eg. avoid running as root etc.
