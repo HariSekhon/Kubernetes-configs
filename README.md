@@ -76,6 +76,10 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open these URLs from the current file via a hotkey!)
 
+## Extra Docs
+
+[Datree Kubernetes ArgoCD best practices](https://www.datree.io/resources/argocd-best-practices-you-should-know)
+
 ## Environment Enhancements
 
 [.envrc](https://github.com/HariSekhon/Kubernetes-configs/blob/master/.envrc) - use with `direnv` to auto-load correct Kubernetes context isolated to current shell to avoid race conditions between shells and scripts caused by naively changing the global `~/.kube/config` context
