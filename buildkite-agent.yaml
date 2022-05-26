@@ -90,3 +90,19 @@ spec:
             requests:
               cpu: 200m
               memory: 256Mi
+          readinessProbe:
+            exec:
+              command:
+                - pgrep buildkite-agent
+          livenessProbe:
+            exec:
+              command:
+                - pgrep buildkite-agent
+          securityContext:
+            #runAsNonRoot: true
+            privileged: false
+            allowPrivilegeEscalation: false
+            #readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
