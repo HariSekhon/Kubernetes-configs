@@ -56,7 +56,8 @@ on:
         required: false
       isKustomization:
         type: boolean
-        required: true
+        default: true
+        required: false
       kustomizeArguments:
         type: string
         required: false
