@@ -71,7 +71,7 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - Right-sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) - `goldilocks*.yaml` to generate VPAs and resource recommendations
 - Ingress - `ingress*.yaml`
 - SSL - [Cert Manager](https://cert-manager.io/) `cert-manager*.yaml` for auto SSL
-- Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) - `polaris*.yaml` for recommendations, eg. avoid running as root etc.
+- Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) - `polaris*.yaml` for recommendations
 
 ## Further Documention
 
