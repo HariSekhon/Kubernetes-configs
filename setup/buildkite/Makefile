@@ -18,7 +18,9 @@ default: build
 	@:
 
 build:
-	ln -svf ../../buildkite* .
+	@# symlinks don't work with Kustomize
+	@#ln -svf ../../buildkite* .
+	cp -avf ../../buildkite* .
 	@# refuses to use a symlink
 	cat buildkite-kustomization.yaml > kustomization.yaml
 	kubectl config use-context docker-desktop
@@ -29,4 +31,5 @@ build:
 	kustomize build | kubectl apply -f -
 
 clean:
+	rm -f *.yaml
 	kubectl delete ns buildkite
