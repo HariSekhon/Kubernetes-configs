@@ -48,16 +48,6 @@ on:
         type: string
         default: --only-k8s-files
         required: false
-      isHelmChart:
-        type: boolean
-        required: false
-      helmArguments:
-        type: string
-        required: false
-      isKustomization:
-        type: boolean
-        default: true
-        required: false
       kustomizeArguments:
         type: string
         required: false
@@ -81,7 +71,7 @@ jobs:
       cliArguments: ${{ github.event.inputs.args || '--only-k8s-files' }}
       isHelmChart: ${{ github.event.inputs.isHelmChart }}
       helmArguments: ${{ github.event.inputs.helmArguments }}
-      isKustomization: ${{ github.event.inputs.isKustomization }}
+      isKustomization: true
       kustomizeArguments: ${{ github.event.inputs.kustomizeArguments }}
     secrets:
       DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
