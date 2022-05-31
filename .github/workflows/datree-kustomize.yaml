@@ -50,6 +50,7 @@ on:
         required: false
       kustomizeArguments:
         type: string
+        default: .
         required: false
 
 permissions:
@@ -72,6 +73,6 @@ jobs:
       isHelmChart: ${{ github.event.inputs.isHelmChart }}
       helmArguments: ${{ github.event.inputs.helmArguments }}
       isKustomization: true
-      kustomizeArguments: ${{ github.event.inputs.kustomizeArguments }}
+      kustomizeArguments: ${{ github.event.inputs.kustomizeArguments || '.' }}
     secrets:
       DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
