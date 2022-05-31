@@ -41,7 +41,7 @@ on:
     inputs:
       path:
         type: string
-        default: '**.y*ml'
+        default: '.'
         required: false
       # https://hub.datree.io/setup/cli-arguments
       args:
@@ -50,7 +50,6 @@ on:
         required: false
       kustomizeArguments:
         type: string
-        default: .
         required: false
 
 permissions:
@@ -68,11 +67,11 @@ jobs:
     name: Kustomize
     uses: HariSekhon/GitHub-Actions/.github/workflows/datree.yaml@master
     with:
-      path: ${{ github.event.inputs.path || '**.y*ml' }}
+      path: ${{ github.event.inputs.path || '.' }}
       cliArguments: ${{ github.event.inputs.args || '--only-k8s-files' }}
       isHelmChart: ${{ github.event.inputs.isHelmChart }}
       helmArguments: ${{ github.event.inputs.helmArguments }}
       isKustomization: true
-      kustomizeArguments: ${{ github.event.inputs.kustomizeArguments || '.' }}
+      kustomizeArguments: ${{ github.event.inputs.kustomizeArguments }}
     secrets:
       DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
