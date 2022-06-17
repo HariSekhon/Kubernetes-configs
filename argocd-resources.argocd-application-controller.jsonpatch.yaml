@@ -24,9 +24,10 @@
 - op: add
   path: /spec/template/spec/containers/0/resources
   value:
+    # App Controller is quite CPU hungry, and can hit context deadline exceeded issues otherwise
     requests:
-      cpu: 1.8
+      cpu: '2'
       memory: 4Gi
     limits:
-      cpu: 2.5
+      cpu: '4'
       memory: 6Gi
