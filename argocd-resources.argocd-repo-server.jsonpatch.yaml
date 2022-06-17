@@ -25,8 +25,16 @@
   path: /spec/template/spec/containers/0/resources
   value:
     requests:
-      cpu: 50m
-      memory: 1Gi
+      # Goldilocks / VPA recommended 50m CPU but for larger app consistently hitting this error:
+      #
+      # ComparisonError: rpc error: code = Unknown desc = Manifest generation error (cached): kustomize build /tmp/git@github.com_<owner>_kubernetes/<path> --enable-helm failed timeout after 1m30s
+      #
+      # See this ticket for more details:
+      #
+      #   https://github.com/argoproj/argo-cd/issues/9701
+      #
+      cpu: 150m
+      memory: 1.1Gi
     limits:
-      cpu: 200m
+      cpu: 300m
       memory: 1.5Gi
