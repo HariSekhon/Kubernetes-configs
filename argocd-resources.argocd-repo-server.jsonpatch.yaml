@@ -33,8 +33,8 @@
       #
       #   https://github.com/argoproj/argo-cd/issues/9701
       #
-      cpu: 150m
+      cpu: 500m
       memory: 1.1Gi
     limits:
-      cpu: 300m
+      cpu: '2'
       memory: 1.5Gi
