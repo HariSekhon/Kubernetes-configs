@@ -27,6 +27,10 @@ resources:
   - tekton-pipeline.yaml
   #- tekton-pipelinerun.yaml
 
+# https://github.com/cdfoundation/tekton-helm-chart
+#
+# https://github.com/cdfoundation/tekton-helm-chart/blob/master/charts/tekton-pipeline/README.md
+#
 #helmCharts:
 #  - name: cdf/tekton-pipeline
 #    repo: https://cdfoundation.github.io/tekton-helm-chart/
