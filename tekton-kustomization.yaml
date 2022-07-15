@@ -1,0 +1,36 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-07-15 21:14:23 +0100 (Fri, 15 Jul 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint:k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+
+resources:
+  - tekton-task.yaml
+  #- tekton-taskrun.yaml
+  - tekton-pipeline.yaml
+  #- tekton-pipelinerun.yaml
+
+#helmCharts:
+#  - name: cdf/tekton-pipeline
+#    repo: https://cdfoundation.github.io/tekton-helm-chart/
+#    version: 0.29.0
+#    releaseName: tekton
+#    namespace: tekton
+#    valuesFile: tekton-values.yaml
