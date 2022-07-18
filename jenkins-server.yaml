@@ -32,6 +32,8 @@ metadata:
   namespace: jenkins
   labels:
     app: jenkins-server
+  annotations:
+    datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: Jenkins readinessProbe prevents accessing setup and restarting screen
 spec:
   replicas: 1
   serviceName: jenkins-server
