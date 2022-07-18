@@ -145,6 +145,7 @@ spec:
           # not necessary or recommended, see the DooD comments further down
           #image: harisekhon/jenkins-agent-docker:4.6
           imagePullPolicy: IfNotPresent
+          workingDir: /var/jenkins
           command:
             # use shell in order to late eval contents of /secret/token into an arg
             - sh
@@ -205,7 +206,6 @@ spec:
               #
             - name: docker-sock
               mountPath: /var/run/docker.sock
-              workingDir: /var/jenkins
       volumes:
         - name: workspace
           emptyDir: {}
