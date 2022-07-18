@@ -3,7 +3,7 @@
 #  Date: 2022-07-15 21:14:23 +0100 (Fri, 15 Jul 2022)
 #
 #  vim:ts=2:sts=2:sw=2:et
-#  lint:k8s
+#  lint: k8s
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #
@@ -14,6 +14,10 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                    T e k t o n   K u s t o m i z a t i o n
+# ============================================================================ #
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -23,8 +27,8 @@ bases:
 
 resources:
   - tekton-task.yaml
-  #- tekton-taskrun.yaml
   - tekton-pipeline.yaml
+  #- tekton-taskrun.yaml
   #- tekton-pipelinerun.yaml
 
 # https://github.com/cdfoundation/tekton-helm-chart
