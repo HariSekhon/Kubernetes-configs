@@ -14,27 +14,33 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                             T e k t o n   T a s k
+# ============================================================================ #
+
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: hello
+  name: build
 spec:
   steps:
-    - name: echo
+    - name: build
       image: alpine
       script: |
         #!/bin/sh
-        echo "Hello World"
+        set -eux
+        echo "Build Something"
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: goodbye
+  name: deploy
 spec:
   steps:
-    - name: goodbye
+    - name: deploy
       image: ubuntu
       script: |
         #!/bin/bash
-        echo "Goodbye World!"
+        set -euxo pipefail
+        echo "Deploy Something"
