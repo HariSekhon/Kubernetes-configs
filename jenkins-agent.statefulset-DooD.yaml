@@ -182,6 +182,12 @@ spec:
             - name: JENKINS_AGENT_WORKDIR
               # XXX: this path should match the Jenkins Server "Remote root directory" config option
               value: /var/jenkins
+          readinessProbe:
+            tcpSocket:
+              port: 50001
+          livenessProbe:
+            tcpSocket:
+              port: 50001
           resources:
             limits:
               cpu: 2
