@@ -14,11 +14,15 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                          T e k t o n   T a s k R u n
+# ============================================================================ #
+
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
-  name: hello-task-run
+  name: run-build
 spec:
   taskRef:
-    name: hello
+    name: build
