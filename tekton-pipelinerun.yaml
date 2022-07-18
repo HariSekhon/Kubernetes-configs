@@ -14,11 +14,15 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                      T e k t o n   P i p e l i n e R u n
+# ============================================================================ #
+
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: hello-goodbye-run
+  name: run-build-deploy
 spec:
   pipelineRef:
-    name: hello-goodbye
+    name: build-deploy
