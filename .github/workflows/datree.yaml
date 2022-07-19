@@ -43,7 +43,10 @@ on:
     inputs:
       path:
         type: string
-        # inconsistent application in exact same input by action in different workflows
+        # '**.yaml' would only find yamls at the top level, and errors out in another repo if none are found:
+        #
+        #   stat **.y*ml: no such file or directory
+        #
         #default: '**.y*ml'
         default: '**/*.y*ml'
         required: false
