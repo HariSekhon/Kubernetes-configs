@@ -27,6 +27,9 @@ kind: Job
 metadata:
   name: NAME
   namespace: NAMESPACE
+  #annotations:
+  #  datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not relevant for this cronjob
+  #  datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not relevant for this cronjob
 spec:
   completions: 8  # total successful jobs - omit this for queue pattern where any pod successfully finishes
   parallelism: 4  # concurrent jobs
@@ -34,6 +37,7 @@ spec:
     metadata:
       name: NAME
     spec:
+      restartPolicy: Never
       containers:
         - name: NAME
           image: perl
@@ -44,7 +48,21 @@ spec:
             - -Mbignum=bpi
             - -wle
             - print bpi(2000)
-      restartPolicy: Never
+          readinessProbe:
+            exec:
+              command:
+                - pgrep -f perl
+          livenessProbe:
+            exec:
+              command:
+                - pgrep -f perl
+          resources:
+            limits:
+              cpu: 300m
+              memory: 300Mi
+            requests:
+              cpu: "1"
+              memory: 1Gi
   # exponential backoff retries of job - 10 => 20 => 40 secs...
   backoffLimit: 6  # default, max job retries
   activeDeadlineSeconds: 300  # max job runtime
