@@ -28,7 +28,7 @@ on:
     paths:
       - '**.yml'
       - '**.yaml'
-      - !.github/workflows/
+      - '!.github/workflows/'
       - .github/workflows/datree.yaml
   pull_request:
     branches:
@@ -37,6 +37,7 @@ on:
     paths:
       - '**.yml'
       - '**.yaml'
+      - '!.github/workflows/'
       - .github/workflows/datree.yaml
   workflow_dispatch:
     inputs:
