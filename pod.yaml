@@ -35,8 +35,9 @@ metadata:
   name: privileged-pod
   namespace: NAMESPACE
   annotations:
-    datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not relevant for CI/CD CLI shell containers
-    datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not relevant for CI/CD CLI shell containers
+    # XXX: remove these exception rules if using this as a real pod that requires healthchecks
+    datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not relevant for this pod
+    datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not relevant for this pod
 spec:
   containers:
     - name: privileged-pod
