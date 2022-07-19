@@ -29,5 +29,7 @@ kind: Service
 metadata:
   name: NAME
   namespace: NAMESPACE
+  annotations:
+    datree.skip/SERVICE_INCORRECT_TYPE_VALUE_NODEPORT: ignore
 spec:
   type: NodePort
