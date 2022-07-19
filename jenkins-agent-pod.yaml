@@ -26,6 +26,8 @@
 apiVersion: v1
 kind: Pod
 metadata:
+  # name isn't really needed but is a workaround for datree's rules not working otherwise: https://github.com/datreeio/datree/issues/730
+  name: jenkins-agent
   namespace: jenkins
   labels:
     app: jenkins-agent
