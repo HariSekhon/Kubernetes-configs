@@ -62,6 +62,10 @@ pluto:
 test: bash-tools
 	check_pytools.sh
 
+.PHONY: datree-kustomize
+datree-kustomize:
+	for kustomization in *-kustomization.yaml; do cp -v $$kustomization kustomization.yaml; datree kustomize test . -- --enable-helm || exit 1; done
+
 .PHONY: wc
 wc:
 	find . -type f -name '*.yaml' -o -type f -name '*.json' | xargs wc -l
