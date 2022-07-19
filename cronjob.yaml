@@ -27,10 +27,9 @@ kind: CronJob
 metadata:
   name: NAME-schedule
   namespace: NAMESPACE
-  annotations:
-    # XXX: remove these exception rules if requiring healthchecks
-    datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not relevant for this cronjob
-    datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not relevant for this cronjob
+  #annotations:
+  #  datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not relevant for this cronjob
+  #  datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not relevant for this cronjob
 spec:
   schedule: "0 0 * * *"
   #
@@ -73,6 +72,14 @@ spec:
               - -Mbignum=bpi
               - -wle
               - print bpi(2000)
+            readinessProbe:
+              exec:
+                command:
+                  - pgrep -f perl
+            livenessProbe:
+              exec:
+                command:
+                  - pgrep -f perl
             resources:
               limits:
                 cpu: 300m
