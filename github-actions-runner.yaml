@@ -109,6 +109,15 @@ spec:
                 secretKeyRef:
                   name: github-actions-runner-token
                   key: github-actions-runner-token
+          # TODO: see if there is a better check that this, at least a port or preferably http /health check
+          readinessProbe:
+            exec:
+              command:
+                - pgrep -f run.sh
+          livenessProbe:
+            exec:
+              command:
+                - pgrep -f run.sh
           resources:
             limits:
               cpu: 1
