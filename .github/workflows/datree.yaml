@@ -48,11 +48,13 @@ on:
         #   stat **.y*ml: no such file or directory
         #
         #default: '**.y*ml'
-        #default: '**/*.y*ml'
+        default: '**/*.y*ml'
         required: false
       # https://hub.datree.io/setup/cli-arguments
       args:
         type: string
+        # XXX: need to leave default here, even though it's a duplication, in case we want to extend the CLI args in quick tests
+        default: '--only-k8s-files --ignore-missing-schemas'
         required: false
       isHelmChart:
         type: boolean
