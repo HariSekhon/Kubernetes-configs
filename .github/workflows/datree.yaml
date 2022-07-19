@@ -43,7 +43,9 @@ on:
     inputs:
       path:
         type: string
-        default: '**.y*ml'
+        # inconsistent application in exact same input by action in different workflows
+        #default: '**.y*ml'
+        default: '**/*.y*ml'
         required: false
       # https://hub.datree.io/setup/cli-arguments
       args:
@@ -78,7 +80,7 @@ jobs:
     name: Datree
     uses: HariSekhon/GitHub-Actions/.github/workflows/datree.yaml@master
     with:
-      path: ${{ github.event.inputs.path || '**.y*ml' }}
+      path: ${{ github.event.inputs.path || '**/*.y*ml' }}
       cliArguments: ${{ github.event.inputs.args || '--only-k8s-files' }}
       isHelmChart: ${{ github.event.inputs.isHelmChart }}
       helmArguments: ${{ github.event.inputs.helmArguments }}
