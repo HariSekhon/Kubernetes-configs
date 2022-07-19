@@ -38,6 +38,6 @@ output: cli
 quiet: true
 repo-id: HariSekhon/Kubernetes  # what to report to Bridgecrew Cloud - without this gets annoying duplicate repos such as 'harisekhon_cli_repo/kubernetes'
 soft-fail: true
-skip-checks:
+skip-check:
   - CKV_GIT_5
   - CKV_GIT_6
