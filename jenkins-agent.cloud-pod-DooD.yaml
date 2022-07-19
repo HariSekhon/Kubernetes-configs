@@ -38,6 +38,8 @@ metadata:
   labels:
     app: jenkins-agent
     profile: cloud
+  annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
 spec:
   # agent pod should go on stable node pool so that builds don't fail due to preemption. Requires priorityclass.yaml
   priorityClassName: high-priority  # requires priorityclass.yaml
@@ -88,6 +90,15 @@ spec:
       # based off jenkins/inbound-agent but with docker command installed
       image: harisekhon/jenkins-agent-docker:4.6
       imagePullPolicy: IfNotPresent
+      readinessProbe:
+        exec:
+          command:
+            # no fixed port by default, otherwise do tcp check instead
+            - pgrep -f hudson.remoting.jnlp.Main
+      livenessProbe:
+        exec:
+          command:
+            - pgrep -f hudson.remoting.jnlp.Main
       resources:
         limits:
           cpu: 2
