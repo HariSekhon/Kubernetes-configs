@@ -57,5 +57,5 @@ metadata:
   namespace: NAMESPACE
 rules:
   - apiGroups: [""]
-    resourcesNames: ["my-pod"]  # must name resources to allow update / patch
+    resourceNames: ["my-pod"]  # must name resources to allow update / patch
     verbs: ["patch", "update"]

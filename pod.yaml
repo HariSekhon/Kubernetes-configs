@@ -28,20 +28,23 @@
 # https://kubernetes.io/docs/concepts/workloads/pods/
 
 
-# this is for testing pod security policy using this privileged pods
-
 ---
 kind: Pod
 apiVersion: v1
 metadata:
   name: privileged-pod
   namespace: NAMESPACE
+  annotations:
+    # XXX: remove these exception rules if using this as a real pod that requires healthchecks
+    datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not relevant for this pod
+    datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not relevant for this pod
 spec:
   containers:
     - name: privileged-pod
       image: busybox
-      securityContext:
-        privileged: true
+      # XXX: enable if absolutely necesssary or testing Pod Security Pod blocking is working
+      #securityContext:
+      #  privileged: true
       # environment variable remapping:
       # neither $(VAR) nor $VAR will work due to order of evaluation as these are evaluated only at yaml generation time which happens before pod creation, Kubernetes has no way of inferring the current value as this must be generated before the pod is created
       # instead do it inside the command / script
@@ -53,3 +56,10 @@ spec:
       args:
         - -c
         - cd /tmp; WORKDIR=$PWD; echo my workdir is $WORKDIR
+      resources:
+        requests:
+          cpu: 300m
+          memory: 300Mi
+        limits:
+          cpu: "1"
+          memory: 1Gi

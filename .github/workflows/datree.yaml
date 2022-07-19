@@ -15,7 +15,7 @@
 #                                  D a t r e e
 # ============================================================================ #
 
-# Logs results to https://datree.io
+# Logs results to https://app.datree.io
 
 ---
 name: Datree
@@ -26,27 +26,35 @@ on:
       - master
       - main
     paths:
-      - '*.yml'
-      - '*.yaml'
+      - '**.yml'
+      - '**.yaml'
+      - '!.github/workflows/'
       - .github/workflows/datree.yaml
   pull_request:
     branches:
       - master
       - main
     paths:
-      - '*.yml'
-      - '*.yaml'
+      - '**.yml'
+      - '**.yaml'
+      - '!.github/workflows/'
       - .github/workflows/datree.yaml
   workflow_dispatch:
     inputs:
       path:
         type: string
-        default: '**.y*ml'
+        # '**.yaml' would only find yamls at the top level, and errors out in another repo if none are found:
+        #
+        #   stat **.y*ml: no such file or directory
+        #
+        #default: '**.y*ml'
+        default: '**/*.y*ml'
         required: false
       # https://hub.datree.io/setup/cli-arguments
       args:
         type: string
-        default: --only-k8s-files
+        # XXX: need to leave default here, even though it's a duplication, in case we want to extend the CLI args in quick tests
+        default: '--only-k8s-files --ignore-missing-schemas'
         required: false
       isHelmChart:
         type: boolean
@@ -76,8 +84,8 @@ jobs:
     name: Datree
     uses: HariSekhon/GitHub-Actions/.github/workflows/datree.yaml@master
     with:
-      path: ${{ github.event.inputs.path || '**.y*ml' }}
-      cliArguments: ${{ github.event.inputs.args || '--only-k8s-files' }}
+      path: ${{ github.event.inputs.path || '**/*.y*ml' }}
+      cliArguments: ${{ github.event.inputs.args || '--only-k8s-files --ignore-missing-schemas' }}
       isHelmChart: ${{ github.event.inputs.isHelmChart }}
       helmArguments: ${{ github.event.inputs.helmArguments }}
       isKustomization: ${{ github.event.inputs.isKustomization }}

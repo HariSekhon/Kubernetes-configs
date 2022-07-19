@@ -27,15 +27,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-  labels:
-    app: stress
   name: stress
   namespace: NAMESPACE
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    #datree.skip/DEPLOYMENT_INCORRECT_REPLICAS_VALUE: replicas not relevant for this deployment
+    #datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not relevant for this deployment
+    #datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not relevant for this deployment
+  labels:
+    app: stress
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  #replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -63,6 +66,14 @@ spec:
             - 100Mi
             - -mem-alloc-sleep
             - 1s
+          readinessProbe:
+            exec:
+              command:
+                - pgrep -f stress
+          livenessProbe:
+            exec:
+              command:
+                - pgrep -f stress
           resources:
             limits:
               cpu: 1

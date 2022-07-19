@@ -52,6 +52,9 @@ metadata:
 spec:
   policyTypes:
     - Ingress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: ingress-nginx
   ingress:
     - from:
         - namespaceSelector:
@@ -66,6 +69,9 @@ metadata:
 spec:
   policyTypes:
     - Ingress
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: ingress-nginx
   ingress:
     - from:
         - ipBlock:

@@ -33,7 +33,7 @@ metadata:
   namespace: NAMESPACE
   labels:
     app: APP
-subnets:
+subsets:
   # round robins to each of the addresses
   - addresses:
       - ip: IP

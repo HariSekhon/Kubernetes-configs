@@ -34,6 +34,8 @@ metadata:
   namespace: teamcity
   labels:
     app: teamcity-agent
+  #annotations:
+  #  datree.skip/CONTAINERS_INCORRECT_PRIVILEGED_VALUE_TRUE: TeamCity Agent needs privileges for Docker in Docker
 spec:
   replicas: 3
   serviceName: teamcity-agent
@@ -105,9 +107,9 @@ spec:
           image: jetbrains/teamcity-agent:2020.2.1-linux-sudo
           ports:
             - containerPort: 9090
-          securityContext:
-            # required for DOCKER_IN_DOCKER
-            privileged: true
+          #securityContext:
+          #  # required for DOCKER_IN_DOCKER
+          #  privileged: true
           env:
             - name: AGENT_NAME
               valueFrom:

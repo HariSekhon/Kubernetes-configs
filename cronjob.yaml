@@ -27,6 +27,9 @@ kind: CronJob
 metadata:
   name: NAME-schedule
   namespace: NAMESPACE
+  #annotations:
+  #  datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not relevant for this cronjob
+  #  datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not relevant for this cronjob
 spec:
   schedule: "0 0 * * *"
   #
@@ -58,6 +61,7 @@ spec:
       metadata:
         name: NAME
       spec:
+        restartPolicy: Never
         containers:
           - name: NAME
             image: perl
@@ -68,4 +72,18 @@ spec:
               - -Mbignum=bpi
               - -wle
               - print bpi(2000)
-        restartPolicy: Never
+            readinessProbe:
+              exec:
+                command:
+                  - pgrep -f perl
+            livenessProbe:
+              exec:
+                command:
+                  - pgrep -f perl
+            resources:
+              limits:
+                cpu: 300m
+                memory: 300Mi
+              requests:
+                cpu: "1"
+                memory: 1Gi

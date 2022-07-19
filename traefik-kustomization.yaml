@@ -1,6 +1,6 @@
 #
 #  Author: Hari Sekhon
-#  Date: 2019-11-25 13:47:16 +0000 (Mon, 25 Nov 2019)
+#  Date: 2020-08-22 17:44:47 +0100 (Sat, 22 Aug 2020)
 #
 #  vim:ts=2:sts=2:sw=2:et
 #  lint:k8s
@@ -16,20 +16,19 @@
 #
 
 # ============================================================================ #
-#                  S e r v i c e   N o d e P o r t   P a t c h
+#                   T r a e f i k   K u s t o m i z a t i o n
 # ============================================================================ #
 
-# https://kubernetes.io/docs/concepts/services-networking/service/
-
-# Use this to test deployments locally when you don't have a cloud LoadBalancer available
+# https://github.com/traefik/traefik-helm-chart
 
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: NAME
-  namespace: NAMESPACE
-  annotations:
-    datree.skip/SERVICE_INCORRECT_TYPE_VALUE_NODEPORT: ignore
-spec:
-  type: NodePort
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+  - name: traefik
+    repo: https://helm.traefik.io/traefik
+    version: 10.24.0
+    releaseName: traefik
+    namespace: traefik
+    valuesFile: traefik-values.yaml

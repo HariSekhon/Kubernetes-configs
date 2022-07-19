@@ -44,6 +44,9 @@ metadata:
   labels:
     app: teamcity-agent
     profile: cloud
+  annotations:
+  #  datree.skip/CONTAINERS_INCORRECT_PRIVILEGED_VALUE_TRUE: TeamCity Agent needs privileges for Docker in Docker
+    datree.skip/DEPLOYMENT_INCORRECT_REPLICAS_VALUE: TeamCity Agent Cloud Profile is a template only, does not run actual replicas, so replicas should be 0
 spec:
   # we don't run replicas here, this is for TeamCity's Kubernetes Cloud Profile to copy the pod spec
   replicas: 0
@@ -117,9 +120,9 @@ spec:
           image: jetbrains/teamcity-agent:2020.2.1-linux-sudo
           ports:
             - containerPort: 9090
-          securityContext:
-            # required for DOCKER_IN_DOCKER
-            privileged: true
+          #securityContext:
+          #  # required for DOCKER_IN_DOCKER
+          #  privileged: true
           env:
             - name: AGENT_NAME
               valueFrom:

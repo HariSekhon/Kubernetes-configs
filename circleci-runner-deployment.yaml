@@ -113,6 +113,14 @@ spec:
             #
             #- name: LAUNCH_AGENT_RUNNER_NAME
             #  value: somename  # defaults to the hostname, in this case the pod name
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - ps -ef | grep circleci-launch-agent
+            initialDelaySeconds: 5
+            periodSeconds: 5
           livenessProbe:
             exec:
               command:

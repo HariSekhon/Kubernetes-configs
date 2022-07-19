@@ -145,6 +145,7 @@ spec:
           # not necessary or recommended, see the DooD comments further down
           #image: harisekhon/jenkins-agent-docker:4.6
           imagePullPolicy: IfNotPresent
+          workingDir: /var/jenkins
           command:
             # use shell in order to late eval contents of /secret/token into an arg
             - sh
@@ -181,6 +182,12 @@ spec:
             - name: JENKINS_AGENT_WORKDIR
               # XXX: this path should match the Jenkins Server "Remote root directory" config option
               value: /var/jenkins
+          readinessProbe:
+            tcpSocket:
+              port: 50001
+          livenessProbe:
+            tcpSocket:
+              port: 50001
           resources:
             limits:
               cpu: 2
@@ -205,7 +212,6 @@ spec:
               #
             - name: docker-sock
               mountPath: /var/run/docker.sock
-              workingDir: /var/jenkins
       volumes:
         - name: workspace
           emptyDir: {}

@@ -28,6 +28,8 @@ metadata:
   namespace: teamcity
   labels:
     app: teamcity-server
+  annotations:
+    datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: TeamCity does not support a health check and enabling readinessProbe prevents setup, see https://youtrack.jetbrains.com/issue/TW-62305
 spec:
   replicas: 1
   serviceName: teamcity-server
@@ -83,6 +85,7 @@ spec:
           #
           # don't use readiness probe, prevents accessing default /mnt page during bootup and just delays 503
           # instead of showing initializing page which redirects to login.html
+          #
   #        readinessProbe:
   #          httpGet:
   #            # works during setup or initialization but later fails during steady state as it then returns 302 to /overview.html
