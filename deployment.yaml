@@ -251,6 +251,9 @@ spec:
               port: 8080
             #tcpSocket:
             #  port: 8080
+            #exec:
+            #  command:
+            #    - pgrep -f somecommand
             initialDelaySeconds: 0 # default
             successThreshold: 1    # default
             failureThreshold: 3    # default
