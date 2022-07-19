@@ -126,11 +126,11 @@ metadata:
   labels:
     app: cluster-autoscaler
   annotations:
-    datree.skip/DEPLOYMENT_INCORRECT_REPLICAS_VALUE: replicas not provided by AWS
+    #datree.skip/DEPLOYMENT_INCORRECT_REPLICAS_VALUE: replicas not provided by AWS
     datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not provided by AWS
     datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not provided by AWS
 spec:
-  replicas: 1
+  #replicas: 1
   selector:
     matchLabels:
       app: cluster-autoscaler
