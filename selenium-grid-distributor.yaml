@@ -27,8 +27,10 @@ metadata:
   namespace: selenium
   labels:
     app: selenium-distributor
+  #annotations:
+  #  datree.skip/DEPLOYMENT_INCORRECT_REPLICAS_VALUE: replicas not relevant for this deployment
 spec:
-  replicas: 1
+  #replicas: 1
   selector:
     matchLabels:
       app: selenium-distributor
