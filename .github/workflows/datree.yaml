@@ -35,8 +35,8 @@ on:
       - master
       - main
     paths:
-      - '*.yml'
-      - '*.yaml'
+      - '**.yml'
+      - '**.yaml'
       - .github/workflows/datree.yaml
   workflow_dispatch:
     inputs:
