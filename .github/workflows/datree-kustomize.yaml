@@ -15,7 +15,7 @@
 #                        D a t r e e   K u s t o m i z e
 # ============================================================================ #
 
-# Logs results to https://datree.io
+# Logs results to https://app.datree.io
 
 ---
 name: Datree Kustomize
