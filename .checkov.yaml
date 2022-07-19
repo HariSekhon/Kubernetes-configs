@@ -34,9 +34,7 @@ directory:
 download-external-modules: true  # without this gets lots of annoying warning lines such as '2022-02-22 16:14:40,180 [MainThread  ] [WARNI]  Failed to download module x/y/z:n.n.n'
 framework:
   - all
-no-guide: true
 output: cli
 quiet: true
 repo-id: HariSekhon/Kubernetes  # what to report to Bridgecrew Cloud - without this gets annoying duplicate repos such as 'harisekhon_cli_repo/kubernetes'
-skip-suppressions: true
 soft-fail: true
