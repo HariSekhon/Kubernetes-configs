@@ -28,9 +28,11 @@ kind: Pod
 metadata:
   namespace: jenkins
   labels:
-  app: jenkins-agent
+    app: jenkins-agent
   annotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: readiness probe is not relevant for CI/CD CLI shell containers
+    datree.skip/CONTAINERS_MISSING_LIVENESSPROBE_KEY: liveness probe is not relevant for CI/CD CLI shell containers
 spec:
   priorityClassName: high-priority  # requires priorityclass.yaml
   affinity:
