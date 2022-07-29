@@ -112,6 +112,7 @@ resources:
 #    version: <version>
 #    releaseName: <release_name>
 #    namespace: <namespace>
+#    includeCRDs: true
 #    valuesFile: values.yaml
 
 
