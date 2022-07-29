@@ -24,12 +24,23 @@ kind: Pipeline
 metadata:
   name: build-deploy
 spec:
+  #resources:
+  #  - name: repo
+  #    type: git
   tasks:
     - name: build
       taskRef:
         name: build
+      #resources:
+      #  inputs:
+      #    - name: repo      # the task input name
+      #      resource: repo  # this pipeline's resource name
     - name: deploy
       taskRef:
         name: deploy
       runAfter:
         - build
+      #resources:
+      #  inputs:
+      #    - name: repo      # the task input name
+      #      resource: repo  # this pipeline's resource name
