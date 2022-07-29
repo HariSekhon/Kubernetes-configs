@@ -44,3 +44,21 @@ spec:
         #!/bin/bash
         set -euxo pipefail
         echo "Deploy Something"
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: test
+spec:
+  resources:
+    inputs:
+      - name: source
+        type: git
+  steps:
+    - name: go-test
+      image: golang:1.18
+      workingDir: /workspace/source
+      command:
+        - go
+      args:
+        - test
