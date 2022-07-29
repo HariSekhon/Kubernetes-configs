@@ -37,6 +37,7 @@ helmCharts:
     #
     releaseName: concourse
     namespace: concourse  # concourse/concourse and bitnami/concourse charts both seem to ignore this, putting stuff in default context's namespace - https://github.com/concourse/concourse-chart/issues/298
+    includeCRDs: true
     # for concourse/concourse:
     valuesFile: concourse-values.yaml
     # for bitname/concourse:

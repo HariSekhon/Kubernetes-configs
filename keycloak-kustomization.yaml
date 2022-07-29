@@ -32,4 +32,5 @@ helmCharts:
     version: 7.1.0
     releaseName: keycloak
     namespace: keycloak
+    includeCRDs: true
     valuesFile: keycloak-values.yaml

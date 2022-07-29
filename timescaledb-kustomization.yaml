@@ -32,4 +32,5 @@ helmCharts:
     version: 0.8.2
     releaseName: timescaledb
     namespace: timescaledb
+    includeCRDs: true
     valuesFile: timescaledb-values.yaml

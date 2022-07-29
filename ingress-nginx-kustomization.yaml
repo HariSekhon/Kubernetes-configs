@@ -38,6 +38,7 @@ helmCharts:
     version: 4.0.13
     releaseName: ingress-nginx
     namespace: ingress-nginx
+    includeCRDs: true
     valuesFile: ingress-nginx-values.yaml
 
 # for Dev enable this to reduce replicas to 1

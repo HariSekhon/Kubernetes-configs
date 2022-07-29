@@ -38,4 +38,5 @@ helmCharts:
     version: 5.0.4
     releaseName: kubernetes-dashboard
     namespace: kubernetes-dashboard
+    includeCRDs: true
     valuesFile: kubernetes-dashboard-values.yaml

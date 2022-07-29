@@ -30,4 +30,5 @@ helmCharts:
     version: 2.30.17
     releaseName: datadog
     namespace: datadog
+    includeCRDs: true
     valuesFile: datadog-values.yaml

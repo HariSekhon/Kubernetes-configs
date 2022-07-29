@@ -46,6 +46,7 @@ helmCharts:
     version: 4.0.2
     releaseName: goldilocks
     namespace: goldilocks
+    includeCRDs: true
     valuesFile: goldilocks-values.yaml
 
 

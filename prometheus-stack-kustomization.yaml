@@ -36,4 +36,5 @@ helmCharts:
     version: 21.0.0
     releaseName: kube-prometheus-stack
     namespace: prometheus
+    includeCRDs: true
     valuesFiles: prometheus-values.yaml

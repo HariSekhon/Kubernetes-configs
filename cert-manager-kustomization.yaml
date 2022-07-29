@@ -40,6 +40,7 @@ helmCharts:
     version: v1.6.1  # helm search repo --regexp 'jetstack/cert-manager[[:space:]]' -o json | jq -r '.[].version'
     releaseName: cert-manager
     namespace: cert-manager
+    includeCRDs: true
     valuesFile: cert-manager-values.yaml
 
 # label app.kubernetes.io/instance=cert-manager causes warnings for all 6 Cert Manager CRDs in ArgoCD, eg:

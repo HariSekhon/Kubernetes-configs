@@ -36,6 +36,7 @@ helmCharts:
     version: 3.38.4+ddac4cebcaee
     releaseName: cloudbees-core
     namespace: cloudbees-core
+    includeCRDs: true
     valuesFile: cloudbees-values.yaml
 
 # if you're not ready to have an ingress letting things through

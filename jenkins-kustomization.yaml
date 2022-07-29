@@ -42,6 +42,7 @@ helmCharts:
     version: 3.9.4
     releaseName: jenkins
     namespace: jenkins
+    includeCRDs: true
     valuesFile: jenkins-values.yaml
 
 # Older - Helm chart above has more automation with plugin management and JCasC (Jenkins Configuration as Code) with auto-reload

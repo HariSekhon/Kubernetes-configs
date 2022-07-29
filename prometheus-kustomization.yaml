@@ -36,4 +36,5 @@ helmCharts:
     version: 15.0.1
     releaseName: prometheus
     namespace: prometheus
+    includeCRDs: true
     valuesFiles: prometheus-values.yaml

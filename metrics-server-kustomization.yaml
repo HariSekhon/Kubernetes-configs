@@ -51,3 +51,5 @@ helmCharts:
     version: 3.7.0
     releaseName: metrics-server
     namespace: kube-system
+    includeCRDs: true
+    #valuesFile: metrics-server-values.yaml

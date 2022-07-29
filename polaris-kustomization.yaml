@@ -48,6 +48,7 @@ helmCharts:
     version: 4.2.1
     releaseName: polaris
     namespace: polaris
+    includeCRDs: true
     valuesFile: polaris-values.yaml
 
 #patches:
