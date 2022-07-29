@@ -18,11 +18,21 @@
 #                          T e k t o n   T a s k R u n
 # ============================================================================ #
 
+# CLI equivalent:
+#
+#   tkn task start mybuild --inputresource repo=myrepo --serviceaccount my-k8s-sa --showlog
+
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
   name: run-build
 spec:
+  #serviceAccountName: my-k8s-sa  # containing secret ref, see serviceaccount.yaml
   taskRef:
     name: build
+  #resources:
+  #  inputs:
+  #    - name: repo
+  #      resourceRef:
+  #        name: myrepo
