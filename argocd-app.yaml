@@ -62,6 +62,8 @@ spec:
     #targetRevision: N.N.N
     #helm:
     #  releaseName: APP
+    #  values: |
+    #    <some_yaml>
   destination:
     # XXX: Edit - this is in-cluster URL, edit to external master URL if you need to deploy to other clusters
     server: https://kubernetes.default.svc
