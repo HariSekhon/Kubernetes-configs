@@ -163,9 +163,17 @@ postgresql:
   enabled: true
   auth:
     username: bn_keycloak
+    # XXX: don't hardcode password here, use an existing secret
     password: ""
     database: bitnami_keycloak
-    existingSecret: ""
+    #
+    # XXX: match the existing secret name which needs to be re-created to be fixed, not randomly generated each chart run
+    existingSecret: keycloak-postgresql
+    #
+    # XXX: match existing secret key to minimize diff:
+    #        - password key is for the bn_keycloak postgres user
+    #        - postgres-password key is implicitly expected for the postgres superuser
+    existingSecretPasswordKey: password
   architecture: standalone
 ## External PostgreSQL configuration
 ## All of these values are only used when postgresql.enabled is set to false
@@ -177,11 +185,20 @@ postgresql:
 ## @param externalDatabase.existingSecret Name of an existing secret resource containing the database credentials
 ## @param externalDatabase.existingSecretPasswordKey Name of an existing secret key containing the database credentials
 ##
-externalDatabase:
-  host: ""
-  port: 5432
-  user: bn_keycloak
-  database: bitnami_keycloak
-  password: ""
-  existingSecret: ""
-  existingSecretPasswordKey: ""
+#
+# migrate to RDS or similar later
+#externalDatabase:
+#  host: ""
+#  port: 5432
+#  user: bn_keycloak
+#  database: bitnami_keycloak
+#  # XXX: don't hardcode password here, use an existing secret
+#  password: ""
+#  #
+#  # XXX: match the existing secret name which needs to be re-created to be fixed, not randomly generated each chart run
+#  existingSecret: keycloak-postgresql
+#  #
+#  # XXX: match existing secret key to minimize diff:
+#  #        - password key is for the bn_keycloak postgres user
+#  #        - postgres-password key is implicitly expected for the postgres superuser
+#  existingSecretPasswordKey: password
