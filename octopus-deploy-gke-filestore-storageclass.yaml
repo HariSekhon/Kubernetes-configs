@@ -1,0 +1,38 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-05 01:19:40 +0100 (Fri, 05 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#          Octopus Deploy StorageClass for FileStore on custom network
+# ============================================================================ #
+
+# https://octopus.com/docs/installation/octopus-server-linux-container/octopus-in-kubernetes
+
+# XXX: only needed for ReadWriteMany on a custom non-default network
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: my-custom-network-csi-filestore
+provisioner: filestore.csi.storage.gke.io
+parameters:
+  # "CIDR range to allocate Filestore IP Ranges from"
+  # reserved-ipv4-cidr: 192.168.92.22/26
+  # # standard (default) or premier or enterprise
+  # tier: premier
+  # # Name of the VPC. Note that non-default VPCs require special firewall rules to be setup.
+  network: my-custom-network-name
+allowVolumeExpansion: true
