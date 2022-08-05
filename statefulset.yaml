@@ -153,10 +153,10 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 128mi
+              memory: 128Mi
             limits:
               cpu: "1"
-              memory: 2gi
+              memory: 2Gi
           readinessProbe:
             # http, tcp or exec
             #httpGet:
