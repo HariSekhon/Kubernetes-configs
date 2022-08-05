@@ -1,0 +1,40 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-05 01:06:28 +0100 (Fri, 05 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                           Octopus Deploy HA Service
+# ============================================================================ #
+
+# https://octopus.com/docs/installation/octopus-server-linux-container/octopus-in-kubernetes
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: octopus-1
+spec:
+  type: LoadBalancer
+  ports:
+    - name: web
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+    - name: tentacle
+      port: 10943
+      targetPort: 10943
+      protocol: TCP
+  selector:
+    statefulset.kubernetes.io/pod-name: octopus-1
