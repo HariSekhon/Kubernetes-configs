@@ -30,16 +30,17 @@ kind: Kustomization
 #   octopus-deploy-sa-password     # used by main sts + mssql deployment
 
 resources:
-  - octopus-deploy-mssql-pvc.yaml
-  - octopus-deploy-mssql-service.yaml
-  - octopus-deploy-mssql.yaml
   - octopus-deploy-sts.yaml
+  - octopus-deploy-mssql.yaml
+  - octopus-deploy-mssql-pvc.yaml
+
+  - octopus-deploy-mssql-service.yaml
   # exposes port 80
   - octopus-deploy-web-service.yaml
   # needs full license
   #- octopus-deploy-ha1-service.yaml
   #- octopus-deploy-ha2-service.yaml
-  #
+
   # enable depending on which cloud you're on
   #- octopus-deploy-aks-pvc.yaml
   #- octopus-deploy-aks-single-pvc.yaml  # alternatively use a single vol
