@@ -1,0 +1,80 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-05 00:56:51 +0100 (Fri, 05 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                      Octopus Deploy Microsoft SQL Server
+# ============================================================================ #
+
+# https://octopus.com/docs/installation/octopus-server-linux-container/octopus-in-kubernetes
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql-deployment
+  labels:
+    app: mssql
+spec:
+  selector:
+    matchLabels:
+      app: mssql
+  #replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mssql
+    spec:
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        fsGroup: 10001
+      volumes:
+        - name: mssqldb
+          persistentVolumeClaim:
+            claimName: mssql-data
+      containers:
+        - name: mssql
+          image: mcr.microsoft.com/mssql/server:2019-latest
+          ports:
+            - containerPort: 1433
+          env:
+            - name: MSSQL_PID
+              value: Express
+            - name: ACCEPT_EULA
+              value: 'Y'
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: octopus-deploy-sa-password
+                  key: password
+          readinessProbe:
+            tcpSocket:
+              port: 1433
+          livenessProbe:
+            tcpSocket:
+              port: 1433
+          # TODO: tune
+          resources:
+            requests:
+              cpu: 500m
+              memory: 500Mi
+            limits:
+              cpu: 2
+              memory: 1Gi
+          volumeMounts:
+            - name: mssqldb
+              mountPath: /var/opt/mssql
