@@ -1,0 +1,162 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-05 01:26:51 +0100 (Fri, 05 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#              O c t o p u s   D e p l o y   S t a t e f u l S e t
+# ============================================================================ #
+
+# https://octopus.com/docs/installation/octopus-server-linux-container/octopus-in-kubernetes
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: octopus
+  annotations:
+    datree.skip/CONTAINERS_INCORRECT_PRIVILEGED_VALUE_TRUE: 'TODO: check if this really requires privilege'
+spec:
+  selector:
+    matchLabels:
+      app: octopus
+  serviceName: "octopus"
+  # only enable if you have a proper license for HA
+  #replicas: 2
+  template:
+    metadata:
+      labels:
+        app: octopus
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - octopus
+                topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: octopus-storage-vol
+          persistentVolumeClaim:
+            claimName: octopus-storage-claim
+      containers:
+        - name: octopus
+          image: octopusdeploy/octopusdeploy:2021.3.8275
+          # TODO: check if this really needs to be privileged
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 8080
+              name: web
+            - containerPort: 10943
+              name: tentacle
+          env:
+            - name: ACCEPT_EULA
+              # "Y" means accepting the EULA at https://octopus.com/company/legal
+              value: "Y"
+            - name: OCTOPUS_SERVER_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: DB_CONNECTION_STRING
+              # TODO: check this env can be constructed from another env like this, otherwise move to secret
+              value: Server=mssql,1433;Database=Octopus;User Id=SA;Password=$SA_PASSWORD
+            - name: ADMIN_USERNAME
+              value: admin
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: octopus-deploy-admin-password
+                  key: password
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: octopus-deploy-sa-password
+                  key: password
+            #- name: ADMIN_EMAIL
+            #  value: admin@example.org  # defaults to octopus@example.local
+            #- name: OCTOPUS_SERVER_BASE64_LICENSE
+            #  # Your license key goes here. When using more than one node, a HA license is required. Without a HA license, the stateful set can have a replica count of 1.
+            #  value: <License-goes-here>
+            #- name: MASTER_KEY
+            #  # Replace this, as this value protects secrets in Octopus
+            #  value: <MasterKey-goes-here>
+          # TODO: tune
+          resources:
+            requests:
+              cpu: 300m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 2Gi
+          volumeMounts:
+            - name: octopus-storage-vol
+              mountPath: /artifacts
+              subPath: artifacts
+            - name: octopus-storage-vol
+              mountPath: /repository
+              subPath: repository
+            - name: octopus-storage-vol
+              mountPath: /taskLogs
+              subPath: taskLogs
+            - name: octopus-storage-vol
+              mountPath: /home/octopus/.octopus/OctopusServer/Server/Logs
+              subPathExpr: serverLogs/$(OCTOPUS_SERVER_NODE_NAME)
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /bin/bash
+                  - -c
+                  - '[[ -f /Octopus/Octopus.Server ]] && EXE="/Octopus/Octopus.Server" || EXE="dotnet /Octopus/Octopus.Server.dll"; $EXE node --instance=OctopusServer --drain=true --wait=600 --cancel-tasks;'
+            # postStart must finish in 5 minutes or the container will fail to create
+            postStart:
+              exec:
+                command:
+                  - /bin/bash
+                  - -c
+                  - 'URL=http://localhost:8080; x=0; while [ $x -lt 9 ]; do response=$(/usr/bin/curl -k $URL/api/octopusservernodes/ping --write-out %{http_code} --silent --output /dev/null); if [ "$response" -ge 200 ] && [ "$response" -le 299 ]; then break; fi; if [ "$response" -eq 418 ]; then [[ -f /Octopus/Octopus.Server ]] && EXE="/Octopus/Octopus.Server" || EXE="dotnet /Octopus/Octopus.Server.dll"; $EXE node --instance=OctopusServer --drain=false; now=$(date); echo "${now} Server cancelling drain mode." break; fi; now=$(date); echo "${now} Server is not ready, can not disable drain mode."; sleep 30; done;'
+          readinessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - URL=http://localhost:8080; response=$(/usr/bin/curl -k $URL/api/serverstatus/hosted/internal --write-out %{http_code} --silent --output /dev/null); /usr/bin/test "$response" -ge 200 && /usr/bin/test "$response" -le 299 || /usr/bin/test
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 60
+          livenessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - URL=http://localhost:8080; response=$(/usr/bin/curl -k $URL/api/octopusservernodes/ping --write-out %{http_code} --silent --output /dev/null); /usr/bin/test "$response" -ge 200 && /usr/bin/test "$response" -le 299 || /usr/bin/test "$response" -eq 418
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 10
+          startupProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - URL=http://localhost:8080; response=$(/usr/bin/curl -k $URL/api/octopusservernodes/ping --write-out %{http_code} --silent --output /dev/null); /usr/bin/test "$response" -ge 200 && /usr/bin/test "$response" -le 299 || /usr/bin/test "$response" -eq 418
+            failureThreshold: 30
+            periodSeconds: 60
