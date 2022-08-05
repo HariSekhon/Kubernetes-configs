@@ -24,6 +24,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+# XXX: need to add secrets:
+#
+#   octopus-deploy-admin-password  # used by main sts
+#   octopus-deploy-sa-password     # used by main sts + mssql deployment
+
 resources:
   - octopus-deploy-aks-pvc.yaml
   - octopus-deploy-aks-single-pvc.yaml
