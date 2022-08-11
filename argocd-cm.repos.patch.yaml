@@ -56,12 +56,12 @@ data:
   repositories: |
     # XXX: Edit all fields below
     - url: https://github.com/ORG/REPO.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
-      #passwordSecret:
-      #  name: my-secret
-      #  key: password
       #usernameSecret:
       #  name: my-secret
       #  key: username
+      #passwordSecret:
+      #  name: my-secret
+      #  key: password
 
     - url: git@github.com:ORG/REPO
       #sshPrivateKeySecret:  # XXX: use Shared Credential SSH Key between the repos instead, see further down
