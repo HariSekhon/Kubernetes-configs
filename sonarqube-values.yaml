@@ -1,0 +1,283 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-10 15:22:45 +0100 (Wed, 10 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint:k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                  S o n a r Q u b e   C h a r t   V a l u e s
+# ============================================================================ #
+
+# helm repo add sonarqube https://SonarSource.github.io/helm-chart-sonarqube
+#
+# helm show values sonarqube/sonarqube >> values.yaml
+
+---
+deploymentType: "StatefulSet"
+
+# If the deployment Type is set to Deployment sonarqube is deployed as a replica set
+# There should not be more than 1 sonarqube instance connected to the same database
+replicaCount: 1
+
+edition: "community"
+
+# Set security context for sonarqube pod
+securityContext:
+  fsGroup: 1000
+
+# Set security context for sonarqube container
+containerSecurityContext:
+  # Sonarqube dockerfile creates sonarqube user as UID and GID 1000
+  runAsUser: 1000
+
+# Settings to configure elasticsearch host requirements
+elasticsearch:
+  # DEPRECATED: Use initSysctl.enabled instead
+  configureNode: true
+  bootstrapChecks: true
+
+service:
+  type: ClusterIP
+  externalPort: 9000
+  internalPort: 9000
+  labels:
+  annotations: {}
+  # May be used in example for internal load balancing in GCP:
+  # cloud.google.com/load-balancer-type: Internal
+  # loadBalancerSourceRanges:
+  #   - 0.0.0.0/0
+  # loadBalancerIP: 1.2.3.4
+
+readinessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  failureThreshold: 6
+  # If an ingress *path* other than the root (/) is defined, it should be reflected here
+  # A trailing "/" must be included
+  sonarWebContext: /
+  # sonarWebContext: /sonarqube/
+
+livenessProbe:
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  failureThreshold: 6
+  # If an ingress *path* other than the root (/) is defined, it should be reflected here
+  # A trailing "/" must be included
+  sonarWebContext: /
+  # sonarWebContext: /sonarqube/
+  # If an ingress *path* is defined, it should be reflected here
+  # sonar.web.context: /sonarqube
+
+startupProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 24
+  # If an ingress *path* other than the root (/) is defined, it should be reflected here
+  # A trailing "/" must be included
+  sonarWebContext: /
+  # sonarWebContext: /sonarqube/
+
+initContainers:
+  # image: busybox:1.32
+  # We allow the init containers to have a separate security context declaration because
+  # the initContainer may not require the same as SonarQube.
+  # securityContext: {}
+  # We allow the init containers to have a separate resources declaration because
+  # the initContainer does not take as much resources.
+  resources: {}
+
+# Extra init containers to e.g. download required artifacts
+extraInitContainers: {}
+
+## Array of extra containers to run alongside the sonarqube container
+##
+## Example:
+## - name: myapp-container
+##   image: busybox
+##   command: ['sh', '-c', 'echo Hello && sleep 3600']
+##
+extraContainers: []
+
+initSysctl:
+  enabled: true
+  vmMaxMapCount: 524288
+  fsFileMax: 131072
+  nofile: 131072
+  nproc: 8192
+  # image: busybox:1.32
+  securityContext:
+    privileged: true
+  # resources: {}
+
+initFs:
+  enabled: true
+  # image: busybox:1.32
+  securityContext:
+    privileged: true
+
+prometheusExporter:
+  enabled: true
+
+# List of plugins to install.
+# For example:
+# plugins:
+#  install:
+#    - "https://github.com/AmadeusITGroup/sonar-stash/releases/download/1.3.0/sonar-stash-plugin-1.3.0.jar"
+#    - "https://github.com/SonarSource/sonar-ldap/releases/download/2.2-RC3/sonar-ldap-plugin-2.2.0.601.jar"
+plugins:
+  install: []
+  lib: []
+
+  # For use behind a corporate proxy when downloading plugins
+  # httpProxy: ""
+  # httpsProxy: ""
+  # noProxy: ""
+
+  # image: curlimages/curl:7.76.1
+  # resources: {}
+
+  # .netrc secret file with a key "netrc" to use basic auth while downloading plugins
+  # netrcCreds: ""
+
+  # Set to true to not validate the server's certificate to download plugin
+  noCheckCertificate: false
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+
+## Values to add to SONARQUBE_WEB_JVM_OPTS
+##
+# jvmOpts: "-Djava.net.preferIPv4Stack=true"
+jvmOpts: ""
+
+## Values to add to SONAR_CE_JAVAOPTS
+jvmCeOpts: ""
+
+## a monitoring passcode needs to be defined in order to get reasonable probe results
+# not setting the monitoring passcode will result in a deployment that will never be ready
+monitoringPasscode: "define_it"
+
+## We usually don't make specific ressource recommandations, as they are heavily dependend on
+## The usage of SonarQube and the surrounding infrastructure.
+## Adjust these values to your needs, but make sure that the memory limit is never under 4 GB
+resources:
+  limits:
+    cpu: 800m
+    memory: 4Gi
+  requests:
+    cpu: 400m
+    memory: 2Gi
+
+persistence:
+  enabled: false
+  ## Set annotations on pvc
+  annotations: {}
+
+  ## Specify an existing volume claim instead of creating a new one.
+  ## When using this option all following options like storageClass, accessMode and size are ignored.
+  # existingClaim:
+
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  storageClass:
+  accessMode: ReadWriteOnce
+  size: 5Gi
+  uid: 1000
+
+  ## Specify extra volumes. Refer to ".spec.volumes" specification : https://kubernetes.io/fr/docs/concepts/storage/volumes/
+  volumes: []
+  ## Specify extra mounts. Refer to ".spec.containers.volumeMounts" specification : https://kubernetes.io/fr/docs/concepts/storage/volumes/
+  mounts: []
+
+# In case you want to specify different resources for emptyDir than {}
+emptyDir: {}
+  # Example of resouces that might be used:
+  # medium: Memory
+  # sizeLimit: 16Mi
+
+# A custom sonar.properties file can be provided via dictionary.
+# For example:
+# sonarProperties:
+#   sonar.forceAuthentication: true
+#   sonar.security.realm: LDAP
+#   ldap.url: ldaps://organization.com
+
+# Additional sonar properties to load from a secret with a key "secret.properties" (must be a string)
+# sonarSecretProperties:
+
+# Kubernetes secret that contains the encryption key for the sonarqube instance.
+# The secret must contain the key 'sonar-secret.txt'.
+# The 'sonar.secretKeyPath' property will be set automatically.
+# sonarSecretKey: "settings-encryption-secret"
+
+## Override JDBC values
+## for external Databases
+#jdbcOverwrite:
+#  # If enable the JDBC Overwrite, make sure to set `postgresql.enabled=false`
+#  enable: false
+#  # The JDBC url of the external DB
+#  jdbcUrl: "jdbc:postgresql://myPostgress/myDatabase?socketTimeout=1500"
+#  # The DB user that should be used for the JDBC connection
+#  jdbcUsername: "sonarUser"
+#  # Use this if you don't mind the DB password getting stored in plain text within the values file
+#  jdbcPassword: "sonarPass"
+#  ## Alternatively, use a pre-existing k8s secret containing the DB password
+#  # jdbcSecretName: "sonarqube-jdbc"
+#  ## and the secretValueKey of the password found within that secret
+#  # jdbcSecretPasswordKey: "jdbc-password"
+
+## Configuration values for postgresql dependency
+## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
+postgresql:
+  # Enable to deploy the bitnami PostgreSQL chart
+  enabled: true
+  #postgresqlUsername: "sonarUser"
+  #postgresqlPassword: "sonarPass"
+  #postgresqlDatabase: "sonarDB"
+  resources:
+    limits:
+      cpu: 2
+      memory: 2Gi
+    requests:
+      cpu: 100m
+      memory: 200Mi
+  persistence:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 20Gi
+    storageClass:
+  securityContext:
+    # For standard Kubernetes deployment, set enabled=true
+    # If using OpenShift, enabled=false for restricted SCC and enabled=true for anyuid/nonroot SCC
+    enabled: true
+    # fsGroup specification below are not applied if enabled=false. enabled=false is the required setting for OpenShift "restricted SCC" to work successfully.
+    # postgresql dockerfile sets user as 1001
+    fsGroup: 1001
+  containerSecurityContext:
+    # For standard Kubernetes deployment, set enabled=true
+    # If using OpenShift, enabled=false for restricted SCC and enabled=true for anyuid/nonroot SCC
+    enabled: true
+    # runAsUser specification below are not applied if enabled=false. enabled=false is the required setting for OpenShift "restricted SCC" to work successfully.
+    # postgresql dockerfile sets user as 1001
+    runAsUser: 1001
+  volumePermissions:
+    # For standard Kubernetes deployment, set enabled=false
+    # For OpenShift, set enabled=true and ensure to set volumepermissions.securitycontext.runAsUser below.
+    enabled: false
+    # if using restricted SCC set runAsUser: "auto" and if running under anyuid/nonroot SCC - runAsUser needs to match runAsUser above
+    securityContext:
+      runAsUser: 0
