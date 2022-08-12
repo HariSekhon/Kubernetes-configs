@@ -18,6 +18,8 @@
 #                 S o n a r Q u b e   K u s t o m i z a t i o n
 # ============================================================================ #
 
+# https://docs.sonarqube.org/latest/setup/sonarqube-on-kubernetes/
+
 # https://github.com/SonarSource/helm-chart-sonarqube/tree/master/charts/sonarqube
 
 # initial login is admin/admin - which is forced to change immediately
