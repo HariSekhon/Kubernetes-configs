@@ -23,7 +23,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: sonarqube
+namespace: sonarqube  # without this ends up in the current namespace due to missing namespace field in 9/16 objects
 
 helmCharts:
   - name: sonarqube
