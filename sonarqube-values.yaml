@@ -245,9 +245,10 @@ emptyDir: {}
 postgresql:
   # Enable to deploy the bitnami PostgreSQL chart
   enabled: true
-  #postgresqlUsername: "sonarUser"
-  #postgresqlPassword: "sonarPass"
-  #postgresqlDatabase: "sonarDB"
+  # XXX: even with these uncommented, bitnami postgres replaces the sonarqube-postgresql secret's postgresql-postgres-password key every time
+  postgresqlUsername: "sonarUser"
+  postgresqlPassword: "sonarPass"
+  postgresqlDatabase: "sonarDB"
   resources:
     limits:
       cpu: 2
