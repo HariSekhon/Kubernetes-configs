@@ -20,6 +20,8 @@
 
 # https://github.com/SonarSource/helm-chart-sonarqube/tree/master/charts/sonarqube
 
+# initial login is admin/admin - which is forced to change immediately
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
