@@ -50,18 +50,13 @@ defaults:
 
 
 jobs:
-  create-cluster:
-    name: Create Kind Cluster
-    runs-on: ubuntu-latest
+  kustomize-install:
+    name: Install Kustomizations
+    runs-on: harisekhon/bash-tools:latest
     steps:
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.3.0
-  install-kustomizations:
-    name: Install Kustomizations
-    needs:
-      - create-cluster
-    runs-on: harisekhon/bash-tools:latest
-    steps:
+
       - name: Install Kind
         run: install_kind.sh
 
