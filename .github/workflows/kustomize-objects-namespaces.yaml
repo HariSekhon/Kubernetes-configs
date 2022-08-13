@@ -70,11 +70,17 @@ jobs:
       - name: Install Kustomize
         run: install_kustomize.sh
 
+      - name: Install Kustomize
+        run: install_yq.sh
+
       - name: Kind Version
         run: kind version
 
       - name: Kustomize Version
         run: kustomize version
+
+      - name: Yq Version
+        run: yq --version
 
       - name: Generate $KUBE_CONFIG
         run: |
