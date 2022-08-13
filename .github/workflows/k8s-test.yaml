@@ -1,0 +1,86 @@
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-13 09:54:19 +0100 (Sat, 13 Aug 2022)
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+name: Kubernetes Kustomize Installs
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '*.yaml'
+      - .github/workflows/k8s-test.yaml
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '*.yaml'
+      - .github/workflows/k8s-test.yaml
+  workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
+    inputs:
+      debug:
+        type: boolean
+        required: false
+        default: false
+  schedule:
+    - cron: '0 0 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash -euxo pipefail {0}
+
+
+jobs:
+  create-cluster:
+    name: Create Kind Cluster
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.3.0
+  install-kustomizations:
+    name: Install Kustomizations
+    needs:
+      - create-cluster
+    runs-on: harisekhon/bash-tools:latest
+    steps:
+      - name: Generate $KUBE_CONFIG
+        run: |
+          KUBECONFIG="$(kind get kubeconfig-path)"
+          echo "KUBECONFIG=$KUBECONFIG" >> "$GITHUB_ENV"
+
+      - name: Cluster Info
+        run: kubectl cluster-info
+
+      - name: Install Kustomize
+        run: install_kustomize.sh
+
+      - name: Kustomize Version
+        run: kustomize version
+
+      - name: Install Kustomizations
+        run: |
+          for kustomization in *-kustomization.yaml; do
+            echo "$kustomization"
+            cp -fv -- "$kustomization" kustomization.yaml
+            kustomize build --enable-helm | kubectl apply -f -
+            echo
+          done
