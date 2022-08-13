@@ -13,7 +13,7 @@
 #
 
 ---
-name: Kubernetes Kustomize Installs
+name: Kustomize Installs
 
 on:
   push:
