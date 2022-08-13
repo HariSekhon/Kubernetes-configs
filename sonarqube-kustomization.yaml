@@ -35,4 +35,5 @@ helmCharts:
     version: 4.0.2+325
     releaseName: sonarqube
     namespace: sonarqube
+    includeCRDs: true
     valuesFile: sonarqube-values.yaml
