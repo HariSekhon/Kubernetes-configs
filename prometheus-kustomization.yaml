@@ -37,4 +37,4 @@ helmCharts:
     releaseName: prometheus
     namespace: prometheus
     includeCRDs: true
-    valuesFiles: prometheus-values.yaml
+    valuesFile: prometheus-values.yaml
