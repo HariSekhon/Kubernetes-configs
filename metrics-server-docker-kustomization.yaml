@@ -23,7 +23,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: kube-system
+namespace: kube-system  # XXX: 3 objects without explicit namespace as shown by kustomize_check_objects_namespaces.sh in the adjacent DevOps Bash tools repo
 
 resources:
   - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
