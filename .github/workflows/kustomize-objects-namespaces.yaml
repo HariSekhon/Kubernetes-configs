@@ -70,8 +70,8 @@ jobs:
       - name: Install Kustomize
         run: install_kustomize.sh
 
-      - name: Install Kustomize
-        run: install_yq.sh
+      #- name: Install yq
+      #  run: install_yq.sh
 
       - name: Kind Version
         run: kind version
