@@ -25,7 +25,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-#namespace: cloudbees-core  # XXX: Do not set this as it may override other namespace resources in the Helm chart
+namespace: cloudbees-core  # XXX: 8 objects found without explicit namespace defined by kustomize_check_objects_namespaces.sh in the DevOps Bash tools repo
 
 resources:
   - cloudbees-namespace.yaml
