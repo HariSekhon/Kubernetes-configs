@@ -21,13 +21,13 @@ on:
       - master
     paths:
       - '*.yaml'
-      - .github/workflows/k8s-test.yaml
+      - .github/workflows/k8s-kustomize-install.yaml
   pull_request:
     branches:
       - master
     paths:
       - '*.yaml'
-      - .github/workflows/k8s-test.yaml
+      - .github/workflows/k8s-kustomize-install.yaml
   workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
     inputs:
       debug:
