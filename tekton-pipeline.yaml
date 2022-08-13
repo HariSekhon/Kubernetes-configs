@@ -23,6 +23,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-deploy
+  namespace: tekton-pipelines
 spec:
   #resources:
   #  - name: repo
