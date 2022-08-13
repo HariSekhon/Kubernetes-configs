@@ -13,7 +13,7 @@
 #
 
 ---
-name: Kubernetes Kustomize Objects Namespaces
+name: Kustomize Objects Namespaces
 
 on:
   push:
