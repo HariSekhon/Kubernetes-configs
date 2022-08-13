@@ -27,7 +27,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: sonarqube  # XXX: without this ends up in the current namespace due to missing namespace field in 9/16 objects
+namespace: sonarqube  # XXX: without this ends up in the current namespace due to missing namespace field in 12/16 objects, as shown by kustomize_check_objects_namespaces.sh in the adjacent DevOps Bash tools repo
 
 helmCharts:
   - name: sonarqube
