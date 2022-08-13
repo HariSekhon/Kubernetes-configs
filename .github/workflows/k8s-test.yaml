@@ -85,6 +85,10 @@ jobs:
       - name: Install Kustomizations
         run: |
           for kustomization in *-kustomization.yaml; do
+            if [[ "$kustomization" =~ ^(eks|timescaledb)- ]]; then
+              echo "Skipping $kustomization"
+              echo
+            fi
             echo "$kustomization"
             cp -fv -- "$kustomization" kustomization.yaml
             kustomize build --enable-helm | kubectl apply -f -
