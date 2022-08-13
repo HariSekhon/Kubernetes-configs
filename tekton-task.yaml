@@ -37,6 +37,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: deploy
+  namespace: tekton-pipelines
 spec:
   steps:
     - name: deploy
