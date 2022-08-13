@@ -62,6 +62,18 @@ jobs:
       - create-cluster
     runs-on: harisekhon/bash-tools:latest
     steps:
+      - name: Install Kind
+        run: install_kind.sh
+
+      - name: Install Kustomize
+        run: install_kustomize.sh
+
+      - name: Kind Version
+        run: kind version
+
+      - name: Kustomize Version
+        run: kustomize version
+
       - name: Generate $KUBE_CONFIG
         run: |
           KUBECONFIG="$(kind get kubeconfig-path)"
@@ -69,12 +81,6 @@ jobs:
 
       - name: Cluster Info
         run: kubectl cluster-info
-
-      - name: Install Kustomize
-        run: install_kustomize.sh
-
-      - name: Kustomize Version
-        run: kustomize version
 
       - name: Install Kustomizations
         run: |
