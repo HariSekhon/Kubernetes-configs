@@ -96,9 +96,14 @@ jobs:
             if [[ "$kustomization" =~ ^(eks|timescaledb)- ]]; then
               echo "Skipping $kustomization"
               echo
+              continue
             fi
             echo "$kustomization"
             cp -fv -- "$kustomization" kustomization.yaml
-            kustomize build --enable-helm | kubectl apply -f -
+            if ! kustomize build --enable-helm | kubectl apply -f - ; then
+              echo "Kustomize | Kubectl Apply failed. Waiting 5 secs before trying again"
+              sleep 5
+              kustomize build --enable-helm | kubectl apply -f -
+            fi
             echo
           done
