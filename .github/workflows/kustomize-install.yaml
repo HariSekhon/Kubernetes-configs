@@ -64,6 +64,9 @@ jobs:
       #- name: Install Kind
       #  run: wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/latest/download/kind-linux-amd64
 
+      #- name: Kind Version
+      #  run: kind version
+
       - name: Install Kustomize
         run: |
           set -euxo pipefail
@@ -75,9 +78,6 @@ jobs:
           version="${version##*/}"
           wget -O /tmp/kustomize.tar.gz "https://github.com/$owner_repo/releases/download/kustomize%2F$version/kustomize_${version}_linux_amd64.tar.gz"
           tar zxvf /tmp/kustomize.tar.gz -C /usr/local/bin/
-
-      - name: Kind Version
-        run: kind version
 
       - name: Kustomize Version
         run: kustomize version
