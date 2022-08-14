@@ -67,6 +67,9 @@ jobs:
       #- name: Install Kind
       #  run: wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/latest/download/kind-linux-amd64
 
+      #- name: Kind Version
+      #  run: kind version
+
       - name: Install Kustomize
         run: |
           set -euxo pipefail
@@ -81,9 +84,6 @@ jobs:
 
       - name: Install yq
         run: apt-get install -y yq
-
-      - name: Kind Version
-        run: kind version
 
       - name: Kustomize Version
         run: kustomize version
