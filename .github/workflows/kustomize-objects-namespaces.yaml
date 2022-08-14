@@ -54,7 +54,8 @@ defaults:
 jobs:
   kustomize-check-object-namespaces:
     name: Kustomize Check Object Namespaces
-    runs-on: harisekhon/bash-tools:latest
+    runs-on: ubuntu-latest
+    container: harisekhon/bash-tools:latest
     steps:
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.3.0
