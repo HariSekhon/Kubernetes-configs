@@ -77,10 +77,10 @@ jobs:
       - name: Kustomize Version
         run: kustomize version
 
-      - name: Generate $KUBE_CONFIG
-        run: |
-          KUBECONFIG="$(kind get kubeconfig-path)"
-          echo "KUBECONFIG=$KUBECONFIG" >> "$GITHUB_ENV"
+      #- name: Generate $KUBE_CONFIG
+      #  run: |
+      #    KUBECONFIG="$(kind get kubeconfig-path)"
+      #    echo "KUBECONFIG=$KUBECONFIG" >> "$GITHUB_ENV"
 
       - name: Cluster Info
         run: kubectl cluster-info
