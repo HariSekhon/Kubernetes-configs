@@ -56,6 +56,11 @@ jobs:
     name: Kustomize Check Object Namespaces
     runs-on: ubuntu-latest
     steps:
+      - name: Environment
+        run: env | sort
+
+      - uses: actions/checkout@v2
+
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.3.0
 
