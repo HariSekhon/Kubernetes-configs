@@ -31,7 +31,7 @@ namespace: goldilocks  # XXX: 5 objects without explicit namespace as shown by k
 
 resources:
   - goldilocks-namespace.yaml
-  # XXX: Edit before uncommenting
+  # XXX: Edit ingress address before uncommenting
   #- goldilocks-ingress.yaml
   #
   # versioned stable copy (commit to vcs):
