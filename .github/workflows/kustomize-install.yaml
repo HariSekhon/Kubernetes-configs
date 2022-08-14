@@ -48,13 +48,15 @@ defaults:
   run:
     shell: bash -euxo pipefail {0}
 
-
 jobs:
   kustomize-install:
     name: Install Kustomizations
     runs-on: ubuntu-latest
     container: harisekhon/bash-tools:latest
     steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.3.0
 
