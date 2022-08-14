@@ -31,7 +31,8 @@ resources:
   - teamcity-namespace.yaml
   - teamcity-agent.yaml
   - teamcity-agent-cloudprofile-deployment.yaml
-  - teamcity-ingress.yaml
+  # XXX: Edit ingress address before uncommenting
+  #- teamcity-ingress.yaml
   - teamcity-server-role.yaml
   - teamcity-server-rolebinding.yaml
   - teamcity-server-serviceaccount.yaml
