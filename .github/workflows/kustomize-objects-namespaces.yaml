@@ -118,6 +118,7 @@ jobs:
             if [[ "$kustomization" =~ ^($IGNORE_REGEX)- ]]; then
               echo "Skipping $kustomization"
               echo
+              continue
             fi
             echo "$kustomization"
             cp -fv -- "$kustomization" kustomization.yaml
