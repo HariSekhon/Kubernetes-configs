@@ -33,7 +33,8 @@ bases:
 
 resources:
   - polaris-namespace.yaml
-  - polaris-ingress.yaml
+  # XXX: Edit ingress address before uncommenting
+  #- polaris-ingress.yaml
   #
   # versioned stable copy (commit to vcs):
   #
