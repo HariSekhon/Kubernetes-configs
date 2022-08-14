@@ -33,7 +33,8 @@ resources:
   - priorityclass.yaml
   - selenium-grid-namespace.yaml
   # Master Components
-  - selenium-grid-router-ingress.yaml
+  # XXX: Edit ingress address before uncommenting
+  #- selenium-grid-router-ingress.yaml
   - selenium-grid-router.yaml
   - selenium-grid-distributor.yaml
   - selenium-grid-event-bus.yaml
