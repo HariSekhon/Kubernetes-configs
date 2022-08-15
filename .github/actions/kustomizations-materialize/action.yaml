@@ -16,12 +16,12 @@
 name: Kustomize Materialize
 description: Materializes all *-kustomization.yaml to *.kustomization.yaml.materialized so that scanning tools can find problems in the resulting k8s yaml templates
 
-inputs:
-  #debug:
-  #  description: Enable Debug Mode
-  #  type: boolean
-  #  required: false
-  #  default: false
+#inputs:
+#  debug:
+#    description: Enable Debug Mode
+#    type: boolean
+#    required: false
+#    default: false
 
 runs:
   using: composite
