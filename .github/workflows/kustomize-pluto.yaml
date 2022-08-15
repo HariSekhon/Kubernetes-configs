@@ -64,9 +64,9 @@ jobs:
       - name: Pluto version
         run: pluto version
 
-      - uses: .github/actions/install-kustomize
+      - uses: /.github/actions/install-kustomize
 
-      - uses: .github/actions/kustomizations-materialize
+      - uses: /.github/actions/kustomizations-materialize
 
       - name: Pluto detect-files
         run: pluto detect-files -d .
