@@ -70,7 +70,7 @@ jobs:
       #- name: Kind Version
       #  run: kind version
 
-      - uses: /.github/actions/install-kustomize
+      - uses: ./.github/actions/install-kustomize
 
       - name: Install yq
         run: sudo apt-get install -y yq
@@ -86,7 +86,7 @@ jobs:
       - name: Cluster Info
         run: kubectl cluster-info
 
-      - uses: /.github/actions/kustomizations-install
+      - uses: ./.github/actions/kustomizations-install
 
       - name: Check Objects are Explicitly Namespaced
         run: |
