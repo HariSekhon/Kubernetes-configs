@@ -155,7 +155,7 @@ patches:
 #      labelSelector: <optional label selector>
 #      annotationSelector: <optional annotation selector>
 
-  # XXX: override old Ingress deprecated/removed API version 'extensions/v1beta1' to 'networking.k8s.io/v1'
+  # XXX: override old Ingress deprecated/removed API version 'extensions/v1beta1' to 'networking.k8s.io/v1' - must do a patchesStrategicMerge on the original object rules section too in order to be valid
   # XXX: useful to override Helm charts using old APIs that break on newer versions of Kubernetes
   - path: ingress-apiversion.jsonpatch.yaml
     target:
