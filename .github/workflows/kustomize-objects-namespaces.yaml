@@ -13,7 +13,7 @@
 #
 
 ---
-name: Kustomize Objects Namespaces
+name: Kustomize Objects Namespaced
 
 on:
   push:
@@ -83,7 +83,7 @@ jobs:
           tar zxvf /tmp/kustomize.tar.gz -C /usr/local/bin/
 
       - name: Install yq
-        run: apt-get install -y yq
+        run: sudo apt-get install -y yq
 
       - name: Kustomize Version
         run: kustomize version
