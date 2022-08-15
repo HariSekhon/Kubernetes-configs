@@ -82,7 +82,7 @@ jobs:
       - name: Kustomize Materialize
         run: |
           for kustomization in *-kustomization.yaml; do
-            if [[ "$kustomization" =~ ^(eks|timescaledb)- ]]; then
+            if [[ "$kustomization" =~ ^eks- ]]; then
               echo "Skipping $kustomization"
               echo
               continue
