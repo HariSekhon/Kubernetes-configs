@@ -22,6 +22,7 @@ runs:
     - shell: bash
       name: Install Kustomizations
       run: |
+        echo "Running Install Kustomizations Action"
         for kustomization in *-kustomization.yaml; do
           if [[ "$kustomization" =~ ^(eks|timescaledb|metrics-server)- ]]; then
             echo "Skipping $kustomization"
