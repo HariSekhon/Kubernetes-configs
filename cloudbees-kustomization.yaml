@@ -40,7 +40,7 @@ helmCharts:
     valuesFile: cloudbees-values.yaml
 
 patches:
-  # Ingress is so old is needs a full update
+  # Ingress is so old it needs a full update, not just apiversion change
   - path: ingress-apiversion.jsonpatch.yaml
     target:
       kind: Ingress
