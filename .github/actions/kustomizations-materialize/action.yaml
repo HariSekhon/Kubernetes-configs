@@ -30,6 +30,7 @@ runs:
       shell: bash
       run: |
         echo "Running Kustomizations Materialize Action"
+        set -euxo pipefail
         for kustomization in *-kustomization.yaml; do
           if [[ "$kustomization" =~ ^eks- ]]; then
             echo "Skipping $kustomization"
