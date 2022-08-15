@@ -67,7 +67,7 @@ jobs:
       #- name: Kind Version
       #  run: kind version
 
-      - uses: /.github/actions/install-kustomize
+      - uses: ./.github/actions/install-kustomize
 
       #- name: Generate $KUBE_CONFIG
       #  run: |
@@ -77,4 +77,4 @@ jobs:
       - name: Cluster Info
         run: kubectl cluster-info
 
-      - uses: /.github/actions/kustomizations-install
+      - uses: ./.github/actions/kustomizations-install
