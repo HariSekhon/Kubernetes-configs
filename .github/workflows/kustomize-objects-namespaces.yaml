@@ -109,6 +109,6 @@ jobs:
             fi
             echo "$kustomization"
             cp -fv -- "$kustomization" kustomization.yaml
-            bash-tools/kustomize_check_objects_namespaces.sh
+            bash-tools/kustomize_check_objects_namespaced.sh
             echo
           done
