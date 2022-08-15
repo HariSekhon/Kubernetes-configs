@@ -38,7 +38,7 @@ on:
     - cron: '0 0 * * 1'
 
 env:
-  IGNORE_REGEX: 'eks|timescaledb'
+  IGNORE_REGEX: 'eks'
 
 permissions:
   contents: read
