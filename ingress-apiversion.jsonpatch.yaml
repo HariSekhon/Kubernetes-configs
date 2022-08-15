@@ -1,0 +1,30 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-15 09:51:14 +0100 (Mon, 15 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint:k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                I n g r e s s   A p i V e r s i o n   P a t c h
+# ============================================================================ #
+
+# Useful to patch Ingresses inherited from Helm Charts in Kustomize
+
+# Apply:
+#
+#   run: kubectl patch ingress "$name" --namespace "$namespace" --type json --patch "$(cat ingress-apiversion.patch.yaml)"
+
+---
+- op: replace
+  path: /apiVersion
+  value: apiextensions.k8s.io/v1
