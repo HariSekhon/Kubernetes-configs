@@ -45,13 +45,13 @@ helmCharts:
 #
 #     https://github.com/argoproj/argo-cd/issues/8128
 #
-#patchesJson6902:
-#  - target:
-#      group: apiextensions.k8s.io
-#      version: v1
-#      kind: CustomResourceDefinition
-#      name: prometheuses.monitoring.coreos.com
-#    patch: |-
-#      - op: add
-#        path: "/metadata/annotations/argocd.argoproj.io~1sync-options"
-#        value: "Replace=true"
+patchesJson6902:
+  - target:
+      group: apiextensions.k8s.io
+      version: v1
+      kind: CustomResourceDefinition
+      name: prometheuses.monitoring.coreos.com
+    patch: |-
+      - op: add
+        path: "/metadata/annotations/argocd.argoproj.io~1sync-options"
+        value: "Replace=true"
