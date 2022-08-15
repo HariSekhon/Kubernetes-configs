@@ -1,0 +1,48 @@
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-15 15:06:27 +0100 (Mon, 15 Aug 2022)
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+name: Kustomize Install Each
+description: Installs each *-kustomization.yaml
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      name: Install Kustomizations
+      run: |
+        for kustomization in *-kustomization.yaml; do
+          if [[ "$kustomization" =~ ^(eks|timescaledb|metrics-server)- ]]; then
+            echo "Skipping $kustomization"
+            echo
+            continue
+          fi
+          echo "$kustomization"
+          cp -fv -- "$kustomization" kustomization.yaml
+          yaml="$(kustomize build --enable-helm)"
+          if ! kubectl apply -f - <<< "$yaml"; then
+            echo "Kustomize | Kubectl Apply failed. Waiting 5 secs before trying again"
+            sleep 5
+            # workaround for prometheus-stack:
+            #
+            #   https://github.com/prometheus-community/helm-charts/issues/1500
+            #
+            if kubectl apply -f - 2>&1 <<< "$yaml" | grep -q 'metadata.annotations: Too long'; then
+              kubectl replace -f - <<< "$yaml"
+            else
+              kubectl apply -f - <<< "$yaml"
+            fi
+          fi
+          echo
+        done
