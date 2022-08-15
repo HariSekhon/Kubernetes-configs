@@ -76,7 +76,7 @@ jobs:
 
       - name: Install yq
         #run: sudo apt-get install -y yq
-        run: snap install -y yq
+        run: snap install yq
 
       - name: Yq Version
         run: yq --version
