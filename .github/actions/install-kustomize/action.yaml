@@ -34,16 +34,15 @@ runs:
       shell: bash
       run: |
         echo "Running Install Kustomize Action"
-        run: |
-          set -euxo pipefail
-          owner_repo="kubernetes-sigs/kustomize"
-          version="$(
-            curl -sSL --fail "https://api.github.com/repos/$owner_repo/releases" |
-            jq -r "limit(1; .[] | select(.tag_name | test(\"kustomize\")) | .tag_name)"
-          )"
-          version="${version##*/}"
-          wget -O /tmp/kustomize.tar.gz "https://github.com/$owner_repo/releases/download/kustomize%2F$version/kustomize_${version}_linux_amd64.tar.gz"
-          tar zxvf /tmp/kustomize.tar.gz -C /usr/local/bin/
+        set -euxo pipefail
+        owner_repo="kubernetes-sigs/kustomize"
+        version="$(
+          curl -sSL --fail "https://api.github.com/repos/$owner_repo/releases" |
+          jq -r "limit(1; .[] | select(.tag_name | test(\"kustomize\")) | .tag_name)"
+        )"
+        version="${version##*/}"
+        wget -O /tmp/kustomize.tar.gz "https://github.com/$owner_repo/releases/download/kustomize%2F$version/kustomize_${version}_linux_amd64.tar.gz"
+        tar zxvf /tmp/kustomize.tar.gz -C /usr/local/bin/
 
     - name: Kustomize Version
       run: kustomize version
