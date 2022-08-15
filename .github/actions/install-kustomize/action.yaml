@@ -16,16 +16,16 @@
 name: Install Kustomize
 description: Installs the latest or given version of Kustomize
 
-inputs:
-  #version:
-  #  description: Kustomize version to install
-  #  type: string
-  #  required: false
-  #debug:
-  #  description: Enable Debug Mode
-  #  type: boolean
-  #  required: false
-  #  default: false
+#inputs:
+#  #version:
+#  #  description: Kustomize version to install
+#  #  type: string
+#  #  required: false
+#  debug:
+#    description: Enable Debug Mode
+#    type: boolean
+#    required: false
+#    default: false
 
 runs:
   using: composite
