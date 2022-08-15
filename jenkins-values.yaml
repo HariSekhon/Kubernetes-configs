@@ -400,7 +400,8 @@ controller:
   prometheus:
     # If enabled, add the prometheus plugin to the list of plugins to install
     # https://plugins.jenkins.io/prometheus
-    enabled: true
+    enabled: false # default: true - needs to have Prometheus component installed first, otherwise gets this error:
+                   # no matches for kind "ServiceMonitor" in version "monitoring.coreos.com/v1"
     scrapeInterval: 60s
     # This is the default endpoint used by the prometheus plugin
     scrapeEndpoint: /prometheus
