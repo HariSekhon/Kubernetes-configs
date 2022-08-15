@@ -52,7 +52,9 @@ runs:
             #
             #   https://github.com/prometheus-community/helm-charts/issues/1500
             #
-            if kubectl apply -f - 2>&1 <<< "$yaml" | grep -q 'metadata.annotations: Too long'; then
+            # XXX: for somet reason this doesn't trigger, fix this
+            #if kubectl apply -f - 2>&1 <<< "$yaml" | grep -q 'metadata.annotations: Too long'; then
+            if [[ "$kustomization" =~ prometheus-stack ]]; then
               kubectl replace -f - <<< "$yaml"
             else
               kubectl apply -f - <<< "$yaml"
