@@ -9,7 +9,7 @@
 
 [![CI Builds Overview](https://img.shields.io/badge/CI%20Builds-Overview%20Page-blue?logo=circleci)](https://harisekhon.github.io/CI-CD/)
 [![Kustomize Installs](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-install.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-install.yaml)
-[![Kustomize Objects Namespaced](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-objects-namespaces.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-objects-namespaces.yaml)
+[![Kustomize Objects Namespaced](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-objects-namespaced.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-objects-namespaced.yaml)
 [![Datree Kustomize](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/datree-kustomize.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/datree-kustomize.yaml)
 [![YAML](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/yaml.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/yaml.yaml)
 [![JSON](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/json.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/json.yaml)
