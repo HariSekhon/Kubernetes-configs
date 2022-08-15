@@ -38,3 +38,19 @@ helmCharts:
     namespace: prometheus
     includeCRDs: true
     valuesFile: prometheus-values.yaml
+
+# XXX: workaround for:
+#
+#   CustomResourceDefinition.apiextensions.k8s.io "prometheuses.monitoring.coreos.com" is invalid: metadata.annotations: Too long: must have at most 262144 bytes
+#
+# https://github.com/argoproj/argo-cd/issues/8128
+patchesJson6902:
+  - target:
+      group: apiextensions.k8s.io
+      version: v1
+      kind: CustomResourceDefinition
+      name: prometheuses.monitoring.coreos.com
+    patch: |-
+      - op: add
+        path: "/metadata/annotations/argocd.argoproj.io~1sync-options"
+        value: "Replace=true"
