@@ -46,7 +46,7 @@ runs:
           yaml="$(kustomize build --enable-helm)"
           set -x
           if ! kubectl apply -f - <<< "$yaml"; then
-            echo "Kustomize | Kubectl Apply failed. Waiting 5 secs before trying again"
+            echo "Kustomize | Kubectl Apply failed. Waiting 5 secs before trying again to give CRDs time to register and be recognized"
             sleep 5
             # workaround for prometheus-stack:
             #
