@@ -31,6 +31,7 @@ runs:
   using: composite
   steps:
     - shell: bash
+      name: Install Kustomize
       run: |
         echo "Running Install Kustomize Action"
         run: |
@@ -43,3 +44,6 @@ runs:
           version="${version##*/}"
           wget -O /tmp/kustomize.tar.gz "https://github.com/$owner_repo/releases/download/kustomize%2F$version/kustomize_${version}_linux_amd64.tar.gz"
           tar zxvf /tmp/kustomize.tar.gz -C /usr/local/bin/
+
+    - name: Kustomize Version
+      run: kustomize version
