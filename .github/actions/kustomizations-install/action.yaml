@@ -41,7 +41,10 @@ runs:
           fi
           echo "$kustomization"
           cp -fv -- "$kustomization" kustomization.yaml
+          # too much noise listing the entire yamls in the logs
+          set +x
           yaml="$(kustomize build --enable-helm)"
+          set -x
           if ! kubectl apply -f - <<< "$yaml"; then
             echo "Kustomize | Kubectl Apply failed. Waiting 5 secs before trying again"
             sleep 5
