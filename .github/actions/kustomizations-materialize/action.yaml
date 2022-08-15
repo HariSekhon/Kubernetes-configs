@@ -1,0 +1,43 @@
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-15 16:01:53 +0100 (Mon, 15 Aug 2022)
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+name: Kustomize Materialize
+description: Materializes all *-kustomization.yaml to *.kustomization.yaml.materialized so that scanning tools can find problems in the resulting k8s yaml templates
+
+inputs:
+  #debug:
+  #  description: Enable Debug Mode
+  #  type: boolean
+  #  required: false
+  #  default: false
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      name: Kustomizations Materialize
+      run: |
+        echo "Running Kustomizations Materialize Action"
+        for kustomization in *-kustomization.yaml; do
+          if [[ "$kustomization" =~ ^eks- ]]; then
+            echo "Skipping $kustomization"
+            echo
+            continue
+          fi
+          echo "$kustomization"
+          cp -fv -- "$kustomization" kustomization.yaml
+          kustomize build --enable-helm > "$kustomization.materialized"
+          echo
+        done
