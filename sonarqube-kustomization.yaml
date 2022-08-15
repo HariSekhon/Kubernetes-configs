@@ -29,6 +29,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: sonarqube  # XXX: without this ends up in the current namespace due to missing namespace field in 12/16 objects, as shown by kustomize_check_objects_namespaces.sh in the adjacent DevOps Bash tools repo
 
+resources:
+  - sonarqube-namespace.yaml
+
 helmCharts:
   - name: sonarqube
     repo: https://SonarSource.github.io/helm-chart-sonarqube
