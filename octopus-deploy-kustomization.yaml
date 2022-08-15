@@ -31,6 +31,7 @@ namespace: octopus-deploy  # XXX: 5 objects without explicit namespace as shown 
 #   octopus-deploy-sa-password     # used by main sts + mssql deployment
 
 resources:
+  - octopus-deploy-namespace.yaml
   - octopus-deploy-sts.yaml
   - octopus-deploy-mssql.yaml
   - octopus-deploy-mssql-pvc.yaml
