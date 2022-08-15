@@ -16,13 +16,23 @@
 name: Kustomize Install Each
 description: Installs each *-kustomization.yaml
 
+#inputs:
+#  debug:
+#    description: Enable Debug Mode
+#    type: boolean
+#    required: false
+#    default: false
+
 runs:
-  using: "composite"
+  using: composite
   steps:
     - shell: bash
       name: Install Kustomizations
+      #env:
+      #  DEBUG: ${{ inputs.debug }}
       run: |
         echo "Running Install Kustomizations Action"
+        set -euxo pipefail
         for kustomization in *-kustomization.yaml; do
           if [[ "$kustomization" =~ ^(eks|timescaledb|metrics-server)- ]]; then
             echo "Skipping $kustomization"
