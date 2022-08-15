@@ -75,7 +75,8 @@ jobs:
       #  run: kind version
 
       - name: Install yq
-        run: sudo apt-get install -y yq
+        #run: sudo apt-get install -y yq
+        run: snap install -y yq
 
       - name: Yq Version
         run: yq --version
