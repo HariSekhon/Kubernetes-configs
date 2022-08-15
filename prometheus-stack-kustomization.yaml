@@ -36,7 +36,7 @@ helmCharts:
     version: 21.0.0
     releaseName: kube-prometheus-stack
     namespace: prometheus
-    includeCRDs: true
+    #includeCRDs: true
     valuesFile: prometheus-values.yaml
 
 # XXX: ArgoCD specific workaround for:
