@@ -99,31 +99,7 @@ jobs:
       - name: Cluster Info
         run: kubectl cluster-info
 
-      - name: Install Kustomizations
-        run: |
-          for kustomization in *-kustomization.yaml; do
-            if [[ "$kustomization" =~ ^($IGNORE_REGEX)- ]]; then
-              echo "Skipping $kustomization"
-              echo
-            fi
-            echo "$kustomization"
-            cp -fv -- "$kustomization" kustomization.yaml
-            yaml="$(kustomize build --enable-helm)"
-            if ! kubectl apply -f - <<< "$yaml"; then
-              echo "Kustomize | Kubectl Apply failed. Waiting 5 secs before trying again"
-              sleep 5
-              # workaround for prometheus-stack:
-              #
-              #   https://github.com/prometheus-community/helm-charts/issues/1500
-              #
-              if kubectl apply -f - 2>&1 <<< "$yaml" | grep -q 'metadata.annotations: Too long'; then
-                kubectl replace -f - <<< "$yaml"
-              else
-                kubectl apply -f - <<< "$yaml"
-              fi
-            fi
-            echo
-          done
+      - uses: ./.github/actions/kustomize-install.yaml
 
       - name: Check Objects are Explicitly Namespaced
         run: |
