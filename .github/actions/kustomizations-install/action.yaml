@@ -54,11 +54,15 @@ runs:
             #
             # XXX: for somet reason this doesn't trigger, fix this
             #if kubectl apply -f - 2>&1 <<< "$yaml" | grep -q 'metadata.annotations: Too long'; then
-            if [[ "$kustomization" =~ prometheus-stack ]]; then
-              kubectl replace -f - <<< "$yaml"
-            else
+            #if [[ "$kustomization" =~ prometheus-stack ]]; then
+            # XXX: fails with:
+            #
+            #   Pod "kube-prometheus-stack-grafana-test" is invalid: spec: Forbidden: pod updates may not change fields other than ...
+            #
+            #  kubectl replace -f - <<< "$yaml"
+            #else
               kubectl apply -f - <<< "$yaml"
-            fi
+            #fi
           fi
           echo
         done
