@@ -39,5 +39,6 @@ runs:
           echo "$kustomization"
           cp -fv -- "$kustomization" kustomization.yaml
           kustomize build --enable-helm > "$kustomization.materialized"
+          echo "Materialized YAML -> $kustomization.materialized"
           echo
         done
