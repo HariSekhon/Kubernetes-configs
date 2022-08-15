@@ -18,12 +18,29 @@
 
 ---
 # XXX: chart is still using an old ingress object
-#apiVersion: extensions/v1beta1
+apiVersion: extensions/v1beta1
 # this passes linting, but doesn't work on the existing chart - either update the chart or uncomment the above
-apiVersion: networking.k8s.io/v1
+#apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: cjoc
   #namespace: cloudbees-core   # don't specify namespace, won't match as the namespace is applied later
   annotations:
     kubernetes.io/ingress.class: DISABLED
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /cjoc
+            pathType: Prefix
+            backend:
+              #serviceName: cjoc
+              #servicePort: 80
+              service:
+                name: cjoc
+                port:
+                  number: 80
+          #- backend:
+          #    serviceName: cjoc
+          #    servicePort: 80
+          #  path: /cjoc/*
