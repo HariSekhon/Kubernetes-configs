@@ -1,0 +1,97 @@
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-13 09:54:19 +0100 (Sat, 13 Aug 2022)
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+name: Kustomize Pluto (Helm inheritance)
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '*.yaml'
+      - .github/workflows/kustomize-pluto.yaml
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '*.yaml'
+      - .github/workflows/kustomize-pluto.yaml
+  workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
+    inputs:
+      debug:
+        type: boolean
+        required: false
+        default: false
+  schedule:
+    - cron: '0 0 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash -euxo pipefail {0}
+
+jobs:
+  kustomize-pluto:
+    name: Kustomize Pluto
+    runs-on: ubuntu-latest
+    steps:
+      - name: Environment
+        run: env | sort
+
+      - uses: actions/checkout@v2
+
+      - name: Download Pluto
+        uses: FairwindsOps/pluto/github-action@master
+
+      - name: Pluto version
+        run: pluto version
+
+      - name: Install Kustomize
+        run: |
+          set -euxo pipefail
+          owner_repo="kubernetes-sigs/kustomize"
+          version="$(
+            curl -sSL --fail "https://api.github.com/repos/$owner_repo/releases" |
+            jq -r "limit(1; .[] | select(.tag_name | test(\"kustomize\")) | .tag_name)"
+          )"
+          version="${version##*/}"
+          wget -O /tmp/kustomize.tar.gz "https://github.com/$owner_repo/releases/download/kustomize%2F$version/kustomize_${version}_linux_amd64.tar.gz"
+          tar zxvf /tmp/kustomize.tar.gz -C /usr/local/bin/
+
+      - name: Kustomize Version
+        run: kustomize version
+
+      - name: Kustomize Materialize
+        run: |
+          for kustomization in *-kustomization.yaml; do
+            if [[ "$kustomization" =~ ^(eks|timescaledb)- ]]; then
+              echo "Skipping $kustomization"
+              echo
+              continue
+            fi
+            echo "$kustomization"
+            cp -fv -- "$kustomization" kustomization.yaml
+            kustomize build --enable-helm > "$kustomization.materialized"
+            echo
+          done
+
+      - name: Pluto detect-files
+        run: pluto detect-files -d .
