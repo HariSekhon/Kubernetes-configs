@@ -30,8 +30,8 @@ description: Installs the latest or given version of Kustomize
 runs:
   using: composite
   steps:
-    - shell: bash
-      name: Install Kustomize
+    - name: Install Kustomize
+      shell: bash
       run: |
         echo "Running Install Kustomize Action"
         run: |
