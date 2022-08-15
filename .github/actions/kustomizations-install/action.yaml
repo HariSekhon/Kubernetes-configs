@@ -26,8 +26,8 @@ description: Installs each *-kustomization.yaml
 runs:
   using: composite
   steps:
-    - shell: bash
-      name: Install Kustomizations
+    - name: Install Kustomizations
+      shell: bash
       #env:
       #  DEBUG: ${{ inputs.debug }}
       run: |
