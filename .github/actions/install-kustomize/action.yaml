@@ -47,3 +47,4 @@ runs:
 
     - name: Kustomize Version
       run: kustomize version
+      shell: bash
