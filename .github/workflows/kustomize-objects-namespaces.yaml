@@ -111,7 +111,15 @@ jobs:
             if ! kustomize build --enable-helm | kubectl apply -f -; then
               echo "Kustomize | Kubectl Apply failed. Waiting 5 secs before trying again"
               sleep 5
-              kustomize build --enable-helm | kubectl apply -f -
+              # workaround for prometheus-stack:
+              #
+              #   https://github.com/prometheus-community/helm-charts/issues/1500
+              #
+              if kustomize build --enable-helm | kubectl apply -f - 2>&1 | grep -q 'metadata.annotations: Too long'; then
+                kustomize build --enable-helm | kubectl replace -f -
+              else
+                kustomize build --enable-helm | kubectl apply -f -
+              fi
             fi
             echo
           done
