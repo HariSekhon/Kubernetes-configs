@@ -100,17 +100,18 @@ jobs:
             fi
             echo "$kustomization"
             cp -fv -- "$kustomization" kustomization.yaml
-            if ! kustomize build --enable-helm | kubectl apply -f -; then
+            yaml="$(kustomize build --enable-helm)"
+            if ! kubectl apply -f - <<< "$yaml"; then
               echo "Kustomize | Kubectl Apply failed. Waiting 5 secs before trying again"
               sleep 5
               # workaround for prometheus-stack:
               #
               #   https://github.com/prometheus-community/helm-charts/issues/1500
               #
-              if kustomize build --enable-helm | kubectl apply -f - 2>&1 | grep -q 'metadata.annotations: Too long'; then
-                kustomize build --enable-helm | kubectl replace -f -
+              if kubectl apply -f - 2>&1 <<< "$yaml" | grep -q 'metadata.annotations: Too long'; then
+                kubectl replace -f - <<< "$yaml"
               else
-                kustomize build --enable-helm | kubectl apply -f -
+                kubectl apply -f - <<< "$yaml"
               fi
             fi
             echo
