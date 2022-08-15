@@ -39,6 +39,9 @@ helmCharts:
     includeCRDs: true
     valuesFile: cloudbees-values.yaml
 
-# if you're not ready to have an ingress letting things through
-#patches:
-#  - ingress-disable.patch.yaml
+patches:
+  - path: ingress-apiversion.jsonpatch.yaml
+    target:
+      kind: Ingress
+  # if you're not ready to have an ingress letting things through
+  #- ingress-disable.patch.yaml
