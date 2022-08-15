@@ -63,13 +63,6 @@ jobs:
       - name: Environment
         run: env | sort
 
-      - name: Install yq
-        #run: sudo apt-get install -y yq
-        run: sudo snap install yq
-
-      - name: yq version
-        run: yq --version
-
       - uses: actions/checkout@v2
 
       - name: Create k8s Kind Cluster
@@ -87,6 +80,13 @@ jobs:
 
       - name: Cluster Info
         run: kubectl cluster-info
+
+      - name: Install yq
+        #run: sudo apt-get install -y yq
+        run: sudo snap install yq
+
+      - name: yq version
+        run: yq --version
 
       - uses: ./.github/actions/install-kustomize
 
