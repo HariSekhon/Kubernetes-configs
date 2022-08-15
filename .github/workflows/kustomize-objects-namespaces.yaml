@@ -99,7 +99,7 @@ jobs:
       - name: Cluster Info
         run: kubectl cluster-info
 
-      - uses: ./.github/actions/kustomize-install.yaml
+      - uses: ./.github/actions/kustomize-install
 
       - name: Check Objects are Explicitly Namespaced
         run: |
