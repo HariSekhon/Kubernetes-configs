@@ -22,12 +22,16 @@ on:
     paths:
       - '*.yaml'
       - .github/workflows/kustomize-pluto.yaml
+      - .github/actions/install-kustomize/action.yaml
+      - .github/actions/kustomizations-materizalize/action.yaml
   pull_request:
     branches:
       - master
     paths:
       - '*.yaml'
       - .github/workflows/kustomize-pluto.yaml
+      - .github/actions/install-kustomize/action.yaml
+      - .github/actions/kustomizations-materialize/action.yaml
   workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
     inputs:
       debug:
