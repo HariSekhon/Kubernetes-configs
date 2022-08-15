@@ -23,8 +23,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 #namespace: timescaledb  # Do not override helm chart, can cause issues
 
-patchesStrategicMerge:
-  - goldilocks-namespace-enable.patch.yaml
+resources:
+  - timescaledb-namespace.yaml
 
 helmCharts:
   - name: timescaledb-single
