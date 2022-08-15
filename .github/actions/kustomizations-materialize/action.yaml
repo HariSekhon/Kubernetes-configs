@@ -26,8 +26,8 @@ description: Materializes all *-kustomization.yaml to *.kustomization.yaml.mater
 runs:
   using: composite
   steps:
-    - shell: bash
-      name: Kustomizations Materialize
+    - name: Kustomizations Materialize
+      shell: bash
       run: |
         echo "Running Kustomizations Materialize Action"
         for kustomization in *-kustomization.yaml; do
