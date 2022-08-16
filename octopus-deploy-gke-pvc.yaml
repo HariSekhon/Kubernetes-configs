@@ -29,6 +29,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: artifacts-claim
+  namespace: octopus-deploy
 spec:
   accessModes:
     - ReadWriteMany
@@ -41,6 +42,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: repository-claim
+  namespace: octopus-deploy
 spec:
   accessModes:
     - ReadWriteMany
@@ -53,6 +55,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: task-logs-claim
+  namespace: octopus-deploy
 spec:
   accessModes:
     - ReadWriteMany
