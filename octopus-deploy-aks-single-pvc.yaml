@@ -21,8 +21,6 @@
 # https://octopus.com/docs/installation/octopus-server-linux-container/octopus-in-kubernetes
 
 # Use a single volume instead of 3 separate volumes, this means less buckets and potentially less costs (should be trivial)
-#
-# Requires changing the StatefulSet volume mounts
 
 ---
 kind: PersistentVolumeClaim
