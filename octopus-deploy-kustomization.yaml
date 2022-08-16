@@ -30,11 +30,16 @@ namespace: octopus-deploy
 #   octopus-deploy-admin-password  # used by main sts
 #   octopus-deploy-sa-password     # used by main sts + mssql deployment
 #
+# Now added to octopus-deploy-secrets.yaml for convenience of more automation so you don't have to run these each bootstrap
+#
 # kubectl create secret generic -n octopus-deploy octopus-deploy-admin-password --from-literal=password='0ct@pu55!'
 # kubectl create secret generic -n octopus-deploy octopus-deploy-sa-password    --from-literal=password='0ct@pu55!'
 
 resources:
   - octopus-deploy-namespace.yaml
+
+  # XXX: for production, replace this with one of the better mechanisms documented in secret.yaml
+  - octopus-deploy-secrets.yaml
 
   - octopus-deploy-sts.yaml
   - octopus-deploy-mssql.yaml
