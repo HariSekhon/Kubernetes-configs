@@ -27,6 +27,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: octopus-storage-claim
+  namespace: octopus-deploy
 spec:
   accessModes:
     - ReadWriteMany
