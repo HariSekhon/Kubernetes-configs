@@ -76,9 +76,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            - name: DB_CONNECTION_STRING
-              # TODO: check this env can be constructed from another env like this, otherwise move to secret
-              value: Server=mssql,1433;Database=Octopus;User Id=SA;Password=$(SA_PASSWORD)
             - name: ADMIN_USERNAME
               value: admin
             - name: ADMIN_PASSWORD
@@ -99,6 +96,9 @@ spec:
             #- name: MASTER_KEY
             #  # Replace this, as this value protects secrets in Octopus
             #  value: <MasterKey-goes-here>
+            # XXX: must come after the environment variable it is referencing ie. SA_PASSWORD
+            - name: DB_CONNECTION_STRING
+              value: Server=mssql,1433;Database=Octopus;User Id=SA;Password=$(SA_PASSWORD)
           # TODO: tune
           resources:
             requests:
