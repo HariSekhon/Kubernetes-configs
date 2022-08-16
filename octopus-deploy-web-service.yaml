@@ -25,8 +25,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: octopus-web
+  namespace: octopus-deploy
 spec:
-  type: LoadBalancer
+  #type: LoadBalancer
+  #type: ClusterIP
   ports:
     - name: web
       port: 80
