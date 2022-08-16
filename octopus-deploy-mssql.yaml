@@ -25,6 +25,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mssql-deployment
+  namespace: octopus-deploy
   labels:
     app: mssql
 spec:
