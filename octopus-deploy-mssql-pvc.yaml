@@ -25,6 +25,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: mssql-data
+  namespace: octopus-deploy
 spec:
   accessModes:
     - ReadWriteOnce
