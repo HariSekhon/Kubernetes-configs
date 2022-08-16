@@ -35,7 +35,7 @@ namespace: octopus-deploy
 
 resources:
   - octopus-deploy-namespace.yaml
-  # replaced by chart
+
   - octopus-deploy-sts.yaml
   - octopus-deploy-mssql.yaml
 
@@ -56,6 +56,13 @@ resources:
   #- octopus-deploy-gke-filestore-storageclass.yaml
   #- octopus-deploy-gke-pvc.yaml
 
+
+# doesn't work, has dependency on an outdated chart:
+#
+#   https://github.com/OctopusSamples/OctopusHelmChart/issues/11
+#
+#   https://github.com/helm/charts/tree/master/stable/mssql-linux
+#
 #helmCharts:
 #  - name: octopusdeploy
 #    repo: https://octopus-helm-charts.s3.amazonaws.com
