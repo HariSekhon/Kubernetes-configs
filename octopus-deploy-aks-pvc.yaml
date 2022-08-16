@@ -20,6 +20,10 @@
 
 # https://octopus.com/docs/installation/octopus-server-linux-container/octopus-in-kubernetes
 
+# Use 3 separate volumes
+#
+# Requires changing the StatefulSet volume mounts
+
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
