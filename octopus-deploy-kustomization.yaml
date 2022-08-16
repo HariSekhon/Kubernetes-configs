@@ -23,18 +23,21 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: octopus-deploy  # XXX: 5 objects without explicit namespace as shown by kustomize_check_objects_namespaces.sh in the adjacent DevOps Bash tools repo
+namespace: octopus-deploy
 
 # XXX: need to add secrets:
 #
 #   octopus-deploy-admin-password  # used by main sts
 #   octopus-deploy-sa-password     # used by main sts + mssql deployment
+#
+# kubectl create secret generic -n octopus-deploy octopus-deploy-admin-password --from-literal=password='0ct@pu55!'
+# kubectl create secret generic -n octopus-deploy octopus-deploy-sa-password    --from-literal=password='0ct@pu55!'
 
 resources:
   - octopus-deploy-namespace.yaml
+  # replaced by chart
   - octopus-deploy-sts.yaml
   - octopus-deploy-mssql.yaml
-  - octopus-deploy-mssql-pvc.yaml
 
   - octopus-deploy-mssql-service.yaml
   # exposes port 80
@@ -43,9 +46,22 @@ resources:
   #- octopus-deploy-ha1-service.yaml
   #- octopus-deploy-ha2-service.yaml
 
+  - octopus-deploy-pvc.yaml
+  - octopus-deploy-mssql-pvc.yaml
+
   # enable depending on which cloud you're on
   #- octopus-deploy-aks-pvc.yaml
   #- octopus-deploy-aks-single-pvc.yaml  # alternatively use a single vol
   #
   #- octopus-deploy-gke-filestore-storageclass.yaml
   #- octopus-deploy-gke-pvc.yaml
+
+#helmCharts:
+#  - name: octopusdeploy
+#    repo: https://octopus-helm-charts.s3.amazonaws.com
+#    # helm search repo octopus
+#    version: 0.1.36
+#    releaseName: octopusdeploy
+#    namespace: octopus-deploy
+#    includeCRDs: true
+#    valuesFile: octopus-deploy-values.yaml
