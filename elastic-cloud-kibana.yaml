@@ -1,0 +1,25 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-18 17:40:37 +0100 (Thu, 18 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: mycluster    # XXX: Edit to match elasticsearch-cluster.yaml
+spec:
+  version: 8.3.3
+  count: 1
+  elasticsearchRef:
+    name: mycluster  # XXX: Edit to match elasticsearch-cluster.yaml
