@@ -31,6 +31,7 @@ resources:
 
 #patches:
 #  # XXX: remove the caBundle field from ValidatingWebhookConfiguration to prevent it being repeatedly overwritten with the stub 'Cg=='
+#         unfortunately this results in a diff that indicates it would remove the caBundle field entirely
 #  - path: elasticsearch-validatingwebhook-delete-cabundle.jsonpatch.yaml
 #    target:
 #      kind: ValidatingWebhookConfiguration
