@@ -54,4 +54,4 @@ spec:
             resources:
               requests:
                 storage: 5Gi
-            storageClassName: standard  # XXX: Edit to an extendable storage class, see storageclass-gcp-*-resizeable.yaml
+            #storageClassName: standard-resizeable  # XXX: add storageclass-gcp-standard-resizeable.yaml to enable
