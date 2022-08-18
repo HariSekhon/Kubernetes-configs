@@ -30,4 +30,5 @@ namespace: elasticsearch
 #  - ../elastic-cloud  # should contain elastic-cloud-*.yaml
 
 resources:
+  - elasticsearch-namespace.yaml
   - elasticsearch-cluster.yaml
