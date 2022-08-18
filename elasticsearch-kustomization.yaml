@@ -15,7 +15,7 @@
 #
 
 # ============================================================================ #
-#             E l a s t i c s e a r c h   K u s t o m i z a t i o n
+#             E l a s t i c   C l o u d   o n   K u b e r n e t e s
 # ============================================================================ #
 
 # https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html
@@ -23,7 +23,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-#namespace: elasticsearch  # XXX: Do not override the ECK namespace as the ECK operator should go in elastic-system but workloads should go in another namespace
+#namespace: elastic-system
 
 resources:
   - https://download.elastic.co/downloads/eck/2.3.0/crds.yaml
