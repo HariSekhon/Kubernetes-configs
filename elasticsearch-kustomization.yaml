@@ -28,3 +28,9 @@ kind: Kustomization
 resources:
   - https://download.elastic.co/downloads/eck/2.3.0/crds.yaml
   - https://download.elastic.co/downloads/eck/2.3.0/operator.yaml
+
+patches:
+  # XXX: remove the caBundle field from ValidatingWebhookConfiguration to prevent it being repeatedly overwritten with the stub 'Cg=='
+  - path: elasticsearch-validatingwebhook-delete-cabundle.jsonpatch.yaml
+    target:
+      kind: ValidatingWebhookConfiguration
