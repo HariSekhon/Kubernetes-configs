@@ -1,0 +1,51 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-18 13:06:47 +0100 (Thu, 18 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint:k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#  Elasticsearch ValidatingWebhookConfiguration Remove caBundle field
+# ============================================================================ #
+
+# Prevents repeatedly overwriting the caBundle field on successive applies
+
+---
+# TODO: figure out if we can glob this to all webhooks array items more simply
+#
+# XXX: this must match the number of elements otherwise results in this error:
+#
+#         Error: remove operation does not apply: doc is missing path: "/webhooks/10/clientConfig/caBundle": missing value
+#
+- op: remove
+  path: /webhooks/0/clientConfig/caBundle
+- op: remove
+  path: /webhooks/1/clientConfig/caBundle
+- op: remove
+  path: /webhooks/2/clientConfig/caBundle
+- op: remove
+  path: /webhooks/3/clientConfig/caBundle
+- op: remove
+  path: /webhooks/4/clientConfig/caBundle
+- op: remove
+  path: /webhooks/5/clientConfig/caBundle
+- op: remove
+  path: /webhooks/6/clientConfig/caBundle
+- op: remove
+  path: /webhooks/7/clientConfig/caBundle
+- op: remove
+  path: /webhooks/8/clientConfig/caBundle
+- op: remove
+  path: /webhooks/9/clientConfig/caBundle
+#- op: remove
+#  path: /webhooks/10/clientConfig/caBundle
