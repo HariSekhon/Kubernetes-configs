@@ -45,11 +45,11 @@ spec:
               command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
       volumeClaimTemplates:
         - metadata:
-            name: elasticsearch-data # Do not change this name unless you set up a volume mount for the data path.
+            name: elasticsearch-data  # Do not change this name unless you set up a volume mount for the data path
           spec:
             accessModes:
-            - ReadWriteOnce
+              - ReadWriteOnce
             resources:
               requests:
                 storage: 5Gi
-            storageClassName: standard  # XXX: change to an extendable storage class, see storageclass-gcp-*-resizeable.yaml
+            storageClassName: standard  # XXX: Edit to an extendable storage class, see storageclass-gcp-*-resizeable.yaml
