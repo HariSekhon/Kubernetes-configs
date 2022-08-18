@@ -22,6 +22,7 @@ apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
   name: mycluster  # XXX: Edit
+  namespace: elasticsearch  # can be any namespace, the ECK hooks will launch a cluster in the same namespace
 spec:
   version: 8.3.3   # XXX: Exit
   nodeSets:
