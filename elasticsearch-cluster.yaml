@@ -28,5 +28,18 @@ spec:
   nodeSets:
     - name: default
       count: 1     # XXX: Edit
-      config:
-        node.store.allow_mmap: false
+      # bad for performance, add initcontainer to increase mmap address space instead, see:
+      #
+      #   https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-virtual-memory.html
+      #
+      #config:
+      #  node.store.allow_mmap: false
+      #
+      podTemplate:
+        spec:
+          initContainers:
+          - name: sysctl
+            securityContext:
+              privileged: true
+              runAsUser: 0
+            command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
