@@ -25,7 +25,7 @@ metadata:
 spec:
   version: 8.3.3   # XXX: Exit
   nodeSets:
-  - name: default
-    count: 1       # XXX: Edit
-    config:
-      node.store.allow_mmap: false
+    - name: default
+      count: 1     # XXX: Edit
+      config:
+        node.store.allow_mmap: false
