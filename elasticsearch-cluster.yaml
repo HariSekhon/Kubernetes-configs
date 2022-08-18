@@ -1,0 +1,31 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-18 14:55:44 +0100 (Thu, 18 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                     Elasticsearch Cluster for ECK operator
+# ============================================================================ #
+
+---
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: mycluster  # XXX: Edit
+spec:
+  version: 8.3.3   # XXX: Exit
+  nodeSets:
+  - name: default
+    count: 1       # XXX: Edit
+    config:
+      node.store.allow_mmap: false
