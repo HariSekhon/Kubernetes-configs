@@ -13,7 +13,7 @@
 #
 
 ---
-name: Kustomize Namespace Managed
+name: Kustomize Namespace
 
 on:
   push:
@@ -21,7 +21,7 @@ on:
       - master
     paths:
       - '*.yaml'
-      - .github/workflows/kustomize-namespace-managed.yaml
+      - .github/workflows/kustomize-namespace.yaml
       - .github/actions/install-kustomize/action.yaml
       - .github/actions/kustomizations-materizalize/action.yaml
   pull_request:
@@ -29,7 +29,7 @@ on:
       - master
     paths:
       - '*.yaml'
-      - .github/workflows/kustomize-namespace-managed.yaml
+      - .github/workflows/kustomize-namespace.yaml
       - .github/actions/install-kustomize/action.yaml
       - .github/actions/kustomizations-materialize/action.yaml
   workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
@@ -56,8 +56,8 @@ env:
   DEFAULT_NAMESPACES_REGEX: 'kube-system|default'
 
 jobs:
-  kustomize-namespace-created:
-    name: Kustomize Namespace Created Check
+  kustomize-namespace:
+    name: Kustomize Namespace
     runs-on: ubuntu-latest
     steps:
       - name: Environment
