@@ -29,5 +29,5 @@ namespace: elasticsearch
 
 
 resources:
-  #- elasticsearch-namespace.yaml  # should already be applied from elasticsearch-kustomization.yaml
+  - elasticsearch-namespace.yaml  # should already be applied from elasticsearch-kustomization.yaml
   - elastic-cloud-kibana.yaml
