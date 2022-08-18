@@ -17,6 +17,8 @@
 #                     Elasticsearch Cluster for ECK operator
 # ============================================================================ #
 
+# https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-elasticsearch-specification.html
+
 ---
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
