@@ -24,6 +24,7 @@ apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
   name: mycluster    # XXX: Edit to match elasticsearch-cluster.yaml
+  namespace: elasticsearch
 spec:
   version: 8.3.3
   count: 1
