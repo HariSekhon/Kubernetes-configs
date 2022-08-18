@@ -72,6 +72,7 @@ jobs:
       - name: Check Namespace Object Created
         run: |
           for yaml in *-kustomization.yaml.materialized; do
+            echo "Checking $yaml"
             if ! grep -Eq '^kind[[:space:]]*:[[:space:]]*Namespace[[:space:]]*$' "$yaml"; then
               # if there are any namespaces defined that are not the readily available default or kube-system, then raise an alert
               # this may need to be reconsidered for apps where the namespace is defined in a separate kustomization to avoid duplicate management warnings in ArgoCD
