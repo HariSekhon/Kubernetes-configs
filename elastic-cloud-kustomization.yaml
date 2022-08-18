@@ -20,6 +20,8 @@
 
 # https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-deploy-eck.html
 
+# XXX: should probably only be applied once and not via GitOps / ArgoCD due to the changing caBundle which may result in repeated sync overwrites
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
