@@ -31,9 +31,23 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 #namespace: elastic-system
 
+# quickstart method
 resources:
-  - https://download.elastic.co/downloads/eck/2.3.0/crds.yaml
-  - https://download.elastic.co/downloads/eck/2.3.0/operator.yaml
+  #- https://download.elastic.co/downloads/eck/2.3.0/crds.yaml
+  #- https://download.elastic.co/downloads/eck/2.3.0/operator.yaml
+  #
+  # needed for Helm chart below
+  - elastic-cloud-namespace.yaml
+
+# better control and customization:
+helmCharts:
+  - name: eck-operator
+    repo: https://helm.elastic.co
+    version: 2.3.0
+    releaseName: elastic-operator
+    namespace: elastic-system
+    includeCRDs: true
+    valuesFile: elastic-cloud-values.yaml
 
 #patches:
 #  # XXX: remove the caBundle field from ValidatingWebhookConfiguration to prevent it being repeatedly overwritten with the stub 'Cg=='
