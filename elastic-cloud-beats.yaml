@@ -13,6 +13,12 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                  B e a t s   f o r   E C K   o p e r a t o r
+# ============================================================================ #
+
+# https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-beat.html
+
 ---
 apiVersion: beat.k8s.elastic.co/v1beta1
 kind: Beat
