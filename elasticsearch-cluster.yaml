@@ -29,7 +29,7 @@ spec:
   version: 8.3.3   # XXX: Exit
   nodeSets:
     - name: default
-      count: 1     # XXX: Edit
+      #count: 1     # XXX: use HPA instead
       # bad for performance, add init container to increase mmap address space instead, see:
       #
       #   https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-virtual-memory.html
