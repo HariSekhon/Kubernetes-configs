@@ -26,10 +26,10 @@ metadata:
   name: mycluster  # XXX: Edit
   namespace: elasticsearch  # can be any namespace, the ECK hooks will launch a cluster in the same namespace
 spec:
-  version: 8.3.3   # XXX: Exit
+  version: 8.3.3   # XXX: Edit
   nodeSets:
     - name: default
-      #count: 1     # XXX: use HPA instead
+      count: 1     # XXX: Edit
       # bad for performance, add init container to increase mmap address space instead, see:
       #
       #   https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-virtual-memory.html
