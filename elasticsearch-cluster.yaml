@@ -45,6 +45,23 @@ spec:
                 privileged: true
                 runAsUser: 0
               command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+          containers:
+            - name: elasticsearch
+              resources:
+                requests:
+                  memory: 2.3Gi
+                  cpu: 500m
+                limits:
+                  memory: 4Gi
+                  cpu: "1"
+              env:
+                - name: ES_JAVA_OPTS
+                  value: "-Xms2g -Xmx2g"
+                # make the topology.kubernetes.io/zone annotation available as an environment variable and use it as a cluster routing allocation attribute
+                - name: ZONE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['topology.kubernetes.io/zone']
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data  # Do not change this name unless you set up a volume mount for the data path
