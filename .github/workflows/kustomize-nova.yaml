@@ -70,7 +70,7 @@ jobs:
             curl -sSL --fail "https://api.github.com/repos/$owner_repo/releases/latest" |
             jq -r '.tag_name'
           )"
-          wget -O /tmp/nova.tgz "https://github.com/FairwindsOps/nova/releases/download/$version/nova_$version_linux_amd64.tar.gz"
+          wget -O /tmp/nova.tgz "https://github.com/FairwindsOps/nova/releases/download/$version/nova_${version}_linux_amd64.tar.gz"
           tar zxvf /tmp/nova.tgz -C /usr/local/bin/
 
       - name: Nova version
