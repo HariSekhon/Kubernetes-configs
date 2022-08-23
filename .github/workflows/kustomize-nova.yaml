@@ -1,0 +1,84 @@
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-22 17:12:46 +0100 (Mon, 22 Aug 2022)
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+name: Kustomize Nova
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '*.yaml'
+      - .github/workflows/kustomize-nova.yaml
+      - .github/actions/install-kustomize/action.yaml
+      - .github/actions/kustomizations-materizalize/action.yaml
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '*.yaml'
+      - .github/workflows/kustomize-nova.yaml
+      - .github/actions/install-kustomize/action.yaml
+      - .github/actions/kustomizations-materialize/action.yaml
+  workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
+    inputs:
+      debug:
+        type: boolean
+        required: false
+        default: false
+  schedule:
+    - cron: '0 0 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash -euxo pipefail {0}
+
+jobs:
+  kustomize-nova:
+    name: Kustomize nova
+    runs-on: ubuntu-latest
+    steps:
+      - name: Environment
+        run: env | sort
+
+      - uses: actions/checkout@v2
+
+      - name: Download Nova
+        run: |
+          echo "Installing Nova"
+          owner_repo="FairwindsOps/nova"
+          version="$(
+            curl -sSL --fail "https://api.github.com/repos/$owner_repo/releases/latest" |
+            jq -r '.tag_name'
+          )"
+          wget -O /tmp/nova.tgz "https://github.com/FairwindsOps/nova/releases/download/$version/nova_$version_linux_amd64.tar.gz"
+          tar zxvf /tmp/nova.tgz -C /usr/local/bin/
+
+      - name: Nova version
+        run: nova version
+
+      - uses: ./.github/actions/install-kustomize
+
+      - uses: ./.github/actions/kustomizations-install
+
+      - name: Nova Find
+        run: nova find
