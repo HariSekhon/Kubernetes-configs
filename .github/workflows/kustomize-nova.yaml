@@ -69,7 +69,7 @@ jobs:
           path: bash-tools
 
       - name: Download Nova
-        run: bash-tools/github_install_binary.sh FairwindsOps/nova 'nova_{version}_{os}_{arch}.tar.gz' nova /usr/local/bin/
+        run: bash-tools/github_install_binary.sh FairwindsOps/nova 'nova_{version}_{os}_{arch}.tar.gz' latest nova /usr/local/bin/
 
       - name: Nova version
         run: nova version
