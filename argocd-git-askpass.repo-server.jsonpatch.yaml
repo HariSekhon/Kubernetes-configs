@@ -1,0 +1,64 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-24 15:43:44 +0100 (Wed, 24 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint:k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                A r g o C D   G I T _ A S K P A S S   P a t c h
+# ============================================================================ #
+
+# Useful to mount a GIT_ASKPASS script and corresponding secrets to environment variables to use in Git authentication
+#
+# Example use case:
+#
+#   Kustomize Tagged Bases referencing https URLs for which the credentials are not passed through ArgoCD:
+#
+#   https://github.com/argoproj/argo-cd/issues/9443
+
+# Apply:
+#
+#   run: kubectl patch deploy argocd-repo-server -n "argocd" --type json --patch "$(cat argocd-git-askpass.repo-server.patch.yaml)"
+
+---
+- op: add
+  path: /spec/template/spec/containers/0/env
+  value:
+    - name: GIT_ASKPASS
+      value: /usr/local/bin/git_askpass.sh
+    - name: GIT_USER
+      valueFrom:
+        secretKeyRef:
+          name: github-https-username
+          key: username
+    - name: GIT_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: github-https-token
+          key: token
+
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: git-askpass
+    mountPath: /usr/local/bin/git_askpass.sh
+
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: git-askpass
+    configMap:
+      name: git-askpass
+      items:
+        - key: git_askpass.sh
+          path: git_askpass.sh
