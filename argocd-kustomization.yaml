@@ -59,6 +59,7 @@ resources:
   - argocd-apps.yaml      # auto-loads applications under k8s/argocd/apps
   #- clusters-secrets.yaml
   #- repos-secrets.yaml
+  - git-askpass.configmap.yaml
 
 # XXX: don't define namespace in these patches, will break patching, see argocd-cm.repos.patch.yaml for details why
 patchesStrategicMerge:
