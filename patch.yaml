@@ -41,3 +41,38 @@
 - op: add
   path: /spec/template/spec/containers/0/command/-
   value: --extra-switch
+
+- op: add
+  path: /spec/template/spec/containers/0/env
+  # XXX: list because it's a whole env being added to a container without an existing env key
+  value:
+    - name: GIT_ASKPASS
+      value: /usr/local/bin/git_askpass.sh
+    - name: GIT_USER
+      valueFrom:
+        secretKeyRef:
+          name: github-https-username
+          key: username
+    - name: GIT_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: github-https-token
+          key: token
+
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  # XXX: no list dash prefix because it's a single list item being added to an existing list, as denoted by the ending dash in the path above
+  value:
+    name: git-askpass
+    mountPath: /usr/local/bin/git_askpass.sh
+
+- op: add
+  path: /spec/template/spec/volumes/-
+  # XXX: no list dash prefix because it's a single list item being added to an existing list, as denoted by the ending dash in the path above
+  value:
+    name: git-askpass
+    configMap:
+      name: git-askpass
+      items:
+        - key: git_askpass.sh
+          path: git_askpass.sh
