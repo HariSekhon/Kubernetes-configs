@@ -33,15 +33,25 @@
   path: /path/to/key
   value: string_or_struct
 
+# ============================================================================ #
+#                         S i m p l e   e x a m p l e s
+# ============================================================================ #
+
 - op: remove
   # slashes must be replaced with ~1 so 'app.kubernetes.io/instance'
   #                             becomes 'app.kubernetes.io~1instance'
   path: /metadata/labels/app.kubernetes.io~1instance
 
+# Add an extra CLI switch to an container without overwriting existing command args
 - op: add
   path: /spec/template/spec/containers/0/command/-
   value: --extra-switch
 
+# ============================================================================ #
+#                       A d v a n c e d   E x a m p l e s
+# ============================================================================ #
+
+# Add a whole key environment variables key
 - op: add
   path: /spec/template/spec/containers/0/env
   # XXX: list because it's a whole env being added to a container without an existing env key
@@ -59,6 +69,7 @@
           name: github-https-token
           key: token
 
+# Add a new volumeMount key to an existing volumeMounts
 - op: add
   path: /spec/template/spec/containers/0/volumeMounts/-
   # XXX: no list dash prefix because it's a single list item being added to an existing list, as denoted by the ending dash in the path above
@@ -66,6 +77,7 @@
     name: git-askpass
     mountPath: /usr/local/bin/git_askpass.sh
 
+# Add a new volume key to an existing volumes
 - op: add
   path: /spec/template/spec/volumes/-
   # XXX: no list dash prefix because it's a single list item being added to an existing list, as denoted by the ending dash in the path above
