@@ -41,8 +41,8 @@ runs:
           jq -r "limit(1; .[] | select(.tag_name | test(\"kustomize\")) | .tag_name)"
         )"
         version="${version##*/}"
-        wget -O /tmp/kustomize.tar.gz "https://github.com/$owner_repo/releases/download/kustomize%2F$version/kustomize_${version}_linux_amd64.tar.gz"
-        tar zxvf /tmp/kustomize.tar.gz -C /usr/local/bin/
+        wget -O /tmp/kustomize.tgz "https://github.com/$owner_repo/releases/download/kustomize%2F$version/kustomize_${version}_linux_amd64.tar.gz"
+        tar zxvf /tmp/kustomize.tgz -C /usr/local/bin/
 
     - name: Kustomize Version
       run: kustomize version
