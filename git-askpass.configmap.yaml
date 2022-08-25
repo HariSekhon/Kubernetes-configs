@@ -18,6 +18,8 @@
 #                      G i t   A s k P a s s   S c r i p t
 # ============================================================================ #
 
+# XXX: simpler solution if using this for Kustomize External Bases, if using the same repo, is ensure the app is set to use the https://github.com url instead of the git@github.com address
+
 # simplified version of https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/git_askpass.sh
 ---
 apiVersion: v1
