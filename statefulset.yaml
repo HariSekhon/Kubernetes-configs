@@ -244,6 +244,7 @@ spec:
         - name: env
           configMap:
             name: myconfigmap
+            defaultMode: 0400
             items:
               - key: .env
                 path: .env
