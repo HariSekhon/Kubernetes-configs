@@ -58,9 +58,9 @@
   path: /spec/template/spec/volumes/-
   value:
     name: git-askpass
-    defaultMode: 0555
     configMap:
       name: git-askpass
+      defaultMode: 0555
       items:
         - key: git_askpass.sh
           path: git_askpass.sh
