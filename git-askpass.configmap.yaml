@@ -29,5 +29,13 @@ data:
   git_askpass.sh: |
     #!/usr/bin/env bash
     set -euo pipefail
-    echo "username=${GIT_USERNAME:-${GIT_USER:-}}"
-    echo "password=${GIT_TOKEN:-${GIT_PASSWORD:-}}"
+    username="${GIT_USERNAME:-${GIT_USER:-}}"
+    password="${GIT_TOKEN:-${GIT_PASSWORD:-}}"
+    if [ "${1:-}" = get ]; then
+      echo "username=$username"
+      echo "password=$password"
+    elif [[ "$*" =~ Username ]]; then
+      echo "$username"
+    elif [[ "$*" =~ Password ]]; then
+      echo "$password"
+    fi
