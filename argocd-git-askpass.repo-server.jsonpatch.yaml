@@ -52,6 +52,7 @@
   value:
     name: git-askpass
     mountPath: /usr/local/bin/git_askpass.sh
+    subPath: git_askpass.sh
 
 - op: add
   path: /spec/template/spec/volumes/-
