@@ -42,8 +42,9 @@ spec:
     # Kustomize / Manifests (including Kustomize+Helm)
     #
     # XXX: Edit - url to Git repo containing your k8s manifests
-    #repoURL: https://github.com/argoproj/argocd-example-apps.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
-    repoURL: git@github.com:argoproj/argocd-example-apps.git
+    #repoURL: git@github.com:argoproj/argocd-example-apps.git
+    # XXX: use https url for repo if using Kustomize external tagged bases to same private repo requiring authentication - alternatively see solution argocd-git-askpass.repo-server.jsonpatch.yaml
+    repoURL: https://github.com/argoproj/argocd-example-apps.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
     targetRevision: HEAD
     # XXX: Edit - path to k8s manifiests
     path: dir/path/to/k8s/manifests  # relative to root of git repo so no leading slash
