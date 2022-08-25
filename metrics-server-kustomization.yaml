@@ -3,7 +3,7 @@
 #  Date: 2021-10-28 16:19:18 +0100 (Thu, 28 Oct 2021)
 #
 #  vim:ts=2:sts=2:sw=2:et
-#  lint:k8s
+#  lint: k8s
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #

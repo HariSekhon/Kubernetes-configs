@@ -3,7 +3,7 @@
 #  Date: 2022-08-15 11:45:28 +0100 (Mon, 15 Aug 2022)
 #
 #  vim:ts=2:sts=2:sw=2:et
-#  lint:k8s
+#  lint: k8s
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #

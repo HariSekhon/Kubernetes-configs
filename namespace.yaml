@@ -3,7 +3,7 @@
 #  Date: [% DATE  # 2020-02-16 18:40:53 +0000 (Sun, 16 Feb 2020) %]
 #
 #  vim:ts=2:sts=2:sw=2:et
-#  lint:k8s
+#  lint: k8s
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #
