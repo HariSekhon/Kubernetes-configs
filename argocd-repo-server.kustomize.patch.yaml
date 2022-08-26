@@ -42,7 +42,7 @@ spec:
           env:
             # XXX: Edit Kustomize version here
             - name: KUSTOMIZE_VERSION
-              value: 4.1.3
+              value: 4.5.7  # needs to be fairly recent to bypass error 'unknown field "includeCRDs"' when combining Kustomize + Helm with includeCRDs option seen in adjacent *-kustomization.yaml
           args:
             - wget -qO- https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv$(KUSTOMIZE_VERSION)/kustomize_v$(KUSTOMIZE_VERSION)_linux_amd64.tar.gz | tar -xvzf - &&
               mv kustomize /custom-tools/
