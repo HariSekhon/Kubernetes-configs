@@ -23,15 +23,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: polaris  # XXX: 3 objects without explicit namespace as shown by kustomize_check_objects_namespaces.sh in the adjacent DevOps Bash tools repo
 
-bases:
+resources:
+  # replaced by helm chart now
   #- https://github.com/fairwindsops/polaris/releases/latest/download/dashboard.yaml
   #- https://github.com/fairwindsops/polaris/releases/download/4.2.0/dashboard.yaml
-
-# only if downloading dashboard.yaml
-#patchesStrategicMerge:
-  #- goldilocks-namespace-enable.patch.yaml
-
-resources:
+  #
   - polaris-namespace.yaml
   # XXX: Edit ingress address before uncommenting
   #- polaris-ingress.yaml
@@ -51,6 +47,10 @@ helmCharts:
     namespace: polaris
     includeCRDs: true
     valuesFile: polaris-values.yaml
+
+# only if downloading dashboard.yaml
+#patchesStrategicMerge:
+  #- goldilocks-namespace-enable.patch.yaml
 
 #patches:
 #  # required if installing from the dashboard.yaml, but not if using helm

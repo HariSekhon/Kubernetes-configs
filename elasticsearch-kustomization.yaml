@@ -25,10 +25,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: elasticsearch
 
-# don't run this in GitOps / ArgoCD - it'll likely repeatedly replace the caBundle
-#bases:
-#  - ../elastic-cloud  # should contain elastic-cloud-*.yaml
-
 resources:
+  #- ../elastic-cloud  # should contain elastic-cloud-*.yaml
   - elasticsearch-namespace.yaml
   - elasticsearch-cluster.yaml

@@ -38,6 +38,8 @@ kind: Kustomization
 # may cause duplicate namespace clashes if different namespaces are defined in bases
 namespace: NAMESPACE  # XXX: Do not set this if using remote base or Helm charts - may override creating roles for kube-system for leader election etc. eg. for Cert Manager
 
+# XXX: bases are deprecated and 'kustomize edit' will remove them and add them to the bottom of the resources section, messing up your ordering, so put straight into the top of resources now
+#
 #bases:
 # Add resource configs from ../base/kustomization.yaml
 #  - ../base

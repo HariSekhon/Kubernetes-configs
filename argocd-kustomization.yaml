@@ -29,6 +29,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: argocd
 
+# XXX: bases are deprecated and 'kustomize edit' will remove them and add them to the bottom of the resources section, messing up your ordering, so put straight into the top of resources now
+#
 # Add resources from a URL - notice this is not the same as the browse path which is https://github.com/argoproj/argo-cd/tree/master/manifests/cluster-install
 #bases:                      # // is intentional to only copy from this path down
 #- github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3

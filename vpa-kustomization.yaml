@@ -24,7 +24,7 @@ kind: Kustomization
 namespace: kube-system
 
 # dynamic latest:
-#bases:
+#resources:
   #- github.com/kubernetes/autoscaler/vertical-pod-autoscaler/deploy
 
 # stable copy (commit to vcs):
