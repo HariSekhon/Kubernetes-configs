@@ -18,6 +18,8 @@
 #                  S o n a r Q u b e   C h a r t   V a l u e s
 # ============================================================================ #
 
+# https://docs.sonarqube.org/latest/setup/sonarqube-on-kubernetes/
+
 # helm repo add sonarqube https://SonarSource.github.io/helm-chart-sonarqube
 #
 # helm show values sonarqube/sonarqube >> values.yaml
@@ -178,6 +180,8 @@ resources:
     cpu: 400m
     memory: 2Gi
 
+# XXX: without persistence startup takes longer, but avoids potential Elasticsearch index corruption:
+#      https://docs.sonarqube.org/latest/setup/sonarqube-on-kubernetes/
 persistence:
   enabled: false
   ## Set annotations on pvc
