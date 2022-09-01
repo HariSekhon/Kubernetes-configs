@@ -42,3 +42,5 @@ jobs:
   polaris:
     name: Polaris
     uses: HariSekhon/GitHub-Actions/.github/workflows/polaris.yaml@master
+    with:
+      debug: ${{ github.event.inputs.debug }}
