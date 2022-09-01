@@ -89,4 +89,4 @@ jobs:
       - uses: ./.github/actions/kustomizations-install
 
       - name: Nova Find
-        run: nova find
+        run: nova find --wide
