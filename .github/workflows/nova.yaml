@@ -48,6 +48,9 @@ defaults:
   run:
     shell: bash -euxo pipefail {0}
 
+env:
+  DEBUG: ${{ inputs.debug != 'false' || github.event.inputs.debug != 'false' || '' }}
+
 jobs:
   nova:
     name: Nova
