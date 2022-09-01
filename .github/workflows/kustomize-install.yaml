@@ -52,6 +52,9 @@ defaults:
   run:
     shell: bash -euxo pipefail {0}
 
+env:
+  DEBUG: ${{ inputs.debug != 'false' || github.event.inputs.debug != 'false' || '' }}
+
 jobs:
   kustomize-install:
     name: Install Kustomizations
