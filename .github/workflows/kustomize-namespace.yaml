@@ -54,6 +54,7 @@ defaults:
 
 env:
   DEFAULT_NAMESPACES_REGEX: 'kube-system|default'
+  DEBUG: ${{ inputs.debug != 'false' || github.event.inputs.debug != 'false' || '' }}
 
 jobs:
   kustomize-namespace:
@@ -71,6 +72,9 @@ jobs:
 
       - name: Check Namespace Object Created
         run: |
+          if [ -n "${DEBUG:-}" ]; then
+           set -x
+          fi
           for yaml in *-kustomization.yaml.materialized; do
             echo "Checking $yaml"
             if ! grep -Eq '^kind[[:space:]]*:[[:space:]]*Namespace[[:space:]]*$' "$yaml"; then
