@@ -32,3 +32,5 @@ jobs:
   pluto:
     name: Pluto
     uses: HariSekhon/GitHub-Actions/.github/workflows/pluto.yaml@master
+    with:
+      debug: ${{ github.event.inputs.debug }}
