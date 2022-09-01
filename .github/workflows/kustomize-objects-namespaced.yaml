@@ -43,6 +43,7 @@ on:
 
 env:
   IGNORE_REGEX: 'eks'
+  DEBUG: ${{ inputs.debug != 'false' || github.event.inputs.debug != 'false' || '' }}
 
 permissions:
   contents: read
@@ -54,9 +55,6 @@ concurrency:
 defaults:
   run:
     shell: bash -euxo pipefail {0}
-
-env:
-  DEBUG: ${{ inputs.debug != 'false' || github.event.inputs.debug != 'false' || '' }}
 
 jobs:
   kustomize-check-objects-namespaced:
