@@ -16,6 +16,8 @@
 
 # Disables the CloudBees Core CI ingress so it doesn't forward through the Nginx Ingress
 
+# Workaround for the fact you can't delete an entire yaml config via JSON patch
+
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
