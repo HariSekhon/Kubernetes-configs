@@ -43,7 +43,7 @@ on:
 
 env:
   IGNORE_REGEX: 'eks'
-  DEBUG: ${{ github.event.inputs.debug != false || '' }}
+  DEBUG: ${{ github.event.inputs.debug == true || '' }}
 
 permissions:
   contents: read
