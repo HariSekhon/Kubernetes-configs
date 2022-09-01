@@ -23,7 +23,7 @@ metadata:
   name: cjoc
   #namespace: cloudbees-core   # don't specify namespace, won't match as the namespace is applied later
 spec:
-  ingressClassName: DISABLED
+  ingressClassName: disabled  # default: nginx
   rules:
     - http:
         paths:
