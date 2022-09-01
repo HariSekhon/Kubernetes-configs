@@ -90,7 +90,7 @@ jobs:
         run: kubectl cluster-info
 
       - name: Install Helm Charts
-        run: bash-tools/kustomize_install_helm_charts.sh
+        run: bash-tools/kustomize_install_helm_charts.sh *-kustomization.yaml
 
       - name: Nova Find
         run: nova find
