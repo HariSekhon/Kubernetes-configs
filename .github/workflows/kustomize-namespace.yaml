@@ -54,7 +54,7 @@ defaults:
 
 env:
   DEFAULT_NAMESPACES_REGEX: 'kube-system|default'
-  DEBUG: ${{ inputs.debug != 'false' || github.event.inputs.debug != 'false' || '' }}
+  DEBUG: ${{ github.event.inputs.debug != false || '' }}
 
 jobs:
   kustomize-namespace:
