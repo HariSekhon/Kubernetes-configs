@@ -55,6 +55,9 @@ defaults:
   run:
     shell: bash -euxo pipefail {0}
 
+env:
+  DEBUG: ${{ inputs.debug != 'false' || github.event.inputs.debug != 'false' || '' }}
+
 jobs:
   kustomize-check-objects-namespaced:
     name: Kustomize Check Objects Namespaced
@@ -101,6 +104,9 @@ jobs:
 
       - name: Check Objects are Explicitly Namespaced
         run: |
+          if [ -n "${DEBUG:-}" ]; then
+            set -x
+          fi
           for kustomization in *-kustomization.yaml; do
             if [[ "$kustomization" =~ ^($IGNORE_REGEX)- ]]; then
               echo "Skipping $kustomization"
