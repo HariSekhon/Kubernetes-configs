@@ -26,19 +26,19 @@ metadata:
   #namespace: cloudbees-core   # don't specify namespace, won't match as the namespace is applied later
 spec:
   ingressClassName: disabled  # default: nginx
-  rules:
-    - http:
-        paths:
-          - path: /cjoc
-            pathType: Prefix
-            backend:
-              #serviceName: cjoc
-              #servicePort: 80
-              service:
-                name: cjoc
-                port:
-                  number: 80
-          #- backend:
-          #    serviceName: cjoc
-          #    servicePort: 80
-          #  path: /cjoc/*
+  #rules:
+  #  - http:
+  #      paths:
+  #        - path: /cjoc
+  #          pathType: Prefix
+  #          backend:
+  #            #serviceName: cjoc
+  #            #servicePort: 80
+  #            service:
+  #              name: cjoc
+  #              port:
+  #                number: 80
+  #        #- backend:
+  #        #    serviceName: cjoc
+  #        #    servicePort: 80
+  #        #  path: /cjoc/*
