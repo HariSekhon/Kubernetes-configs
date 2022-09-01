@@ -68,7 +68,7 @@ jobs:
           submodules: 'true'  # requires Git 2.18+ to be installed first
           path: bash-tools
 
-      - name: Download Nova
+      - name: Install Nova
         #run: bash-tools/github_install_binary.sh FairwindsOps/nova 'nova_{version}_{os}_{arch}.tar.gz' latest nova /usr/local/bin/
         run: bash-tools/setup/install_nova.sh
 
