@@ -1,0 +1,96 @@
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-22 17:12:46 +0100 (Mon, 22 Aug 2022)
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+name: Nova
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '*.yaml'
+      - .github/workflows/nova.yaml
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '*.yaml'
+      - .github/workflows/nova.yaml
+  workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
+    inputs:
+      debug:
+        type: boolean
+        required: false
+        default: false
+  schedule:
+    - cron: '0 0 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash -euxo pipefail {0}
+
+jobs:
+  nova:
+    name: Nova
+    runs-on: ubuntu-latest
+    steps:
+      - name: Environment
+        run: env | sort
+
+      - uses: actions/checkout@v2
+
+      - uses: actions/checkout@v2
+        with:
+          repository: HariSekhon/DevOps-Bash-tools
+          submodules: 'true'  # requires Git 2.18+ to be installed first
+          path: bash-tools
+
+      - name: Install Nova
+        #run: bash-tools/github_install_binary.sh FairwindsOps/nova 'nova_{version}_{os}_{arch}.tar.gz' latest nova /usr/local/bin/
+        run: bash-tools/setup/install_nova.sh
+
+      - name: Nova version
+        run: nova version
+
+      - name: Install Helm
+        run: bash-tools/setup/install_helm.sh
+
+      - name: Helm version
+        run: helm version
+
+      - name: Install yq
+        run: bash-tools/setup/install_yq.sh
+
+      - name: yq version
+        run: yq --version
+
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1.3.0
+
+      - name: Cluster Info
+        run: kubectl cluster-info
+
+      - name: Install Helm Charts
+        run: bash-tools/kustomize_install_helm_charts.sh
+
+      - name: Nova Find
+        run: nova find
