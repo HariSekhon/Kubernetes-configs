@@ -20,13 +20,13 @@ on:
     branches:
       - master
     paths:
-      - '*.yaml'
+      - '*-kustomization.yaml'
       - .github/workflows/nova.yaml
   pull_request:
     branches:
       - master
     paths:
-      - '*.yaml'
+      - '*-kustomization.yaml'
       - .github/workflows/nova.yaml
   workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
     inputs:
