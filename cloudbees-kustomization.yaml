@@ -33,7 +33,7 @@ resources:
 helmCharts:
   - name: cloudbees-core
     repo: https://charts.cloudbees.com/public/cloudbees
-    version: 3.38.4+ddac4cebcaee
+    version: 3.45.2+ae0d5d92b008
     releaseName: cloudbees-core
     namespace: cloudbees-core
     includeCRDs: true
