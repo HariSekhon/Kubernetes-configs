@@ -39,11 +39,11 @@ helmCharts:
     includeCRDs: true
     valuesFile: cloudbees-values.yaml
 
-patches:
-  # Old Ingress needs rules replacement to be valid too (done in disable patch further down)
-  - path: ingress-apiversion.jsonpatch.yaml
-    target:
-      kind: Ingress
+#patches:
+#  # Old Ingress needs rules replacement to be valid too (done in disable patch further down)
+#  - path: ingress-apiversion.jsonpatch.yaml
+#    target:
+#      kind: Ingress
 
 patchesStrategicMerge:
   # disable the ingress class if you're not ready to have an ingress letting things through
