@@ -17,9 +17,7 @@
 # Disables the CloudBees Core CI ingress so it doesn't forward through the Nginx Ingress
 
 ---
-# XXX: chart is still using an old ingress object
-apiVersion: extensions/v1beta1
-#apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1
 # this passes linting, but doesn't work on the existing chart - either update the chart or uncomment the above
 #apiVersion: networking.k8s.io/v1
 kind: Ingress
