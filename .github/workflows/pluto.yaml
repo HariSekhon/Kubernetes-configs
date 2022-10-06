@@ -17,14 +17,22 @@
 name: Pluto
 
 on:
-  #push:
-  #  branches:
-  #    - master
-  #    - main
-  #    - dev
-  #    - staging
-  #    - production
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/pluto.yaml
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .github/workflows/pluto.yaml
   workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        required: false
+        default: false
   schedule:
     - cron: '0 0 * * 1'
 

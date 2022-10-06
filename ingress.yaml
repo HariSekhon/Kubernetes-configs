@@ -33,17 +33,20 @@ metadata:
   namespace: NAMESPACE
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+
     kubernetes.io/ingress.class: nginx
     #kubernetes.io/ingress.class: traefik  # see k8s_traefik.yaml to set up this ingress controller
+
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+    # rewrite /APP to just /
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
     # XXX: Edit to make available externally or apply common ingress.nginx.patch.yaml with shared IP list eg. Cloudflare
     nginx.ingress.kubernetes.io/whitelist-source-range: |
       10.0.0.0/8,
       172.16.0.0/16,
       192.168.0.0/16
-
-    # rewrite /APP to just /
-    nginx.ingress.kubernetes.io/rewrite-target: /
 
     # https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/
     #nginx.ingress.kubernetes.io/affinity: cookie
@@ -51,6 +54,14 @@ metadata:
     #nginx.ingress.kubernetes.io/affinity-mode: persistent  # default: "balanced" - rebalances to new pods
     #nginx.ingress.kubernetes.io/canary: "true"
     #nginx.ingress.kubernetes.io/canary-weight: 1  # 1%
+
+    # https://aws.amazon.com/premiumsupport/knowledge-center/eks-configure-nginx-ingress-controller/
+    #
+    # nginx.ingress.kubernetes.io/proxy-body-size: 8m
+    # nginx.ingress.kubernetes.io/enable-cors: "true"
+    # nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
+    # nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    # nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
 spec:
   tls:
     # XXX: Edit
