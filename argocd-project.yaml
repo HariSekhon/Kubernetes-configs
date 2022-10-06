@@ -122,9 +122,9 @@ spec:
     - group: ''
       kind: ConfigMap
     - group: batch
-      kind: CronJob
-    - group: batch
       kind: Job
+    - group: batch
+      kind: CronJob
     - group: apps
       kind: DaemonSet
     - group: apps
@@ -144,7 +144,9 @@ spec:
     - group: rbac.authorization.k8s.io
       kind: RoleBinding
     - group: ''
-      kind: Secret
+      kind: Secret  # XXX: if you're managing this you're doing it wrong, used SealedSecret instead
+    - group: bitnami.com
+      kind: SealedSecret
     - group: ''
       kind: Service
     - group: ''
