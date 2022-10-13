@@ -21,11 +21,13 @@ on:
     branches:
       - master
     paths:
+      #- '**.y*ml'
       - .github/workflows/pluto.yaml
   pull_request:
     branches:
       - master
     paths:
+      - '**.y*ml'
       - .github/workflows/pluto.yaml
   workflow_dispatch:
     inputs:
