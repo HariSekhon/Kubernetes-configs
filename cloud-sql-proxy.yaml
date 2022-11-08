@@ -19,7 +19,7 @@
 #              C l o u d   S Q L   P r o x y   D e p l o y m e n t
 # ============================================================================ #
 
-# GCP Cloud SQL Proxy Deployment - for use by CronJobs for which sidecars would cuse zombies
+# GCP Cloud SQL Proxy Deployment - for use by CronJobs for which sidecars would cause zombies
 #
 #   https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
 #
@@ -71,15 +71,18 @@ spec:
                     operator: In
                     values:
                       - cloud-sql-proxy
+      terminationGracePeriodSeconds: 1810
       containers:
         - name: cloud-sql-proxy
-          image: gcr.io/cloudsql-docker/gce-proxy:1.17
+          image: gcr.io/cloudsql-docker/gce-proxy:1.33.0
           command:
             - /cloud_sql_proxy
             - "-ip_address_types=PRIVATE"
             # XXX: trade off exposing listener on 0.0.0.0 required for having a kubernetes health check
             #- "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:3306"  # mysql
             - "-instances=$(CLOUD_SQL_INSTANCE)=tcp:0.0.0.0:5432"   # postgres
+            - "-use_http_health_check"
+            - "-term_timeout=30m"
           env:
             - name: CLOUD_SQL_INSTANCE
               valueFrom:
@@ -87,16 +90,22 @@ spec:
                   # XXX: Edit
                   name: my-configmap
                   key: cloud-sql-instance
-          # XXX: healthchecks rely on external access via the -instances cli arg above having '=tcp:0.0.0.0:<port>' otherwise Cloud SQL Proxy listens on 127.0.0.1 and health check from k8s will get connection refused
+          # XXX: tcpSocket healthchecks rely on external access via the -instances cli arg above having '=tcp:0.0.0.0:<port>' otherwise Cloud SQL Proxy listens on 127.0.0.1 and health check from k8s will get connection refused
           readinessProbe:
-            tcpSocket:
-              #port: 3306  # mysql
-              port: 5432   # postgres
+            #tcpSocket:
+            #  #port: 3306  # mysql
+            #  port: 5432   # postgres
+            httpGet:
+              path: /readiness  # requires -use_http_health_check
+              port: 8090
             periodSeconds: 5
           livenessProbe:
-            tcpSocket:
-              #port: 3306  # mysql
-              port: 5432   # postgres
+            #tcpSocket:
+            #  #port: 3306  # mysql
+            #  port: 5432   # postgres
+            httpGet:
+              path: /readiness  # requires -use_http_health_check
+              port: 8090
             failureThreshold: 10
           resources:
             requests:
