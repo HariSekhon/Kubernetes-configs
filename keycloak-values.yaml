@@ -27,6 +27,9 @@
 # helm show values bitnami/keycloak >> keycloak-values.yaml
 
 ---
+# XXX: needed to get past Mixed Content browser security error caused by http://<fqdn>/keycloak.js link in source html
+proxyAddressForwarding: true
+
 ## Keycloak authentication parameters
 ## ref: https://github.com/bitnami/bitnami-docker-keycloak#admin-credentials
 ##
