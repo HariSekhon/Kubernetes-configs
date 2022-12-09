@@ -60,6 +60,10 @@ spec:
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: circleci
       server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: external-dns
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: external-secrets
+      server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: github-actions
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: goldilocks
