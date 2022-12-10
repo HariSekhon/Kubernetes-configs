@@ -133,6 +133,8 @@ spec:
       kind: DaemonSet
     - group: apps
       kind: Deployment
+    - group: external-secrets.io
+      kind: ExternalSecret
     - group: autoscaling
       kind: HorizontalPodAutoscaler
     - group: extensions  # old ingress
@@ -148,7 +150,9 @@ spec:
     - group: rbac.authorization.k8s.io
       kind: RoleBinding
     - group: ''
-      kind: Secret  # XXX: if you're managing this you're doing it wrong, used SealedSecret instead
+      kind: Secret  # XXX: if you're managing this you're doing it wrong, used SealedSecret or ExternalSecret instead
+    - group: external-secrets.io
+      kind: SecretStore
     - group: bitnami.com
       kind: SealedSecret
     - group: ''
