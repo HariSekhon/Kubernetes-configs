@@ -36,6 +36,16 @@ metadata:
   #  networking.gke.io/load-balancer-type: Internal  # GKE 1.17+
   #  cloud.google.com/load-balancer-type: Internal   # GKE <= 1.16
   #  networking.gke.io/internal-load-balancer-allow-global-access: "true"  # GKE 1.17+ - allow routing from VPC networks in other regions, VPC peers etc.
+
+  # External DNS will look for this FQDN (comma separate for multiple)
+  #
+  #   https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md#verify-externaldns-works-service-example
+  #
+  #  external-dns.alpha.kubernetes.io/hostname: NAME.DOMAIN.COM
+
+  #  service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:ue-west-2:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  #  service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
+  #  service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
 spec:
   type: ClusterIP   # default
   #clusterIP: None  # headless service - returns all A records instead of round robin. Useful for seeding (eg. Cassandra, Elasticsearch), or Service Discovery where load balancing is not needed (eg. Jenkins / TeamCity server)
