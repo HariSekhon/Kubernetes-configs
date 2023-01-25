@@ -37,7 +37,7 @@
 #
 #  Add Azure AD secret to horrid master multi-secret:
 #
-#   echo "$AZURE_SECRET" | kubectl patch secret argocd-secret --namespace argocd --patch '{"data": { "oidc.azure.clientSecret": "{'"$(base64)"'}" } }'
+#   echo "$AZURE_SECRET" | kubectl patch secret argocd-secret --namespace argocd --patch '{"data": { "oidc.azure.clientSecret": "'"$(base64)"'" } }'
 
 ---
 apiVersion: v1
