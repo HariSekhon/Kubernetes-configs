@@ -86,23 +86,28 @@ spec:
           # don't use readiness probe, prevents accessing default /mnt page during bootup and just delays 503
           # instead of showing initializing page which redirects to login.html
           #
-  #        readinessProbe:
-  #          httpGet:
-  #            # works during setup or initialization but later fails during steady state as it then returns 302 to /overview.html
-  #            #path: /mnt
-  #            path: /login.html
-  #            port: 8111
-  #          initialDelaySeconds: 30  # takes 58 secs to become ready
-  #          successThreshold: 1
-  #          failureThreshold: 5
-  #          periodSeconds: 5
-  #          timeoutSeconds: 5
-          # XXX: disable during fresh install setup which redirects to /mnt
+          readinessProbe:
+            httpGet:
+              # older versions
+              # works during setup or initialization but later fails during steady state as it then returns 302 to /overview.html
+              ##path: /mnt
+              #path: /login.html
+              # 2023.05 onwards - https://youtrack.jetbrains.com/issue/TW-62305/A-health-check-endpoint-is-needed-to-run-TeamCity-reliably-in-Kubernetes-Nomad#focus=Comments-27-6910278.0-0
+              path: /healthCheck/ready
+              port: 8111
+            initialDelaySeconds: 30  # login.html takes 58 secs to become ready
+            successThreshold: 1
+            failureThreshold: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
           livenessProbe:
             httpGet:
-              path: /login.html
-              # not tested yet, may only apply to newer versions - https://youtrack.jetbrains.com/issue/TW-27675#focus=Comments-27-5577005.0-0
+              # older versions - disable during fresh install setup which redirects to /mnt
+              #path: /login.html
+              # 2019.2 onwards - https://youtrack.jetbrains.com/issue/TW-27675#focus=Comments-27-5577005.0-0
               #path: /app/rest/health?locator=global:true
+              # 2023.05 onwards - https://youtrack.jetbrains.com/issue/TW-62305/A-health-check-endpoint-is-needed-to-run-TeamCity-reliably-in-Kubernetes-Nomad#focus=Comments-27-6910278.0-0
+              path: /healthCheck/healthy
               port: 8111
             #initialDelaySeconds: 120  # normally initializes in around this time
             initialDelaySeconds: 900   # may take longer due to complete initialization recovery after pod migration
