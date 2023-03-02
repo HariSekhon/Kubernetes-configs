@@ -29,7 +29,8 @@ namespace: concourse
 helmCharts:
   - name: concourse
     repo: https://concourse-charts.storage.googleapis.com/
-    version: 16.1.21
+    #version: 16.1.21
+    version: 17.1.1
     # or
     # https://artifacthub.io/packages/helm/bitnami/concourse
     #repo: https://charts.bitnami.com/bitnami
