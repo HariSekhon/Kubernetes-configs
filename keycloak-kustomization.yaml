@@ -32,7 +32,9 @@ resources:
 helmCharts:
   - name: keycloak
     repo: https://charts.bitnami.com/bitnami
-    version: 7.1.0
+    # version no longer available in repo
+    #version: 7.1.0
+    version: 10.1.2  # untested
     releaseName: keycloak
     namespace: keycloak
     includeCRDs: true
