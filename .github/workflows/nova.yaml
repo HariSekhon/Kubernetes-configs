@@ -94,7 +94,10 @@ jobs:
 
       - name: Install Helm Charts
         run: |
-          bash-tools/kustomize_install_helm_charts.sh '!(eks*)-kustomization.yaml'
+          # gets error:
+          #   /home/runner/work/_temp/88a64d0d-78f8-43cd-a794-ca79fb0b6291.sh: line 1: syntax error near unexpected token `('
+          #bash-tools/kustomize_install_helm_charts.sh !(eks*)-kustomization.yaml
+          bash-tools/kustomize_install_helm_charts.sh $(ls *-kustomization.yaml | grep -v ^eks)
 
       - name: Nova Find
         run: nova find --wide --format=table
