@@ -43,7 +43,8 @@ namespace: kube-system
 helmCharts:
   - name: vpa
     repo: https://charts.fairwinds.com/stable
-    version: 0.5.0
+    #version: 0.5.0
+    version: 1.6.1
     releaseName: vpa
     namespace: kube-system
     includeCRDs: true
