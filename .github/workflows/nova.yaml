@@ -49,7 +49,7 @@ defaults:
     shell: bash -euxo pipefail {0}
 
 env:
-  DEBUG: ${{ github.event.inputs.debug == true || '' }}
+  DEBUG: ${{ github.event.inputs.debug == 'true' || '' }}
 
 jobs:
   nova:
