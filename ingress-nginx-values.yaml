@@ -27,6 +27,8 @@ controller:
   name: controller
   replicaCount: 3
   minAvailable: 2
+  # XXX: requires that you install priorityclass.yaml first
+  priorityClassName: high-priority
   # copied from deployment.yaml - see there for comments and more details
   affinity:
     nodeAffinity:
