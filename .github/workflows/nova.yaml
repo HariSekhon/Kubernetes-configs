@@ -49,6 +49,8 @@ defaults:
     shell: bash -euxo pipefail {0}
 
 env:
+  # due to GitHub Actions bug in boolean this doesn't work
+  #DEBUG: ${{ github.event.inputs.debug == true || '' }}
   DEBUG: ${{ github.event.inputs.debug == 'true' || '' }}
 
 jobs:
