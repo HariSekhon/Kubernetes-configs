@@ -43,7 +43,7 @@ metadata:
   #
   #  external-dns.alpha.kubernetes.io/hostname: NAME.DOMAIN.COM
 
-  #  service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:ue-west-2:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  #  service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-2:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
   #  service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
   #  service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
 spec:
