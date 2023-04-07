@@ -34,6 +34,15 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
 
+    # ================================
+    # For the Kong Ingress Controller
+    #
+    #kubernetes.io/ingress.class: kong
+    #konghq.com/strip-path: "true"
+
+    # ================================
+    # For the Nginx Ingress Controller
+    #
     kubernetes.io/ingress.class: nginx
     #kubernetes.io/ingress.class: traefik  # see k8s_traefik.yaml to set up this ingress controller
 
