@@ -24,7 +24,7 @@ apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
 plugin: rate-limiting  # XXX: Edit - choose the plugin you want
 metadata:
-  name: NAME
+  name: NAME  # XXX: Edit - eg. 'ratelimit-by-ip'
   annotations:
     kubernetes.io/ingress.class: kong
 # XXX: Edit - config specific to the plugin chosen above
