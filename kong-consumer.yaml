@@ -31,3 +31,4 @@ metadata:
 username: USERNAME
 credentials:
 	- NAME-apikey
+	- app-admin-acl
