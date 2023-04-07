@@ -38,6 +38,7 @@ metadata:
     # For the Kong Ingress Controller
     #
     #kubernetes.io/ingress.class: kong
+    #konghq.com/plugins: ratelimit-by-ip  # see kong-plugin.yaml where this is defined using a CRD
     #konghq.com/strip-path: "true"
 
     # ================================
