@@ -17,9 +17,7 @@
 #                       K o n g   P l u g i n   -   A C L
 # ============================================================================ #
 
-# Use Kong kubernetes native CRD to define a Kong plugin and configuration
-
-# kubectl get KongPlugin -A
+# kubectl create secret generic app-admin-acl --from-literal=kongCredType=acl --from-literal=group=app-admin
 
 ---
 apiVersion: configuration.konghq.com/v1
