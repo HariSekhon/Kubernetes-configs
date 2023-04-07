@@ -39,8 +39,9 @@ metadata:
     #
     #kubernetes.io/ingress.class: kong
     #konghq.com/strip-path: "true"
-    #konghq.com/plugins: ratelimit-by-ip  # see kong-plugin-ratelimit.yaml where this is defined using a CRD
-    #konghq.com/plugins: key-auth         # see kong-plugin-keyauth.yaml
+    #
+    # see kong-plugin-*.yaml where these are defined using CRDs
+    #konghq.com/plugins: ratelimit-by-ip, key-auth, admin-acl
 
     # ================================
     # For the Nginx Ingress Controller
