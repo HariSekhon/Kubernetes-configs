@@ -19,6 +19,8 @@
 
 # Use Kong kubernetes native CRD to define a Kong plugin and configuration
 
+# kubectl get KongPlugin -A
+
 ---
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
