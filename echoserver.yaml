@@ -1,0 +1,80 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-07 22:43:51 +0100 (Fri, 07 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# For testing Kong Ingress Controller
+
+# https://raw.githubusercontent.com/SIMPLrU/interactive/master/konglabs/kong-ingress-controller/manifests/echo-service.yml
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: echo
+  name: echo
+spec:
+  ports:
+  - port: 8080
+    name: high
+    protocol: TCP
+    targetPort: 8080
+  - port: 80
+    name: low
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: echo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: echo
+  name: echo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: echo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: echo
+    spec:
+      containers:
+      - image: gcr.io/kubernetes-e2e-test-images/echoserver:2.2
+        name: echo
+        ports:
+        - containerPort: 8080
+        env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+        resources: {}
