@@ -17,9 +17,7 @@
 #                             Kong Plugin - KeyAuth
 # ============================================================================ #
 
-# Use Kong kubernetes native CRD to define a Kong plugin and configuration
-
-# kubectl get KongPlugin -A
+# kubectl create secret generic "$name-apikey" --from-literal="kongCredType=key-auth" --from-literal="key=$value"
 
 ---
 apiVersion: configuration.konghq.com/v1
