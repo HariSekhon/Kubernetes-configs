@@ -14,7 +14,7 @@
 #
 
 # ============================================================================ #
-#                             Kong Plugin - KeyAuth
+#                   K o n g   P l u g i n   -   K e y A u t h
 # ============================================================================ #
 
 # kubectl create secret generic "$name-apikey" --from-literal="kongCredType=key-auth" --from-literal="key=$value"
