@@ -26,9 +26,19 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: kong
 config:
-    issuer: https://dev-513727.okta.com/oauth2/default
-    consumer_optional: true
-    auth_methods:
-      - client_credentials
-    verify_parameters: false
-    scopes: []
+  issuer: https://dev-513727.okta.com/oauth2/default
+  consumer_optional: true
+  auth_methods:
+    - client_credentials
+  verify_parameters: false
+  scopes: []
+
+  #issuer: ${KEYCLOAK_CONFIG_ISSUER}
+  #client_id:
+	#  - kong
+  #client_secret:
+	#  - ${CLIENT_SECRET}
+  #response_mode: form_post
+  #redirect_uri:
+	#  - ${KEYCLOAK_REDIRECT_URI}
+  #ssl_verify: false
