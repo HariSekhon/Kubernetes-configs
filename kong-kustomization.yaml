@@ -34,10 +34,15 @@ helmCharts:
     valuesFile: kong-values.yaml
 
 resources:
+  #- kong-cluster-plugin-prometheus.yaml
+  #- kong-cluster-plugin-request-transformer-adv.yaml
+  #- kong-cluster-plugin-response-transformer-adv.yaml
   #- kong-consumer.yaml
   - kong-network-policy.yaml
   #- kong-plugin-acl.yaml
+  #- kong-plugin-exit-transformer.yaml
+  #- kong-plugin-jq.yaml
   #- kong-plugin-keyauth.yaml
   #- kong-plugin-oidc.yaml
-  #- kong-plugin-ratelimit.yaml
   #- kong-plugin-ratelimit-adv.yaml
+  #- kong-plugin-ratelimit.yaml
