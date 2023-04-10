@@ -1,0 +1,293 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-10 22:41:02 +0100 (Mon, 10 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                                  Chart Values
+# ============================================================================ #
+
+# helm repo add kong https://charts.konghq.com
+#
+# helm show values kong/kong >> kong-values.yaml
+
+---
+deployment:
+#image:
+  #repository: kong
+  #tag: "3.2"
+  # Kong Enterprise
+  # repository: kong/kong-gateway
+  # tag: "3.2"
+
+resources: {}
+  # limits:
+  #  cpu: 1
+  #  memory: 2G
+  # requests:
+  #  cpu: 1
+  #  memory: 2G
+
+# Kong pod count.
+# It has no effect when autoscaling.enabled is set to true
+replicaCount: 1
+
+# Enable autoscaling using HorizontalPodAutoscaler
+# When configuring an HPA, you must set resource requests on all containers via
+# "resources" and, if using the controller, "ingressController.resources" in values.yaml
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  behavior: {}
+  ## targetCPUUtilizationPercentage only used if the cluster doesn't support autoscaling/v2 or autoscaling/v2beta
+  targetCPUUtilizationPercentage:
+  ## Otherwise for clusters that do support autoscaling/v2 or autoscaling/v2beta, use metrics
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+
+# Kong Pod Disruption Budget
+podDisruptionBudget:
+  enabled: false
+  # Uncomment only one of the following when enabled is set to true
+  # maxUnavailable: "50%"
+  # minAvailable: "50%"
+
+podSecurityPolicy:
+  enabled: false
+  labels: {}
+  annotations: {}
+  spec:
+    privileged: false
+    fsGroup:
+      rule: RunAsAny
+    runAsUser:
+      rule: RunAsAny
+    runAsGroup:
+      rule: RunAsAny
+    seLinux:
+      rule: RunAsAny
+    supplementalGroups:
+      rule: RunAsAny
+    volumes:
+      - 'configMap'
+      - 'secret'
+      - 'emptyDir'
+      - 'projected'
+    allowPrivilegeEscalation: false
+    hostNetwork: false
+    hostIPC: false
+    hostPID: false
+    # Make the root filesystem read-only. This is not compatible with Kong Enterprise <1.5.
+    # If you use Kong Enterprise <1.5, this must be set to false.
+    readOnlyRootFilesystem: true
+
+priorityClassName: high-priority
+
+# securityContext for Kong pods.
+securityContext: {}
+
+# securityContext for containers.
+containerSecurityContext:
+  readOnlyRootFilesystem: true
+
+enterprise:
+  enabled: false
+  # Kong Enterprise license secret name
+  # This secret must contain a single 'license' key, containing your base64-encoded license data
+  # The license secret is required to unlock all Enterprise features. If you omit it,
+  # Kong will run in free mode, with some Enterprise features disabled.
+  # license_secret: kong-enterprise-license
+  vitals:
+    enabled: true
+  portal:
+    enabled: false
+  rbac:
+    enabled: false
+    admin_gui_auth: basic-auth
+    # If RBAC is enabled, this Secret must contain an admin_gui_session_conf key
+    # The key value must be a secret configuration, following the example at
+    # https://docs.konghq.com/enterprise/latest/kong-manager/authentication/sessions
+    session_conf_secret: kong-session-config
+    # If admin_gui_auth is not set to basic-auth, provide a secret name which
+    # has an admin_gui_auth_conf key containing the plugin config JSON
+    admin_gui_auth_conf_secret: CHANGEME-admin-gui-auth-conf-secret
+  # For configuring emails and SMTP, please read through:
+  # https://docs.konghq.com/enterprise/latest/developer-portal/configuration/smtp
+  # https://docs.konghq.com/enterprise/latest/kong-manager/networking/email
+  smtp:
+    enabled: false
+    portal_emails_from: none@example.com
+    portal_emails_reply_to: none@example.com
+    admin_emails_from: none@example.com
+    admin_emails_reply_to: none@example.com
+    smtp_admin_emails: none@example.com
+    smtp_host: smtp.example.com
+    smtp_port: 587
+    smtp_auth_type: ''
+    smtp_ssl: nil
+    smtp_starttls: true
+    auth:
+      # If your SMTP server does not require authentication, this section can
+      # be left as-is. If smtp_username is set to anything other than an empty
+      # string, you must create a Secret with an smtp_password key containing
+      # your SMTP password and specify its name here.
+      smtp_username: ''  # e.g. postmaster@example.com
+      smtp_password_secret: CHANGEME-smtp-password
+
+manager:
+  # Enable creating a Kubernetes service for Kong Manager
+  enabled: true
+  type: NodePort
+  loadBalancerClass:
+  # To specify annotations or labels for the Manager service, add them to the respective
+  # "annotations" or "labels" dictionaries below.
+  annotations: {}
+  #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+  labels: {}
+
+  http:
+    # Enable plaintext HTTP listen for Kong Manager
+    enabled: true
+    servicePort: 8002
+    containerPort: 8002
+    # Set a nodePort which is available if service type is NodePort
+    # nodePort: 32080
+    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
+    parameters: []
+
+  tls:
+    # Enable HTTPS listen for Kong Manager
+    enabled: true
+    servicePort: 8445
+    containerPort: 8445
+    # Set a nodePort which is available if service type is NodePort
+    # nodePort: 32443
+    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
+    parameters:
+    - http2
+
+  ingress:
+    # Enable/disable exposure using ingress.
+    enabled: false
+    ingressClassName:
+    # TLS secret name.
+    # tls: kong-manager.example.com-tls
+    # Ingress hostname
+    hostname:
+    # Map of ingress annotations.
+    annotations: {}
+    # Ingress path.
+    path: /
+    # Each path in an Ingress is required to have a corresponding path type. (ImplementationSpecific/Exact/Prefix)
+    pathType: ImplementationSpecific
+
+portal:
+  # Enable creating a Kubernetes service for the Developer Portal
+  enabled: true
+  type: NodePort
+  loadBalancerClass:
+  # To specify annotations or labels for the Portal service, add them to the respective
+  # "annotations" or "labels" dictionaries below.
+  annotations: {}
+  #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+  labels: {}
+
+  http:
+    # Enable plaintext HTTP listen for the Developer Portal
+    enabled: true
+    servicePort: 8003
+    containerPort: 8003
+    # Set a nodePort which is available if service type is NodePort
+    # nodePort: 32080
+    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
+    parameters: []
+
+  tls:
+    # Enable HTTPS listen for the Developer Portal
+    enabled: true
+    servicePort: 8446
+    containerPort: 8446
+    # Set a nodePort which is available if service type is NodePort
+    # nodePort: 32443
+    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
+    parameters:
+    - http2
+
+  ingress:
+    # Enable/disable exposure using ingress.
+    enabled: false
+    ingressClassName:
+    # TLS secret name.
+    # tls: kong-portal.example.com-tls
+    # Ingress hostname
+    hostname:
+    # Map of ingress annotations.
+    annotations: {}
+    # Ingress path.
+    path: /
+    # Each path in an Ingress is required to have a corresponding path type. (ImplementationSpecific/Exact/Prefix)
+    pathType: ImplementationSpecific
+
+portalapi:
+  # Enable creating a Kubernetes service for the Developer Portal API
+  enabled: true
+  type: NodePort
+  loadBalancerClass:
+  # To specify annotations or labels for the Portal API service, add them to the respective
+  # "annotations" or "labels" dictionaries below.
+  annotations: {}
+  #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+  labels: {}
+
+  http:
+    # Enable plaintext HTTP listen for the Developer Portal API
+    enabled: true
+    servicePort: 8004
+    containerPort: 8004
+    # Set a nodePort which is available if service type is NodePort
+    # nodePort: 32080
+    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
+    parameters: []
+
+  tls:
+    # Enable HTTPS listen for the Developer Portal API
+    enabled: true
+    servicePort: 8447
+    containerPort: 8447
+    # Set a nodePort which is available if service type is NodePort
+    # nodePort: 32443
+    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
+    parameters:
+    - http2
+
+  ingress:
+    # Enable/disable exposure using ingress.
+    enabled: false
+    ingressClassName:
+    # TLS secret name.
+    # tls: kong-portalapi.example.com-tls
+    # Ingress hostname
+    hostname:
+    # Map of ingress annotations.
+    annotations: {}
+    # Ingress path.
+    path: /
+    # Each path in an Ingress is required to have a corresponding path type. (ImplementationSpecific/Exact/Prefix)
+    pathType: ImplementationSpecific
