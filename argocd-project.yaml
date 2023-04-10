@@ -102,6 +102,8 @@ spec:
       kind: CustomResourceDefinition  # needed for Cert-Manager
     - group: networking.k8s.io
       kind: IngressClass
+    - group: configuration.konghq.com
+      kind: KongClusterPlugin
     - group: ''
       kind: Namespace
     #- group: scheduling.k8s.io
@@ -147,6 +149,10 @@ spec:
       kind: Ingress
     - group: networking.k8s.io  # new ingress
       kind: Ingress
+    - group: configuration.konghq.com
+      kind: KongConsumer
+    - group: configuration.konghq.com
+      kind: KongPlugin
     - group: ''
       kind: PersistentVolumeClaim
     - group: policy
