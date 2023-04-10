@@ -46,6 +46,9 @@ metadata:
   #  service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-2:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
   #  service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
   #  service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+
+  #  konghq.com/path: "/some-path"
+  #  konghq.com/plugins: "key-auth"
 spec:
   type: ClusterIP   # default
   #clusterIP: None  # headless service - returns all A records instead of round robin. Useful for seeding (eg. Cassandra, Elasticsearch), or Service Discovery where load balancing is not needed (eg. Jenkins / TeamCity server)
@@ -53,6 +56,7 @@ spec:
   #type: LoadBalancer
   #type: ExternalName
   #externalName: NAME.DOMAIN.COM  # returns a CNAME pointing to NAME.DOMAIN.COM, as a cluster stable internal reference to an external resource which might change
+  #externalName: myservice.default.svc.cluster.local
   selector:
     app: APP
     role: master
