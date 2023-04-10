@@ -188,7 +188,7 @@ manager:
     # TLS secret name.
     # tls: kong-manager.example.com-tls
     # Ingress hostname
-    hostname: kong.dev.domain.com  # XXX: Edit
+    hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
     # Map of ingress annotations.
     annotations: {}
     # Ingress path.
@@ -234,7 +234,7 @@ portal:
     # TLS secret name.
     # tls: kong-portal.example.com-tls
     # Ingress hostname
-    hostname: kong-portal.dev.domain.com  # XXX: Edit
+    hostname: kong-portal.DEV.DOMAIN.COM  # XXX: Edit
     # Map of ingress annotations.
     annotations: {}
     # Ingress path.
@@ -280,7 +280,7 @@ portalapi:
     # TLS secret name.
     # tls: kong-portalapi.example.com-tls
     # Ingress hostname
-    hostname: portal-api.dev.domain.com  # XXX: Edit
+    hostname: kong-portal-api.DEV.DOMAIN.COM  # XXX: Edit
     # Map of ingress annotations.
     annotations: {}
     # Ingress path.
