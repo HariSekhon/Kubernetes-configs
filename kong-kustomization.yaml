@@ -24,16 +24,8 @@ kind: Kustomization
 
 #namespace: kong
 
-helmCharts:
-  - name: kong
-    repo: https://charts.konghq.com
-    version: 2.19.0
-    releaseName: kong
-    namespace: kong
-    includeCRDs: true
-    valuesFile: kong-values.yaml
-
 resources:
+  - kong-namespace.yaml
   #- kong-cluster-plugin-prometheus.yaml
   #- kong-cluster-plugin-request-transformer-adv.yaml
   #- kong-cluster-plugin-response-transformer-adv.yaml
@@ -46,3 +38,12 @@ resources:
   #- kong-plugin-oidc.yaml
   #- kong-plugin-ratelimit-adv.yaml
   #- kong-plugin-ratelimit.yaml
+
+helmCharts:
+  - name: kong
+    repo: https://charts.konghq.com
+    version: 2.19.0
+    releaseName: kong
+    namespace: kong
+    includeCRDs: true
+    valuesFile: kong-values.yaml
