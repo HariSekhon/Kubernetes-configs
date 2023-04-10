@@ -181,7 +181,7 @@ manager:
     # nodePort: 32443
     # Additional listen parameters, e.g. "reuseport", "backlog=16384"
     parameters:
-    - http2
+      - http2
 
   ingress:
     # Enable/disable exposure using ingress.
@@ -228,7 +228,7 @@ portal:
     # nodePort: 32443
     # Additional listen parameters, e.g. "reuseport", "backlog=16384"
     parameters:
-    - http2
+      - http2
 
   ingress:
     # Enable/disable exposure using ingress.
@@ -275,7 +275,7 @@ portalapi:
     # nodePort: 32443
     # Additional listen parameters, e.g. "reuseport", "backlog=16384"
     parameters:
-    - http2
+      - http2
 
   ingress:
     # Enable/disable exposure using ingress.
