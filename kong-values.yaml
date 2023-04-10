@@ -153,7 +153,7 @@ enterprise:
 manager:
   # Enable creating a Kubernetes service for Kong Manager
   enabled: true
-  type: NodePort
+  type: ClusterIP  # default: NodePort
   loadBalancerClass:
   # To specify annotations or labels for the Manager service, add them to the respective
   # "annotations" or "labels" dictionaries below.
@@ -200,7 +200,7 @@ manager:
 portal:
   # Enable creating a Kubernetes service for the Developer Portal
   enabled: true
-  type: NodePort
+  type: ClusterIP  # default: NodePort
   loadBalancerClass:
   # To specify annotations or labels for the Portal service, add them to the respective
   # "annotations" or "labels" dictionaries below.
@@ -247,7 +247,7 @@ portal:
 portalapi:
   # Enable creating a Kubernetes service for the Developer Portal API
   enabled: true
-  type: NodePort
+  type: ClusterIP  # default: NodePort
   loadBalancerClass:
   # To specify annotations or labels for the Portal API service, add them to the respective
   # "annotations" or "labels" dictionaries below.
