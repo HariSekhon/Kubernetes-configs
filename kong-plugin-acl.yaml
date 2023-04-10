@@ -25,6 +25,7 @@ kind: KongPlugin
 plugin: acl
 metadata:
   name: admin-acl
+  namespace: NAME  # XXX: Edit
   annotations:
     kubernetes.io/ingress.class: kong
 config:
