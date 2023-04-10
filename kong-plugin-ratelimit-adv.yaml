@@ -1,0 +1,44 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-07 22:49:16 +0100 (Fri, 07 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#        K o n g   P l u g i n   -   R a t e L i m i t   A d v a n c e d
+# ============================================================================ #
+
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+plugin: rate-limiting
+metadata:
+  name: global-rate-limit-adv
+  namespace: APP  # XXX: Edit
+  annotations:
+    kubernetes.io/ingress.class: kong
+  labels:
+    global: "true"
+config:
+  namespace: APP
+  limit:
+    - 10
+    - 20
+  window_size:
+    - 60
+    - 90
+  window_type: sliding
+  sync_rate: 0
+  strategy: redis
+  redis:
+    host: redis-master.kong.svc.cluster.local
+    port: 6379
