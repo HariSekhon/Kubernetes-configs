@@ -1,0 +1,48 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-07 22:49:16 +0100 (Fri, 07 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                             K o n g   P l u g i n
+# ============================================================================ #
+
+# Use Kong kubernetes native CRD to define a Kong plugin and configuration
+
+# kubectl get KongPlugin -A
+
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+plugin: exit-transformer
+metadata:
+  name: NAME       # XXX: Edit
+  namespace: NAME  # XXX: Edit
+  annotations:
+    kubernetes.io/ingress.class: kong
+config:
+  functions:
+    - |
+      -- transform.lua
+          return function(status, body, headers)
+            if not body or not body.message then
+              return status, body, headers
+            end
+            headers = { ["X-Some-Header"] = "ETP Triggered" }
+            local new_body = {
+              error = true,
+              status = status,
+              message = body.message .. ", Achtung!",
+            }
+            return status, new_body, headers
+          end
