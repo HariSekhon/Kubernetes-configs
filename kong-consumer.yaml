@@ -30,5 +30,5 @@ metadata:
     kubernetes.io/ingress.class: kong
 username: USERNAME
 credentials:
-	- NAME-apikey
-	- app-admin-acl
+  - NAME-apikey
+  - app-admin-acl
