@@ -23,7 +23,7 @@ kind: KongPlugin
 plugin: rate-limiting
 metadata:
   name: ratelimit-by-ip
-  namespace: APP  # XXX: Edit
+  namespace: NAME  # XXX: Edit
   annotations:
     kubernetes.io/ingress.class: kong
 config:
