@@ -36,10 +36,10 @@ config:
 
   #issuer: ${KEYCLOAK_CONFIG_ISSUER}
   #client_id:
-	#  - kong
+  #  - kong
   #client_secret:
-	#  - ${CLIENT_SECRET}
+  #  - ${CLIENT_SECRET}
   #response_mode: form_post
   #redirect_uri:
-	#  - ${KEYCLOAK_REDIRECT_URI}
+  #  - ${KEYCLOAK_REDIRECT_URI}
   #ssl_verify: false
