@@ -1,0 +1,35 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-07 22:49:16 +0100 (Fri, 07 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#              Kong Cluster Plugin - Response Transformer Advanced
+# ============================================================================ #
+
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongClusterPlugin
+plugin: response-transformer-advanced
+metadata:
+  name: global-response-transform-adv
+  annotations:
+    kubernetes.io/ingress.class: kong
+  labels:
+    global: "true"
+config:
+  add:
+    json:
+      - json-key-added:Test-Key
+    headers:
+      - X-Kong-Test-Response-Header:MyResponseHeader
