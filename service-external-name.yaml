@@ -31,6 +31,10 @@ metadata:
   namespace: NAMESPACE
   labels:
     app: APP
+  #annotations:
+  #  konghq.com/path: "/some-path"
+  #  konghq.com/plugins: "key-auth"
 spec:
   type: ExternalName
   externalName: NAME.DOMAIN.COM
+  #externalName: myservice.default.svc.cluster.local
