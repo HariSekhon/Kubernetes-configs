@@ -41,7 +41,7 @@ metadata:
     #konghq.com/strip-path: "true"
     #
     # see kong-plugin-*.yaml where these are defined using CRDs
-    #konghq.com/plugins: ratelimit-by-ip, key-auth, admin-acl
+    #konghq.com/plugins: ratelimit-by-ip, key-auth, oidc, admin-acl  # choose either simple key-auth or oidc
 
     # ================================
     # For the Nginx Ingress Controller
