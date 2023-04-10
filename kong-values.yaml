@@ -183,13 +183,12 @@ manager:
       - http2
 
   ingress:
-    # Enable/disable exposure using ingress.
-    enabled: false
-    ingressClassName:
+    enabled: true
+    ingressClassName: ingress-nginx
     # TLS secret name.
     # tls: kong-manager.example.com-tls
     # Ingress hostname
-    hostname:
+    hostname: kong.dev.domain.com  # XXX: Edit
     # Map of ingress annotations.
     annotations: {}
     # Ingress path.
@@ -230,13 +229,12 @@ portal:
       - http2
 
   ingress:
-    # Enable/disable exposure using ingress.
-    enabled: false
-    ingressClassName:
+    enabled: true
+    ingressClassName: ingress-nginx
     # TLS secret name.
     # tls: kong-portal.example.com-tls
     # Ingress hostname
-    hostname:
+    hostname: kong-portal.dev.domain.com  # XXX: Edit
     # Map of ingress annotations.
     annotations: {}
     # Ingress path.
@@ -277,13 +275,12 @@ portalapi:
       - http2
 
   ingress:
-    # Enable/disable exposure using ingress.
-    enabled: false
-    ingressClassName:
+    enabled: true
+    ingressClassName: ingress-nginx
     # TLS secret name.
     # tls: kong-portalapi.example.com-tls
     # Ingress hostname
-    hostname:
+    hostname: portal-api.dev.domain.com  # XXX: Edit
     # Map of ingress annotations.
     annotations: {}
     # Ingress path.
