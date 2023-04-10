@@ -72,6 +72,8 @@ spec:
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: jenkins
       server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: kong
+      server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: keycloak
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: kubernetes-dashboard
