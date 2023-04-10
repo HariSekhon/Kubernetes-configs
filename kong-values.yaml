@@ -23,7 +23,6 @@
 # helm show values kong/kong >> kong-values.yaml
 
 ---
-deployment:
 #image:
   #repository: kong
   #tag: "3.2"
