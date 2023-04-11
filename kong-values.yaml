@@ -106,6 +106,33 @@ securityContext: {}
 containerSecurityContext:
   readOnlyRootFilesystem: true
 
+proxy:
+  enabled: true
+  type: LoadBalancer
+  loadBalancerClass:
+  # Override proxy Service name
+  nameOverride: ""
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
+  labels:
+    enable-metrics: "true"
+
+  http:
+    enabled: true
+    servicePort: 80
+    containerPort: 8000
+
+  tls:
+    enabled: true
+    servicePort: 443
+    containerPort: 8443
+    parameters:
+      - http2
+
 enterprise:
   enabled: false
   # Kong Enterprise license secret name
@@ -151,139 +178,73 @@ enterprise:
       smtp_password_secret: CHANGEME-smtp-password
 
 manager:
-  # Enable creating a Kubernetes service for Kong Manager
   enabled: true
-  type: ClusterIP  # default: NodePort
+  type: LoadBalancer  # default: NodePort
   loadBalancerClass:
-  # To specify annotations or labels for the Manager service, add them to the respective
-  # "annotations" or "labels" dictionaries below.
-  annotations: {}
-  #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
-  labels: {}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
 
   http:
-    # Enable plaintext HTTP listen for Kong Manager
     enabled: true
     servicePort: 8002
     containerPort: 8002
-    # Set a nodePort which is available if service type is NodePort
-    # nodePort: 32080
-    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
     parameters: []
 
   tls:
-    # Enable HTTPS listen for Kong Manager
     enabled: true
     servicePort: 8445
     containerPort: 8445
-    # Set a nodePort which is available if service type is NodePort
-    # nodePort: 32443
-    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
     parameters:
       - http2
 
-  ingress:
-    enabled: true
-    ingressClassName: ingress-nginx
-    # TLS secret name.
-    # tls: kong-manager.example.com-tls
-    # Ingress hostname
-    hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
-    # Map of ingress annotations.
-    annotations: {}
-    # Ingress path.
-    path: /
-    # Each path in an Ingress is required to have a corresponding path type. (ImplementationSpecific/Exact/Prefix)
-    pathType: ImplementationSpecific
-
 portal:
-  # Enable creating a Kubernetes service for the Developer Portal
   enabled: true
-  type: ClusterIP  # default: NodePort
+  type: LoadBalancer  # default: NodePort
   loadBalancerClass:
-  # To specify annotations or labels for the Portal service, add them to the respective
-  # "annotations" or "labels" dictionaries below.
-  annotations: {}
-  #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
-  labels: {}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
 
   http:
     # Enable plaintext HTTP listen for the Developer Portal
     enabled: true
     servicePort: 8003
     containerPort: 8003
-    # Set a nodePort which is available if service type is NodePort
-    # nodePort: 32080
-    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
-    parameters: []
 
   tls:
     # Enable HTTPS listen for the Developer Portal
     enabled: true
     servicePort: 8446
     containerPort: 8446
-    # Set a nodePort which is available if service type is NodePort
-    # nodePort: 32443
-    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
     parameters:
       - http2
 
-  ingress:
-    enabled: true
-    ingressClassName: ingress-nginx
-    # TLS secret name.
-    # tls: kong-portal.example.com-tls
-    # Ingress hostname
-    hostname: kong-portal.DEV.DOMAIN.COM  # XXX: Edit
-    # Map of ingress annotations.
-    annotations: {}
-    # Ingress path.
-    path: /
-    # Each path in an Ingress is required to have a corresponding path type. (ImplementationSpecific/Exact/Prefix)
-    pathType: ImplementationSpecific
-
 portalapi:
-  # Enable creating a Kubernetes service for the Developer Portal API
   enabled: true
-  type: ClusterIP  # default: NodePort
+  type: LoadBalancer  # default: NodePort
   loadBalancerClass:
-  # To specify annotations or labels for the Portal API service, add them to the respective
-  # "annotations" or "labels" dictionaries below.
-  annotations: {}
-  #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
-  labels: {}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
 
   http:
-    # Enable plaintext HTTP listen for the Developer Portal API
     enabled: true
     servicePort: 8004
     containerPort: 8004
-    # Set a nodePort which is available if service type is NodePort
-    # nodePort: 32080
-    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
-    parameters: []
 
   tls:
-    # Enable HTTPS listen for the Developer Portal API
     enabled: true
     servicePort: 8447
     containerPort: 8447
-    # Set a nodePort which is available if service type is NodePort
-    # nodePort: 32443
-    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
     parameters:
       - http2
-
-  ingress:
-    enabled: true
-    ingressClassName: ingress-nginx
-    # TLS secret name.
-    # tls: kong-portalapi.example.com-tls
-    # Ingress hostname
-    hostname: kong-portal-api.DEV.DOMAIN.COM  # XXX: Edit
-    # Map of ingress annotations.
-    annotations: {}
-    # Ingress path.
-    path: /
-    # Each path in an Ingress is required to have a corresponding path type. (ImplementationSpecific/Exact/Prefix)
-    pathType: ImplementationSpecific
