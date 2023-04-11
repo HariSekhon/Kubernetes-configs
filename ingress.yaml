@@ -40,6 +40,8 @@ metadata:
     #kubernetes.io/ingress.class: kong
     #konghq.com/strip-path: "true"
     #
+    #konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this ingress
+    #
     # see kong-plugin-*.yaml where these are defined using CRDs
     #konghq.com/plugins: ratelimit-by-ip, key-auth, oidc, admin-acl  # choose either simple key-auth or oidc
 
