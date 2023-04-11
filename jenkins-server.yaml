@@ -66,9 +66,11 @@ spec:
       securityContext:
         #runAsUser: 0
         fsGroup: 1000
-        # XXX: don't chgrp all the many small files unless the root mismatches, prevents long outages on pod creation hanging with this error:
+        # XXX: don't chgrp all the many small files unless the root mismatches, prevents long outages on pod creation hanging with multiple of these error messages:
         #
         #   Unable to attach or mount volumes: unmounted volumes=[jenkins-home], unattached volumes=[kube-api-access-6q2kb jenkins-home]: timed out waiting for the condition
+        #
+        #   https://docs.cloudbees.com/docs/cloudbees-ci-kb/latest/cloudbees-ci-on-modern-cloud-platforms/timeout-when-attaching-volumes-in-kubernetes
         #
         fsGroupChangePolicy: OnRootMismatch
       serviceAccountName: jenkins-server
