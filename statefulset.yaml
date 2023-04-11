@@ -116,11 +116,10 @@ spec:
         runAsNonRoot: true
         #runAsUser: 0   # not recommended
         fsGroup: 1000   # group to own volumeMounts so they can be written to by the user-level process
-        # XXX: potential solution for:
+        # XXX: don't chgrp all the many small files unless the root mismatches, prevents long outages on pod creation hanging with this error:
         #
         #   Unable to attach or mount volumes: unmounted volumes=[jenkins-home], unattached volumes=[kube-api-access-6q2kb jenkins-home]: timed out waiting for the condition
         #
-        # don't chgrp all the many files unless the root mismatches
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: NAME
