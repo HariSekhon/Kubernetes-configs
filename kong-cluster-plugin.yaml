@@ -17,7 +17,9 @@
 #                             K o n g   P l u g i n
 # ============================================================================ #
 
-# Use Kong kubernetes native CRD to define a Kong plugin and configuration
+# Kong CRD to define a Kong plugin and configuration
+
+# https://docs.konghq.com/kubernetes-ingress-controller/latest/references/custom-resources/#kongclusterplugin
 
 # kubectl get KongClusterPlugin
 
@@ -26,7 +28,7 @@ apiVersion: configuration.konghq.com/v1
 kind: KongClusterPlugin
 plugin: request-transformer-advanced  # XXX: Edit - choose the plugin you want
 metadata:
-  name: NAME       # XXX: Edit - eg. 'global-request-transform-adv'
+  name: NAME  # XXX: Edit - eg. 'global-request-transform-adv'
   annotations:
     kubernetes.io/ingress.class: kong  # required
 # XXX: Edit - config specific to the plugin chosen above
