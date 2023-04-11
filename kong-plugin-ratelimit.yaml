@@ -30,3 +30,5 @@ config:
   minute: 5
   limit_by: ip
   policy: local
+  #policy: redis
+  #redis_host: redis
