@@ -17,7 +17,9 @@
 #                           K o n g   C o n s u m e r
 # ============================================================================ #
 
-# requires kong-plugin-keyauth.yaml
+# Kong CRD for Consumer - requires kong-plugin-keyauth.yaml
+
+# https://docs.konghq.com/kubernetes-ingress-controller/latest/references/custom-resources/#kongconsumer
 
 # kubectl create secret generic "$name-apikey" --from-literal="kongCredType=key-auth" --from-literal="key=$value"
 
@@ -25,10 +27,10 @@
 apiVersion: configuration.konghq.com/v1
 kind: KongConsumer
 metadata:
-  name: NAME
+  name: NAME  # XXX: Edit
   annotations:
     kubernetes.io/ingress.class: kong  # required
-username: USERNAME
+username: USERNAME  # XXX: Edit
 credentials:
-  - NAME-apikey
+  - NAME-apikey  # XXX: Edit
   - app-admin-acl
