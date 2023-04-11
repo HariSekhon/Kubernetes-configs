@@ -33,16 +33,18 @@ metadata:
   namespace: NAMESPACE
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    ingress.kubernetes.io/force-ssl-redirect: "true"
 
     # ================================
     # For the Kong Ingress Controller
     #
     #kubernetes.io/ingress.class: kong
     #konghq.com/strip-path: "true"
-    #konghq.com/protocols: https
+    #konghq.com/protocol:  http   # used between Kong ingress and pods
+    #konghq.com/protocols: https  # used between external clients and Kong ingress
     #konghq.com/https-redirect-status-code: "308"
     #
-    #konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this ingress
+    #konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this ingress - deprecated, new versions should have native annotation settings
     #
     # see kong-plugin-*.yaml where these are defined using CRDs
     #konghq.com/plugins: ratelimit-by-ip, key-auth, oidc, admin-acl  # choose either simple key-auth or oidc
@@ -79,6 +81,7 @@ metadata:
     # nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
     # nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
 spec:
+  #ingressClassName: kong
   tls:
     # XXX: Edit
     - hosts:
