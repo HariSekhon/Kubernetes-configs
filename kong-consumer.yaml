@@ -27,7 +27,7 @@ kind: KongConsumer
 metadata:
   name: NAME
   annotations:
-    kubernetes.io/ingress.class: kong
+    kubernetes.io/ingress.class: kong  # required
 username: USERNAME
 credentials:
   - NAME-apikey
