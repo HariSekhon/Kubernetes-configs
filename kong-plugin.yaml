@@ -17,7 +17,9 @@
 #                             K o n g   P l u g i n
 # ============================================================================ #
 
-# Use Kong kubernetes native CRD to define a Kong plugin and configuration
+# Kong CRD to define a Kong plugin and configuration
+
+# https://docs.konghq.com/kubernetes-ingress-controller/latest/references/custom-resources/#kongplugin
 
 # kubectl get KongPlugin -A
 
