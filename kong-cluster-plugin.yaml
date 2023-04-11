@@ -26,7 +26,7 @@
 ---
 apiVersion: configuration.konghq.com/v1
 kind: KongClusterPlugin
-plugin: request-transformer-advanced  # XXX: Edit - choose the plugin you want
+plugin: NAME  # XXX: Edit eg. 'request-transformer-advanced'
 metadata:
   name: NAME  # XXX: Edit - eg. 'global-request-transform-adv'
   annotations:
