@@ -28,7 +28,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: kong-kong
+      app: kong-kong  # XXX: yes this is really kong-kong to differentiate kong gateway proxy from kong-ingress-controller
   policyTypes:
     - Ingress
   ingress:
