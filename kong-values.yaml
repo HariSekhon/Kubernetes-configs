@@ -244,7 +244,7 @@ portal:
     enabled: true
     ingressClassName: ingress-nginx
     # tls: kong-manager.example.com-tls
-    hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
+    hostname: kong-portal.DEV.DOMAIN.COM  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       nginx.ingress.kubernetes.io/whitelist-source-range: |
@@ -282,7 +282,7 @@ portalapi:
     enabled: true
     ingressClassName: ingress-nginx
     # tls: kong-manager.example.com-tls
-    hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
+    hostname: kong-portal-api.DEV.DOMAIN.COM  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       nginx.ingress.kubernetes.io/whitelist-source-range: |
