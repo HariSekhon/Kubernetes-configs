@@ -39,6 +39,10 @@ resources:
   #- kong-plugin-ratelimit-adv.yaml
   #- kong-plugin-ratelimit.yaml
 
+# https://artifacthub.io/packages/helm/kong/kong
+#
+# https://docs.konghq.com/kubernetes-ingress-controller/latest/references/version-compatibility/
+#
 helmCharts:
   - name: kong
     repo: https://charts.konghq.com
