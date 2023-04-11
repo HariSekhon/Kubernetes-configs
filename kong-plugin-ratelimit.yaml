@@ -20,6 +20,7 @@
 ---
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
+#kind: KongClusterPlugin  # or defined it at cluster level and remove namespace
 plugin: rate-limiting
 metadata:
   name: ratelimit-by-ip
