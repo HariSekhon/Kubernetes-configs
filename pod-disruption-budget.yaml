@@ -33,9 +33,10 @@ metadata:
   name: zk-pdb
   namespace: NAMESPACE
 spec:
-  # minAvailable and maxUnavailable are mutually exclusive
-  # minAvailable: 4    # < 1.7  - must calculate yourself, eg 2/3, or 4/5
-  maxUnavailable: 25%  #   1.7+ - XXX: do not set to integers, you may cause outages if replicas <= maxUnavailable
+  # minAvailable and maxUnavailable are mutually exclusive - both round up, so minAvailable is safer as maxUnavailable may round up and exceed your expectations
+  #minAvailable: 4      # < 1.7  - must calculate yourself, eg 2/3, or 4/5
+  minAvailable: 51%     # XXX: Safer than maxUnavailable due to rounding up to more pod replicas
+  #maxUnavailable: 25%  # 1.7+ - XXX: do not set to integers, you may cause outages if replicas <= maxUnavailable, and may exceed percentages due to rounding up replicas to take down
   selector:
     matchLabels:
       app: zookeeper
