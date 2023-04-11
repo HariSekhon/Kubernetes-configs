@@ -179,14 +179,15 @@ enterprise:
 
 manager:
   enabled: true
-  type: LoadBalancer  # default: NodePort
-  loadBalancerClass:
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-    service.beta.kubernetes.io/aws-load-balancer-type: nlb
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
+  type: ClusterIP  # default: NodePort
+  #type: LoadBalancer
+  #loadBalancerClass:
+  #annotations:
+  #  service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  #  service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  #  service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+  #  service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+  #  service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
 
   http:
     enabled: true
@@ -201,41 +202,69 @@ manager:
     parameters:
       - http2
 
+  ingress:
+    enabled: true
+    ingressClassName: ingress-nginx
+    # tls: kong-manager.example.com-tls
+    hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      nginx.ingress.kubernetes.io/whitelist-source-range: |
+        10.0.0.0/8,
+        172.16.0.0/16,
+        192.168.0.0/16
+    path: /
+    pathType: Prefix  # default: ImplementationSpecific
+
 portal:
   enabled: true
-  type: LoadBalancer  # default: NodePort
-  loadBalancerClass:
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-    service.beta.kubernetes.io/aws-load-balancer-type: nlb
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
+  type: ClusterIP  # default: NodePort
+  #type: LoadBalancer
+  #loadBalancerClass:
+  #annotations:
+  #  service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  #  service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  #  service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+  #  service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+  #  service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
 
   http:
-    # Enable plaintext HTTP listen for the Developer Portal
     enabled: true
     servicePort: 8003
     containerPort: 8003
 
   tls:
-    # Enable HTTPS listen for the Developer Portal
     enabled: true
     servicePort: 8446
     containerPort: 8446
     parameters:
       - http2
 
+  ingress:
+    enabled: true
+    ingressClassName: ingress-nginx
+    # tls: kong-manager.example.com-tls
+    hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      nginx.ingress.kubernetes.io/whitelist-source-range: |
+        10.0.0.0/8,
+        172.16.0.0/16,
+        192.168.0.0/16
+    path: /
+    pathType: Prefix  # default: ImplementationSpecific
+
 portalapi:
   enabled: true
-  type: LoadBalancer  # default: NodePort
-  loadBalancerClass:
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-    service.beta.kubernetes.io/aws-load-balancer-type: nlb
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
-    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
+  type: ClusterIP  # default: NodePort
+  #type: LoadBalancer
+  #loadBalancerClass:
+  #annotations:
+  #  service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  #  service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  #  service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+  #  service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+  #  service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
 
   http:
     enabled: true
@@ -248,3 +277,17 @@ portalapi:
     containerPort: 8447
     parameters:
       - http2
+
+  ingress:
+    enabled: true
+    ingressClassName: ingress-nginx
+    # tls: kong-manager.example.com-tls
+    hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      nginx.ingress.kubernetes.io/whitelist-source-range: |
+        10.0.0.0/8,
+        172.16.0.0/16,
+        192.168.0.0/16
+    path: /
+    pathType: Prefix  # default: ImplementationSpecific
