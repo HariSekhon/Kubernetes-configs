@@ -39,6 +39,8 @@ metadata:
     #
     #kubernetes.io/ingress.class: kong
     #konghq.com/strip-path: "true"
+    #konghq.com/protocols: https
+    #konghq.com/https-redirect-status-code: "308"
     #
     #konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this ingress
     #
