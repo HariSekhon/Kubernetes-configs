@@ -41,6 +41,8 @@ resources:
 
 # https://artifacthub.io/packages/helm/kong/kong
 #
+# https://github.com/Kong/kubernetes-ingress-controller
+#
 # https://docs.konghq.com/kubernetes-ingress-controller/latest/references/version-compatibility/
 #
 helmCharts:
