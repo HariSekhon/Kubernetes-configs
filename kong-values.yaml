@@ -137,7 +137,7 @@ proxy:
 
 # Kong Admin API - usually recommended to disable, but useful for API devs like me
 admin:
-  enabled: true  # XXX: you should probably set this to false unless you really intend to use the API, which is mostly read-only in this deployment style
+  enabled: false  # XXX: enable if you want to use the Admin API, which is mostly read-only in the Kubernetes-native KIC deployment style
   type: ClusterIP  # default: NodePort
   loadBalancerClass:
   # To specify annotations or labels for the admin service, add them to the respective
