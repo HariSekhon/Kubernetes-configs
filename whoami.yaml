@@ -23,6 +23,9 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     ingress.kubernetes.io/force-ssl-redirect: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: le
 spec:
   ingressClassName: traefik
   tls:
@@ -77,3 +80,10 @@ spec:
           name: whoami
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 20Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
