@@ -39,8 +39,18 @@ resources:
     cpu: 1
     memory: 2G
 
-# XXX: required for HPA
 ingressController:
+  # XXX: check compatability vs your version of Kubernetes here:
+  #
+  #   https://docs.konghq.com/kubernetes-ingress-controller/latest/references/version-compatibility/
+  #
+  #     helm template kong/kong -f kong-values.yaml > /tmp/kong.yaml
+  #
+  #     grep kubernetes-ingress-controller: /tmp/kong.yaml
+  #
+  #tag: "2.9"  # XXX: set this to a version matching your Kubernetes cluster version in the matric in the version compatability link above
+  #
+  # XXX: required for HPA
   resources:
     limits:
       cpu: 100m
