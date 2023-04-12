@@ -60,8 +60,11 @@ web:
       port: atc
   resources:
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
 
 worker:
   enabled: true
@@ -80,8 +83,11 @@ worker:
   readinessProbe: {}
   resources:
     requests:
-      cpu: "100m"
-      memory: "512Mi"
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      cpu: 100m
+      memory: 512Mi
 
 persistence:
   enabled: true
