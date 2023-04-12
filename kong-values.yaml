@@ -180,12 +180,12 @@ admin:
 
   ingress:
     enabled: true
-    ingressClassName: ingress-nginx
+    ingressClassName: nginx
     hostname: kong-admin.DEV.DOMAIN.COM  # XXX: Edit
     tls: kong-admin-tls
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-      kubernetes.io/ingress.class: ingress-nginx
+      kubernetes.io/ingress.class: nginx
       ingress.kubernetes.io/ssl-redirect: "true"
       ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -269,7 +269,7 @@ manager:
 
   ingress:
     enabled: true
-    ingressClassName: ingress-nginx
+    ingressClassName: nginx
     # tls: kong-manager.example.com-tls
     hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
     annotations:
@@ -312,7 +312,7 @@ portal:
 
   ingress:
     enabled: true
-    ingressClassName: ingress-nginx
+    ingressClassName: nginx
     # tls: kong-manager.example.com-tls
     hostname: kong-portal.DEV.DOMAIN.COM  # XXX: Edit
     annotations:
@@ -355,7 +355,7 @@ portalapi:
 
   ingress:
     enabled: true
-    ingressClassName: ingress-nginx
+    ingressClassName: nginx
     # tls: kong-manager.example.com-tls
     hostname: kong-portal-api.DEV.DOMAIN.COM  # XXX: Edit
     annotations:
