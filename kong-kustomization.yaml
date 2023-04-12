@@ -48,7 +48,7 @@ resources:
 helmCharts:
   - name: kong
     repo: https://charts.konghq.com
-    version: 2.19.0
+    version: 2.19.0  # XXX: currently generates old ingress api objects, upgrade this chart when newer versions become available
     releaseName: kong
     namespace: kong
     includeCRDs: true
