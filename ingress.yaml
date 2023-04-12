@@ -21,6 +21,8 @@
 
 # https://kubernetes.io/docs/concepts/services-networking/ingress/
 
+# https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/
+
 # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
 
 ---
