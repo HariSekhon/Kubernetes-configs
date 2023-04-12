@@ -23,6 +23,10 @@
 
 # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
 
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v1/
+
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/
+
 # Metrics Server needs to be deployed for HPA to query to make scaling decisions
 #
 # Metrics Server is automatically available on GKE but may need to be added on EKS
