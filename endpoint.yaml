@@ -21,6 +21,8 @@
 
 # https://kubernetes.io/docs/concepts/services-networking/service/
 
+# https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoints-v1/
+
 # You'll rarely do this yourself, usually let the service manage the endpoint for you
 
 # combine with service-manual-endpoints.yaml
