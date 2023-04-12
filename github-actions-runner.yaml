@@ -119,9 +119,9 @@ spec:
               command:
                 - pgrep -f run.sh
           resources:
-            limits:
-              cpu: 1
-              memory: 4Gi
             requests:
               cpu: 200m
               memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 4Gi
