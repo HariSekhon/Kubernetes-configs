@@ -34,17 +34,17 @@ image:
   tag: v4.1.0  # XXX: temporary override until new Helm chart is out to get non-clashing prefixed VPAs
 controller:
   resources:
-    limits:
+    requests:
       cpu: 100m
       memory: 320Mi
-    requests:
+    limits:
       cpu: 100m
       memory: 320Mi
 dashboard:
   resources:
-    limits:
+    requests:
       cpu: 100m
       memory: 320Mi
-    requests:
+    limits:
       cpu: 100m
       memory: 320Mi
