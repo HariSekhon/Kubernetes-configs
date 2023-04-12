@@ -75,8 +75,9 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - Apps Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) - `argocd*.yaml`
 - Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
 - Right-sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) - `goldilocks*.yaml` to generate VPAs and resource recommendations
-- Ingress - `ingress*.yaml`
-- SSL - [Cert Manager](https://cert-manager.io/) `cert-manager*.yaml` for auto SSL
+- Ingress Controller - `ingress-nginx-*.yaml`, `kong-*.yaml` or `traefik-*.yaml`
+- App Ingresses - `ingress*.yaml`
+- SSL - [Cert Manager](https://cert-manager.io/) `cert-manager-*.yaml` for [Automatic Certificate Management](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) using the popular free Let's Encrypt certificate authority
 - Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) - `polaris*.yaml` for recommendations
 - Find Deprecated API objects to replace - [Pluto](https://pluto.docs.fairwinds.com/) - see [pluto_detect_kustomize_materialize.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/pluto_detect_kustomize_materialize.sh) and [pluto_detect_kubectl_dump_objects.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/pluto_detect_kubectl_dump_objects.sh) in the [DevOps Bash Tools](https://github.com/HariSekhon/DevOps-Bash-tools) repo
 
