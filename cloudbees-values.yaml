@@ -42,10 +42,10 @@ OperationsCenter:
 
   # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#resource-requests-and-limits-of-pod-and-container
   Resources:
-    Limits:
+    Requests:
       Cpu: 1
       Memory: 2G
-    Requests:
+    Limits:
       Cpu: 1
       Memory: 2G
 
