@@ -38,23 +38,7 @@ metadata:
     ingress.kubernetes.io/force-ssl-redirect: "true"
 
     # ================================
-    # For the Kong Ingress Controller
-    #
-    #   https://docs.konghq.com/kubernetes-ingress-controller/latest/references/annotations/#ingress-resource
-    #
-    #kubernetes.io/ingress.class: kong  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
-    #konghq.com/strip-path: "true"
-    #konghq.com/protocol:  http   # used between Kong ingress and pods
-    #konghq.com/protocols: https  # used between external clients and Kong ingress
-    #konghq.com/https-redirect-status-code: "308"
-    #
-    #konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this ingress - deprecated, new versions should have native annotation settings
-    #
-    # see kong-plugin-*.yaml where these are defined using CRDs
-    #konghq.com/plugins: ratelimit-by-ip, key-auth, oidc, admin-acl  # choose either simple key-auth or oidc
-
-    # ================================
-    # For the Nginx Ingress Controller
+    # for Nginx Ingress Controller
     #
     #   https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
     #
@@ -86,6 +70,23 @@ metadata:
     # nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
     # nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
     # nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+
+    # ================================
+    # for Kong Ingress Controller
+    #
+    #   https://docs.konghq.com/kubernetes-ingress-controller/latest/references/annotations/#ingress-resource
+    #
+    #kubernetes.io/ingress.class: kong  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
+    #konghq.com/strip-path: "true"
+    #konghq.com/protocol:  http   # used between Kong ingress and pods
+    #konghq.com/protocols: https  # used between external clients and Kong ingress
+    #konghq.com/https-redirect-status-code: "308"
+    #
+    #konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this ingress - deprecated, new versions should have native annotation settings
+    #
+    # see kong-plugin-*.yaml where these are defined using CRDs
+    #konghq.com/plugins: ratelimit-by-ip, key-auth, oidc, admin-acl  # choose either simple key-auth or oidc
+
 spec:
   # newer - should replace kubernetes.io/ingress.class annotation in Kubernetes 1.18+
   #ingressClassName: kong
