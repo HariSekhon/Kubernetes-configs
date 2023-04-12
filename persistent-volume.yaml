@@ -21,6 +21,8 @@
 
 # https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 
+# https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/
+
 ---
 apiVersion: v1
 kind: PersistentVolume
