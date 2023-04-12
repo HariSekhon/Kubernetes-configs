@@ -181,7 +181,7 @@ admin:
   ingress:
     enabled: true
     ingressClassName: nginx
-    hostname: kong-admin.DEV.DOMAIN.COM  # XXX: Edit
+    hostname: kong-admin.DOMAIN.COM  # XXX: Edit
     tls: kong-admin-tls
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
@@ -271,7 +271,7 @@ manager:
     enabled: true
     ingressClassName: nginx
     # tls: kong-manager.example.com-tls
-    hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
+    hostname: kong.DOMAIN.COM  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       ingress.kubernetes.io/ssl-redirect: "true"
@@ -314,7 +314,7 @@ portal:
     enabled: true
     ingressClassName: nginx
     # tls: kong-manager.example.com-tls
-    hostname: kong-portal.DEV.DOMAIN.COM  # XXX: Edit
+    hostname: kong-portal.DOMAIN.COM  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       ingress.kubernetes.io/ssl-redirect: "true"
@@ -357,7 +357,7 @@ portalapi:
     enabled: true
     ingressClassName: nginx
     # tls: kong-manager.example.com-tls
-    hostname: kong-portal-api.DEV.DOMAIN.COM  # XXX: Edit
+    hostname: kong-portal-api.DOMAIN.COM  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       ingress.kubernetes.io/ssl-redirect: "true"
@@ -385,7 +385,7 @@ certificates:
     clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
     # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
-    commonName: kong.DEV.DOMAIN.COM  # XXX: Edit
+    commonName: kong.DOMAIN.COM  # XXX: Edit
     # Remove the "[]" and uncomment/change the examples to add SANs
     dnsNames: []
     # - "app.example"
@@ -398,7 +398,7 @@ certificates:
     clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
     # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
-    commonName: kong-admin.DEV.DOMAIN.COM  # XXX: Edit
+    commonName: kong-admin.DOMAIN.COM  # XXX: Edit
     # Remove the "[]" and uncomment/change the examples to add SANs
     dnsNames: []
     # - "manager.kong.example"
@@ -409,7 +409,7 @@ certificates:
     clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
     # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
-    commonName: kong-portal.DEV.DOMAIN.COM  # XXX: Edit
+    commonName: kong-portal.DOMAIN.COM  # XXX: Edit
     # Remove the "{}" and uncomment/change the examples to add SANs
     dnsNames: []
     # - "manager.kong.example"
@@ -419,5 +419,5 @@ certificates:
     # Issuers used by the control and data plane releases must match for this certificate.
     #issuer: letsencrypt
     clusterIssuer: letsencrypt
-    #commonName: kong-cluster.DEV.DOMAIN.COM  # XXX: Edit
+    #commonName: kong-cluster.DOMAIN.COM  # XXX: Edit
     # dnsNames: []
