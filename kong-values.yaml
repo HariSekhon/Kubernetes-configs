@@ -351,7 +351,7 @@ portalapi:
     pathType: Prefix  # default: ImplementationSpecific
 
 certificates:
-  enabled: false
+  enabled: true
 
   # Set either `issuer` or `clusterIssuer` to the name of the desired cert manager issuer
   # If left blank a built in self-signed issuer will be created and utilized
