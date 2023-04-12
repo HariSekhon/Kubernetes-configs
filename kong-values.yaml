@@ -189,6 +189,7 @@ admin:
       ingress.kubernetes.io/ssl-redirect: "true"
       ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/whitelist-source-range: |
         10.0.0.0/8,
         172.16.0.0/16,
@@ -273,6 +274,10 @@ manager:
     hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
+      ingress.kubernetes.io/ssl-redirect: "true"
+      ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/whitelist-source-range: |
         10.0.0.0/8,
         172.16.0.0/16,
@@ -312,6 +317,10 @@ portal:
     hostname: kong-portal.DEV.DOMAIN.COM  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
+      ingress.kubernetes.io/ssl-redirect: "true"
+      ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/whitelist-source-range: |
         10.0.0.0/8,
         172.16.0.0/16,
@@ -351,6 +360,10 @@ portalapi:
     hostname: kong-portal-api.DEV.DOMAIN.COM  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
+      ingress.kubernetes.io/ssl-redirect: "true"
+      ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/whitelist-source-range: |
         10.0.0.0/8,
         172.16.0.0/16,
