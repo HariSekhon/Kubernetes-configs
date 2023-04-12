@@ -21,6 +21,8 @@
 
 # https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
 
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/
+
 ---
 apiVersion: apps/v1
 kind: DaemonSet
