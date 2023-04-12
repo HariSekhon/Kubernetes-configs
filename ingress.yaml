@@ -42,7 +42,7 @@ metadata:
     #
     #   https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
     #
-    kubernetes.io/ingress.class: ingress-nginx  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
+    kubernetes.io/ingress.class: nginx  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
 
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 
@@ -96,7 +96,7 @@ metadata:
 spec:
   # replaces kubernetes.io/ingress.class annotation in Kubernetes 1.18+ - https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
   # pick one:
-  #ingressClassName: ingress-nginx
+  #ingressClassName: nginx
   #ingressClassName: traefik
   #ingressClassName: kong
   tls:
