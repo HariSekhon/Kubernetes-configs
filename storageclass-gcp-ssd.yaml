@@ -23,6 +23,8 @@
 
 # https://kubernetes.io/docs/concepts/storage/storage-classes/
 
+# https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/storage-class-v1/
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
