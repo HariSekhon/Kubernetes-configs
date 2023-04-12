@@ -23,6 +23,8 @@
 
 # https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/
 
+# https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/namespace-v1/
+
 ---
 apiVersion: v1
 kind: Namespace
