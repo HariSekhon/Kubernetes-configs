@@ -86,7 +86,7 @@ metadata:
     #konghq.com/protocols: https        # used between external clients and Kong ingress
     #konghq.com/https-redirect-status-code: "308"  # 308 is same as 301 permanent redirect except to instruct user agent to use same method as original request eg. POST
     #konghq.com/methods: GET,POST       # restrict to only allow these HTTP methods
-    #konghq.com/headers.*               # replace * with a header name - only match this ingress if the header is sent by the client
+    #konghq.com/headers.*: value        # replace * with a header name - only match this ingress if the header with this value is sent by the client
     #
     #konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this ingress - deprecated, new versions should have native annotation settings
     #
