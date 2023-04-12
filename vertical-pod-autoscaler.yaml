@@ -19,6 +19,8 @@
 #                 V e r t i c a l   P o d   A u t o s c a l e r
 # ============================================================================ #
 
+# https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler
+
 # https://cloud.google.com/kubernetes-engine/docs/concepts/verticalpodautoscaler
 
 # https://cloud.google.com/kubernetes-engine/docs/how-to/vertical-pod-autoscaling
