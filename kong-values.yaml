@@ -30,23 +30,27 @@
   # repository: kong/kong-gateway
   # tag: "3.2"
 
-resources: {}
-  # limits:
-  #  cpu: 1
-  #  memory: 2G
-  # requests:
-  #  cpu: 1
-  #  memory: 2G
+# XXX: required for HPA
+resources:
+  limits:
+    cpu: 1
+    memory: 2G
+  requests:
+    cpu: 1
+    memory: 2G
 
-# Kong pod count.
-# It has no effect when autoscaling.enabled is set to true
-replicaCount: 1
+# XXX: required for HPA
+ingressController:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi
 
-# Enable autoscaling using HorizontalPodAutoscaler
-# When configuring an HPA, you must set resource requests on all containers via
-# "resources" and, if using the controller, "ingressController.resources" in values.yaml
 autoscaling:
-  enabled: false
+  enabled: true
   minReplicas: 2
   maxReplicas: 5
   behavior: {}
@@ -61,15 +65,12 @@ autoscaling:
           type: Utilization
           averageUtilization: 80
 
-# Kong Pod Disruption Budget
 podDisruptionBudget:
-  enabled: false
-  # Uncomment only one of the following when enabled is set to true
-  # maxUnavailable: "50%"
-  # minAvailable: "50%"
+  enabled: true
+  minAvailable: 50%
 
 podSecurityPolicy:
-  enabled: false
+  enabled: true
   labels: {}
   annotations: {}
   spec:
@@ -97,12 +98,11 @@ podSecurityPolicy:
     # If you use Kong Enterprise <1.5, this must be set to false.
     readOnlyRootFilesystem: true
 
+# XXX: requires priorityclass.yaml with this definition
 priorityClassName: high-priority
 
-# securityContext for Kong pods.
 securityContext: {}
 
-# securityContext for containers.
 containerSecurityContext:
   readOnlyRootFilesystem: true
 
@@ -202,11 +202,69 @@ manager:
     parameters:
       - http2
 
+  # XXX: not creating ingress object - https://github.com/Kong/charts/issues/782
   ingress:
     enabled: true
     ingressClassName: ingress-nginx
     # tls: kong-manager.example.com-tls
     hostname: kong.DEV.DOMAIN.COM  # XXX: Edit
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      nginx.ingress.kubernetes.io/whitelist-source-range: |
+        10.0.0.0/8,
+        172.16.0.0/16,
+        192.168.0.0/16
+    path: /
+    pathType: Prefix  # default: ImplementationSpecific
+
+# Kong Admin API - usually recommended to disable, but useful for API devs like me
+admin:
+  enabled: true  # XXX: you should probably set this to false unless you really intend to use the API, which is mostly read-only in this deployment style
+  type: ClusterIP  # default: NodePort
+  loadBalancerClass:
+  # To specify annotations or labels for the admin service, add them to the respective
+  # "annotations" or "labels" dictionaries below.
+  annotations: {}
+  #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+  labels: {}
+
+  http:
+    # Enable plaintext HTTP listen for the admin API
+    # Disabling this and using a TLS listen only is recommended for most configuration
+    enabled: false
+    servicePort: 8001
+    containerPort: 8001
+    # Set a nodePort which is available if service type is NodePort
+    # nodePort: 32080
+    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
+    parameters: []
+
+  tls:
+    enabled: true
+    servicePort: 8444
+    containerPort: 8444
+    # Set a target port for the TLS port in the admin API service, useful when using TLS
+    # termination on an ELB.
+    # overrideServiceTargetPort: 8000
+    # Set a nodePort which is available if service type is NodePort
+    # nodePort: 32443
+    # Additional listen parameters, e.g. "reuseport", "backlog=16384"
+    parameters:
+      - http2
+
+    # Specify the CA certificate to use for TLS verification of the Admin API client by:
+    # - secretName - the secret must contain a key named "tls.crt" with the PEM-encoded certificate.
+    # - caBundle (PEM-encoded certificate string).
+    # If both are set, caBundle takes precedence.
+    client:
+      caBundle: ""
+      secretName: ""
+
+  ingress:
+    enabled: true
+    ingressClassName: ingress-nginx
+    # tls: kong-admin.example.com-tls
+    hostname: kong-admin.DEV.DOMAIN.COM  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       nginx.ingress.kubernetes.io/whitelist-source-range: |
@@ -291,3 +349,64 @@ portalapi:
         192.168.0.0/16
     path: /
     pathType: Prefix  # default: ImplementationSpecific
+
+certificates:
+  enabled: false
+
+  # Set either `issuer` or `clusterIssuer` to the name of the desired cert manager issuer
+  # If left blank a built in self-signed issuer will be created and utilized
+  issuer: ""
+  clusterIssuer: ""
+
+  # Set proxy.enabled to true to issue default kong-proxy certificate with cert-manager
+  proxy:
+    enabled: true
+    # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
+    # self-signed issuer.
+    issuer: ""
+    clusterIssuer: ""
+    # Use commonName and dnsNames to set the common name and dns alt names which this
+    # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
+    commonName: "app.example"
+    # Remove the "[]" and uncomment/change the examples to add SANs
+    dnsNames: []
+    # - "app.example"
+    # - "*.apps.example"
+    # - "*.kong.example"
+
+  # Set admin.enabled true to issue kong admin api and manager certificate with cert-manager
+  admin:
+    enabled: true
+    # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
+    # self-signed issuer.
+    issuer: ""
+    clusterIssuer: ""
+    # Use commonName and dnsNames to set the common name and dns alt names which this
+    # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
+    commonName: "kong.example"
+    # Remove the "[]" and uncomment/change the examples to add SANs
+    dnsNames: []
+    # - "manager.kong.example"
+
+  # Set portal.enabled to true to issue a developer portal certificate with cert-manager
+  portal:
+    enabled: true
+    # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
+    # self-signed issuer.
+    issuer: ""
+    clusterIssuer: ""
+    # Use commonName and dnsNames to set the common name and dns alt names which this
+    # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
+    commonName: "developer.example"
+    # Remove the "{}" and uncomment/change the examples to add SANs
+    dnsNames: []
+    # - "manager.kong.example"
+
+  # Set cluster.enabled true to issue kong hybrid mtls certificate with cert-manager
+  cluster:
+    enabled: true
+    # Issuers used by the control and data plane releases must match for this certificate.
+    issuer: ""
+    clusterIssuer: ""
+    # commonName: "kong_cluster"
+    # dnsNames: []
