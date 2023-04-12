@@ -189,7 +189,7 @@ admin:
       ingress.kubernetes.io/ssl-redirect: "true"
       ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
-      nginx.ingress.kubernetes.io/backend-protocol: HTTPS  # 400 Bad Request "The plain HTTP request was sent to HTTPS port" because Kong generates this ingress to send backend port 8444 so needs this setting. Unfortunately this prevents HTTP -> HTTPS redirect
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS  # needs this because chart generates ingress sending to backend 8444 and client gets 400 Bad Request "The plain HTTP request was sent to HTTPS port" otherwise
       nginx.ingress.kubernetes.io/whitelist-source-range: |
         10.0.0.0/8,
         172.16.0.0/16,
