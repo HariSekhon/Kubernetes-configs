@@ -25,7 +25,7 @@
 ---
 #image:
   #repository: kong
-  #tag: "3.2"
+  #tag: "3.2"  # XXX: must match if you change the ingressController.tag setting below - check https://docs.konghq.com/kubernetes-ingress-controller/latest/references/version-compatibility/
   # Kong Enterprise
   # repository: kong/kong-gateway
   # tag: "3.2"
@@ -48,7 +48,7 @@ ingressController:
   #
   #     grep kubernetes-ingress-controller: /tmp/kong.yaml
   #
-  #tag: "2.9"  # XXX: set this to a version matching your Kubernetes cluster version in the matric in the version compatability link above
+  #tag: "2.9"  # XXX: set this to a version matching both your Kubernetes cluster version and Kong version in the matrix in the version compatability link above
   #
   # XXX: required for HPA
   resources:
