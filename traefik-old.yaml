@@ -20,6 +20,8 @@
 #                                 T r a e f i k
 # ============================================================================ #
 
+# XXX: see newer traefik-kustomization.yaml and traefik-values.yaml with newer Traefik version and more configuration
+
 # https://docs.traefik.io/providers/kubernetes-ingress/
 
 ---
