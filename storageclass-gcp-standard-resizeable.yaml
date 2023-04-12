@@ -25,6 +25,8 @@
 
 # https://kubernetes.io/blog/2018/07/12/resizing-persistent-volumes-using-kubernetes/
 
+# https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/storage-class-v1/
+
 # If you have already deployed using the default 'standard' storageclass and want to be able to resize that, you can patch the default storage class to permit it like so:
 #
 #   kubectl patch sc standard -p '{"allowVolumeExpansion": true}'
