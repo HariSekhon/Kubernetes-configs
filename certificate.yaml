@@ -14,7 +14,13 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#              C e r t   M a n a g e r   -   C e r t i f i c a t e
+# ============================================================================ #
+
 # https://cert-manager.io/docs/concepts/certificate/
+
+# https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate
 
 # See ingress.yaml rather than create your own certs manually like this
 
