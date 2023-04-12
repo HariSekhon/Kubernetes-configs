@@ -20,6 +20,8 @@
 # ============================================================================ #
 
 # https://kubernetes.io/docs/concepts/workloads/controllers/deployment
+#
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/deployment-v1/
 
 # This is your main point of deploying apps, and has lots of tricks and best practices baked in
 #
