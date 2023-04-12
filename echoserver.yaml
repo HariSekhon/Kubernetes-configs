@@ -3,6 +3,7 @@
 #  Date: 2023-04-07 22:43:51 +0100 (Fri, 07 Apr 2023)
 #
 #  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #
@@ -15,8 +16,48 @@
 
 # For testing Kong Ingress Controller
 
-# https://raw.githubusercontent.com/SIMPLrU/interactive/master/konglabs/kong-ingress-controller/manifests/echo-service.yml
+# Based on:
+#
+#   https://raw.githubusercontent.com/SIMPLrU/interactive/master/konglabs/kong-ingress-controller/manifests/echo-service.yml
+#
+# plus add Ingress
 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: echoserver
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+
+    konghq.com/strip-path: "true"
+    konghq.com/protocol: http    # used between Kong ingress and pods
+    konghq.com/protocols: https  # used between external clients and Kong ingress
+    konghq.com/https-redirect-status-code: "308"
+    #konghq.com/plugins: ratelimit-by-ip, key-auth, oidc, admin-acl  # choose either simple key-auth or oidc
+
+spec:
+  ingressClassName: kong
+  tls:
+    # XXX: Edit
+    - hosts:
+        - echo.DOMAIN.COM
+      # SSL cert auto-generated for this FQDN by Cert Manager ACME integration (see cert-manager.yaml) and saved to this secret name
+      secretName: echoserver-tls
+  rules:
+    # XXX: Edit
+    - host: echo.DOMAIN.COM
+      http:
+        paths:
+          # XXX: Edit
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: echo
+                port:
+                  number: 80
 ---
 apiVersion: v1
 kind: Service
