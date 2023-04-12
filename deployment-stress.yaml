@@ -75,12 +75,12 @@ spec:
               command:
                 - pgrep -f stress
           resources:
-            limits:
-              cpu: 1
-              memory: 4Gi
             requests:
               cpu: 0.5
               memory: 2500Mi
+            limits:
+              cpu: "1"
+              memory: 4Gi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
