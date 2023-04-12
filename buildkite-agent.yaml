@@ -84,12 +84,12 @@ spec:
                   name: buildkite-agent-token
                   key: buildkite-agent-token
           resources:
-            limits:
-              cpu: 1
-              memory: 4Gi
             requests:
               cpu: 200m
               memory: 256Mi
+            limits:
+              cpu: 1
+              memory: 4Gi
           readinessProbe:
             exec:
               command:
