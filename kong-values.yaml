@@ -366,11 +366,8 @@ certificates:
   #issuer: letsencrypt
   clusterIssuer: letsencrypt
 
-  # Set proxy.enabled to true to issue default kong-proxy certificate with cert-manager
   proxy:
     enabled: true
-    # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
-    # self-signed issuer.
     #issuer: letsencrypt
     clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
@@ -382,11 +379,8 @@ certificates:
     # - "*.apps.example"
     # - "*.kong.example"
 
-  # Set admin.enabled true to issue kong admin api and manager certificate with cert-manager
   admin:
     enabled: true
-    # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
-    # self-signed issuer.
     #issuer: letsencrypt
     clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
@@ -396,11 +390,8 @@ certificates:
     dnsNames: []
     # - "manager.kong.example"
 
-  # Set portal.enabled to true to issue a developer portal certificate with cert-manager
   portal:
     enabled: true
-    # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
-    # self-signed issuer.
     #issuer: letsencrypt
     clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
@@ -410,11 +401,10 @@ certificates:
     dnsNames: []
     # - "manager.kong.example"
 
-  # Set cluster.enabled true to issue kong hybrid mtls certificate with cert-manager
   cluster:
     enabled: true
     # Issuers used by the control and data plane releases must match for this certificate.
-    issuer: letsencrypt
+    #issuer: letsencrypt
     clusterIssuer: letsencrypt
     #commonName: kong-cluster.DEV.DOMAIN.COM  # XXX: Edit
     # dnsNames: []
