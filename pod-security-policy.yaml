@@ -21,7 +21,13 @@
 
 # XXX: deprecated in Kubernetes 1.21, removed in Kubernetes 1.25
 
+# https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/
+
+# https://kubernetes.io/docs/tasks/configure-pod-container/migrate-from-psp/
+
 # https://kubernetes.io/docs/concepts/security/pod-security-standards/
+
+# ============================================================================ #
 
 # https://kubernetes.io/docs/concepts/policy/pod-security-policy/
 
