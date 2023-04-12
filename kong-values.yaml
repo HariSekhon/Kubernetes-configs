@@ -177,6 +177,7 @@ enterprise:
       smtp_username: ''  # e.g. postmaster@example.com
       smtp_password_secret: CHANGEME-smtp-password
 
+# XXX: not creating Kong Manager objects in non-enterprise mode - https://github.com/Kong/charts/issues/782
 manager:
   enabled: true
   type: ClusterIP  # default: NodePort
@@ -202,7 +203,6 @@ manager:
     parameters:
       - http2
 
-  # XXX: not creating ingress object - https://github.com/Kong/charts/issues/782
   ingress:
     enabled: true
     ingressClassName: ingress-nginx
