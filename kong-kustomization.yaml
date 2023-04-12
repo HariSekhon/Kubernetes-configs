@@ -38,6 +38,9 @@ resources:
   #- kong-plugin-oidc.yaml
   #- kong-plugin-ratelimit-adv.yaml
   #- kong-plugin-ratelimit.yaml
+  #
+  # XXX: for quickly testing Kong - uncomment kong-plugin-ratelimit.yaml above and 'konghq.com/plugins: ratelimit-by-ip' in echoserver.yaml to see Rate Limiting in action with a few refreshes
+  # - echoserver.yaml
 
 # https://artifacthub.io/packages/helm/kong/kong
 #
