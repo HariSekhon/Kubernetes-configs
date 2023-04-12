@@ -21,6 +21,8 @@
 
 # https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
 #
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/
+#
 # see pod anti-affinity here:
 #
 # https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/
