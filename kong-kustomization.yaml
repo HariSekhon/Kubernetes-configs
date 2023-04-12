@@ -48,14 +48,6 @@ resources:
 helmCharts:
   - name: kong
     repo: https://charts.konghq.com
-    # XXX: check compatability vs your version of Kubernetes here:
-    #
-    #   https://docs.konghq.com/kubernetes-ingress-controller/latest/references/version-compatibility/
-    #
-    #     helm template kong/kong -f kong-values.yaml > /tmp/kong.yaml
-    #
-    #     grep kubernetes-ingress-controller: /tmp/kong.yaml
-    #
     version: 2.19.0  # XXX: 2.19.0 still generates old ingress api objects, upgrade this chart when newer versions become available but watch the compatability above
     releaseName: kong
     namespace: kong
