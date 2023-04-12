@@ -130,9 +130,9 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
           resources:
-            limits:
-              cpu: 1
-              memory: 2Gi  # TODO: tune via Goldilocks recommendations
             requests:
               cpu: 100m
               memory: 128Mi
+            limits:
+              cpu: 1
+              memory: 2Gi  # TODO: tune via Goldilocks recommendations
