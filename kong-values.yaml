@@ -270,6 +270,9 @@ admin:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       kubernetes.io/ingress.class: ingress-nginx
+      ingress.kubernetes.io/ssl-redirect: "true"
+      ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/whitelist-source-range: |
         10.0.0.0/8,
         172.16.0.0/16,
@@ -360,7 +363,7 @@ certificates:
 
   # Set either `issuer` or `clusterIssuer` to the name of the desired cert manager issuer
   # If left blank a built in self-signed issuer will be created and utilized
-  issuer: letsencrypt
+  #issuer: letsencrypt
   clusterIssuer: letsencrypt
 
   # Set proxy.enabled to true to issue default kong-proxy certificate with cert-manager
@@ -368,7 +371,7 @@ certificates:
     enabled: true
     # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
     # self-signed issuer.
-    issuer: letsencrypt
+    #issuer: letsencrypt
     clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
     # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
@@ -384,7 +387,7 @@ certificates:
     enabled: true
     # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
     # self-signed issuer.
-    issuer: letsencrypt
+    #issuer: letsencrypt
     clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
     # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
@@ -398,7 +401,7 @@ certificates:
     enabled: true
     # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
     # self-signed issuer.
-    issuer: letsencrypt
+    #issuer: letsencrypt
     clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
     # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
