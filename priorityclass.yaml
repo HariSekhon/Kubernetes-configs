@@ -14,7 +14,13 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                           P r i o r i t y C l a s s
+# ============================================================================ #
+
 # https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/priority-class-v1/
 
 ---
 apiVersion: scheduling.k8s.io/v1
