@@ -57,8 +57,8 @@ helmCharts:
     includeCRDs: true
     valuesFile: kong-values.yaml
 
-patches:
-  # XXX: latest Helm chart is still generating outdated ingress objects as of 2.19.0
-  - path: ingress-apiversion.jsonpatch.yaml
-    target:
-      kind: Ingress
+#patches:
+#  # XXX: latest Helm chart is still generating outdated ingress objects as of 2.19.0
+#  - path: ingress-apiversion.jsonpatch.yaml
+#    target:
+#      kind: Ingress
