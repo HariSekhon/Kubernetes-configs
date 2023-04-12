@@ -125,8 +125,8 @@ spec:
       kind: ResourceQuota
     - group: ''
       kind: LimitRange
-    - group: ''
-      kind: NetworkPolicy
+    #- group: ''
+    #  kind: NetworkPolicy
 
   # Deny all namespaced-scoped resources from being created, except for ones explicitly listed here
   # populated by script argocd_namespace_resource_whitelist.sh from https://github.com/HariSekhon/DevOps-Bash-tools/
@@ -153,6 +153,8 @@ spec:
       kind: KongConsumer
     - group: configuration.konghq.com
       kind: KongPlugin
+    - group: networking.k8s.io
+      kind: NetworkPolicy
     - group: ''
       kind: PersistentVolumeClaim
     - group: policy
