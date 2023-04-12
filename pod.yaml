@@ -27,6 +27,8 @@
 
 # https://kubernetes.io/docs/concepts/workloads/pods/
 
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/
+
 
 ---
 kind: Pod
