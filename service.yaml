@@ -55,10 +55,10 @@ metadata:
   #
   #   https://docs.konghq.com/kubernetes-ingress-controller/latest/references/annotations/#service-resource
   #
-  #  konghq.com/plugins: ratelimit-by-ip # aggregate limit by IP from all routes when applied to the service instead of the ingress (kong route)
-  #  konghq.com/path: /some-path
+  #  konghq.com/plugins: ratelimit-by-ip   # aggregate limit by IP from all routes when applied to the service instead of the ingress (kong route)
+  #  konghq.com/path: /appended-path       # appends URL path to each request Kong sends to this service
   #  konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this service - deprecated, new versions should have native annotation settings
-  #  konghq.com/protocol: https  # used between Kong ingress and service
+  #  konghq.com/protocol: https            # used between Kong ingress and service
 spec:
   type: ClusterIP   # default
   #clusterIP: None  # headless service - returns all A records instead of round robin. Useful for seeding (eg. Cassandra, Elasticsearch), or Service Discovery where load balancing is not needed (eg. Jenkins / TeamCity server)
