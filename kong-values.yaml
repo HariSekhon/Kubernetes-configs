@@ -355,19 +355,19 @@ certificates:
 
   # Set either `issuer` or `clusterIssuer` to the name of the desired cert manager issuer
   # If left blank a built in self-signed issuer will be created and utilized
-  issuer: ""
-  clusterIssuer: ""
+  issuer: letsencrypt
+  clusterIssuer: letsencrypt
 
   # Set proxy.enabled to true to issue default kong-proxy certificate with cert-manager
   proxy:
     enabled: true
     # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
     # self-signed issuer.
-    issuer: ""
-    clusterIssuer: ""
+    issuer: letsencrypt
+    clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
     # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
-    commonName: "app.example"
+    commonName: kong.DEV.DOMAIN.COM  # XXX: Edit
     # Remove the "[]" and uncomment/change the examples to add SANs
     dnsNames: []
     # - "app.example"
@@ -379,11 +379,11 @@ certificates:
     enabled: true
     # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
     # self-signed issuer.
-    issuer: ""
-    clusterIssuer: ""
+    issuer: letsencrypt
+    clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
     # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
-    commonName: "kong.example"
+    commonName: kong-admin.DEV.DOMAIN.COM  # XXX: Edit
     # Remove the "[]" and uncomment/change the examples to add SANs
     dnsNames: []
     # - "manager.kong.example"
@@ -393,11 +393,11 @@ certificates:
     enabled: true
     # Set `issuer` or `clusterIssuer` to name of alternate cert-manager clusterIssuer to override default
     # self-signed issuer.
-    issuer: ""
-    clusterIssuer: ""
+    issuer: letsencrypt
+    clusterIssuer: letsencrypt
     # Use commonName and dnsNames to set the common name and dns alt names which this
     # certificate is valid for. Wildcard records are supported by the included self-signed issuer.
-    commonName: "developer.example"
+    commonName: kong-portal.DEV.DOMAIN.COM  # XXX: Edit
     # Remove the "{}" and uncomment/change the examples to add SANs
     dnsNames: []
     # - "manager.kong.example"
@@ -406,7 +406,7 @@ certificates:
   cluster:
     enabled: true
     # Issuers used by the control and data plane releases must match for this certificate.
-    issuer: ""
-    clusterIssuer: ""
-    # commonName: "kong_cluster"
+    issuer: letsencrypt
+    clusterIssuer: letsencrypt
+    #commonName: kong-cluster.DEV.DOMAIN.COM  # XXX: Edit
     # dnsNames: []
