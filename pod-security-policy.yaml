@@ -19,6 +19,8 @@
 #                     P o d   S e c u r i t y   P o l i c y
 # ============================================================================ #
 
+# XXX: deprecated in Kubernetes 1.21, removed in Kubernetes 1.25
+
 # https://kubernetes.io/docs/concepts/security/pod-security-standards/
 
 # https://kubernetes.io/docs/concepts/policy/pod-security-policy/
@@ -26,6 +28,8 @@
 # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 
 # https://github.com/kubernetes/examples/blob/master/staging/podsecuritypolicy/rbac/README.md
+
+# https://docs.openshift.com/online/pro/rest_api/policy/podsecuritypolicy-policy-v1beta1.html
 
 ---
 apiVersion: policy/v1
