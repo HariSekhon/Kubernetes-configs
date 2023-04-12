@@ -21,6 +21,8 @@
 
 # https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim
 
+# https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/
+
 # GKE will automatically create the underlying disk for us using default storage provider's dynamic provisioner
 
 ---
