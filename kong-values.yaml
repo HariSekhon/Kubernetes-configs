@@ -181,8 +181,8 @@ admin:
   ingress:
     enabled: true
     ingressClassName: ingress-nginx
-    # tls: kong-admin.example.com-tls
     hostname: kong-admin.DEV.DOMAIN.COM  # XXX: Edit
+    tls: kong-admin-tls
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
       kubernetes.io/ingress.class: ingress-nginx
