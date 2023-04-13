@@ -32,10 +32,10 @@
 
 # XXX: required for HPA
 resources:
-  limits:
+  requests:
     cpu: 1
     memory: 2G
-  requests:
+  limits:
     cpu: 1
     memory: 2G
 
@@ -44,12 +44,12 @@ ingressController:
   #
   # XXX: required for HPA
   resources:
-    limits:
-      cpu: 100m
-      memory: 256Mi
     requests:
       cpu: 50m
       memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
 
 autoscaling:
   enabled: true
