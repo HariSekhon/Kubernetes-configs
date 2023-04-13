@@ -61,9 +61,9 @@ jobs:
       - name: Environment
         run: env | sort
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: HariSekhon/DevOps-Bash-tools
           submodules: 'true'  # requires Git 2.18+ to be installed first
