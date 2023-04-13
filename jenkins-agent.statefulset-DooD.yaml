@@ -189,12 +189,12 @@ spec:
             tcpSocket:
               port: 50001
           resources:
-            limits:
-              cpu: 2
-              memory: 3Gi
             requests:
               cpu: 100m      # agent takes 6m resting, don't overallocate, drives node pool scaling costing $$$
               memory: 500Mi  # agent takes 108Mi resting, plus whatever you run in the CI pipeline
+            limits:
+              cpu: 2
+              memory: 3Gi
           tty: false
           volumeMounts:
             - name: workspace
