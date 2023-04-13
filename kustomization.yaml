@@ -172,6 +172,7 @@ patches:
   - path: ingress-nginx.ingress.annotations.patch.yaml
     target:
       kind: Ingress
+      # XXX: might not work in newer ingresses where this annotation is replaced by spec.ingressClassName
       annotationSelector: kubernetes.io/ingress.class=nginx
 
   # in test / feature environments - run all deployments and statefulsets on preemptible machines to save costs
