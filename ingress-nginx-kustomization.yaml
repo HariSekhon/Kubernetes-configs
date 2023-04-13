@@ -41,13 +41,14 @@ helmCharts:
     includeCRDs: true
     valuesFile: ingress-nginx-values.yaml
 
-patches:
-  - path: ingress-nginx-configmap.patch.yaml  # for global settings
-    target:
-      version: v1
-      kind: ConfigMap
-      name: ingress-nginx-controller
-      namespace: ingress-nginx
+# superceded by config key in ingress-nginx-values.yaml
+#patches:
+#  - path: ingress-nginx-configmap.patch.yaml  # for global settings
+#    target:
+#      version: v1
+#      kind: ConfigMap
+#      name: ingress-nginx-controller
+#      namespace: ingress-nginx
 
 # for Dev enable this to reduce replicas to 1
 #
