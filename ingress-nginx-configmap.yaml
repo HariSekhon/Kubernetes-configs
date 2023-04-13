@@ -34,3 +34,57 @@ metadata:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
 data:
+  ssl-redirect: true
+  force-ssl-redirect: true
+
+  whitelist-source-range: |
+    10.0.0.0/8,
+    172.16.0.0/16,
+    192.168.0.0/16
+  #denylist-source-range: |
+
+  enable-modsecurity: "true"
+  enable-owasp-modsecurity-crs: "true"
+
+  #block-user-agents:  # csv separated strings or regex - https://nginx.org/en/docs/http/ngx_http_map_module.html#map
+  #block-referers:
+
+  #enable-syslog: true
+  #syslog-host: x.x.x.x
+  #syslog-port: 514
+
+  #zipkin-collector-host: <URL>
+  #zipkin-collector-port: 9411
+  #zipkin-service-name: nginx
+  #zipkin-sample-rate: 1.0
+
+  #jaeger-collector-host: <URL>
+  #jaeger-collector-port: 6831
+  ##jaeger-endpoint:  # takes priority over jaeger-collector-host/port
+  #jaeger-service-name: nginx
+
+  #datadog-collector-host: <URL>
+  #datadog-collector-port: 8126
+  #datadog-service-name: nginx
+  #datadog-environmen: prod
+
+  #enable-opentelemetry: true
+  #otlp-collector-host: <URL>
+  #otlp-collector-port: 4317
+  #otel-service-name: nginx
+
+  #main-snippet:     # add to nginx main{} section
+  #http-snippet:     # add to nginx http{} section
+  #server-snippet:   # add to nginx servers
+  #stream-snippet:
+  #location-snippet:
+
+  # AWS EKS
+  #
+  #   https://aws.amazon.com/premiumsupport/knowledge-center/eks-configure-nginx-ingress-controller/
+  #
+  # more settings needed in the ingress - see ingress.yaml
+  #
+  #proxy-body-size: 8m
+  #proxy-read-timeout: "120"  # default: "60"
+  #proxy-send-timeout: "120"  # default: "60"
