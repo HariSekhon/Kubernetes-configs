@@ -107,7 +107,7 @@ metadata:
     # Enable OpenTracing only for this one ingress
     #
     #nginx.ingress.kubernetes.io/enable-opentracing: "true"
-    #zipkin-collector-host: zipkin.zipkin.svc.cluster.local
+    #zipkin-collector-host: zipkin-collector.zipkin.svc.cluster.local
     #jaeger-collector-host: jaeger-agent.jaeger.svc.cluster.local
     #datadog-collector-host: datadog-agent.datadog.svc.cluster.local
 
