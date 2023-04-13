@@ -71,8 +71,8 @@ controller:
   #    cpu: 100m
   #    memory: 90Mi
   #  limits:
-  #    cpu: 100m
-  #    memory: 90Mi
+  #    cpu: "1"
+  #    memory: 512Mi
 
   ## HPA (Mutually exclusive with keda autoscaling)
   #autoscaling:
