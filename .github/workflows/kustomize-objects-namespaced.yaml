@@ -64,9 +64,9 @@ jobs:
       - name: Environment
         run: env | sort
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: HariSekhon/DevOps-Bash-tools
           ref: master
