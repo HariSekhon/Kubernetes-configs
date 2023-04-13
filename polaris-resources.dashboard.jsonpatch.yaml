@@ -28,9 +28,9 @@
 - op: add
   path: /spec/template/spec/containers/0/resources
   value:
-    limits:
-      cpu: 150m      # default upstream
-      memory: 512Mi  # default upstream
     requests:
       cpu: 100m      # default upstream
       memory: 256Mi  # default: 128Mi
+    limits:
+      cpu: 150m      # default upstream
+      memory: 512Mi  # default upstream
