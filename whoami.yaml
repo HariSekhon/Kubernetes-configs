@@ -48,6 +48,42 @@ spec:
                 port:
                   number: 80
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoamiv1
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`WWW.DOMAIN.COM`)  # XXX: Edit
+      services:
+        - kind: Service
+          name: whoamiv1
+          namespace: app
+          port: 80
+  tls:
+    certResolver: letsencrypt
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoamiv2
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`WWW.DOMAIN.COM`)  # XXX: Edit
+      services:
+        - kind: Service
+          name: whoamiv2
+          namespace: app
+          port: 80
+  tls:
+    certResolver: letsencrypt
+---
 apiVersion: v1
 kind: Service
 metadata:
