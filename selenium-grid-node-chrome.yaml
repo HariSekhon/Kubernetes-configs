@@ -105,12 +105,12 @@ spec:
                   - -c
                   - curl -X POST 'http://localhost:5555/se/grid/node/drain' -H 'X-REGISTRATION-SECRET;' && while curl localhost:5555/status; do sleep 1; done
           resources:
-            limits:
-              cpu: 2
-              memory: 1Gi
             requests:
               cpu: 300m
               memory: 615Mi
+            limits:
+              cpu: "2"
+              memory: 1Gi
           volumeMounts:
             - name: dshm
               mountPath: /dev/shm
