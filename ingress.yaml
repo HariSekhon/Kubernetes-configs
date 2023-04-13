@@ -44,7 +44,7 @@ metadata:
     #
     #   https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
     #
-    # Defaults can be seen here:
+    # Defaults are shown in the docs above and can be verified in the code here:
     #
     #   https://github.com/kubernetes/ingress-nginx/blob/main/internal/ingress/controller/config/config.go
     #
