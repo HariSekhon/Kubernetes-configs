@@ -14,6 +14,10 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                      T r a e f i k   M i d d l e w a r e
+# ============================================================================ #
+
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
