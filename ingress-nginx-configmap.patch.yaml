@@ -20,6 +20,8 @@
 
 # For global settings to apply to all ingresses using this ingress controller
 
+# Superceded by config key in ingress-nginx-values.yaml
+
 # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
 
 # https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/docs/examples/customization/custom-configuration/configmap.yaml
