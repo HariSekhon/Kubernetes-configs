@@ -1,0 +1,34 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-13 12:40:36 +0100 (Thu, 13 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                 N g i n x   I n g r e s s   C o n f i g M a p
+# ============================================================================ #
+
+# https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
+
+# https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/docs/examples/customization/custom-configuration/configmap.yaml
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+data:
