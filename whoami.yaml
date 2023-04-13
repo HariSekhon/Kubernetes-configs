@@ -51,35 +51,103 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: whoami-svc
+  name: whoamiv1
+  namespace: app
 spec:
-  type: ClusterIP
-  selector:
-    app: whoami
   ports:
-    - port: 80
+    - name: http
+      port: 80
+  selector:
+    app: whoamiv1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoamiv2
+  namespace: app
+spec:
+  ports:
+    - name: http
+      port: 80
+  selector:
+    app: whoamiv2
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: whoamiv1
+  namespace: app
   labels:
-    app: whoami
-  name: whoami
+    name: whoamiv1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: whoami
+      app: whoamiv1
   template:
     metadata:
       labels:
-        app: whoami
+        app: whoamiv1
     spec:
       containers:
-        - image: traefik/whoami:latest
-          name: whoami
+        - name: whoamiv1
+          image: traefik/whoami:latest
+          args:
+            - -name=FOO-v1
+            - -verbose
           ports:
             - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 80
+            failureThreshold: 1
+            initialDelaySeconds: 2
+            periodSeconds: 3
+            successThreshold: 1
+            timeoutSeconds: 2
+          resources:
+            requests:
+              cpu: 50m
+              memory: 20Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoamiv2
+  namespace: app
+  labels:
+    name: whoamiv2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whoamiv2
+  template:
+    metadata:
+      labels:
+        app: whoamiv2
+    spec:
+      containers:
+        - name: whoamiv2
+          image: traefik/whoami:latest
+          args:
+            - -name=BAR-v2
+            - -verbose
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 80
+            failureThreshold: 1
+            initialDelaySeconds: 2
+            periodSeconds: 3
+            successThreshold: 1
+            timeoutSeconds: 2
           resources:
             requests:
               cpu: 50m
