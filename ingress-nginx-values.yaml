@@ -189,12 +189,18 @@ controller:
       # -- Annotations are mandatory for the load balancer to come up. Varies with the cloud service.
       annotations: {}
       # loadBalancerIP: ""
-      loadBalancerSourceRanges: []
+      loadBalancerSourceRanges:
+        - 10.0.0.0/8
+        - 172.16.0.0/16
+        - 192.168.0.0/16
     annotations:
       kubernetes.io/ingress.global-static-ip-name: kubernetes-ingress
     # -- Used by cloud providers to connect the resulting `LoadBalancer` to a pre-existing static IP according to https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
     #loadBalancerIP: ""  # XXX: override this per environment in a Kustomize overlay
     loadBalancerSourceRanges:
+      - 10.0.0.0/8
+      - 172.16.0.0/16
+      - 192.168.0.0/16
       # Cloudflare
       - 103.21.244.0/22
       - 103.22.200.0/22
