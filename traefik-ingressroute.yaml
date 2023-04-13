@@ -32,6 +32,14 @@ spec:
       services:
         - kind: TraefikService
           name: api@internal
+        - kind: Service
+          name: whoamiv1
+          namespace: app
+          port: 80
+        - kind: Service
+          name: whoamiv2
+          namespace: app
+          port: 80
       middlewares:
         - name: default-test-auth@kubernetescrd
   tls:
