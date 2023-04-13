@@ -30,9 +30,9 @@ kind: ConfigMap
 metadata:
   name: ingress-nginx-controller
   namespace: ingress-nginx
-  labels:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+  #labels:
+  #  app.kubernetes.io/name: ingress-nginx
+  #  app.kubernetes.io/part-of: ingress-nginx
 data:
   ssl-redirect: true
   force-ssl-redirect: true
