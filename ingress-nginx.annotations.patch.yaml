@@ -20,6 +20,12 @@
 
 # Optimizations patch for all nginx-based ingresses including security whitelisted IPs and configuration tweaks
 
+# See Also:
+#
+#   ingress-nginx-configmap.patch.yaml
+#
+# for global Nginx settings such as 'ssl-redirect' or 'whitelist-source-range'
+
 # Applied via Kustomize
 
 ---
@@ -30,7 +36,8 @@ metadata:
   name: ignored
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
+    # might clash with spec.ingressClass now
+    #kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/use-regex: "true"
     # XXX: Edit to make available externally
@@ -38,7 +45,7 @@ metadata:
       10.0.0.0/8,
       172.16.0.0/16,
       192.168.0.0/16,
-      # https://www.cloudflare.com/en-gb/ips/ - XXX: remove this line
+      # XXX: Cloudflare Proxy IPs - https://www.cloudflare.com/en-gb/ips/ - REMOVE THIS COMMENT LINE
       103.21.244.0/22,
       103.22.200.0/22,
       103.31.4.0/22,
