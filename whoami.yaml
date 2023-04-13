@@ -117,6 +117,28 @@ spec:
   tls:
     certResolver: le
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoami-wrr-header
+  namespace: whoami
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      # XXX: Edit
+      match: Host(`whoami2.DOMAIN.COM`) && HeadersRegexp(`X-Canary-Header`, `knock-knock`)
+      services:
+        - kind: Service
+          name: whoamiv2
+          namespace: whoami
+          port: 80
+      middlewares:
+        - name: canary@kubernetescrd
+  tls:
+    certResolver: letsencrypt
+---
 apiVersion: v1
 kind: Service
 metadata:
