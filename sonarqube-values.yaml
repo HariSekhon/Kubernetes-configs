@@ -173,12 +173,12 @@ monitoringPasscode: "define_it"
 ## The usage of SonarQube and the surrounding infrastructure.
 ## Adjust these values to your needs, but make sure that the memory limit is never under 4 GB
 resources:
-  limits:
-    cpu: 800m
-    memory: 4Gi
   requests:
     cpu: 400m
     memory: 2Gi
+  limits:
+    cpu: 800m
+    memory: 4Gi
 
 # XXX: without persistence startup takes longer, but avoids potential Elasticsearch index corruption:
 #      https://docs.sonarqube.org/latest/setup/sonarqube-on-kubernetes/
