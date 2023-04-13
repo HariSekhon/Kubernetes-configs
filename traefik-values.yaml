@@ -87,7 +87,7 @@ podDisruptionBudget:
 
 # Use ingressClass. Ignored if Traefik version < 2.3 / kubernetes < 1.18.x
 ingressClass:
-  enabled: true
+  enabled: false  # ERROR: You must have at least networking.k8s.io/v1beta1 to use ingressClass
   isDefaultClass: false
 
 # Activate Pilot integration
