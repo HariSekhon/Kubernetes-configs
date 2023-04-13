@@ -16,6 +16,13 @@
 # For testing Traefik Ingress Controller
 
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: whoami
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
