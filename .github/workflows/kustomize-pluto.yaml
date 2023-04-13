@@ -76,5 +76,6 @@ jobs:
       - uses: ./.github/actions/kustomizations-materialize
 
       - name: Pluto detect-files
+        run: pluto detect-files -d .
         # --no-footer needs new version
-        run: pluto detect-files -d . --no-footer
+        #run: pluto detect-files -d . --no-footer
