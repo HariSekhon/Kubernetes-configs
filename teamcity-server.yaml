@@ -116,12 +116,12 @@ spec:
             periodSeconds: 5
             timeoutSeconds: 5
           resources:
-            limits:
-              cpu: 2
-              memory: 4Gi  # TeamCity server's 2 processes JVM heaps are -Xmx2g and -Xmx1g, plus overheads and wiggle room
             requests:
               cpu: 200m    # 69m resting
               memory: 2Gi  # 1700Mi resting with pipelines
+            limits:
+              cpu: "2"
+              memory: 4Gi  # TeamCity server's 2 processes JVM heaps are -Xmx2g and -Xmx1g, plus overheads and wiggle room
           volumeMounts:
             # contains config/, lib/, plugins/, system/
             - mountPath: /data/teamcity_server/datadir
