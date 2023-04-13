@@ -61,7 +61,7 @@ spec:
       services:
         - kind: Service
           name: whoamiv1
-          namespace: app
+          namespace: whoami
           port: 80
   tls:
     certResolver: letsencrypt
@@ -79,7 +79,7 @@ spec:
       services:
         - kind: Service
           name: whoamiv2
-          namespace: app
+          namespace: whoami
           port: 80
   tls:
     certResolver: letsencrypt
@@ -88,7 +88,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: whoamiv1
-  namespace: app
+  namespace: whoami
 spec:
   ports:
     - name: http
@@ -100,7 +100,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: whoamiv2
-  namespace: app
+  namespace: whoami
 spec:
   ports:
     - name: http
@@ -108,11 +108,29 @@ spec:
   selector:
     app: whoamiv2
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: TraefikService
+metadata:
+  name: weighted-whoami
+  namespace: whoami
+spec:
+  weighted:
+    services:
+      - name: whoamiv1
+        port: 80
+        namespace: whoami
+        weight: 5
+
+      - name: whoamiv2
+        port: 80
+        weight: 1
+        namespace: whoami
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: whoamiv1
-  namespace: app
+  namespace: whoami
   labels:
     name: whoamiv1
 spec:
@@ -154,7 +172,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: whoamiv2
-  namespace: app
+  namespace: whoami
   labels:
     name: whoamiv2
 spec:
