@@ -22,12 +22,21 @@
 #
 # helm show values ingress-nginx/ingress-nginx >> ingress-nginx-values.yaml
 
+# Noteable Advanced Configuration items:
+#
+#   - spreads ingress controllers across hosts and availability zones for maximum HA
+#   - sets high-priority class for scheduling (requires priorityclass.yaml)
+#   - disallows scheduling to Spot / Preemptible VMs
+#   - resource requests enabled for better scheduling and avoiding resource contention
+#   - restricts source addresses to Private and Cloudflare Proxied addresses XXX: delete this if you really intend for this to support a public website
+#   - enables Mod Security and OWASP rules
+
 ---
 controller:
   name: controller
-  replicaCount: 3
+  replicaCount: 3  # XXX: capped by podAntiAffinity of zones vs number of zones - would have to relax that to have more ingress controllers
   minAvailable: 2
-  # XXX: requires that you install priorityclass.yaml first
+  # XXX: requires priorityclass.yaml
   priorityClassName: high-priority
   # copied from deployment.yaml - see there for comments and more details
   affinity:
@@ -47,37 +56,64 @@ controller:
                   - spot
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-        - topologyKey: topology.kubernetes.io/zone
+        - topologyKey: topology.kubernetes.io/zone  # XXX: replace this with topologySpreadConstraints below
           labelSelector:
             matchExpressions:
-              - key: app
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
                   - ingress-nginx
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - ingress-nginx
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                  - controller
         - topologyKey: kubernetes.io/hostname
           labelSelector:
             matchExpressions:
-              - key: app
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
                   - ingress-nginx
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - ingress-nginx
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                  - controller
+
+  # -- Topology spread constraints rely on node labels to identify the topology domain(s) that each Node is in.
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  ##
+  topologySpreadConstraints: []
+  # - maxSkew: 1
+  #   topologyKey: topology.kubernetes.io/zone
+  #   whenUnsatisfiable: DoNotSchedule
+  #   labelSelector:
+  #   matchLabels:
+  #     app.kubernetes.io/instance: ingress-nginx-internal
 
   ## Define requests resources to avoid probe issues due to CPU utilization in busy nodes
   ## ref: https://github.com/kubernetes/ingress-nginx/issues/4735#issuecomment-551204903
   ## Ideally, there should be no limits.
   ## https://engineering.indeedblog.com/blog/2019/12/cpu-throttling-regression-fix/
-  #resources:
-  #  requests:
-  #    cpu: 100m
-  #    memory: 90Mi
-  #  limits:
-  #    cpu: "1"
-  #    memory: 512Mi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 90Mi
+    limits:
+      cpu: "1"
+      memory: 512Mi
 
-  ## HPA (Mutually exclusive with keda autoscaling)
+  # HPA (Mutually exclusive with keda autoscaling)
   #autoscaling:
   #  enabled: false
-  #  minReplicas: 1
+  #  minReplicas: 2
   #  maxReplicas: 11
   #  targetCPUUtilizationPercentage: 50
   #  targetMemoryUtilizationPercentage: 50
@@ -94,9 +130,162 @@ controller:
   #    #   - type: Pods
   #    #     value: 2
   #    #     periodSeconds: 60
+  #
+  #autoscalingTemplate: []
+  ## Custom or additional autoscaling metrics
+  ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics
+  ## - type: Pods
+  ##   pods:
+  ##   metric:
+  ##     name: nginx_ingress_controller_nginx_process_requests_total
+  ##   target:
+  ##     type: AverageValue
+  ##     averageValue: 10000m
 
-  #service:
-  #  enabled: true
+  # Mutually exclusive with HPA autoscaling
+  #keda:
+  #  apiVersion: "keda.sh/v1alpha1"
+  #  ## apiVersion changes with keda 1.x vs 2.x
+  #  ## 2.x = keda.sh/v1alpha1
+  #  ## 1.x = keda.k8s.io/v1alpha1
+  #  enabled: false
+  #  minReplicas: 1
+  #  maxReplicas: 11
+  #  pollingInterval: 30
+  #  cooldownPeriod: 300
+  #  restoreToOriginalReplicaCount: false
+  #  scaledObject:
+  #    annotations: {}
+  #    # Custom annotations for ScaledObject resource
+  #    #  annotations:
+  #    # key: value
+  #  triggers: []
+  #  #   - type: prometheus
+  #  #     metadata:
+  #  #     serverAddress: http://<prometheus-host>:9090
+  #  #     metricName: http_requests_total
+  #  #     threshold: '100'
+  #  #     query: sum(rate(http_requests_total{deployment="my-deployment"}[2m]))
+  #  behavior: {}
+  ##   scaleDown:
+  ##     stabilizationWindowSeconds: 300
+  ##     policies:
+  ##     - type: Pods
+  ##     value: 1
+  ##     periodSeconds: 180
+  ##   scaleUp:
+  ##     stabilizationWindowSeconds: 300
+  ##     policies:
+  ##     - type: Pods
+  ##     value: 2
+  ##     periodSeconds: 60
+
+  service:
+    external:
+      enabled: true
+    internal:
+      # -- Enables an additional internal load balancer (besides the external one).
+      enabled: false
+      # -- Annotations are mandatory for the load balancer to come up. Varies with the cloud service.
+      annotations: {}
+      # loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+    annotations:
+      kubernetes.io/ingress.global-static-ip-name: kubernetes-ingress
+    # -- Used by cloud providers to connect the resulting `LoadBalancer` to a pre-existing static IP according to https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
+    #loadBalancerIP: ""  # XXX: override this per environment in a Kustomize overlay
+    loadBalancerSourceRanges:
+      # Cloudflare
+      - 103.21.244.0/22
+      - 103.22.200.0/22
+      - 103.31.4.0/22
+      - 104.16.0.0/12
+      - 108.162.192.0/18
+      - 131.0.72.0/22
+      - 141.101.64.0/18
+      - 162.158.0.0/15
+      - 172.64.0.0/13
+      - 173.245.48.0/20
+      - 188.114.96.0/20
+      - 190.93.240.0/20
+      - 197.234.240.0/22
+      - 198.41.128.0/17
+
+  # For global settings to apply to all ingresses using this ingress controller
+  # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
+  # https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/docs/examples/customization/custom-configuration/configmap.yaml
+  config:
+    ssl-redirect: "true"
+    force-ssl-redirect: "true"
+
+    whitelist-source-range: |
+      10.0.0.0/8,
+      172.16.0.0/16,
+      192.168.0.0/16
+    #denylist-source-range: |
+
+    enable-modsecurity: "true"
+    enable-owasp-modsecurity-crs: "true"
+
+    #block-user-agents:  # csv separated strings or regex - https://nginx.org/en/docs/http/ngx_http_map_module.html#map
+    #block-referers:
+
+    #enable-syslog: true
+    #syslog-host: x.x.x.x
+    #syslog-port: 514
+
+    #zipkin-collector-host: <URL>
+    #zipkin-collector-port: 9411
+    #zipkin-service-name: nginx
+    #zipkin-sample-rate: 1.0
+
+    #jaeger-collector-host: <URL>
+    #jaeger-collector-port: 6831
+    ##jaeger-endpoint:  # takes priority over jaeger-collector-host/port
+    #jaeger-service-name: nginx
+
+    #datadog-collector-host: <URL>
+    #datadog-collector-port: 8126
+    #datadog-service-name: nginx
+    #datadog-environmen: prod
+
+    #enable-opentelemetry: true
+    #otlp-collector-host: <URL>
+    #otlp-collector-port: 4317
+    #otel-service-name: nginx
+
+    #main-snippet:     # add to nginx main{} section
+    #http-snippet:     # add to nginx http{} section
+    #server-snippet:   # add to nginx servers
+    #stream-snippet:
+    #location-snippet:
+
+    # AWS EKS
+    #
+    #   https://aws.amazon.com/premiumsupport/knowledge-center/eks-configure-nginx-ingress-controller/
+    #
+    # more settings needed in the ingress - see ingress.yaml
+    #
+    #proxy-body-size: 8m
+    #proxy-read-timeout: "120"  # default: "60"
+    #proxy-send-timeout: "120"  # default: "60"
+
+  podSecurityContext: {}
+
+  # -- Additional command line arguments to pass to nginx-ingress-controller
+  # E.g. to specify the default SSL certificate you can use
+  extraArgs: {}
+  ## extraArgs:
+  ##   default-ssl-certificate: "<namespace>/<secret_name>"
+
+  # -- Additional environment variables to set
+  extraEnvs: []
+  # extraEnvs:
+  #   - name: FOO
+  #   valueFrom:
+  #     secretKeyRef:
+  #     key: FOO
+  #     name: secret-resource
   #  # clusterIP: ""
   #  ## List of IP addresses at which the controller services are available
   #  ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
@@ -136,3 +325,6 @@ controller:
   #    ## providers supporting it
   #    ## Ref: https://kubernetes.io/docs/tutorials/services/source-ip/#source-ip-for-services-with-typeloadbalancer
   #    # externalTrafficPolicy: ""
+
+  opentelemetry:
+    enabled: false
