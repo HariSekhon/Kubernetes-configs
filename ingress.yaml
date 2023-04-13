@@ -79,7 +79,6 @@ metadata:
     #
     #nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     #nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-    #
 
     # Canary
     #
@@ -104,6 +103,13 @@ metadata:
     # nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
     # nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
     # nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+
+    # Enable OpenTracing only for this one ingress
+    #
+    #nginx.ingress.kubernetes.io/enable-opentracing: "true"
+    #zipkin-collector-host: zipkin.default.svc.cluster.local
+    #jaeger-collector-host: jaeger-agent.default.svc.cluster.local
+    #datadog-collector-host: datadog-agent.default.svc.cluster.local
 
     # ================================
     # for Traefik Ingress Controller
