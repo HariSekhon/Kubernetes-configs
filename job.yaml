@@ -59,10 +59,10 @@ spec:
               command:
                 - pgrep -f perl
           resources:
-            limits:
+            requests:
               cpu: 300m
               memory: 300Mi
-            requests:
+            limits:
               cpu: "1"
               memory: 1Gi
   # exponential backoff retries of job - 10 => 20 => 40 secs...
