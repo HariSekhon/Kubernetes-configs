@@ -63,7 +63,7 @@ jobs:
       - name: Environment
         run: env | sort
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.3.0
