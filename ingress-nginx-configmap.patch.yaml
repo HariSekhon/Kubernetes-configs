@@ -55,23 +55,23 @@ data:
   #syslog-host: x.x.x.x
   #syslog-port: 514
 
-  #zipkin-collector-host: <URL>
+  #zipkin-collector-host: zipkin.default.svc.cluster.local
   #zipkin-collector-port: 9411
   #zipkin-service-name: nginx
   #zipkin-sample-rate: 1.0
 
-  #jaeger-collector-host: <URL>
+  #jaeger-collector-host: jaeger-agent.default.svc.cluster.local
   #jaeger-collector-port: 6831
   ##jaeger-endpoint:  # takes priority over jaeger-collector-host/port
   #jaeger-service-name: nginx
 
-  #datadog-collector-host: <URL>
+  #datadog-collector-host: datadog-agent.default.svc.cluster.local
   #datadog-collector-port: 8126
   #datadog-service-name: nginx
   #datadog-environmen: prod
 
   #enable-opentelemetry: true
-  #otlp-collector-host: <URL>
+  #otlp-collector-host: otlp-collector.default.svc.cluster.local
   #otlp-collector-port: 4317
   #otel-service-name: nginx
 
