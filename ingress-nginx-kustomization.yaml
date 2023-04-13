@@ -31,6 +31,7 @@ kind: Kustomization
 
 resources:
   - ingress-nginx-namespace.yaml
+  - ingress-nginx-configmap.yaml  # for global settings
 
 helmCharts:
   - name: ingress-nginx
