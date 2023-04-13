@@ -80,9 +80,9 @@ spec:
               port: 5559
             initialDelaySeconds: 30
           resources:
-            limits:
-              cpu: 2
-              memory: 1Gi
             requests:
               cpu: 100m
               memory: 600Mi
+            limits:
+              cpu: "2"
+              memory: 1Gi
