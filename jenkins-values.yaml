@@ -276,12 +276,12 @@ controller:
       image: kiwigrid/k8s-sidecar:1.14.2
       imagePullPolicy: IfNotPresent
       resources: {}
-        #   limits:
-        #     cpu: 100m
-        #     memory: 100Mi
         #   requests:
         #     cpu: 50m
         #     memory: 50Mi
+        #   limits:
+        #     cpu: 100m
+        #     memory: 100Mi
       # How many connection-related errors to retry on
       reqRetryConnect: 10
       # env:
@@ -314,12 +314,12 @@ controller:
     #   image: docker.io/twalter/smee-client:1.0.2
     #   args: ["--port", "{{ .Values.controller.servicePort }}", "--path", "/github-webhook/", "--url", "https://smee.io/new"]
     #   resources:
-    #     limits:
-    #       cpu: 50m
-    #       memory: 128Mi
     #     requests:
     #       cpu: 10m
     #       memory: 32Mi
+    #     limits:
+    #       cpu: 50m
+    #       memory: 128Mi
 
   affinity:
     # avoid preemption which can cause build failures
