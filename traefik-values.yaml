@@ -267,13 +267,13 @@ additionalArguments: []
 #  - "--providers.kubernetesingress.ingressclass=traefik-internal"
 #  - "--log.level=DEBUG"
   #
-  #- "--certificatesresolvers.le-staging.acme.tlschallenge=true"
-  #- "--certificatesresolvers.le-staging.acme.email=<FIXME>"
-  #- "--certificatesresolvers.le-staging.acme.storage=/data/acme.json"
-  #- "--certificatesresolvers.le-staging.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-  #- "--certificatesresolvers.le.acme.tlschallenge=true"
-  #- "--certificatesresolvers.le.acme.email=<FIXME>"
-  #- "--certificatesresolvers.le.acme.storage=/data/acme.json"
+  #- "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+  #- "--certificatesresolvers.letsencrypt.acme.email=<FIXME>"
+  #- "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
+  #- "--certificatesresolvers.letsencrypt-staging.acme.tlschallenge=true"
+  #- "--certificatesresolvers.letsencrypt-staging.acme.email=<FIXME>"
+  #- "--certificatesresolvers.letsencrypt-staging.acme.storage=/data/acme.json"
+  #- "--certificatesresolvers.letsencrypt-staging.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
 
 # Environment variables to be passed to Traefik's binary
 env: []
