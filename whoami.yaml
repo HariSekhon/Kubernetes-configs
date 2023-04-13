@@ -69,7 +69,8 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`WWW.DOMAIN.COM`)  # XXX: Edit
+      # XXX: Edit
+      match: Host(`whoami.DOMAIN.COM`)
       services:
         - kind: Service
           name: whoamiv1
@@ -87,7 +88,8 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`WWW.DOMAIN.COM`)  # XXX: Edit
+      # XXX: Edit
+      match: Host(`whoami2.DOMAIN.COM`)
       services:
         - kind: Service
           name: whoamiv2
@@ -95,6 +97,25 @@ spec:
           port: 80
   tls:
     certResolver: letsencrypt
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoami-weighted-round-robin
+  namespace: whoami
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+    # XXX: Edit
+      match: Host(`whoami-wrr.DOMAIN.COM`)
+      services:
+        - kind: TraefikService
+          name: weighted-whoami
+          namespace: app
+  tls:
+    certResolver: le
 ---
 apiVersion: v1
 kind: Service
