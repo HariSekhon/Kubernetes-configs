@@ -118,9 +118,9 @@ spec:
               port: 4444
             initialDelaySeconds: 30
           resources:
-            limits:
-              cpu: 4
-              memory: 4Gi
             requests:
               cpu: 500m
               memory: 1.2Gi
+            limits:
+              cpu: "4"
+              memory: 4Gi
