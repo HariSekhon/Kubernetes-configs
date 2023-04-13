@@ -74,7 +74,7 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - Pod Anti-Affinity - stable vs preemptible, HA across AZs, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
 - Ingress Controllers - `ingress-nginx-*.yaml`, `kong-*.yaml` or `traefik-*.yaml`
 - Ingress SSL - [Cert Manager](https://cert-manager.io/) `cert-manager-*.yaml` for [Automatic Certificate Management](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) using the popular free Let's Encrypt certificate authority
-- App Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) - `argocd*.yaml`
+- App Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) - `argocd-*.yaml`
 - App Ingresses - [ingress.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/ingress.yaml), `*-ingress.yaml`
 - App Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
 - App Right-sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) - `goldilocks-*.yaml` to generate VPAs and resource recommendations
