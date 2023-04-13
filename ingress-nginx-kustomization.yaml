@@ -31,7 +31,6 @@ kind: Kustomization
 
 resources:
   - ingress-nginx-namespace.yaml
-  - ingress-nginx-configmap.yaml  # for global settings
 
 helmCharts:
   - name: ingress-nginx
@@ -42,7 +41,29 @@ helmCharts:
     includeCRDs: true
     valuesFile: ingress-nginx-values.yaml
 
+patches:
+  - path: ingress-nginx-configmap.patch.yaml  # for global settings
+    target:
+      version: v1
+      kind: ConfigMap
+      name: ingress-nginx-controller
+      namespace: ingress-nginx
+
 # for Dev enable this to reduce replicas to 1
-#patches:
-#  - ingress-nginx-pdb.patch.yaml
-#  - ingress-nginx-replicas.patch.yaml
+#
+#  - path: ingress-nginx-pdb.patch.yaml
+#    target:
+#      group: policy
+#      version: v1
+#      kind: PodDisruptionBudget
+#      name: ingress-nginx-controller
+#      namespace: ingress-nginx
+#
+#  - path: ingress-nginx-replicas.patch.yaml
+#    target:
+#      group: apps
+#      version: v1
+#      kind: Deployment
+#      metadata:
+#        name: ingress-nginx-controller
+#        namespace: ingress-nginx
