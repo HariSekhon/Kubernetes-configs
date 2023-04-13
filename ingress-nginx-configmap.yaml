@@ -18,6 +18,8 @@
 #                 N g i n x   I n g r e s s   C o n f i g M a p
 # ============================================================================ #
 
+# For global settings to apply to all ingresses using this ingress controller
+
 # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
 
 # https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/docs/examples/customization/custom-configuration/configmap.yaml
