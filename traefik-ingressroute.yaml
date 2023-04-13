@@ -36,3 +36,9 @@ spec:
         - name: default-test-auth@kubernetescrd
   tls:
     certResolver: letsencrypt
+    domains:
+      - main: www.domain.com  # XXX: Edit
+        sans:
+          - www2.domain.com  # XXX: Edit
+    options:
+      name: tlsoptions
