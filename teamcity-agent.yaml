@@ -136,14 +136,14 @@ spec:
             periodSeconds: 5
             timeoutSeconds: 5
           resources:
-            limits:
-              cpu: 2
-              # TeamCity agent's 2 processes JVM heaps are -Xmx384m and -Xmx16m, plus overheads and wiggle room = 1Gi
-              # + build processes which could take a couple GB each = 3Gi
-              memory: 3Gi
             requests:
               cpu: 100m    # 6m resting
               memory: 1Gi  # 700-850Mi resting + pipeline progs
+            limits:
+              cpu: "2"
+              # TeamCity agent's 2 processes JVM heaps are -Xmx384m and -Xmx16m, plus overheads and wiggle room = 1Gi
+              # + build processes which could take a couple GB each = 3Gi
+              memory: 3Gi
           volumeMounts:
             # not persisting system and work as they're just caches
             #  mountPath: /opt/buildagent/system
