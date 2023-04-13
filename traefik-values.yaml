@@ -18,7 +18,7 @@
 #                          T r a e f i k   V a l u e s
 # ============================================================================ #
 
-# helm repo add traefik traefik/traefik
+# helm repo add traefik https://helm.traefik.io/traefik
 #
 # helm show values traefik/traefik  >> traefik-values.yaml
 
