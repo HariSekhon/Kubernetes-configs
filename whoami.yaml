@@ -159,6 +159,18 @@ spec:
         weight: 1
         namespace: whoami
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: canary
+  namespace: whoami
+spec:
+  headers:
+    customRequestHeaders:
+      X-Canary-Header: "knock-knock"
+    customResponseHeaders:
+      X-Canary-Response-Header: "hello there"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
