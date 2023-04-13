@@ -104,8 +104,8 @@ containerPorts:
   management: 9990
 
 resources:
-  limits: {}
   requests: {}
+  limits: {}
 
 affinity: {}
 
