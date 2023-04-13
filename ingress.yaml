@@ -44,6 +44,10 @@ metadata:
     #
     #   https://docs.nginx.com/nginx-ingress-controller/configuration/ingress-resources/advanced-configuration-with-annotations/
     #
+    # Defaults can be seen here:
+    #
+    #   https://github.com/kubernetes/ingress-nginx/blob/main/internal/ingress/controller/config/config.go
+    #
     #kubernetes.io/ingress.class: nginx  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
 
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
