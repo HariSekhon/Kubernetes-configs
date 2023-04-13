@@ -254,12 +254,12 @@ postgresql:
   postgresqlPassword: "sonarPass"
   postgresqlDatabase: "sonarDB"
   resources:
-    limits:
-      cpu: 2
-      memory: 2Gi
     requests:
       cpu: 100m
       memory: 200Mi
+    limits:
+      cpu: "2"
+      memory: 2Gi
   persistence:
     enabled: true
     accessMode: ReadWriteOnce
