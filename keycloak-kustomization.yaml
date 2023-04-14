@@ -47,7 +47,7 @@ helmCharts:
 # Better solution is to manage PostgreSQL externally though
 #
 #patches:
-#  - path: postgresql-version.patch.yaml
+#  - path: keycloak-postgresql-version.patch.yaml
 #    target:
 #      group: apps
 #      version: v1
