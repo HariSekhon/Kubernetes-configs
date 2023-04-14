@@ -136,6 +136,19 @@ metadata:
     # see kong-plugin-*.yaml where these are defined using CRDs
     #konghq.com/plugins: ratelimit-by-ip, key-auth, oidc, admin-acl  # choose either simple key-auth or oidc
 
+    # ================================
+    # HAProxy Ingress Controller
+    #
+    #   https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/ingress/
+    #
+    #kubernetes.io/ingress.class: haproxy  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
+    #
+    # See haproxy-values.yaml for more settings applied at global ConfigMap level
+    #
+    #haproxy.org/load-balance: leastconn  # default: roundrobin
+    #haproxy.org/whitelist: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
+    #haproxy.org/blacklist: "192.168.1.0/24, 192.168.2.100"
+
 spec:
   # ingressClassName replaces kubernetes.io/ingress.class annotation in Kubernetes 1.18+
   #
