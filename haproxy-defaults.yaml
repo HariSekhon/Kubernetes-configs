@@ -23,8 +23,8 @@
 apiVersion: "core.haproxy.org/v1alpha1"
 kind: Defaults
 metadata:
-  name: NAME  # XXX: Edit
-  namespace: NAMESPACE  # XXX: Edit
+  name: defaults
+  namespace: haproxy
 spec:
   config:
     client_timeout: 10000
