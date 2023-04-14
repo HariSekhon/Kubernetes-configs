@@ -1,0 +1,27 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-14 18:19:08 +0100 (Fri, 14 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+---
+# pin postgresql version to 14 to avoid this error:
+#
+#   postgresql 16:29:50.81 INFO  ==> ** Starting PostgreSQL **
+#   2023-04-14 16:29:50.825 GMT [1] FATAL:  database files are incompatible with server
+#   2023-04-14 16:29:50.825 GMT [1] DETAIL:  The data directory was initialized by PostgreSQL version 14, which is not compatible with this version 15.2.
+
+---
+- op: replace
+  path: /spec/template/spec/containers/0/image
+  value: docker.io/bitnami/postgresql:14
