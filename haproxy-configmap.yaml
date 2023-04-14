@@ -23,7 +23,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: haproxy-kubernetes-ingress
-  namespace: haproxy-controller
+  namespace: haproxy
 data:
   cr-global: NAMESPACE/NAME   # from haproxy-global.yaml
   cr-defaults: NAMESPACE/NAME # from haproxy-defaults.yaml
