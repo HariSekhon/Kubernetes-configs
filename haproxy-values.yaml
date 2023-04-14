@@ -159,9 +159,9 @@ controller:
 
   # https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/configmap/
   config:
-    #cr-global: NAMESPACE/NAME   # from haproxy-global.yaml
-    #cr-defaults: NAMESPACE/NAME # from haproxy-defaults.yaml
-    #cr-backend: NAMESPACE/NAME  # from haproxy-backend.yaml
+    cr-global: haproxy/global     # from haproxy-global.yaml
+    cr-defaults: haproxy/defaults # from haproxy-defaults.yaml
+    cr-backend: haproxy/backend   # from haproxy-backend.yaml
     load-balance: leastconn  # default: roundrobin
     forwarded-for: "true"
     cookie-persistence: mycookie
