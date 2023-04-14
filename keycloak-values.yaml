@@ -163,7 +163,7 @@ service:
 ## @param postgresql.architecture PostgreSQL architecture (`standalone` or `replication`)
 ##
 postgresql:
-  enabled: true
+  enabled: true  # XXX: REPLACE THIS WITH STABLE EXTERNAL POSTGRESQL in section below
   auth:
     username: bn_keycloak
     # XXX: don't hardcode password here, use an existing secret
@@ -189,7 +189,12 @@ postgresql:
 ## @param externalDatabase.existingSecretPasswordKey Name of an existing secret key containing the database credentials
 ##
 #
-# migrate to RDS or similar later
+# XXX: migrate above PostgreSQL to RDS or similar external stable DB later, to avoid issues like this which are harder to solve in K8s due to requiring full pg_dump + restore or pg_upgrade requiring simulataneously available versions:
+#
+#     postgresql 16:29:50.81 INFO  ==> ** Starting PostgreSQL **
+#     2023-04-14 16:29:50.825 GMT [1] FATAL:  database files are incompatible with server
+#     2023-04-14 16:29:50.825 GMT [1] DETAIL:  The data directory was initialized by PostgreSQL version 14, which is not compatible with this version 15.2.
+#
 #externalDatabase:
 #  host: ""
 #  port: 5432
