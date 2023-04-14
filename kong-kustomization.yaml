@@ -21,8 +21,7 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
-#namespace: kong
+namespace: kong
 
 resources:
   - kong-namespace.yaml
@@ -40,7 +39,8 @@ resources:
   #- kong-plugin-ratelimit.yaml
   #
   # XXX: for quickly testing Kong - uncomment kong-plugin-ratelimit.yaml above and 'konghq.com/plugins: ratelimit-by-ip' in echoserver.yaml to see Rate Limiting in action with a few refreshes
-  # - echoserver.yaml
+  #- echoserver.yaml
+  #- kong-ingress-echoserver.yaml
 
 # https://artifacthub.io/packages/helm/kong/kong
 #
