@@ -30,7 +30,7 @@
 
 ---
 namespace:
-  create: true
+  create: false
 
 podSecurityPolicy:
   enabled: true
