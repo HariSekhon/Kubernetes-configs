@@ -13,8 +13,14 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                         H A P r o x y   B a c k e n d
+# ============================================================================ #
+
+# https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/custom-resources/backend/
+
 ---
-apiVersion: "core.haproxy.org/v1alpha1"
+apiVersion: core.haproxy.org/v1alpha1
 kind: Backend
 metadata:
   name: NAME-backend
