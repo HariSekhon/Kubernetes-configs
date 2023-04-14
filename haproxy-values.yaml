@@ -51,6 +51,8 @@ rbac:
 controller:
   #replicaCount: 2  # HPA instead
 
+  priorityClassName: high-priority  # XXX: requires priorityclass.yaml
+
   resources:
     requests:
       cpu: 250m
@@ -239,8 +241,6 @@ controller:
       #- 190.93.240.0/20
       #- 197.234.240.0/22
       #- 198.41.128.0/17
-
-  priorityClassName: high-priority  # requires priorityclass.yaml
 
   extraEnvs:
     - name: TZ
