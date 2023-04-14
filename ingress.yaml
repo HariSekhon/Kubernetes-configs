@@ -178,7 +178,7 @@ spec:
               #serviceName: APP-svc  # Old, for extensions/v1beta1
               #servicePort: 80
               service:
-                name: APP-svc  # XXX: Edit
+                name: APP-svc  # XXX: Edit - service must exist in the same namespace as the ingress object
                 port:
                   number: 80
                   # or
