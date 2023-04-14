@@ -40,9 +40,9 @@ helmCharts:
     valuesFile: haproxy-values.yaml
 
 resources:
-  - haproxy-global.yaml
-  - haproxy-defaults.yaml
-  - haproxy-backend.yaml
+  #- haproxy-global.yaml
+  #- haproxy-defaults.yaml
+  #- haproxy-backend.yaml
   #- haproxy-configmap.yaml  # done in haproxy-values.yaml
   # XXX: for quickly testing HAProxy
   #- echoserver.yaml
