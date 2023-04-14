@@ -220,6 +220,10 @@ controller:
       - 10.0.0.0/8
       - 172.16.0.0/16
       - 192.168.0.0/16
+      # XXX: caused AWS LoadBalancer provisioning error:
+      #
+      #   Warning  SyncLoadBalancerFailed  4m55s  service-controller  Error syncing load balancer: failed to ensure load balancer: error authorizing security group ingress: "RulesPerSecurityGroupLimitExceeded: The maximum number of rules per security group has been reached.\n\tstatus code: 400, request id: 8372a329-49d2-4524-a8dd-375b4ff6ab97"
+      #
       # Cloudflare
       #- 103.21.244.0/22
       #- 103.22.200.0/22
