@@ -47,3 +47,6 @@ resources:
   # XXX: for quickly testing HAProxy
   #- echoserver.yaml
   #- haproxy-ingress-echoserver.yaml
+
+patchesStrategicMerge:
+  - haproxy-namespace.patch.yaml
