@@ -23,7 +23,7 @@
 apiVersion: core.haproxy.org/v1alpha1
 kind: Backend
 metadata:
-  name: NAME-backend
+  name: NAME
   namespace: NAMESPACE
 spec:
   config:
