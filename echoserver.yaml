@@ -23,7 +23,15 @@
 # Apply also:
 #
 #   kong-ingress-echoserver.yaml
+#   haproxy-ingress-echoserver.yaml
 
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: echo
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
 ---
 apiVersion: v1
 kind: Service
@@ -31,6 +39,7 @@ metadata:
   labels:
     app: echo
   name: echo
+  namespace: echo
 spec:
   ports:
     - port: 8080
@@ -50,6 +59,7 @@ metadata:
   labels:
     app: echo
   name: echo
+  namespace: echo
 spec:
   replicas: 2
   selector:
