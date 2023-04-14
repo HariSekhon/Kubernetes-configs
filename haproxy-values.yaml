@@ -1,0 +1,260 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-13 22:06:22 +0100 (Thu, 13 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#               H A P r o x y   H e l m   C h a r t   V a l u e s
+# ============================================================================ #
+
+# https://github.com/haproxytech/kubernetes-ingress/tree/master/documentation
+
+# helm repo add haproxy https://haproxytech.github.io/helm-charts
+#
+# helm show values haproxy/kubernetes-ingress  >> haproxy-values.yaml
+
+# See Also:
+#
+#   https://github.com/HariSekhon/HAProxy-configs
+
+---
+namespace:
+  create: true
+
+podSecurityPolicy:
+  enabled: true
+  annotations: {}
+    ## Specify pod annotations
+    ## Ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/#apparmor
+    ## Ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/#seccomp
+    ## Ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/#sysctl
+    ##
+    # apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+    # apparmor.security.beta.kubernetes.io/defaultProfileName: runtime/default
+    # seccomp.security.alpha.kubernetes.io/allowedProfileNames: runtime/default
+    # seccomp.security.alpha.kubernetes.io/defaultProfileName: runtime/default
+
+rbac:
+  create: true
+
+controller:
+  #replicaCount: 2  # HPA instead
+
+  resources:
+    requests:
+      cpu: 250m
+      memory: 400Mi
+    limits:
+      cpu: 250m
+      memory: 400Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  ## Kubernetes Event-driven Autoscaling: KEDA 2.x
+  ## ref: https://keda.sh/docs/2.3/concepts/scaling-deployments/
+  ## Note: mutually exclusive with HPA, enabling KEDA disables HPA
+  ## Node: requires serviceMonitor enabled
+  #keda:
+  #  enabled: false
+  #  minReplicas: 2
+  #  maxReplicas: 20
+  #  pollingInterval: 30
+  #  cooldownPeriod: 300
+  #  restoreToOriginalReplicaCount: false
+  #  scaledObject:
+  #    annotations: {}
+  #  behavior: {}
+  #  #  scaleDown:
+  #  #    stabilizationWindowSeconds: 300
+  #  #    policies:
+  #  #    - type: Percent
+  #  #      value: 100
+  #  #      periodSeconds: 15
+  #  triggers: []
+  #  #  - type: prometheus
+  #  #    metadata:
+  #  #      serverAddress: http://<prometheus-host>:9090
+  #  #      metricName: haproxy_process_idle_time_percent
+  #  #      threshold: '50'
+  #  #      query: avg(100-avg_over_time(haproxy_process_idle_time_percent{container="kubernetes-ingress-controller",service="mytest-kubernetes-ingress"}[2m]))
+
+  PodDisruptionBudget:
+    enable: true
+    minAvailable: 1
+
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: cloud.google.com/gke-preemptible
+                operator: DoesNotExist
+              - key: eks.amazonaws.com/capacityType
+                operator: NotIn
+                values:
+                  - SPOT
+              - key: kubernetes.azure.com/scalesetpriority
+                operator: NotIn
+                values:
+                  - spot
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - topologyKey: topology.kubernetes.io/zone  # XXX: replace this with topologySpreadConstraints below
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - haproxy
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - kubernetes-ingress
+        - topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - haproxy
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - kubernetes-ingress
+
+  # https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  topologySpreadConstraints: []
+  # - maxSkew: 1
+  #   topologyKey: kubernetes.io/zone
+  #   whenUnsatisfiable: DoNotSchedule
+  #   labelSelector:
+  #     matchLabels:
+  #       app.kubernetes.io/name: kubernetes-ingress
+  #       app.kubernetes.io/instance: kubernetes-ingress
+
+  # Additional command line arguments to pass to Controller
+  # https://github.com/haproxytech/kubernetes-ingress/blob/master/documentation/controller.md
+  extraArgs: []
+  #  - --namespace-whitelist=default
+  #  - --namespace-whitelist=namespace1
+  #  - --namespace-blacklist=namespace2
+
+  # https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/configmap/
+  config:
+    load-balance: leastconn  # default: roundrobin
+    forwarded-for: "true"
+    cookie-persistence: mycookie
+    whitelist: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
+    #blacklist: "192.168.1.0/24, 192.168.2.100"
+    #
+    #timeout-connect: "250ms"
+    #servers-increment: "10"
+    #servers-increment-max-disabled: "10"
+    #rate-limit: "ON"
+    #rate-limit-expire: "1m"
+    #rate-limit-interval: "10s"
+    #rate-limit-size: "100k"
+    stats-config-snippet: |
+      bind *:1936
+      mode   http
+      option httplog
+      stats enable
+      acl internal_networks src 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8 127.0.0.1
+      stats http-request deny unless internal_networks
+      stats uri /  # default: /haproxy?stats
+      stats hide-version
+      stats show-legends
+      stats show-node
+      # simple user - allow admin if localhost
+      #stats auth haproxyuser:haproxypw
+      #stats admin if LOCALHOST  # pre-defined acl -> src 127.0.0.1/8
+      #acl AUTH       http_auth(stats-auth)
+      #acl AUTH_ADMIN http_auth_group(stats-auth) admin
+      #stats http-request auth unless AUTH
+      #stats admin if AUTH_ADMIN
+
+  ## Extra annotation for custom configmap for Controller
+  configAnnotations: {}
+  #   annotationKey: value
+
+  logging:
+    level: info
+
+    # https://github.com/haproxytech/kubernetes-ingress/tree/master/documentation#logging
+    traffic:
+      address: stdout
+      format: raw
+      facility: daemon
+
+  publishService:
+    enabled: true
+    # Override of the publish service
+    # Must be <namespace>/<service_name>
+    pathOverride: ""
+
+  service:
+    enabled: true
+    type: LoadBalancer  # default: NodePort
+    annotations: {}
+    loadBalancerIP: ""
+    loadBalancerSourceRanges:
+      - 10.0.0.0/8
+      - 172.16.0.0/16
+      - 192.168.0.0/16
+      # Cloudflare
+      - 103.21.244.0/22
+      - 103.22.200.0/22
+      - 103.31.4.0/22
+      - 104.16.0.0/12
+      - 108.162.192.0/18
+      - 131.0.72.0/22
+      - 141.101.64.0/18
+      - 162.158.0.0/15
+      - 172.64.0.0/13
+      - 173.245.48.0/20
+      - 188.114.96.0/20
+      - 190.93.240.0/20
+      - 197.234.240.0/22
+      - 198.41.128.0/17
+
+  priorityClassName: high-priority  # requires priorityclass.yaml
+
+  extraEnvs:
+    - name: TZ
+      value: "Etc/UTC"
+
+  ## Additional volumeMounts to the controller main container
+  extraVolumeMounts: []
+    ## Example empty volume mounts when using securityContext->readOnlyRootFilesystem
+    # - name: etc-haproxy
+    #   mountPath: /etc/haproxy
+    # - name: tmp
+    #   mountPath: /tmp
+    # - name: var-state-haproxy
+    #   mountPath: /var/state/haproxy
+
+  ## Additional volumes to the controller pod
+  extraVolumes: []
+    ## Example empty volumes when using securityContext->readOnlyRootFilesystem
+    # - name: etc-haproxy
+    #   emptyDir: {}
+    # - name: tmp
+    #   emptyDir: {}
+    # - name: var-state-haproxy
+    #   emptyDir: {}
