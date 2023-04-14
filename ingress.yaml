@@ -145,6 +145,7 @@ spec:
   ingressClassName: nginx
   #ingressClassName: traefik
   #ingressClassName: kong
+  #ingressClassName: haproxy
   tls:
     # XXX: Edit
     - hosts:
