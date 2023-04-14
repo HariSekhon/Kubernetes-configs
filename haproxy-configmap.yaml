@@ -18,6 +18,8 @@
 #                       H A P r o x y   C o n f i g M a p
 # ============================================================================ #
 
+# Deprecated: moved to haproxy-values.yaml now
+
 ---
 apiVersion: v1
 kind: ConfigMap
