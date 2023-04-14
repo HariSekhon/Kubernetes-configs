@@ -21,7 +21,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: echoserver
-  namespace: kong
+  namespace: echo
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     ingress.kubernetes.io/force-ssl-redirect: "true"
