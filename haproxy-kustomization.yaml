@@ -44,3 +44,6 @@ resources:
   #- haproxy-defaults.yaml
   #- haproxy-backend.yaml
   #- haproxy-configmap.yaml  # done in haproxy-values.yaml
+  # XXX: for quickly testing HAProxy
+  #- echoserver.yaml
+  #- haproxy-ingress-echoserver.yaml
