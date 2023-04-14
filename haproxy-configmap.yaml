@@ -21,4 +21,5 @@ metadata:
   name: haproxy-kubernetes-ingress
   namespace: haproxy-controller
 data:
-  cr-backend: NAMESPACE/NAME-backend  # from haproxy-backend.yaml
+  cr-defaults: NAMESPACE/NAME # from haproxy-defaults.yaml
+  cr-backend: NAMESPACE/NAME  # from haproxy-backend.yaml
