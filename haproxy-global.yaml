@@ -23,8 +23,8 @@
 apiVersion: "core.haproxy.org/v1alpha1"
 kind: Global
 metadata:
-  name: NAME  # XXX: Edit
-  namespace: NAMESPACE  # XXX: Edit
+  name: global
+  namespace: haproxy
 spec:
   config:
     maxconn: 60000
