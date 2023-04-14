@@ -14,6 +14,10 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# ============================================================================ #
+#                       H A P r o x y   C o n f i g M a p
+# ============================================================================ #
+
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -21,5 +25,6 @@ metadata:
   name: haproxy-kubernetes-ingress
   namespace: haproxy-controller
 data:
+  cr-global: NAMESPACE/NAME   # from haproxy-global.yaml
   cr-defaults: NAMESPACE/NAME # from haproxy-defaults.yaml
   cr-backend: NAMESPACE/NAME  # from haproxy-backend.yaml
