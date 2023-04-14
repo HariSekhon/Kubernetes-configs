@@ -60,6 +60,23 @@ metadata:
   #  konghq.com/path: /prepended-path      # prepends the URL path to each request Kong sends to this service
   #  konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this service - deprecated, new versions should have native annotation settings
   #  konghq.com/protocol: https            # used between Kong ingress and service
+  #
+  # =======================
+  # HAProxy Ingress Controller
+  #
+  #   https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/service/
+  #
+  # haproxy.org/check: "true"
+  # haproxy.org/check-http: /health
+  # haproxy.org/check-interval: 30s
+  # haproxy.org/cookie-persistence: mycookie
+  # haproxy.org/forwarded-for: "true"
+  # haproxy.org/load-balance: leastconn
+  # haproxy.org/pod-maxconn: 30
+  # haproxy.org/server-ssl: "true"
+  # haproxy.org/ssl-passthrough: "true"
+  # haproxy.org/timeout-check: 5s
+
 spec:
   type: ClusterIP   # default
   #clusterIP: None  # headless service - returns all A records instead of round robin. Useful for seeding (eg. Cassandra, Elasticsearch), or Service Discovery where load balancing is not needed (eg. Jenkins / TeamCity server)
