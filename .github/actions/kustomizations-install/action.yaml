@@ -34,7 +34,7 @@ runs:
         echo "Running Install Kustomizations Action"
         set -euxo pipefail
         for kustomization in *-kustomization.yaml; do
-          if [[ "$kustomization" =~ ^(eks|metrics-server|prometheus-stack)- ]]; then
+          if [[ "$kustomization" =~ ^(eks|metrics-server|prometheus-stack)-|kyverno ]]; then
             echo "Skipping $kustomization"
             echo
             continue
