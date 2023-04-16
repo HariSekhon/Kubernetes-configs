@@ -1,0 +1,45 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-16 03:45:04 +0100 (Sun, 16 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                         K n a t i v e   S e r v i c e
+# ============================================================================ #
+
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hello
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/knative-samples/helloworld-go
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TARGET
+              value: "World"
+              #value: "Knative"  # editing and re-applying will generate a new revision
+
+	# split traffic 50/50 between 2 revisions
+  #traffic:
+  #- latestRevision: true
+  #  percent: 50
+  #- latestRevision: false
+  #  percent: 50
+  #  revisionName: hello-00001  # @latest always points to the latest revision
