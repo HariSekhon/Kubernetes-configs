@@ -34,13 +34,7 @@ data:
   ingress-class: kourier.ingress.networking.knative.dev
   # XXX: edit with your real DNS FQDN to the ingress
   knative.DOMAIN.COM: ''
-  issuerRef:
+  issuerRef: |
     kind: ClusterIssuer
     name: letsencrypt
-  namespace-wildcard-cert-selector:
-    matchExpressions:
-      - key: networking.knative.dev/disableWildcardCert
-        operator:
-          - NotIn
-        values:
-          - "true"
+  namespace-wildcard-cert-selector: "{\"matchExpressions\": [{\"key\":\"networking.knative.dev/disableWildcardCert\", \"operator\": \"NotIn\", \"values\":[\"true\"]}]}"
