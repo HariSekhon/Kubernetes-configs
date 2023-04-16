@@ -1,0 +1,121 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-16 02:16:27 +0100 (Sun, 16 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                   K n a t i v e   K u s t o m i z a t i o n
+# ============================================================================ #
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+#namespace: knative  # don't override namespaces on objects
+
+resources:
+  # YAML-based installation method - can't believe they don't have a Helm chart:
+  #
+  #   https://knative.dev/docs/install/yaml-install/serving/install-serving-with-yaml/
+  #
+  # doesn't follow the redirects
+  #- https://github.com/knative/serving/releases/download/knative-v1.9.3/serving-crds.yaml
+  #- https://github.com/knative/serving/releases/download/knative-v1.9.3/serving-core.yaml
+  #
+  # download like so:
+  #
+  #   version=1.9.3
+  #   #curl -fsSL -o knative-v1.9.3-serving-crds.yaml "https://github.com/knative/serving/releases/download/knative-v$version/serving-crds.yaml"
+  #   curl -fsSL -o knative-v1.9.3-serving-core.yaml "https://github.com/knative/serving/releases/download/knative-v$version/serving-core.yaml"
+  #
+  # the CRDs are duplicated in both crds and core.yaml resulting in this error:
+  #
+  #   Error: accumulating resources: accumulation err='merging resources from 'knative-v1.9.3-serving-core.yaml': may not add resource with an already registered id: CustomResourceDefinition.v1.apiextensions.k8s.io/images.caching.internal.knative.dev.[noNs]': must build at directory: '/private/tmp/knative-v1.9.3-serving-core.yaml': file is not directory
+  #
+  #   https://github.com/knative/serving/issues/9945
+  #   https://github.com/knative/serving/issues/12760
+  #
+  # only needs the service-core.yaml
+  #- knative-v1.9.3-serving-crds.yaml
+  - knative-v1.9.3-serving-core.yaml
+  #
+  # Networking:
+  #
+  # will have to patch the knative configmap/config-network to use this
+  - https://github.com/knative/net-kourier/releases/download/knative-v1.9.2/kourier.yaml
+  #
+  # DNS magic localhost using sslip.io:
+  - https://github.com/knative/serving/releases/download/knative-v1.9.3/serving-default-domain.yaml
+  #
+  # HPA
+  - https://github.com/knative/serving/releases/download/knative-v1.9.3/serving-hpa.yaml
+  #
+  # Cert Manager - https://knative.dev/docs/serving/using-auto-tls/
+  - https://github.com/knative/net-certmanager/releases/download/knative-v1.9.3/release.yaml
+
+patches:
+  - path: knative-config-network.patch.yaml
+    target:
+      version: v1
+      kind: ConfigMap
+      name: config-network
+      namespace: knative-serving
+
+# https://knative.dev/docs/install/yaml-install/serving/install-serving-with-yaml/#install-a-networking-layer
+#
+# kubectl patch configmap/config-network \
+#               --namespace knative-serving \
+#               --type merge \
+#               --patch '{"data":{"ingress-class":"kourier.ingress.networking.knative.dev"}}'
+#
+#patchesJson6902:
+#  - target:
+#      version: v1
+#      kind: ConfigMap
+#      name: config-network
+#      namespace: knative-serving
+#    patch: |-
+#      # for Kourier networking
+#      - op: replace
+#        path: /data/ingress-class
+#        value: kourier.ingress.networking.knative.dev
+#      # for real DNS serving if you have it
+#      #- op: replace
+#      #  path: /data/knative.DOMAIN.COM
+#      #  value: ''
+#      #
+#      # Cert Manager
+#      #
+#      - op: replace
+#        path: /data/auto-tls
+#        value: Enabled
+#      - op: replace
+#        path: /data/http-protocol
+#        value: Redirected
+#      - op: replace
+#        path: /metadata/labels/networking.knative.dev/certificate-provider
+#        value: cert-manager
+#      - op: replace
+#        path: /data/issuerRef
+#        value: |
+#          kind: ClusterIssuer
+#          name: letsencrypt
+#      - op: replace
+#        path: /data/namespace-wildcard-cert-selector
+#        value: |
+#          matchExpressions:
+#            - key: networking.knative.dev/disableWildcardCert
+#              operator:
+#                - NotIn
+#              values:
+#                - "true"
