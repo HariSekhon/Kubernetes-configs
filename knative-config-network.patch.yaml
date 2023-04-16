@@ -1,0 +1,46 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-16 03:13:45 +0100 (Sun, 16 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#            K n a t i v e   C o n f i g   N e t w o r k   P a t c h
+# ============================================================================ #
+
+# https://knative.dev/docs/install/yaml-install/serving/install-serving-with-yaml/
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-network  # ignored, targeted by patches in kustomization
+  namespace: knative-serving  # ignored
+  labels:
+    networking.knative.dev/certificate-provider: cert-manager
+data:
+  auto-tls: Enabled
+  http-protocol: Redirected
+  ingress-class: kourier.ingress.networking.knative.dev
+  # XXX: edit with your real DNS FQDN to the ingress
+  knative.DOMAIN.COM: ''
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt
+  namespace-wildcard-cert-selector:
+    matchExpressions:
+      - key: networking.knative.dev/disableWildcardCert
+        operator:
+          - NotIn
+        values:
+          - "true"
