@@ -78,3 +78,5 @@ spec:
     syncOptions:
       - ApplyOutOfSyncOnly=false  # true is quicker but doesn't record history, cannot rollback, and hooks aren't run
       #- CreateNamespace=true  # prefer to put the namespace in the Kustomization for portability
+      #- ServerSideApply=true  # ArgoCD 2.5+ to avoid "Too long: must have at most 262144 bytes" error caused by large CRDs
+                               # https://kubernetes.io/docs/reference/using-api/server-side-apply/
