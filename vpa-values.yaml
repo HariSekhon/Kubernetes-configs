@@ -23,10 +23,6 @@
 # helm show values fairwindsops/vpa >> vpa-values.yaml
 
 ---
-# Default values for vertical-pod-autoscaler.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 # imagePullSecrets -- A list of image pull secrets to be used for all pods
 imagePullSecrets: []
 # priorityClassName -- To set the priorityclass for all pods
