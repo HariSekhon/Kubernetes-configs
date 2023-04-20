@@ -15,39 +15,24 @@
 #
 
 # ============================================================================ #
-#    E K S   C l u s t e r   A u t o s c a l e r   K u s t o m i z a t i o n
+#        C l u s t e r   A u t o s c a l e r   K u s t o m i z a t i o n
 # ============================================================================ #
+
+# https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler
 
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 #namespace: kube-system
 
-resources:
-  # dynamic latest:
-  #
-  # - https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
-  #
-  # stable copy (commit to vcs):
-  #
-  #   curl -o eks-cluster-autoscaler.yaml https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
-  #
-  # versioned stable copy (requires more work, have to add AWS specific bits based on documentation here):
-  #
-  #   https://artifacthub.io/packages/helm/cluster-autoscaler/cluster-autoscaler
-  #
-  #   helm_template.sh https://kubernetes.github.io/autoscaler autoscaler/cluster-autoscaler --version 9.10.8 -n kube-system > eks-cluster-autoscaler.yaml
-  #
-  - eks-cluster-autoscaler.yaml
-
-# dynamic versioned (this is so critical would rather push it through git):
-#helmCharts:
-  #- name: cluster-autoscaler
-  #  repo: https://kubernetes.github.io/autoscaler
-  #  version: 9.10.8
-  #  releaseName: cluster-autoscaler
-  #  includeCRDs: true
-  #  namespace: kube-system
+helmCharts:
+  - name: cluster-autoscaler
+    repo: https://kubernetes.github.io/autoscaler
+    version: 9.26.0
+    releaseName: cluster-autoscaler
+    includeCRDs: true
+    namespace: kube-system
+    valuesFile: cluster-autoscaler-values.yaml
 
 
 # ============================================================================ #
@@ -57,12 +42,12 @@ resources:
 # XXX: if using this as a base, move this section to the calling kustomization as these are environment specific
 
 patchesJson6902:
-  - path: eks-cluster-autoscaler-deployment.patch.yaml
+  - path: cluster-autoscaler-deployment.eks.patch.yaml
     target:
       version: v1
       kind: Deployment
       name: cluster-autoscaler
-  - path: eks-cluster-autoscaler-serviceaccount.patch.yaml
+  - path: cluster-autoscaler-serviceaccount.eks.patch.yaml
     target:
       version: v1
       kind: ServiceAccount
