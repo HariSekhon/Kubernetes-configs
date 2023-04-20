@@ -55,7 +55,7 @@ patchesJson6902:
 
   # XXX: override image tag if inheriting version from a base
 images:
-  - name: k8s.gcr.io/autoscaling/cluster-autoscaler
+  - name: registry.k8s.io/autoscaling/cluster-autoscaler
     #
     # choose cluster autoscaler version compatible with your Kubernetes major + minor version:
     #
