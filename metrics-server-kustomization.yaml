@@ -48,8 +48,8 @@ resources:
 helmCharts:
   - name: metrics-server
     repo: https://kubernetes-sigs.github.io/metrics-server/
-    version: 3.7.0
+    version: 3.10.0
     releaseName: metrics-server
     namespace: kube-system
     includeCRDs: true
-    #valuesFile: metrics-server-values.yaml
+    valuesFile: metrics-server-values.yaml
