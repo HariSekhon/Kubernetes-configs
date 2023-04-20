@@ -53,6 +53,7 @@ patchesJson6902:
       kind: ServiceAccount
       name: cluster-autoscaler
 
+  # XXX: override image tag if inheriting version from a base
 images:
   - name: k8s.gcr.io/autoscaling/cluster-autoscaler
     #
