@@ -180,12 +180,12 @@ admin:
 
   ingress:
     enabled: true
-    ingressClassName: nginx
+    #ingressClassName: nginx
     hostname: kong-admin.domain.com  # XXX: Edit
     tls: kong-admin-tls
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-      #kubernetes.io/ingress.class: nginx  # deprecated, and cannot also be set if ingressClassName is set
+      kubernetes.io/ingress.class: nginx  # deprecated, and cannot also be set if ingressClassName is set
       ingress.kubernetes.io/ssl-redirect: "true"
       ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -269,11 +269,12 @@ manager:
 
   ingress:
     enabled: true
-    ingressClassName: nginx
+    #ingressClassName: nginx
     tls: kong-manager-tls
     hostname: kong.domain.com  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx  # deprecated, and cannot also be set if ingressClassName is set
       ingress.kubernetes.io/ssl-redirect: "true"
       ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -312,11 +313,12 @@ portal:
 
   ingress:
     enabled: true
-    ingressClassName: nginx
-    # tls: kong-manager.example.com-tls
+    #ingressClassName: nginx
+    tls: kong-portal-tls
     hostname: kong-portal.domain.com  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx  # deprecated, and cannot also be set if ingressClassName is set
       ingress.kubernetes.io/ssl-redirect: "true"
       ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -355,11 +357,12 @@ portalapi:
 
   ingress:
     enabled: true
-    ingressClassName: nginx
-    # tls: kong-manager.example.com-tls
+    #ingressClassName: nginx
+    tls: kong-portal-api-tls
     hostname: kong-portal-api.domain.com  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/ingress.class: nginx  # deprecated, and cannot also be set if ingressClassName is set
       ingress.kubernetes.io/ssl-redirect: "true"
       ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
