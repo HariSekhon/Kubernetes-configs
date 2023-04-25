@@ -198,7 +198,7 @@ admin:
     pathType: Prefix  # default: ImplementationSpecific
 
 enterprise:
-  enabled: false
+  enabled: true  # required to get Kong Manager - see https://github.com/Kong/charts/issues/782
   # Kong Enterprise license secret name
   # This secret must contain a single 'license' key, containing your base64-encoded license data
   # The license secret is required to unlock all Enterprise features. If you omit it,
@@ -270,7 +270,7 @@ manager:
   ingress:
     enabled: true
     ingressClassName: nginx
-    # tls: kong-manager.example.com-tls
+    tls: kong-manager-tls
     hostname: kong.domain.com  # XXX: Edit
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
@@ -287,7 +287,7 @@ manager:
 
 # XXX: only materializes if enterprise.enabled = true
 portal:
-  enabled: true
+  enabled: false
   type: ClusterIP  # default: NodePort
   #type: LoadBalancer
   #loadBalancerClass:
@@ -330,7 +330,7 @@ portal:
 
 # XXX: only materializes if enterprise.enabled = true
 portalapi:
-  enabled: true
+  enabled: false
   type: ClusterIP  # default: NodePort
   #type: LoadBalancer
   #loadBalancerClass:
