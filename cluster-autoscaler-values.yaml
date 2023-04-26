@@ -38,8 +38,10 @@ autoDiscovery:
   # autoDiscovery.clusterName -- Enable autodiscovery for `cloudProvider=azure`, using tags defined in https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/azure/README.md#auto-discovery-setup.
   # Enable autodiscovery for `cloudProvider=clusterapi`, for groups matching `autoDiscovery.labels`.
   # Enable autodiscovery for `cloudProvider=gce`, but no MIG tagging required.
-  # Enable autodiscovery for `cloudProvider=magnum`, for groups matching `autoDiscovery.roles`.
-  clusterName:  # cluster.local
+  #
+  # XXX: if you don't set this clusterName then the Deployment yaml isn't generated
+  # Enable autodiscovery for `cloudPr
+  clusterName: my-cluster # XXX: Edit - if you don't set this the Deployment yaml isn't generated
 
   # autoDiscovery.tags -- ASG tags to match, run through `tpl`.
   tags:
@@ -87,7 +89,7 @@ autoscalingGroupsnamePrefix: []
 awsAccessKeyID: ""
 
 # awsRegion -- AWS region (required if `cloudProvider=aws`)
-awsRegion: us-east-1
+awsRegion: eu-west-2
 
 # awsSecretAccessKey -- AWS access secret key ([if AWS user keys used](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/README.md#using-aws-credentials))
 awsSecretAccessKey: ""
@@ -136,7 +138,7 @@ cloudConfigPath: ""
 # Currently only `gce`, `aws`, `azure`, `magnum` and `clusterapi` are supported.
 # `aws` supported for AWS. `gce` for GCE. `azure` for Azure AKS.
 # `magnum` for OpenStack Magnum, `clusterapi` for Cluster API.
-cloudProvider: aws
+cloudProvider: aws  # XXX: Edit
 
 # clusterAPICloudConfigPath -- Path to kubeconfig for connecting to Cluster API Management Cluster, only used if `clusterAPIMode=kubeconfig-kubeconfig or incluster-kubeconfig`
 clusterAPICloudConfigPath: /etc/kubernetes/mgmt-kubeconfig
@@ -158,10 +160,10 @@ clusterAPIMode: incluster-incluster  # incluster-incluster, incluster-kubeconfig
 clusterAPIWorkloadKubeconfigPath: /etc/kubernetes/value
 
 # containerSecurityContext -- [Security context for container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
-containerSecurityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
+containerSecurityContext:
+   capabilities:
+     drop:
+     - ALL
 
 deployment:
   # deployment.annotations -- Annotations to add to the Deployment object.
@@ -253,9 +255,9 @@ hostNetwork: false
 
 image:
   # image.repository -- Image repository
-  repository: registry.k8s.io/autoscaling/cluster-autoscaler
+  #repository: registry.k8s.io/autoscaling/cluster-autoscaler
   # image.tag -- Image tag
-  tag: v1.26.2
+  #tag: v1.26.2
   # image.pullPolicy -- Image pull policy
   pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
@@ -334,23 +336,21 @@ rbac:
     # rbac.serviceAccount.automountServiceAccountToken -- Automount API credentials for a Service Account.
     automountServiceAccountToken: true
 
-# replicaCount -- Desired number of pods
 replicaCount: 1
 
-# resources -- Pod resource requests and limits.
-resources: {}
-  # limits:
-  #   cpu: 100m
-  #   memory: 300Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 300Mi
+resources:
+   limits:
+     cpu: 100m
+     memory: 300Mi
+   requests:
+     cpu: 100m
+     memory: 300Mi
 
 # securityContext -- [Security context for pod](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
-securityContext: {}
-  # runAsNonRoot: true
-  # runAsUser: 1001
-  # runAsGroup: 1001
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1001
+  runAsGroup: 1001
 
 service:
   # service.create -- If `true`, a Service will be created.
