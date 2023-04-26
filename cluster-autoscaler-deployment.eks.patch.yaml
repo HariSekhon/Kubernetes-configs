@@ -23,15 +23,25 @@
 #   run: kubectl patch deploy cluster-autoscaler -n "kube-system" --type json --patch "$(cat eks-cluster-autoscaler-deployment.patch.yaml)"
 
 ---
-- op: add
-  path: /spec/template/metadata/annotations/cluster-autoscaler.kubernetes.io~1safe-to-evict  # ~1 is escape for /
-  value: "false"
+#- op: add
+#  path: /spec/template/metadata/annotations/cluster-autoscaler.kubernetes.io~1safe-to-evict  # ~1 is escape for /
+#  value: "false"
+
 - op: replace
-  path: /spec/template/spec/containers/0/command/6  # XXX: WARNING: must update if the underlying array position changes - limitation of JSON Pointer targeting
+  path: /spec/template/spec/containers/0/command/3  # XXX: WARNING: must update if the underlying array position changes - limitation of JSON Pointer targeting
   value: --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/<YOUR CLUSTER NAME>  # XXX: Edit cluster name
+
 - op: add
   path: /spec/template/spec/containers/0/command/7  # can't be higher than array index end
   value: --balance-similar-node-groups
+
 - op: add
   path: /spec/template/spec/containers/0/command/8
   value: --skip-nodes-with-system-pods=false
+
+# If using cluster-autoscaler base you may need to override the region
+#- op: replace
+#  path: /spec/template/spec/containers/0/env/0
+#  value:
+#    - name: AWS_REGION
+#      value: eu-west-2
