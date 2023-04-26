@@ -92,10 +92,10 @@ spec:
     - group: cert-manager.io
       kind: ClusterIssuer
     # needed for Polaris kustomization
-    #- group: rbac.authorization.k8s.io
-    #  kind: ClusterRole
-    #- group: rbac.authorization.k8s.io
-    #  kind: ClusterRoleBinding
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
     - group: external-secrets.io
       kind: ClusterExternalSecret
     - group: external-secrets.io
@@ -108,11 +108,10 @@ spec:
       kind: KongClusterPlugin
     - group: ''
       kind: Namespace
-    #- group: scheduling.k8s.io
-    #  kind: PriorityClass
-    #- group: storage.k8s.io
-    #  kind: StorageClass
-    #
+    - group: scheduling.k8s.io
+      kind: PriorityClass
+    - group: storage.k8s.io
+      kind: StorageClass
     # for kube-prometheus-stack
     - group: policy
       kind: PodSecurityPolicy
