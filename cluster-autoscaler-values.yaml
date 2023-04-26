@@ -40,7 +40,7 @@ autoDiscovery:
   # Enable autodiscovery for `cloudProvider=gce`, but no MIG tagging required.
   #
   # XXX: if you don't set this clusterName then the Deployment yaml isn't generated
-  clusterName: MY-CLUSTER # XXX: Edit - or patch using cluster-autoscaler-deployment.eks.patch.yaml if using this as a base
+  clusterName: MY-CLUSTER  # XXX: Edit - or if using this as base then patch using cluster-autoscaler-deployment.eks.patch.yaml
 
   # autoDiscovery.tags -- ASG tags to match, run through `tpl`.
   tags:
@@ -88,7 +88,7 @@ autoscalingGroupsnamePrefix: []
 awsAccessKeyID: ""
 
 # awsRegion -- AWS region (required if `cloudProvider=aws`)
-awsRegion: eu-west-2
+awsRegion: eu-west-2  # XXX: Edit - or if using this as base then patch using cluster-autoscaler-deployment.eks.patch.yaml
 
 # awsSecretAccessKey -- AWS access secret key ([if AWS user keys used](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/README.md#using-aws-credentials))
 awsSecretAccessKey: ""
