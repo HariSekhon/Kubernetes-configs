@@ -41,17 +41,18 @@ helmCharts:
 
 # XXX: if using this as a base, move this section to the calling kustomization as these are environment specific
 
-patchesJson6902:
+patches:
   - path: cluster-autoscaler-deployment.eks.patch.yaml
     target:
       version: v1
       kind: Deployment
-      name: cluster-autoscaler
+      name: cluster-autoscaler-aws-cluster-autoscaler
   - path: cluster-autoscaler-serviceaccount.eks.patch.yaml
     target:
       version: v1
       kind: ServiceAccount
-      name: cluster-autoscaler
+      name: cluster-autoscaler-aws-cluster-autoscaler
+
 
 # XXX: override image tag if inheriting version from a base
 images:
