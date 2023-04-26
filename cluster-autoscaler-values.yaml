@@ -41,7 +41,7 @@ autoDiscovery:
   #
   # XXX: if you don't set this clusterName then the Deployment yaml isn't generated
   # Enable autodiscovery for `cloudPr
-  clusterName: my-cluster # XXX: Edit - if you don't set this the Deployment yaml isn't generated
+  clusterName: MY-CLUSTER # XXX: Edit - if you don't set this the Deployment yaml isn't generated
 
   # autoDiscovery.tags -- ASG tags to match, run through `tpl`.
   tags:
