@@ -1,0 +1,39 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-27 15:51:16 +0100 (Thu, 27 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#              E x t e r n a l   D N S   K u s t o m i z a t i o n
+# ============================================================================ #
+
+# https://github.com/kubernetes-sigs/external-dns
+
+# https://artifacthub.io/packages/helm/bitnami/external-dns
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - external-secrets-namespace.yaml
+
+helmCharts:
+  - name: external-dns
+    repo: https://charts.bitnami.com/bitnami
+    version: 6.18.0
+    releaseName: external-dns
+    namespace: external-dns
+    includeCRDs: true
+    valuesFile: external-dns-values.yaml
