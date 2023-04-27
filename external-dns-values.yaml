@@ -162,7 +162,7 @@ cloudflare:
   #   kubectl create secret generic external-dns-cloudflare-token --from-literal=cloudflare_api_token=$(gcp_secret_get.sh external-dns-cloudflare-token)
   #
   secretName: external-dns-cloudflare-token
-  email: blah@domain.com  # XXX: Edit
+  email: some-machine-account@domain.com  # XXX: Edit - your Cloudflare machine account login email address
   proxied: true  # enable Proxied DNS mode for DDoS protection etc.
 
 # ============================================================================ #
