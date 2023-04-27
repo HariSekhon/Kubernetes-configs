@@ -157,22 +157,13 @@ azure:
 # ============================================================================ #
 
 cloudflare:
-  ## @param cloudflare.apiToken When using the Cloudflare provider, `CF_API_TOKEN` to set (optional)
-  ##
-  apiToken: ""
-  ## @param cloudflare.apiKey When using the Cloudflare provider, `CF_API_KEY` to set (optional)
-  ##
-  apiKey: ""
-  ## @param cloudflare.secretName When using the Cloudflare provider, it's the name of the secret containing cloudflare_api_token or cloudflare_api_key.
-  ## This ignores cloudflare.apiToken, and cloudflare.apiKey
-  ##
-  secretName: ""
-  ## @param cloudflare.email When using the Cloudflare provider, `CF_API_EMAIL` to set (optional). Needed when using CF_API_KEY
-  ##
-  email: ""
-  ## @param cloudflare.proxied When using the Cloudflare provider, enable the proxy feature (DDOS protection, CDN...) (optional)
-  ##
-  proxied: true
+  # This secret must have a field 'cloudflare_api_token' - create it like so:
+  #
+  #   kubectl create secret generic external-dns-cloudflare-token --from-literal=cloudflare_api_token=$(gcp_secret_get.sh external-dns-cloudflare-token)
+  #
+  secretName: external-dns-cloudflare-token
+  email: blah@domain.com  # XXX: Edit
+  proxied: true  # enable Proxied DNS mode for DDoS protection etc.
 
 # ============================================================================ #
 
