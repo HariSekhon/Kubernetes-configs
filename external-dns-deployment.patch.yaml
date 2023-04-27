@@ -1,0 +1,33 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2020-09-21 13:36:02 +0100 (Mon, 21 Sep 2020)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#           E x t e r n a l   D N S   D e p l o y m e n t   P a t c h
+# ============================================================================ #
+
+# Apply:
+#
+#   run: kubectl patch deploy external-dns --namespace external-dns --type json --patch "$(cat external-dns-deployment.patch.yaml)"
+
+---
+#- op: replace
+#  path: /spec/template/spec/containers/0/args/0
+#  value: --policy=sync  # XXX: Danger this could cause DELETION of existing DNS records in the zone
+
+# Option to configure Route53 DNS Zone as per the enviornment
+- op: add
+  path: /spec/template/spec/containers/0/args/1
+  value: --domain-filter=DEV.DOMAIN.COM  # XXX: Edit
