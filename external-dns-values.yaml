@@ -200,8 +200,8 @@ google:
 
 ## @param domainFilters Limit possible target zones by domain suffixes (optional)
 ##
-
 domainFilters: []
+
 ## @param excludeDomains Exclude subdomains (optional)
 ##
 excludeDomains: []
