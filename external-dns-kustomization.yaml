@@ -42,17 +42,17 @@ helmCharts:
 # XXX: if inheriting from a base override for the local environment overlay
 #patches:
 #  # override --domain-filter for dev.domain.com
-#  - target:
+#  - path: external-dns-deployment.patch.yaml
+#    target:
 #      version: v1
 #      kind: Deployment
 #      name: external-dns
 #      namespace: external-dns
-#    path: external-dns-deployment.patch.yaml
 #
 #  # add AWS IRSA credential to service account
-#  - target:
+#  - path: external-dns-serviceaccount.patch.yaml
+#    target:
 #      version: v1
 #      kind: ServiceAccount
 #      name: external-dns
 #      namespace: external-dns
-#    path: external-dns-serviceaccount.patch.yaml
