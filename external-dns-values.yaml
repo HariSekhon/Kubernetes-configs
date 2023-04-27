@@ -1,0 +1,407 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-27 16:03:07 +0100 (Thu, 27 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#               E x t e r n a l   D N S   C h a r t   V a l u e s
+# ============================================================================ #
+
+# https://github.com/kubernetes-sigs/external-dns
+
+# https://artifacthub.io/packages/helm/bitnami/external-dns
+
+# helm repo add bitnami https://charts.bitnami.com/bitnami
+#
+# helm show values bitnami/external-dns >> external-dns-values.yaml
+
+---
+clusterDomain: cluster.local  # XXX: Edit or patch override in overlay if using this as a Kustomize base
+
+#image:
+#  registry: docker.io
+#  repository: bitnami/external-dns
+#  tag: 0.13.4-debian-11-r2
+#  digest: ""
+
+#command: []
+#args: []
+
+#sources:
+#  # - crd
+#  - service
+#  - ingress
+#  # - contour-httpproxy
+
+## @param provider DNS provider where the DNS records will be created.
+## Available providers are:
+## - akamai, alibabacloud, aws, azure, azure-private-dns, cloudflare, coredns, designate, digitalocean, google, hetzner, infoblox, linode, rfc2136, transip, oci
+##
+provider: aws  # XXX: Edit
+
+containerPorts:
+  http: 7979
+
+# ============================================================================ #
+
+aws:
+  ## AWS credentials
+  ## @param aws.credentials.secretKey When using the AWS provider, set `aws_secret_access_key` in the AWS credentials (optional)
+  ## @param aws.credentials.accessKey When using the AWS provider, set `aws_access_key_id` in the AWS credentials (optional)
+  ## @param aws.credentials.mountPath When using the AWS provider, determine `mountPath` for `credentials` secret
+  ##
+  credentials:
+    secretKey: ""
+    accessKey: ""
+    ## Before external-dns 0.5.9 home dir should be `/root/.aws`
+    ##
+    mountPath: "/.aws"
+    ## @param aws.credentials.secretName Use an existing secret with key "credentials" defined.
+    ## This ignores aws.credentials.secretKey, and aws.credentials.accessKey
+    ##
+    secretName: ""
+    ## AWS access key id stored in key-value secret.
+    ## If aws.credentials.accessKeyIDSecretRef and aws.credentials.secretAccessKeySecretRef defined aws.credentials.secretKey, aws.credentials.accessKey and aws.credentials.secretName are ignored
+    ## @param aws.credentials.accessKeyIDSecretRef.name Define the name of the secret that stores aws_access_key_id.
+    ## @param aws.credentials.accessKeyIDSecretRef.key Define the key of the secret that stores aws_access_key_id.
+    ##
+    accessKeyIDSecretRef:
+      name: ""
+      key: ""
+    ## AWS secret access key stored in key-value secret
+    ## @param aws.credentials.secretAccessKeySecretRef.name Define the name of the secret that stores aws_secret_access_key
+    ## @param aws.credentials.secretAccessKeySecretRef.key Define the key of the secret that stores aws_secret_access_key
+    ##
+    secretAccessKeySecretRef:
+      name: ""
+      key: ""
+  ## @param aws.region When using the AWS provider, `AWS_DEFAULT_REGION` to set in the environment (optional)
+  ##
+  region: eu-west-2
+  ## @param aws.zoneType When using the AWS provider, filter for zones of this type (optional, options: public, private)
+  ##
+  zoneType: ""
+  ## @param aws.assumeRoleArn When using the AWS provider, assume role by specifying --aws-assume-role to the external-dns daemon
+  ##
+  assumeRoleArn: ""
+  ## @param aws.roleArn Specify role ARN to the external-dns daemon
+  ##
+  roleArn: ""
+  ## @param aws.apiRetries Maximum number of retries for AWS API calls before giving up
+  ##
+  apiRetries: 3
+  ## @param aws.batchChangeSize When using the AWS provider, set the maximum number of changes that will be applied in each batch
+  ##
+  batchChangeSize: 1000
+  ## @param aws.zonesCacheDuration If the list of Route53 zones managed by ExternalDNS doesn't change frequently, cache it by setting a TTL
+  ## (default 0 - disabled, can be set to time interval like 1m or 1h)
+  ##
+  zonesCacheDuration: 0
+  ## @param aws.zoneTags When using the AWS provider, filter for zones with these tags
+  ##
+  zoneTags: []
+  ## @param aws.preferCNAME When using the AWS provider, replaces Alias records with CNAME (options: true, false)
+  ##
+  preferCNAME: ""
+  ## @param aws.evaluateTargetHealth When using the AWS provider, sets the evaluate target health flag (options: true, false)
+  ##
+  evaluateTargetHealth: ""
+
+# ============================================================================ #
+
+azure:
+  ## When a secret to load azure.json is not specified, the host's /etc/kubernetes/azure.json will be used
+  ## @param azure.secretName When using the Azure provider, set the secret containing the `azure.json` file
+  ##
+  secretName: ""
+  ## @param azure.cloud When using the Azure provider, set the Azure Cloud
+  ##
+  cloud: ""
+  ## @param azure.resourceGroup When using the Azure provider, set the Azure Resource Group
+  ##
+  resourceGroup: ""
+  ## @param azure.tenantId When using the Azure provider, set the Azure Tenant ID
+  ##
+  tenantId: ""
+  ## @param azure.subscriptionId When using the Azure provider, set the Azure Subscription ID
+  ##
+  subscriptionId: ""
+  ## @param azure.aadClientId When using the Azure provider, set the Azure AAD Client ID
+  ##
+  aadClientId: ""
+  ## @param azure.aadClientSecret When using the Azure provider, set the Azure AAD Client Secret
+  ##
+  aadClientSecret: ""
+  ## @param azure.useManagedIdentityExtension When using the Azure provider, set if you use Azure MSI
+  ##
+  useManagedIdentityExtension: false
+  ## @param azure.userAssignedIdentityID When using the Azure provider with Azure MSI, set Client ID of Azure user-assigned managed identity (optional, otherwise system-assigned managed identity is used)
+  ##
+  userAssignedIdentityID: ""
+
+# ============================================================================ #
+
+cloudflare:
+  ## @param cloudflare.apiToken When using the Cloudflare provider, `CF_API_TOKEN` to set (optional)
+  ##
+  apiToken: ""
+  ## @param cloudflare.apiKey When using the Cloudflare provider, `CF_API_KEY` to set (optional)
+  ##
+  apiKey: ""
+  ## @param cloudflare.secretName When using the Cloudflare provider, it's the name of the secret containing cloudflare_api_token or cloudflare_api_key.
+  ## This ignores cloudflare.apiToken, and cloudflare.apiKey
+  ##
+  secretName: ""
+  ## @param cloudflare.email When using the Cloudflare provider, `CF_API_EMAIL` to set (optional). Needed when using CF_API_KEY
+  ##
+  email: ""
+  ## @param cloudflare.proxied When using the Cloudflare provider, enable the proxy feature (DDOS protection, CDN...) (optional)
+  ##
+  proxied: true
+
+# ============================================================================ #
+
+google:
+  ## @param google.project When using the Google provider, specify the Google project (required when provider=google)
+  ##
+  project: ""
+  ## @param google.batchChangeSize When using the google provider, set the maximum number of changes that will be applied in each batch
+  ##
+  batchChangeSize: 1000
+  ## @param google.serviceAccountSecret When using the Google provider, specify the existing secret which contains credentials.json (optional)
+  ##
+  serviceAccountSecret: ""
+  ## @param google.serviceAccountSecretKey When using the Google provider with an existing secret, specify the key name (optional)
+  ##
+  serviceAccountSecretKey: "credentials.json"
+  ## @param google.serviceAccountKey When using the Google provider, specify the service account key JSON file. In this case a new secret will be created holding this service account (optional)
+  ##
+  serviceAccountKey: ""
+  ## @param google.zoneVisibility When using the Google provider, fiter for zones of a specific visibility (private or public)
+  ##
+  zoneVisibility: ""
+
+# ============================================================================ #
+
+## @param domainFilters Limit possible target zones by domain suffixes (optional)
+##
+domainFilters: []
+## @param excludeDomains Exclude subdomains (optional)
+##
+excludeDomains: []
+## @param regexDomainFilter Limit possible target zones by regex domain suffixes (optional)
+## If regexDomainFilter is specified, domainFilters will be ignored
+##
+regexDomainFilter: ""
+## @param regexDomainExclusion Exclude subdomains by using regex pattern (optional)
+## If regexDomainFilter is specified, excludeDomains will be ignored and external-dns will use regexDomainExclusion even though regexDomainExclusion is empty
+##
+regexDomainExclusion: ""
+## @param zoneNameFilters Filter target zones by zone domain (optional)
+##
+zoneNameFilters: []
+## @param zoneIdFilters Limit possible target zones by zone id (optional)
+##
+zoneIdFilters: []
+## @param annotationFilter Filter sources managed by external-dns via annotation using label selector (optional)
+##
+annotationFilter: ""
+## @param labelFilter Select sources managed by external-dns using label selector (optional)
+##
+labelFilter: ""
+## @param dryRun When enabled, prints DNS record changes rather than actually performing them (optional)
+##
+dryRun: false
+## @param triggerLoopOnEvent When enabled, triggers run loop on create/update/delete events in addition to regular interval (optional)
+##
+triggerLoopOnEvent: false
+## @param interval Interval update period to use
+##
+interval: "1m"
+## @param logLevel Verbosity of the logs (options: panic, debug, info, warning, error, fatal, trace)
+##
+logLevel: info
+## @param logFormat Which format to output logs in (options: text, json)
+##
+logFormat: text
+## @param policy Modify how DNS records are synchronized between sources and providers (options: sync, upsert-only )
+##
+policy: upsert-only
+## @param registry Registry method to use (options: txt, aws-sd, noop)
+## ref: https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
+##
+registry: "txt"
+## @param txtPrefix When using the TXT registry, a prefix for ownership records that avoids collision with CNAME entries (optional)<CNAME record> (Mutual exclusive with txt-suffix)
+##
+txtPrefix: ""
+## @param txtSuffix When using the TXT registry, a suffix for ownership records that avoids collision with CNAME entries (optional)<CNAME record>.suffix (Mutual exclusive with txt-prefix)
+##
+txtSuffix: ""
+## @param txtOwnerId A name that identifies this instance of ExternalDNS. Currently used by registry types: txt & aws-sd (optional)
+## But other registry types might be added in the future.
+##
+txtOwnerId: ""
+## @param forceTxtOwnerId (backward compatibility) When using the non-TXT registry, it will pass the value defined by `txtOwnerId` down to the application (optional)
+## This setting added for backward compatibility for
+## customers who already used bitnami/external-dns helm chart
+## to privision 'aws-sd' registry type.
+## Previously bitnami/external-dns helm chart did not pass
+## txtOwnerId value down to the external-dns application
+## so the app itself sets that value to be a string 'default'.
+## If existing customers force the actual txtOwnerId value to be
+## passed properly, their external-dns updates will stop working
+## because the owner's value for exting DNS records in
+## AWS Service Discovery would remain 'default'.
+## NOTE: It is up to the end user to update AWS Service Discovery
+## 'default' values in description fields to make it work with new
+## value passed as txtOwnerId when forceTxtOwnerId=true
+##
+forceTxtOwnerId: false
+
+extraArgs: {}
+
+extraEnvVars: []
+
+replicaCount: 1
+
+priorityClassName: ""
+
+crd:
+  ## @param crd.create Install and use the integrated DNSEndpoint CRD
+  ##
+  create: false  # XXX: Edit
+  ## @param crd.apiversion Sets the API version for the CRD to watch
+  ##
+  apiversion: ""
+  ## @param crd.kind Sets the kind for the CRD to watch
+  ##
+  kind: ""
+
+service:
+  enabled: true
+  type: ClusterIP
+  ports:
+    http: 7979
+
+serviceAccount:
+  create: true
+  ## @param serviceAccount.name ServiceAccount to use. A name is generated using the external-dns.fullname template if it is not set
+  ##
+  name: ""
+  annotations: {}
+  automountServiceAccountToken: true
+  labels: {}
+
+rbac:
+  ## @param rbac.create Whether to create & use RBAC resources or not
+  ##
+  create: true
+  ## @param rbac.clusterRole Whether to create Cluster Role. When set to false creates a Role in `namespace`
+  ##
+  clusterRole: true
+  ## @param rbac.apiVersion Version of the RBAC API
+  ##
+  apiVersion: v1
+  ## @param rbac.pspEnabled Whether to create a PodSecurityPolicy. WARNING: PodSecurityPolicy is deprecated in Kubernetes v1.21 or later, unavailable in v1.25 or later
+  ##
+  pspEnabled: false
+
+containerSecurityContext:
+  #securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: ["ALL"]
+
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+  runAsUser: 1001
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 300Mi
+  limits:
+    cpu: 500m
+    memory: 300Mi
+
+podDisruptionBudget: {}
+
+## Prometheus Exporter / Metrics
+##
+metrics:
+  ## @param metrics.enabled Enable prometheus to access external-dns metrics endpoint
+  ##
+  enabled: false
+  ## @param metrics.podAnnotations Annotations for enabling prometheus to access the metrics endpoint
+  ##
+  podAnnotations: {}
+  ## Prometheus Operator ServiceMonitor configuration
+  ##
+  serviceMonitor:
+    ## @param metrics.serviceMonitor.enabled Create ServiceMonitor object
+    ##
+    enabled: false
+    ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
+    ##
+    namespace: ""
+    ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
+    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
+    ##
+    interval: ""
+    ## @param metrics.serviceMonitor.scrapeTimeout Timeout after which the scrape is ended
+    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
+    ##
+    scrapeTimeout: ""
+    ## @param metrics.serviceMonitor.selector Additional labels for ServiceMonitor object
+    ## ref: https://github.com/bitnami/charts/tree/main/bitnami/prometheus-operator#prometheus-configuration
+    ## e.g:
+    ## selector:
+    ##   prometheus: my-prometheus
+    ##
+    selector: {}
+    ## @param metrics.serviceMonitor.metricRelabelings Specify Metric Relabelings to add to the scrape endpoint
+    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#relabelconfig
+    ##
+    metricRelabelings: []
+    ## @param metrics.serviceMonitor.relabelings [array] Prometheus relabeling rules
+    ##
+    relabelings: []
+    ## @param metrics.serviceMonitor.honorLabels Specify honorLabels parameter to add the scrape endpoint
+    ##
+    honorLabels: false
+    ## DEPRECATED metrics.serviceMonitor.additionalLabels will be removed in a future release - Please use metrics.serviceMonitor.labels instead
+    ## @param metrics.serviceMonitor.labels Used to pass Labels that are required by the installed Prometheus Operator
+    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
+    ##
+    labels: {}
+    ## @param metrics.serviceMonitor.jobLabel The name of the label on the target service to use as the job name in prometheus.
+    ##
+    jobLabel: ""
+  ## Google Managed Prometheus PodMonitor configuration
+  ##
+  googlePodMonitor:
+    ## @param metrics.googlePodMonitor.enabled Create Google Managed Prometheus PodMonitoring object
+    ##
+    enabled: false
+    ## @param metrics.googlePodMonitor.namespace Namespace in which PodMonitoring created
+    ##
+    namespace: ""
+    ## @param metrics.googlePodMonitor.interval Interval at which metrics should be scraped by Google Managed Prometheus
+    ##
+    interval: "60s"
+    ## @param  metrics.googlePodMonitor.endpoint The endpoint for Google Managed Prometheus scraping the metrics
+    ##
+    endpoint: /metrics
