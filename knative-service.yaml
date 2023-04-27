@@ -36,7 +36,7 @@ spec:
               value: "World"
               #value: "Knative"  # editing and re-applying will generate a new revision
 
-	# split traffic 50/50 between 2 revisions
+  # split traffic 50/50 between 2 revisions
   #traffic:
   #- latestRevision: true
   #  percent: 50
