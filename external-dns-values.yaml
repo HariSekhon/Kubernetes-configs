@@ -27,6 +27,10 @@
 # helm show values bitnami/external-dns >> external-dns-values.yaml
 
 ---
+dryRun: true  # XXX: Edit to false once you've verified the external-dns pod logs of what it will do
+
+policy: upsert-only  # XXX: or 'sync' - DANGER - sync will delete DNS records from DNS zone, could wipe out existing DNS records - test this wth 'dryRun: true' above
+
 clusterDomain: cluster.local  # XXX: Edit or patch override in overlay if using this as a Kustomize base
 
 #image:
@@ -196,62 +200,72 @@ google:
 
 ## @param domainFilters Limit possible target zones by domain suffixes (optional)
 ##
+
 domainFilters: []
 ## @param excludeDomains Exclude subdomains (optional)
 ##
 excludeDomains: []
+
 ## @param regexDomainFilter Limit possible target zones by regex domain suffixes (optional)
 ## If regexDomainFilter is specified, domainFilters will be ignored
 ##
 regexDomainFilter: ""
+
 ## @param regexDomainExclusion Exclude subdomains by using regex pattern (optional)
 ## If regexDomainFilter is specified, excludeDomains will be ignored and external-dns will use regexDomainExclusion even though regexDomainExclusion is empty
 ##
 regexDomainExclusion: ""
+
 ## @param zoneNameFilters Filter target zones by zone domain (optional)
 ##
 zoneNameFilters: []
+
 ## @param zoneIdFilters Limit possible target zones by zone id (optional)
 ##
 zoneIdFilters: []
+
 ## @param annotationFilter Filter sources managed by external-dns via annotation using label selector (optional)
 ##
 annotationFilter: ""
+
 ## @param labelFilter Select sources managed by external-dns using label selector (optional)
 ##
 labelFilter: ""
-## @param dryRun When enabled, prints DNS record changes rather than actually performing them (optional)
-##
-dryRun: false
+
 ## @param triggerLoopOnEvent When enabled, triggers run loop on create/update/delete events in addition to regular interval (optional)
 ##
 triggerLoopOnEvent: false
+
 ## @param interval Interval update period to use
 ##
 interval: "1m"
+
 ## @param logLevel Verbosity of the logs (options: panic, debug, info, warning, error, fatal, trace)
 ##
 logLevel: info
+
 ## @param logFormat Which format to output logs in (options: text, json)
 ##
 logFormat: text
-## @param policy Modify how DNS records are synchronized between sources and providers (options: sync, upsert-only )
-##
-policy: upsert-only
+
 ## @param registry Registry method to use (options: txt, aws-sd, noop)
 ## ref: https://github.com/kubernetes-sigs/external-dns/blob/master/docs/proposal/registry.md
 ##
 registry: "txt"
+
 ## @param txtPrefix When using the TXT registry, a prefix for ownership records that avoids collision with CNAME entries (optional)<CNAME record> (Mutual exclusive with txt-suffix)
 ##
 txtPrefix: ""
+
 ## @param txtSuffix When using the TXT registry, a suffix for ownership records that avoids collision with CNAME entries (optional)<CNAME record>.suffix (Mutual exclusive with txt-prefix)
 ##
 txtSuffix: ""
+
 ## @param txtOwnerId A name that identifies this instance of ExternalDNS. Currently used by registry types: txt & aws-sd (optional)
 ## But other registry types might be added in the future.
 ##
 txtOwnerId: ""
+
 ## @param forceTxtOwnerId (backward compatibility) When using the non-TXT registry, it will pass the value defined by `txtOwnerId` down to the application (optional)
 ## This setting added for backward compatibility for
 ## customers who already used bitnami/external-dns helm chart
