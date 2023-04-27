@@ -332,7 +332,7 @@ rbac:
   pspEnabled: false
 
 containerSecurityContext:
-  #securityContext:
+  runAsNonRoot: true
   allowPrivilegeEscalation: false
   readOnlyRootFilesystem: true
   capabilities:
