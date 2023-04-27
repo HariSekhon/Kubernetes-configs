@@ -160,9 +160,9 @@ clusterAPIWorkloadKubeconfigPath: /etc/kubernetes/value
 
 # containerSecurityContext -- [Security context for container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 containerSecurityContext:
-   capabilities:
-     drop:
-     - ALL
+  capabilities:
+    drop:
+      - ALL
 
 deployment:
   # deployment.annotations -- Annotations to add to the Deployment object.
@@ -338,12 +338,12 @@ rbac:
 replicaCount: 1
 
 resources:
-   limits:
-     cpu: 100m
-     memory: 300Mi
-   requests:
-     cpu: 100m
-     memory: 300Mi
+  limits:
+    cpu: 100m
+    memory: 300Mi
+  requests:
+    cpu: 100m
+    memory: 300Mi
 
 # securityContext -- [Security context for pod](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 securityContext:
