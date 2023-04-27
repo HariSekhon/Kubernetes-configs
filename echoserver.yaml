@@ -23,6 +23,7 @@
 # Apply also:
 #
 #   kong-ingress-echoserver.yaml
+#   ingress-nginx-echoserver.yaml
 #   haproxy-ingress-echoserver.yaml
 
 ---
