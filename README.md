@@ -77,7 +77,7 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - App Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) - `argocd-*.yaml`
 - App Ingresses - [ingress.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/ingress.yaml), `*-ingress.yaml`
 - App Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- App Right-sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) - `goldilocks-*.yaml` to generate VPAs and resource recommendations
+- App Right-Sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) - `goldilocks-*.yaml` to generate VPAs and resource recommendations
 - DNS - [External DNS](https://github.com/kubernetes-sigs/external-dns) integration to AWS Route53, Cloudflare etc. - `external-dns-*.yaml`
 - Secrets - [External Secrets](https://github.com/external-secrets/external-secrets) integration to AWS Secrets Manager, GCP Secret Manager etc. - `external-secrets-*.yaml` or [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) `sealed-secrets-*.yaml`
 - Network Policies - [network-policy.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/network-policy.yaml)
