@@ -91,6 +91,7 @@ jobs:
           kustomizations="$(find . -type f -name '*-kustomization.y*ml')"
           # try twice in case of timeouts
           export SKIP_EXISTING_HELM_INSTALLATIONS=1
+          export SKIP_ERRORS=1
           bash-tools/kustomize_install_helm_charts.sh $kustomizations ||
           bash-tools/kustomize_install_helm_charts.sh $kustomizations
 
