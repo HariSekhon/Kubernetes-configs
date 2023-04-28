@@ -86,7 +86,7 @@ jobs:
 
       - uses: ./.github/actions/install-kustomize
 
-      - name: Install Helm Charts found in all kustomization.yaml files
+      - name: 'Install Helm Charts found in all *-kustomization.yaml files'
         run: |
           kustomizations="$(find . -type f -name '*-kustomization.y*ml')"
           # try twice in case of timeouts
