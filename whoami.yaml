@@ -32,12 +32,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: whoami
+  namespace: whoami
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
     ingress.kubernetes.io/force-ssl-redirect: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: web
     traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.tls.certresolver: le
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 spec:
   ingressClassName: traefik
   tls:
@@ -64,6 +65,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: whoamiv1
+  namespace: whoami
 spec:
   entryPoints:
     - websecure
@@ -83,6 +85,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: whoamiv2
+  namespace: whoami
 spec:
   entryPoints:
     - websecure
@@ -115,7 +118,7 @@ spec:
           name: weighted-whoami
           namespace: app
   tls:
-    certResolver: le
+    certResolver: letsencrypt
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
