@@ -50,7 +50,7 @@ namespace: argocd
 #
 resources:
   #- https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.1.7/manifests/ha/install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.6.7/manifests/ha/install.yaml
   - argocd-namespace.yaml
   - argocd-self.yaml  # GitOps self-management tracking of ArgoCD config itself
   # XXX: Edit ingress address before uncommenting

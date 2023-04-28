@@ -87,6 +87,7 @@ spec:
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
+    # needed to deploy metrics-server to EKS
     - group: apiregistration.k8s.io
       kind: APIService
     - group: cert-manager.io

@@ -86,7 +86,12 @@ jobs:
 
       - uses: ./.github/actions/install-kustomize
 
-      - uses: ./.github/actions/kustomizations-install
+      - name: Install Helm Charts found in all kustomization.yaml files
+        run: |
+          kustomizations="$(find . -type f -name '*-kustomization.y*ml')"
+          # try twice in case of timeouts
+          bash-tools/kustomize_install_helm_charts.sh $kustomizations ||
+          bash-tools/kustomize_install_helm_charts.sh $kustomizations
 
       - name: Nova Find
         run: nova find --wide --format=table
