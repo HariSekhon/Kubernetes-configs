@@ -1,0 +1,136 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-29 19:11:35 +0100 (Sat, 29 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#               T r a e f i k   H e l m   C h a r t   V a l u e s
+# ============================================================================ #
+
+# helm repo add traefik https://helm.traefik.io/traefik
+#
+# helm show values traefik/hub-agent  >> traefik-hub-values.yaml
+
+---
+tokenSecretRef:
+  name: traefik-hub-token
+  key: token
+
+# XXX: must match traefik proxy installation namespace
+traefikNamespace: traefik
+
+controllerDeployment:
+  # Additional deployment annotations
+  annotations:
+    hub.traefik.io/ingress-controller: none
+  # Additional deployment labels
+  labels: {}
+  # Additional pods annotations
+  podAnnotations: {}
+  # Additional pods labels
+  podLabels: {}
+  # Traefik Proxy configuration
+  traefik: {}
+    # metricsURL: http://traefik-hub.$(POD_NAMESPACE).svc.cluster.local:9100/metrics
+
+  args:
+    - --log-level=debug
+  # env:
+  #   - name: "LOG_LEVEL"
+  #     value: "trace"
+
+authServerDeployment:
+  # Number of replicas
+  replicas: 3
+  # Additional deployment annotations
+  annotations:
+    hub.traefik.io/ingress-controller: none
+  # Additional deployment labels
+  labels: {}
+  # Additional pods annotations
+  podAnnotations: {}
+  # Additional pods labels
+  podLabels: {}
+  args:
+    - --log-level=debug
+
+tunnelDeployment:
+  # Number of replicas
+  replicas: 1
+  # Additional deployment annotations
+  annotations:
+    hub.traefik.io/ingress-controller: none
+  # Additional deployment labels
+  labels: {}
+  # Additional pods annotations
+  podAnnotations: {}
+  # Additional pods labels
+  podLabels: {}
+  # Traefik Proxy tunnel configuration
+  traefik:
+    tunnelPort: 9901
+    # tunnelHost: traefik-hub.$(POD_NAMESPACE).svc.cluster.local
+  args:
+    - --log-level=debug
+
+devPortalDeployment:
+  # Number of replicas
+  replicas: 3
+  # Additional deployment annotations
+  annotations:
+    hub.traefik.io/ingress-controller: none
+  # Additional deployment labels
+  labels: {}
+  # Additional pods annotations
+  podAnnotations: {}
+  # Additional pods labels
+  podLabels: {}
+  args:
+    - --log-level=debug
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 50Mi
+  limits:
+    cpu: 300m
+    memory: 150Mi
+
+affinity: {}
+
+nodeSelector: {}
+tolerations: []
+
+serviceAccount:
+  name: ""
+  # If set, an existing service account is used
+  # If not set, a service account is created automatically using the fullname template
+  annotations: {}
+
+service:
+  # Additional service annotations
+  annotations: {}
+  # Additional service labels
+  labels: {}
+
+catchAllService:
+  externalName: hub.traefik.io
+
+admissionWebhook:
+  # The webhook certificate validity duration in days (100 years by default)
+  certValidity: 36525
+
+# When set to true, it will remove Helm specific labels
+# It's usefull for generating clean Yaml on a GitOps setup
+withoutHelmLabels: false
