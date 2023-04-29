@@ -30,8 +30,13 @@ spec:
   # XXX: Edit
   path: ./path/to/cluster
   prune: true
+  wait: true
   sourceRef:
     kind: GitRepository
     # XXX: Edit - should match fluxcd-repo.yaml
-    name: v2
+    name: NAME
+  # depend on other kustomize.toolkit.fluxcd.io/v1beta1 Kustomization
+  #dependsOn:
+  #  - name: sources
+  #  - name: crds
   validation: client  # client or server
