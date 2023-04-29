@@ -15,7 +15,7 @@
 #
 
 # ============================================================================ #
-#                      F l u x C D   v 2   G i t   R e p o
+#                F l u x C D v 2   G i t   /   H e l m   r e p o
 # ============================================================================ #
 
 ---
@@ -27,7 +27,7 @@ metadata:
   name: NAME
   namespace: flux-system
 spec:
-  interval: 30s
+  interval: 1m
   ref:
     # XXX: Edit
     branch: master
