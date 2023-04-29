@@ -47,7 +47,8 @@ metadata:
   name: traefik-dashboard
   namespace: traefik
   labels:
-    app: APP
+    app.kubernetes.io/instance: traefik-traefik  # doubled up because of helm kustomize name
+    app.kubernetes.io/name: traefik-dashboard
 spec:
   type: ClusterIP
   selector:
