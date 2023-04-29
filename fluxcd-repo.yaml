@@ -21,6 +21,7 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
+#kind: HelmRepository
 metadata:
   # XXX: Edit
   name: NAME
@@ -31,4 +32,7 @@ spec:
     # XXX: Edit
     branch: master
   # XXX: Edit
+  # Git repository
   url: https://github.com/HariSekhon/Kubernetes-configs
+  # Helm repository
+  # url: https://helm.traefik.io/traefik
