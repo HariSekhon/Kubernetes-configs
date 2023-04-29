@@ -27,12 +27,36 @@ metadata:
   namespace: NAMESPACE  # XXX: Edit
 spec:
   weighted:
+    #sticky:
+    #  cookie:
+    #    name: level1
     services:
       - name: NAMEv1
         port: 80
         namespace: NAMESPACE  # XXX: Edit
         weight: 5
+        #sticky:
+        #  cookie:
+        #    httpOnly: false
+        #    name: level2
+        #    secure: true
+        #    sameSite: strict
       - name: NAMEv2
         port: 80
         weight: 1
         namespace: NAMESPACE  # XXX: Edit
+        #sticky:
+        #  cookie:
+        #    httpOnly: false
+        #    name: level2
+        #    secure: true
+        #    sameSite: strict
+  #mirroring:
+  #  name: NAMEv1  # main service
+  #  port: 80
+  #  namespace: NAMESPACE
+  #  mirrors:
+  #    - name: NAMEv2  # mirrored service - check logs/metrics of how this app behaves, its responses are not routed back to the client
+  #      port: 80
+  #      namespace: NAMESPACE
+  #      percent: 50
