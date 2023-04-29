@@ -1,0 +1,40 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-29 01:46:15 +0100 (Sat, 29 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                 T r a e f i k   S e r v i c e   M o n i t o r
+# ============================================================================ #
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name:  traefik
+  namespace: default
+  labels:
+    app: traefik
+    release: prometheus-stack
+spec:
+  jobLabel: traefik-metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: traefik-traefik  # doubled up because of helm kustomize name
+      app.kubernetes.io/name: traefik-dashboard
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+    - port: traefik
+      path: /metrics
