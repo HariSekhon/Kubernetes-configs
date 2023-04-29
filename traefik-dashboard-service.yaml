@@ -25,7 +25,9 @@
 #
 # instead of:
 #
-#     kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000
+#     kubectl port-forward -n traefik $(kubectl get pods -n traefik --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000
+#       or
+#     kubectl port-forward -n traefik deploy/traefik 9000:9000
 #
 # Makefile:
 #
