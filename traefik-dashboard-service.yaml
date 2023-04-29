@@ -21,7 +21,7 @@
 
 # Makes it easier to do this:
 #
-#   	kubectl port-forward -n traefik svc/traefik-dashboard 9000:9000
+#     kubectl port-forward -n traefik svc/traefik-dashboard 9000:9000
 #
 # instead of:
 #
@@ -29,15 +29,16 @@
 #
 # Makefile:
 #
-#			TUNNEL_CMD := kubectl port-forward -n traefik svc/traefik-dashboard 9000:9000
+#     TUNNEL_CMD := kubectl port-forward -n traefik svc/traefik-dashboard 9000:9000
 #
-#			default: tunnel
-#							sleep 2
-#							open http://localhost:9000/dashboard/
+#     default: tunnel
+#             sleep 2
+#             # dashboard requires trailing slash / to work
+#             open http://localhost:9000/dashboard/
 #
-#			tunnel:
-#							pkill -f '$(TUNNEL_CMD)' || :
-#							$(TUNNEL_CMD) &
+#     tunnel:
+#             pkill -f '$(TUNNEL_CMD)' || :
+#             $(TUNNEL_CMD) &
 
 ---
 apiVersion: v1
