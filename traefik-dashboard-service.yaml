@@ -19,7 +19,7 @@
 #               T r a e f i k   D a s h b o a r d   S e r v i c e
 # ============================================================================ #
 
-# Makes it easier to do this:
+# Used to expose metrics to Prometheus or to make it easier to kubectl port-forward:
 #
 #     kubectl port-forward -n traefik svc/traefik-dashboard 9000:9000
 #
