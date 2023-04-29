@@ -1,0 +1,67 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-29 02:33:42 +0100 (Sat, 29 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#           T r a e f i k   H e a l t h c h e c k   C o n f i g M a p
+# ============================================================================ #
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traefik-configs
+  namespace: traefik
+data:
+  dynamic.yaml: |
+    http:
+      services:
+        whoami-public:
+          weighted:
+            healthcheck: {}
+            services:
+            - name: whoami-dc1
+              weight: 3
+            - name: whoami-dc2
+              weight: 1
+
+        whoami-dc1:
+          loadBalancer:
+            servers:
+              - url: "http://whoamiv1.app.svc.cluster.local:80"
+            healthCheck:
+              scheme: http
+              interval: 2s
+              timeout: 1s
+              path: /ping
+
+        whoami-dc2:
+          loadBalancer:
+            servers:
+              - url: "http://whoamiv2.app.svc.cluster.local:80"
+            healthCheck:
+              scheme: http
+              interval: 2s
+              timeout: 1s
+              path: /ping
+
+      routers:
+        whoami-router:
+          entryPoints:
+            - websecure
+          rule: Host(`<MY_DOMAIN>`)
+          service: whoami-public
+          tls:
+            certResolver: letsencrypt
