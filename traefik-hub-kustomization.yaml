@@ -19,7 +19,15 @@
 #               T r a e f i k   H u b   K u s t o m i z a t i o n
 # ============================================================================ #
 
-# https://github.com/traefik/traefik-helm-chart
+# https://github.com/traefik/hub-helm-chart
+
+# Requires a Traefik Hub token which you can get from this page:
+#
+#   https://hub.traefik.io/agents/new
+#
+# and must put into a secret like so to match the values file setting:
+#
+#   kubectl create secret generic traefik-hub-token --from-literal=token="$TRAEFIK_HUB_TOKEN"
 
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
