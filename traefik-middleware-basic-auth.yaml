@@ -25,4 +25,6 @@ metadata:
   name: test-auth  # XXX: Edit
 spec:
   basicAuth:
-    secret: admin-secret  # XXX: Edit
+    # htpasswd -nBb someuser somepass > auth
+    # kubectl create secret generic htpasswd-secret --from-file=auth
+    secret: htpasswd-secret  # XXX: Edit
