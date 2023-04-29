@@ -87,7 +87,7 @@ podDisruptionBudget:
 
 # Use ingressClass. Ignored if Traefik version < 2.3 / kubernetes < 1.18.x
 ingressClass:
-  enabled: false  # ERROR: You must have at least networking.k8s.io/v1beta1 to use ingressClass
+  enabled: true  # set to false if get 'ERROR: You must have at least networking.k8s.io/v1beta1 to use ingressClass'
   isDefaultClass: false
 
 # Activate Pilot integration
@@ -398,7 +398,12 @@ service:
   enabled: true
   type: LoadBalancer
   # Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
-  annotations: {}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"  # XXX: only available via VPN to internal networks
   # Additional annotations for TCP service only
   annotationsTCP: {}
   # Additional annotations for UDP service only
@@ -411,9 +416,10 @@ service:
     # externalTrafficPolicy: Cluster
     # loadBalancerIP: "1.2.3.4"
     # clusterIP: "2.3.4.5"
-  loadBalancerSourceRanges: []
-    # - 192.168.0.1/32
-    # - 172.16.0.0/16
+  loadBalancerSourceRanges:
+    - 192.168.0.0/16
+    - 172.16.0.0/12
+    - 10.0.0.0/8
   externalIPs: []
     # - 1.2.3.4
   # One of SingleStack, PreferDualStack, or RequireDualStack.
