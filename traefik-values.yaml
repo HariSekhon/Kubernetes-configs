@@ -267,6 +267,8 @@ additionalArguments: []
 #  - "--providers.kubernetesingress.ingressclass=traefik-internal"
 #  - "--log.level=DEBUG"
   #
+  # Shouldn't need this if you've got Cert Manager installed
+  #
   #- "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
   #- "--certificatesresolvers.letsencrypt.acme.email=<FIXME>"
   #- "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
