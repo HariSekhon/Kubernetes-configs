@@ -191,7 +191,7 @@ patches:
 
   # label app.kubernetes.io/instance=cert-manager causes warnings for all 6 Cert Manager CRDs in ArgoCD, eg:
   #
-  #  SharedResourceWarning 	CustomResourceDefinition/certificaterequests.cert-manager.io is part of applications cert-manager-production and cert-manager
+  #  SharedResourceWarning  CustomResourceDefinition/certificaterequests.cert-manager.io is part of applications cert-manager-production and cert-manager
   #
   #   https://github.com/argoproj/argo-cd/issues/6728
   #
@@ -255,3 +255,6 @@ configMapGenerator:
     literals:
       - env=dev
       - version=latest
+
+#configurations:
+#  - kustomizeconfig.yaml
