@@ -29,6 +29,7 @@ namespace: traefik  # XXX: 4 objects without explicit namespace as shown by kust
 resources:
   - traefik-namespace.yaml
   - traefik-dashboard-service.yaml
+  - traefik-dashboard-basic-auth.yaml
   # XXX: for quickly testing Traefik
   #- whoami.yaml
 
