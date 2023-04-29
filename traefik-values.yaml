@@ -182,6 +182,7 @@ volumes: []
 # - name: public-cert
 #   mountPath: "/certs"
 #   type: secret
+# XXX: for nested healthchecks traefik-healthchecks-configmap.yaml
 # - name: '{{ printf "%s-configs" .Release.Name }}'
 #   mountPath: "/config"
 #   type: configMap
