@@ -30,7 +30,7 @@ apiVersion: helm.cattle.io/v1
 kind: HelmChart
 metadata:
   name: NAME  # XXX: Edit
-  namespace: NAMESPACE  # XXX: Edit
+  namespace: helm-charts  # deploy to a different namespace than the app for separation
 spec:
   repo: REPO  # XXX: Edit
   chart: CHART_NAME  # XXX: Edit
