@@ -21,8 +21,8 @@
 apiVersion: helm.cattle.io/v1
 kind: HelmChartConfig
 metadata:
-  name: traefik
-  namespace: kube-system
+  name: NAME  # XXX: Edit eg. traefik
+  namespace: NAMESPACE  # XXX: Edit
 spec:
   valuesContent: |-
     rbac:
