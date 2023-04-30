@@ -21,7 +21,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name:  traefik
+  name: traefik
   namespace: default
   labels:
     app: traefik
