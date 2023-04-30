@@ -32,10 +32,10 @@ spec:
         name: traefik
         namespace: flux-system
   valuesFrom:
-		- kind: ConfigMap
-			name: traefik-values
-			valuesKey: traefik-values.yaml
-			optional: true
+    - kind: ConfigMap
+      name: traefik-values
+      valuesKey: traefik-values.yaml
+      optional: true
   interval: 1h
   releaseName: traefik
   targetNamespace: traefik
