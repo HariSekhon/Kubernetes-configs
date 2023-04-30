@@ -30,7 +30,7 @@ apiVersion: helm.cattle.io/v1
 kind: HelmChart
 metadata:
   name: traefik
-  namespace: kube-system
+  namespace: helm-charts  # deploy to a different namespace than the app for separation
 spec:
   repo: https://helm.traefik.io/traefik
   chart: traefik
