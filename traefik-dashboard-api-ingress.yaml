@@ -1,0 +1,57 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-30 00:56:00 +0100 (Sun, 30 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#           T r a e f i k   D a s h b o a r d   A P I   I n g r e s s
+# ============================================================================ #
+
+# Needed to give a longer more specific ingress route match for /api to avoid traefik-dashboard-add-prefix@kubernetescrd  middleware on the basic dashboard ingress from breaking API calls from the dashboard back to the API
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-dashboard-api
+  namespace: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+
+    #kubernetes.io/ingress.class: traefik  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    #hub.traefik.io/access-control-policy: my-policy  # configured on Traefik Hub: https://hub.traefik.io/acp
+    #traefik.ingress.kubernetes.io/router.middlewares: traefik-dashboard-basic-auth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - traefik.DOMAIN.COM  # XXX: Edit
+      secretName: traefik-dashboard-tls
+  rules:
+    - host: traefik.DOMAIN.COM  # XXX: Edit
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: traefik-dashboard
+                port:
+                  number: 9000
+                  #name: traefik  # XXX: Traefik can't pick this up
