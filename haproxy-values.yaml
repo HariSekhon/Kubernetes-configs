@@ -176,7 +176,7 @@ controller:
     #rate-limit-interval: "10s"
     #rate-limit-size: "100k"
     stats-config-snippet: |
-      bind *:1936
+      #bind *:1936  # doesn't seem to make any difference, it binds on port 1024
       mode   http
       option httplog
       stats enable
