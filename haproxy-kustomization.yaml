@@ -33,6 +33,7 @@ kind: Kustomization
 resources:
   - haproxy-namespace.yaml
   - haproxy-stats-service.yaml
+  - haproxy-stats-ingress.yaml
   #- haproxy-global.yaml
   #- haproxy-defaults.yaml
   #- haproxy-backend.yaml
