@@ -30,7 +30,9 @@ resources:
   - traefik-namespace.yaml
   - traefik-dashboard-service.yaml
   - traefik-dashboard-basic-auth.yaml
-  #- traefik-dashboard-ingress.yaml  # or use IngressRoute
+  - traefik-dashboard-ingress.yaml  # or use IngressRoute
+  - traefik-dashboard-api-ingress.yaml
+  - traefik-dashboard-add-prefix.yaml
   # XXX: for quickly testing Traefik
   #- whoami.yaml
 
