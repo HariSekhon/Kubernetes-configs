@@ -1,0 +1,36 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-30 18:17:49 +0100 (Sun, 30 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                  T r a e f i k   D a s h b o a r d   C e r t
+# ============================================================================ #
+
+# Needed for Traefik Ingressroutes because Cert Manager won't automatically generate the certs for them
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-dashboard
+  namespace: traefik
+spec:
+  secretName: traefik-dashboard-tls
+  dnsNames:
+    - traefik.DOMAIN.COM  # XXX: Edit
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt
