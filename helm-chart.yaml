@@ -25,6 +25,7 @@
 
 # cp to /var/lib/rancher/k3s/server/manifests/some-helm.yaml
 
+# https://docs.k3s.io/helm#helmchart-field-definitions
 ---
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
@@ -35,9 +36,10 @@ spec:
   repo: REPO  # XXX: Edit
   chart: CHART_NAME  # XXX: Edit
   version: VERSION  # XXX: Edit
+  targetNamespace: NAMESPACE  # XXX: Edit
   set:
     global.systemDefaultRegistry: ""
 	# XXX: Edit
-	# or use helm-chart-config.yaml
+	# or cp helm-chart-config.yaml /var/lib/rancher/k3s/server/manifests/
   valuesContent: |-
     key: value # ... yaml away ...
