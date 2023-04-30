@@ -17,6 +17,14 @@
 #               H e l m   C h a r t   C o n f i g   f o r   K 3 s
 # ============================================================================ #
 
+# This is CRD for deploying Helm charts using the K3s Helm Controller:
+#
+#   https://docs.k3s.io/helm
+#
+#   https://github.com/k3s-io/helm-controller/
+
+# cp to /var/lib/rancher/k3s/server/manifests/some-config.yaml
+
 ---
 apiVersion: helm.cattle.io/v1
 kind: HelmChartConfig
