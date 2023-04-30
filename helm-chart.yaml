@@ -17,6 +17,12 @@
 #                      H e l m   C h a r t   f o r   K 3 s
 # ============================================================================ #
 
+# This is CRD for deploying Helm charts using the K3s Helm Controller:
+#
+#   https://docs.k3s.io/helm
+#
+#   https://github.com/k3s-io/helm-controller/
+
 # cp to /var/lib/rancher/k3s/server/manifests/some-helm.yaml
 
 ---
@@ -34,37 +40,4 @@ spec:
 	# XXX: Edit
 	# or use helm-chart-config.yaml
   valuesContent: |-
-    experimental:
-      http3:
-        enabled: true
-      plugins:
-        enabled: true
-    rollingUpdate:
-      maxUnavailable: 0
-    rbac:
-      enabled: true
-    ports:
-      websecure:
-        tls:
-          enabled: true
-        http3: true
-    podAnnotations:
-      prometheus.io/port: "8082"
-      prometheus.io/scrape: "true"
-    providers:
-      kubernetesCRD:
-        allowCrossNamespace: true
-        allowExternalNameServices: true
-      kubernetesIngress:
-        publishedService:
-          enabled: true
-    priorityClassName: "system-cluster-critical"
-    tolerations:
-    - key: "CriticalAddonsOnly"
-      operator: "Exists"
-    - key: "node-role.kubernetes.io/control-plane"
-      operator: "Exists"
-      effect: "NoSchedule"
-    - key: "node-role.kubernetes.io/master"
-      operator: "Exists"
-      effect: "NoSchedule"'
+    key: value # ... yaml away ...
