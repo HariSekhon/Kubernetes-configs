@@ -98,7 +98,8 @@ jobs:
 
       - uses: ./.github/actions/install-kustomize
 
-      - uses: ./.github/actions/kustomizations-install
+      - name: Installing all kustomizations to query Kubernetes API to exclude objects at cluster scope
+        uses: ./.github/actions/kustomizations-install
 
       - name: Check Objects are Explicitly Namespaced
         run: |
