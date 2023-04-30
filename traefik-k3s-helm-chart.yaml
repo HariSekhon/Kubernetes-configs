@@ -35,9 +35,10 @@ spec:
   repo: https://helm.traefik.io/traefik
   chart: traefik
   version: 10.9.0
+  targetNamespace: traefik
   set:
     global.systemDefaultRegistry: ""
-	# or use helm-chart-config.yaml
+	# or cp helm-chart-config.yaml /var/lib/rancher/k3s/server/manifests/
   valuesContent: |-
     experimental:
       http3:
