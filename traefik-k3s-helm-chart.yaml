@@ -1,0 +1,75 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-30 20:11:36 +0100 (Sun, 30 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                      H e l m   C h a r t   f o r   K 3 s
+# ============================================================================ #
+
+# This is CRD for deploying Helm charts using the K3s Helm Controller:
+#
+#   https://docs.k3s.io/helm
+#
+#   https://github.com/k3s-io/helm-controller/
+
+# cp to /var/lib/rancher/k3s/server/manifests/some-helm.yaml
+
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  repo: https://helm.traefik.io/traefik
+  chart: traefik
+  version: 10.9.0
+  set:
+    global.systemDefaultRegistry: ""
+	# or use helm-chart-config.yaml
+  valuesContent: |-
+    experimental:
+      http3:
+        enabled: true
+      plugins:
+        enabled: true
+    rollingUpdate:
+      maxUnavailable: 0
+    rbac:
+      enabled: true
+    ports:
+      websecure:
+        tls:
+          enabled: true
+        http3: true
+    podAnnotations:
+      prometheus.io/port: "8082"
+      prometheus.io/scrape: "true"
+    providers:
+      kubernetesCRD:
+        allowCrossNamespace: true
+        allowExternalNameServices: true
+      kubernetesIngress:
+        publishedService:
+          enabled: true
+    priorityClassName: "system-cluster-critical"
+    tolerations:
+    - key: "CriticalAddonsOnly"
+      operator: "Exists"
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
+    - key: "node-role.kubernetes.io/master"
+      operator: "Exists"
+      effect: "NoSchedule"'
