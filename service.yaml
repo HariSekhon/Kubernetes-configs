@@ -77,7 +77,7 @@ metadata:
   #
   # haproxy.org/forwarded-for: "true"
   #
-  # haproxy.org/pod-maxconn: 30
+  # haproxy.org/pod-maxconn: "30"
   # haproxy.org/server-ssl: "true"
   # haproxy.org/ssl-passthrough: "true"
 
