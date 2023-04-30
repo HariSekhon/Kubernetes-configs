@@ -20,18 +20,18 @@ on:
     branches:
       - master
     paths:
-      - '*.yaml'
+      - '*-kustomization.yaml'
       - .github/workflows/kustomize-nova.yaml
-      - .github/actions/install-kustomize/action.yaml
-      - .github/actions/kustomizations-materizalize/action.yaml
+      #- .github/actions/install-kustomize/action.yaml
+      #- .github/actions/kustomizations-materizalize/action.yaml
   pull_request:
     branches:
       - master
     paths:
-      - '*.yaml'
+      - '*-kustomization.yaml'
       - .github/workflows/kustomize-nova.yaml
-      - .github/actions/install-kustomize/action.yaml
-      - .github/actions/kustomizations-materialize/action.yaml
+      #- .github/actions/install-kustomize/action.yaml
+      #- .github/actions/kustomizations-materialize/action.yaml
   workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
     inputs:
       debug:
@@ -53,11 +53,13 @@ defaults:
     shell: bash -euxo pipefail {0}
 
 env:
-  DEBUG: ${{ github.event.inputs.debug == true || '' }}
+  # due to GitHub Actions bug in boolean this doesn't work
+  #DEBUG: ${{ github.event.inputs.debug == true || '' }}
+  DEBUG: ${{ github.event.inputs.debug == 'true' || '' }}
 
 jobs:
   kustomize-nova:
-    name: Kustomize nova
+    name: Kustomize Nova
     runs-on: ubuntu-latest
     steps:
       - name: Environment
@@ -78,13 +80,25 @@ jobs:
       - name: Nova version
         run: nova version
 
+      - name: Install Helm
+        run: bash-tools/setup/install_helm.sh
+
+      - name: Helm version
+        run: helm version
+
+      - name: Install yq
+        run: bash-tools/setup/install_yq.sh
+
+      - name: yq version
+        run: yq --version
+
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.3.0
 
       - name: Cluster Info
         run: kubectl cluster-info
 
-      - uses: ./.github/actions/install-kustomize
+      #- uses: ./.github/actions/install-kustomize
 
       - name: 'Install Helm Charts found in all *-kustomization.yaml files'
         run: |
