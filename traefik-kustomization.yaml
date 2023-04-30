@@ -33,6 +33,7 @@ resources:
   - traefik-dashboard-ingress.yaml  # or use IngressRoute
   - traefik-dashboard-api-ingress.yaml
   - traefik-dashboard-add-prefix.yaml
+  - traefik-middleware-redirect-https.yaml
   # XXX: for quickly testing Traefik
   #- whoami.yaml
 
