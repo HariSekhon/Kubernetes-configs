@@ -30,7 +30,7 @@ apiVersion: helm.cattle.io/v1
 kind: HelmChartConfig
 metadata:
   name: NAME  # XXX: Edit eg. traefik
-  namespace: NAMESPACE  # XXX: Edit
+  namespace: helm-charts  # deploy to a different namespace than the app for separation
 spec:
   valuesContent: |-
     rbac:
