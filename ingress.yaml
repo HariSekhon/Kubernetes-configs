@@ -158,6 +158,8 @@ metadata:
     #
     #haproxy.org/load-balance: leastconn  # default: roundrobin
     #
+    # kubectl create secret generic -n haproxy haproxy-credentials --from-literal=admin="$(openssl passwd -1 $(aws_secret_get.sh haproxy-admin-password))"
+    #
     #haproxy.org/auth-type: basic-auth
     #haproxy.org/auth-secret: haproxy/haproxy-credentials
     #haproxy.org/auth-realm: Admin Area
