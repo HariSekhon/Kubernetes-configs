@@ -80,6 +80,8 @@ jobs:
       - name: Nova version
         run: nova version
 
+      #- uses: ./.github/actions/install-kustomize
+
       - name: Install Helm
         run: bash-tools/setup/install_helm.sh
 
@@ -97,8 +99,6 @@ jobs:
 
       - name: Cluster Info
         run: kubectl cluster-info
-
-      #- uses: ./.github/actions/install-kustomize
 
       - name: 'Install Helm Charts found in all *-kustomization.yaml files'
         run: |
