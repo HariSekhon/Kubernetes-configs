@@ -109,8 +109,6 @@ spec:
       kind: IngressClass
     - group: configuration.konghq.com
       kind: KongClusterPlugin
-    - group: traefik.containo.us
-      kind: Middleware
     - group: ''
       kind: Namespace
     - group: scheduling.k8s.io
@@ -155,10 +153,14 @@ spec:
       kind: Ingress
     - group: networking.k8s.io  # new ingress
       kind: Ingress
+    - group: traefik.containo.us
+      kind: IngressRoute
     - group: configuration.konghq.com
       kind: KongConsumer
     - group: configuration.konghq.com
       kind: KongPlugin
+    - group: traefik.containo.us
+      kind: Middleware
     - group: networking.k8s.io
       kind: NetworkPolicy
     - group: ''
