@@ -19,6 +19,8 @@
 #                   H A P r o x y   S t a t s   S e r v i c e
 # ============================================================================ #
 
+# kubectl port-forward -n haproxy svc/haproxy-stats 1025:1024 & sleep 1; open localhost:1025
+
 ---
 apiVersion: v1
 kind: Service
