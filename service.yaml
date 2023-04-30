@@ -66,16 +66,20 @@ metadata:
   #
   #   https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/service/
   #
+  # haproxy.org/load-balance: leastconn  # default: roundrobin
+  #
   # haproxy.org/check: "true"
   # haproxy.org/check-http: /health
   # haproxy.org/check-interval: 30s
+  # haproxy.org/timeout-check: 5s
+  #
   # haproxy.org/cookie-persistence: mycookie
+  #
   # haproxy.org/forwarded-for: "true"
-  # haproxy.org/load-balance: leastconn
+  #
   # haproxy.org/pod-maxconn: 30
   # haproxy.org/server-ssl: "true"
   # haproxy.org/ssl-passthrough: "true"
-  # haproxy.org/timeout-check: 5s
 
 spec:
   type: ClusterIP   # default
