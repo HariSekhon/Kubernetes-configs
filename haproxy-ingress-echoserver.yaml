@@ -33,17 +33,34 @@ metadata:
     ingress.kubernetes.io/force-ssl-redirect: "true"
     kubernetes.io/ingress.class: haproxy  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
 
+    kubernetes.io/ingress.class: haproxy  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
+    haproxy.org/ingress.class: haproxy
+    haproxy.org/load-balance: leastconn  # default: roundrobin
+
+    #haproxy.org/auth-type: basic-auth
+    #haproxy.org/auth-secret: haproxy/haproxy-credentials
+    #haproxy.org/auth-realm: Admin Area
+
+    haproxy.org/whitelist: "10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16"
+    #haproxy.org/blacklist: "192.168.1.0/24, 192.168.2.100"
+
+    #haproxy.org/cookie-persistence: mycookie
+
+    haproxy.org/rate-limit-period: 1m
+    haproxy.org/rate-limit-requests: "30"
+    haproxy.org/rate-limit-size: "1000000"
+
 spec:
   #ingressClassName: haproxy
   tls:
     # XXX: Edit
     - hosts:
-        - echo.DOMAIN.COM
+        - echo-haproxy.DOMAIN.COM
       # SSL cert auto-generated for this FQDN by Cert Manager ACME integration (see cert-manager.yaml) and saved to this secret name
-      secretName: echoserver-tls
+      secretName: haproxy-echoserver-tls
   rules:
     # XXX: Edit
-    - host: echo.DOMAIN.COM
+    - host: echo-haproxy.DOMAIN.COM
       http:
         paths:
           # XXX: Edit
