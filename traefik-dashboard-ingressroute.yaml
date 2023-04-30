@@ -18,7 +18,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: traefik-dashboard-ing  # must differentiate it from the default traefik-dashboard
+  name: traefik-dashboard-ing  # must differentiate it from the default traefik-dashboard ingress created by Helm which is needed to route to api@internal
 spec:
   entryPoints:
     - web
