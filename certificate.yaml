@@ -23,6 +23,8 @@
 # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate
 
 # See ingress.yaml rather than create your own certs manually like this
+#
+# You probably only need to use this for ingress CRDs not recognized by Cert Manager such as Traefik IngressRoute
 
 ---
 apiVersion: cert-manager.io/v1
@@ -48,11 +50,11 @@ spec:
     #ipAddresses:
     #- 192.168.0.5
   issuerRef:
+    group: cert-manager.io
     # default, locally namespaced
     #kind: Issuer
     kind: ClusterIssuer
     # if using kind: Issuer this issuer must exist in the same namespace as this certificate object
     # otherwise specify kind: ClusterIssuer above
     # XXX: the Cert Issuer name - should match issuer.yaml
-    name: letsencrypt-dev
-    group: cert-manager.io
+    name: letsencrypt
