@@ -43,9 +43,9 @@ spec:
           port: 9000
       middlewares:
         - name: dashboard-basic-auth
-      tls:
-        secretName: traefik-dashboard-tls
-      # XXX: doesn't work with more than 1 pod - requires Enterprise Edition :-(
-      #      also must configure letsencrypt for Traefik specifically in values.yaml instead of just riding Cert Manager like with regular ingresses
-      #      create Cert Manager certificate request separately instead and point it to the secret
-      #  certResolver: letsencrypt
+  tls:
+    secretName: traefik-dashboard-tls
+  # XXX: doesn't work with more than 1 pod - requires Enterprise Edition :-(
+  #      also must configure letsencrypt for Traefik specifically in values.yaml instead of just riding Cert Manager like with regular ingresses
+  #      create Cert Manager certificate request separately instead and point it to the secret
+  #  certResolver: letsencrypt
