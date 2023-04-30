@@ -149,10 +149,9 @@ metadata:
     #   https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/ingress/
     #
     #kubernetes.io/ingress.class: haproxy  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
+    #haproxy.org/ingress.class: haproxy
     #
     # See haproxy-values.yaml for more settings applied at global ConfigMap level
-    #
-    #haproxy.org/ingress.class: haproxy
     #
     # https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/ingress/#load-balance
     #
@@ -168,8 +167,8 @@ metadata:
     #haproxy.org/blacklist: "192.168.1.0/24, 192.168.2.100"
     #
     #haproxy.org/check: "true"
-    #haproxy.org/check-http: "/health"
-    #haproxy.org/check-interval: "30s"
+    #haproxy.org/check-http: /health
+    #haproxy.org/check-interval: 30s
     #haproxy.org/timeout-check: 5s
     #
     # https://developers.cloudflare.com/fundamentals/get-started/reference/http-request-headers/
@@ -181,7 +180,7 @@ metadata:
     #
     #haproxy.org/cookie-persistence: mycookie
     #
-    #haproxy.org/rate-limit-period: "1m"
+    #haproxy.org/rate-limit-period: 1m
     #haproxy.org/rate-limit-requests: 100
     #haproxy.org/rate-limit-size: 1000000
     #
