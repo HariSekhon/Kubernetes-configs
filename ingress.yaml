@@ -117,7 +117,7 @@ metadata:
     #kubernetes.io/ingress.class: traefik  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
     #hub.traefik.io/access-control-policy: my-policy  # configured on Traefik Hub: https://hub.traefik.io/acp
     #traefik.ingress.kubernetes.io/router.middlewares: dashboard-basic-auth@kubernetescrd
-    #traefik.ingress.kubernetes.io/router.entrypoints: web
+    #traefik.ingress.kubernetes.io/router.entrypoints: websecure
     #traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd
 
     # ================================
