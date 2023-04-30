@@ -13,7 +13,6 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
-# Gets '404 page not found'
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -23,6 +22,7 @@ spec:
   entryPoints:
     - web
   routes:
+    # Gets '404 page not found'
     #- match: Host(`traefik.DOMAIN.COM`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
     #  kind: Rule
     #  services:
