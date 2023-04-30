@@ -56,13 +56,13 @@ metadata:
     #haproxy.org/forwarded-for: "true"
 
     #haproxy.org/cookie-persistence: mycookie
-    #
+
     haproxy.org/rate-limit-period: 1m
     haproxy.org/rate-limit-requests: "30"
     haproxy.org/rate-limit-size: "1000000"
 
 spec:
-  ingressClassName: haproxy
+  #ingressClassName: haproxy
   tls:
     - hosts:
         - haproxy.DOMAIN.COM  # XXX: Edit
