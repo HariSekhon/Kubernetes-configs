@@ -1,0 +1,80 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-05-01 00:13:28 +0100 (Mon, 01 May 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                   H A P r o x y   S t a t s   I n g r e s s
+# ============================================================================ #
+
+# kubectl create secret generic -n haproxy haproxy-credentials --from-literal=admin="$(openssl passwd -1 $(aws_secret_get.sh haproxy-admin-password))"
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: haproxy-stats
+  namespace: haproxy
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+
+    kubernetes.io/ingress.class: haproxy  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
+    haproxy.org/ingress.class: haproxy
+    haproxy.org/load-balance: leastconn  # default: roundrobin
+
+    haproxy.org/auth-type: basic-auth
+    haproxy.org/auth-secret: haproxy/haproxy-credentials
+    haproxy.org/auth-realm: Admin Area
+
+    haproxy.org/whitelist: "10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16"
+    #haproxy.org/blacklist: "192.168.1.0/24, 192.168.2.100"
+
+    # gives 503 error even though this should work
+    #haproxy.org/check: "true"
+    #haproxy.org/check-http: /
+    #haproxy.org/check-interval: 30s
+    #haproxy.org/timeout-check: 5s
+
+    # https://developers.cloudflare.com/fundamentals/get-started/reference/http-request-headers/
+    #
+    #haproxy.org/src-ip-header: X-Forwarded-For
+    #haproxy.org/src-ip-header: CF-Connecting-IP
+    #haproxy.org/src-ip-header: True-Client-IP
+    #haproxy.org/forwarded-for: "true"
+
+    #haproxy.org/cookie-persistence: mycookie
+    #
+    haproxy.org/rate-limit-period: 1m
+    haproxy.org/rate-limit-requests: "30"
+    haproxy.org/rate-limit-size: "1000000"
+
+spec:
+  ingressClassName: haproxy
+  tls:
+    - hosts:
+        - haproxy.DOMAIN.COM  # XXX: Edit
+      secretName: haproxy-tls
+  rules:
+    - host: haproxy.DOMAIN.COM  # XXX: Edit
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: haproxy-stats
+                port:
+                  number: 1024
