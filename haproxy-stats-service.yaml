@@ -1,0 +1,54 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-30 23:42:23 +0100 (Sun, 30 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                   H A P r o x y   S t a t s   S e r v i c e
+# ============================================================================ #
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: haproxy-stats
+  namespace: haproxy
+  labels:
+    app.kubernetes.io/instance: haproxy
+    app.kubernetes.io/name: kubernetes-ingress
+
+  #   https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/service/
+  #
+  #annotations:
+  # haproxy.org/check: "true"
+  # haproxy.org/check-http: /health
+  # haproxy.org/check-interval: 30s
+  # haproxy.org/cookie-persistence: mycookie
+  # haproxy.org/forwarded-for: "true"
+  # haproxy.org/load-balance: leastconn
+  # haproxy.org/pod-maxconn: 30
+  # haproxy.org/server-ssl: "true"
+  # haproxy.org/ssl-passthrough: "true"
+  # haproxy.org/timeout-check: 5s
+
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/instance: haproxy
+    app.kubernetes.io/name: kubernetes-ingress
+  ports:
+    - protocol: TCP
+      port: 1024
+      targetPort: 1024
