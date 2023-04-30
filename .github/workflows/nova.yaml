@@ -94,12 +94,19 @@ jobs:
       - name: Cluster Info
         run: kubectl cluster-info
 
-      - name: Install Helm Charts
+      - name: 'Install Helm Charts found in all *-kustomization.yaml files'
         run: |
           # gets error:
           #   /home/runner/work/_temp/88a64d0d-78f8-43cd-a794-ca79fb0b6291.sh: line 1: syntax error near unexpected token `('
           #bash-tools/kustomize_install_helm_charts.sh !(eks*)-kustomization.yaml
-          bash-tools/kustomize_install_helm_charts.sh $(ls *-kustomization.yaml | grep -v ^eks)
+          #bash-tools/kustomize_install_helm_charts.sh $(ls *-kustomization.yaml | grep -v ^eks)
+
+          kustomizations="$(find . -type f -name '*-kustomization.y*ml')"
+          # try twice in case of timeouts
+          export SKIP_EXISTING_HELM_INSTALLATIONS=1
+          export SKIP_ERRORS=1
+          bash-tools/kustomize_install_helm_charts.sh $kustomizations ||
+          bash-tools/kustomize_install_helm_charts.sh $kustomizations
 
       - name: Nova Find
         run: nova find --wide --format=table
