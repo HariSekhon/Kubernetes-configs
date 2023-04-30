@@ -1,0 +1,51 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-30 02:46:00 +0100 (Sun, 30 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# Gets '404 page not found'
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard-ing  # must differentiate it from the default traefik-dashboard
+spec:
+  entryPoints:
+    - web
+  routes:
+    #- match: Host(`traefik.DOMAIN.COM`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    #  kind: Rule
+    #  services:
+    #    - name: api@internal
+    #      kind: TraefikService
+    - kind: Rule
+      match: Host("traefik.DOMAIN.COM")  # XXX: Edit
+      services:
+        - name: traefik-dashboard
+          port: 9000
+      middlewares:
+        - name: dashboard-basic-auth  # doesn't require namespace prefix unlike regular ingress annotations
+        - name: dashboard-add-prefix
+    - kind: Rule
+      match: Host("traefik.DOMAIN.COM") && PathPrefix("/api")  # XXX: Edit domain
+      services:
+        - name: traefik-dashboard
+          port: 9000
+      middlewares:
+        - name: dashboard-basic-auth
+      tls:
+        secretName: traefik-dashboard-tls
+      # XXX: doesn't work with more than 1 pod - requires Enterprise Edition :-(
+      #      also must configure letsencrypt for Traefik specifically in values.yaml instead of just riding Cert Manager like with regular ingresses
+      #      create Cert Manager certificate request separately instead and point it to the secret
+      #  certResolver: letsencrypt
