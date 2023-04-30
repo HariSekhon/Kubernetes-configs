@@ -26,5 +26,5 @@ metadata:
 spec:
   basicAuth:
     # htpasswd -nBb someuser somepass > dashboard.htpasswd
-    # kubectl create secret generic dashboard-users --from-file=dashboard.htpasswd
+    # kubectl create secret generic -n traefik dashboard-users --from-file=dashboard.htpasswd
     secret: dashboard-users
