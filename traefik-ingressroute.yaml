@@ -27,6 +27,10 @@ spec:
   entryPoints:
     - websecure
   routes:
+    # See available matchers here:
+    #
+    #     https://doc.traefik.io/traefik/routing/routers/#rule
+    #
     - kind: Rule
       match: Host(`NAME.DOMAIN.COM`) && PathPrefix(`/dashboard`) || PathPrefix(`/api`)  # XXX: Edit
       services:
