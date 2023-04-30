@@ -170,6 +170,7 @@ metadata:
     #haproxy.org/check: "true"
     #haproxy.org/check-http: "/health"
     #haproxy.org/check-interval: "30s"
+    #haproxy.org/timeout-check: 5s
     #
     # https://developers.cloudflare.com/fundamentals/get-started/reference/http-request-headers/
     #
