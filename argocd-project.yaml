@@ -135,6 +135,8 @@ spec:
   # Deny all namespaced-scoped resources from being created, except for ones explicitly listed here
   # populated by script argocd_namespace_resource_whitelist.sh from https://github.com/HariSekhon/DevOps-Bash-tools/
   namespaceResourceWhitelist:
+    - group: cert-manager.io
+      kind: Certificate
     - group: ''
       kind: ConfigMap
     - group: batch
