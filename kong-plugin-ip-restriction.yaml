@@ -1,0 +1,39 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-07 22:49:16 +0100 (Fri, 07 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#              K o n g   I P   R e s t r i c t i o n   P l u g i n
+# ============================================================================ #
+
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+plugin: ip-restriction
+metadata:
+  name: ip-restriction-private-only
+  namespace: kong
+  annotations:
+    kubernetes.io/ingress.class: kong
+  labels:
+    global: "true"
+config:
+  allow:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+  #deny:
+  #  - 127.0.0.1
+  message: Your IP address is not allowed, by order of the Peaky Blinders
