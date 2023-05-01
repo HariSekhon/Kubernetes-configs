@@ -129,12 +129,20 @@ containerSecurityContext:
 #    #    name: some-secret
 #    #    key: some-key-in-secret
 
+#env:
+#  trusted_ips:
+#    value: 0.0.0.0/0
+#  real_ip_recursive:
+#    value: "on"
+
 # ========================================================
 # Environments variables that doesn't require KONG_ prefix eg. for plugins access environment specific credentials or tokens
 #
 # Note that these environment variables will only apply to the proxy and init container. The ingress-controller container has its own customEnv section
 #
 # customEnv:
+#   real_ip_header:
+#     value: X-Forwarded-For
 #   api_token:
 #     valueFrom:
 #       secretKeyRef:
