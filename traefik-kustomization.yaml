@@ -32,7 +32,7 @@ resources:
   - traefik-dashboard-basic-auth.yaml
   - traefik-dashboard-add-prefix.yaml
   - traefik-middleware-redirect-https.yaml
-  - traefik-dashboard-external-secret.yaml
+  #- traefik-dashboard-external-secret.yaml
   # =======
   # either:
   - traefik-dashboard-ingress.yaml
