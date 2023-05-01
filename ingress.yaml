@@ -37,8 +37,9 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt
     ingress.kubernetes.io/force-ssl-redirect: "true"
 
-    # ================================
-    # for Nginx Ingress Controller
+    # ============================================================================ #
+    #                N g i n x   I n g r e s s   C o n t r o l l e r
+    # ============================================================================ #
     #
     #   https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/
     #
@@ -111,8 +112,9 @@ metadata:
     #jaeger-collector-host: jaeger-agent.jaeger.svc.cluster.local
     #datadog-collector-host: datadog-agent.datadog.svc.cluster.local
 
-    # ================================
-    # for Traefik Ingress Controller
+    # ============================================================================ #
+    #              T r a e f i k   I n g r e s s   C o n t r o l l e r
+    # ============================================================================ #
     #
     #   https://doc.traefik.io/traefik/routing/providers/kubernetes-ingress/
     #
@@ -125,8 +127,9 @@ metadata:
     #traefik.ingress.kubernetes.io/router.entrypoints: websecure
     #traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd
 
-    # ================================
-    # for Kong Ingress Controller
+    # ============================================================================ #
+    #                 K o n g   I n g r e s s   C o n t r o l l e r
+    # ============================================================================ #
     #
     #   https://docs.konghq.com/kubernetes-ingress-controller/latest/references/annotations/#ingress-resource
     #
@@ -143,8 +146,9 @@ metadata:
     # see kong-plugin-*.yaml where these are defined using CRDs
     #konghq.com/plugins: ratelimit-by-ip, key-auth, oidc, admin-acl  # choose either simple key-auth or oidc
 
-    # ================================
-    # HAProxy Ingress Controller
+    # ============================================================================ #
+    #              H A P r o x y   I n g r e s s   C o n t r o l l e r
+    # ============================================================================ #
     #
     #   https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/ingress/
     #
@@ -190,6 +194,8 @@ metadata:
     #  http-send-name-header x-dst-server
     #  stick-table type string len 32 size 100k expire 30m
     #  stick on req.cook(sessionid)
+
+    # ============================================================================ #
 
 spec:
   # ingressClassName replaces kubernetes.io/ingress.class annotation in Kubernetes 1.18+
