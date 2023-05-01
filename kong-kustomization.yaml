@@ -30,7 +30,7 @@ resources:
   #- kong-cluster-plugin-response-transformer-adv.yaml
   #- kong-consumer.yaml
   - kong-network-policy.yaml
-  #- kong-plugin-ip-restriction.yaml
+  - kong-plugin-ip-restriction.yaml
   #- kong-plugin-acl.yaml
   #- kong-plugin-exit-transformer.yaml
   #- kong-plugin-jq.yaml
