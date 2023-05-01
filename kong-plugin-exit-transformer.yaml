@@ -28,7 +28,7 @@ kind: KongPlugin
 plugin: exit-transformer
 metadata:
   name: NAME       # XXX: Edit
-  namespace: NAME  # XXX: Edit
+  namespace: kong
   annotations:
     kubernetes.io/ingress.class: kong
 config:
