@@ -27,8 +27,9 @@ metadata:
   namespace: kong
   annotations:
     kubernetes.io/ingress.class: kong
-  labels:
-    global: "true"
+  # must use KongClusterPlugin instead
+  #labels:
+  #  global: "true"
 config:
   allow:
     - 10.0.0.0/8
