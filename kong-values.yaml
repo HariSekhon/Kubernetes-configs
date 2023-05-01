@@ -108,6 +108,42 @@ securityContext: {}
 containerSecurityContext:
   readOnlyRootFilesystem: true
 
+# ============================================================================ #
+# Environment variables applies to all deployments, both controller and proxy
+#
+# chart takes all entries defined under `.env` and transforms them into into `KONG_*` environment variables for Kong containers
+#
+# Their names here should match the names used in:
+#
+#     https://github.com/Kong/kong/blob/master/kong.conf.default
+#
+# See also:
+#
+#     https://docs.konghq.com/latest/configuration
+#
+#env:
+#  some_var:
+#    value: some_value
+#    #valueFrom:
+#    #  secretKeyRef:
+#    #    name: some-secret
+#    #    key: some-key-in-secret
+
+# ========================================================
+# Environments variables that doesn't require KONG_ prefix eg. for plugins access environment specific credentials or tokens
+#
+# Note that these environment variables will only apply to the proxy and init container. The ingress-controller container has its own customEnv section
+#
+# customEnv:
+#   api_token:
+#     valueFrom:
+#       secretKeyRef:
+#         key: token
+#         name: api_key
+#   client_name: testClient
+
+# ============================================================================ #
+
 proxy:
   enabled: true
   type: LoadBalancer
