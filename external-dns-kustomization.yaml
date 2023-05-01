@@ -22,6 +22,15 @@
 
 # https://artifacthub.io/packages/helm/bitnami/external-dns
 
+# Troubleshooting:
+#
+#   kubectl logs -f -n external-dns deploy/external-dns
+#
+#   check --domain-filter setting in external-dns-values.yaml and external-dns-deployment.patch.yaml
+#   matches your.domain.com
+#
+#   check ingresses have their address fields populated by the ingress controller (Nginx, Traefik and Kong in this repo are all tested to do this)
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
