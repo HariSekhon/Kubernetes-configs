@@ -186,8 +186,10 @@ admin:
   loadBalancerClass:
   # To specify annotations or labels for the admin service, add them to the respective
   # "annotations" or "labels" dictionaries below.
-  annotations: {}
-  #  service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+  annotations:
+    # XXX: this goes onto the service object to prevent error '400 Bad Request  The plain HTTP request was sent to HTTPS port'
+    konghq.com/protocol: https
+    #service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
   labels: {}
 
   http:
