@@ -29,3 +29,6 @@ metadata:
   namespace: kong
   annotations:
     kubernetes.io/ingress.class: kong
+config:
+  key_names:
+    - apikey
