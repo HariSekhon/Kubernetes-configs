@@ -24,7 +24,7 @@ kind: KongPlugin
 plugin: rate-limiting
 metadata:
   name: global-rate-limit-adv
-  namespace: NAME  # XXX: Edit
+  namespace: kong
   annotations:
     kubernetes.io/ingress.class: kong
   labels:
