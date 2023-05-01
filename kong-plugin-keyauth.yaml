@@ -26,6 +26,6 @@ kind: KongPlugin
 plugin: key-auth
 metadata:
   name: key-auth
-  namespace: NAME  # XXX: Edit
+  namespace: kong
   annotations:
     kubernetes.io/ingress.class: kong
