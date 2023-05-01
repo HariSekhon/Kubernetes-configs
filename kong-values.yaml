@@ -231,15 +231,10 @@ admin:
     tls: kong-admin-tls
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-      kubernetes.io/ingress.class: nginx  # deprecated, and cannot also be set if ingressClassName is set
-      ingress.kubernetes.io/ssl-redirect: "true"
       ingress.kubernetes.io/force-ssl-redirect: "true"
-      nginx.ingress.kubernetes.io/ssl-redirect: "true"
-      nginx.ingress.kubernetes.io/backend-protocol: HTTPS  # needs this because chart generates ingress sending to backend 8444 and client gets 400 Bad Request "The plain HTTP request was sent to HTTPS port" otherwise
-      nginx.ingress.kubernetes.io/whitelist-source-range: |
-        10.0.0.0/8,
-        172.16.0.0/16,
-        192.168.0.0/16
+      kubernetes.io/ingress.class: kong  # deprecated, and cannot also be set if ingressClassName is set
+      konghq.com/protocols: https
+      konghq.com/plugins: ip-restriction-private-only
     path: /
     pathType: Prefix  # default: ImplementationSpecific
 
