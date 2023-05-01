@@ -24,7 +24,7 @@ kind: KongPlugin
 plugin: openid-connect
 metadata:
   name: openid-connect
-  namespace: NAME  # XXX: Edit
+  namespace: kong
   annotations:
     kubernetes.io/ingress.class: kong
 config:
