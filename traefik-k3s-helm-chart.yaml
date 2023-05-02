@@ -14,16 +14,20 @@
 #
 
 # ============================================================================ #
-#                      H e l m   C h a r t   f o r   K 3 s
+#                     Traefik install on K3s via Helm Chart
 # ============================================================================ #
 
-# This is CRD for deploying Helm charts using the K3s Helm Controller:
+# Disable bundled Traefik in K3s and deploy this to use an upgraded version
+
+# Deploys custom Traefik via a Helm chart using the K3s Helm Controller:
 #
 #   https://docs.k3s.io/helm
 #
 #   https://github.com/k3s-io/helm-controller/
 
-# cp to /var/lib/rancher/k3s/server/manifests/some-helm.yaml
+# XXX: doe not call this file 'traefik.yaml' as if you've set k3s to '--disable traefik' it will remove it
+#
+# cp to /var/lib/rancher/k3s/server/manifests/traefil-helm.yaml
 
 ---
 apiVersion: helm.cattle.io/v1
