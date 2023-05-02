@@ -1,0 +1,47 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-04-30 20:11:36 +0100 (Sun, 30 Apr 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                Traefik - Customize bundled K3s Traefik install
+# ============================================================================ #
+
+# Override the settings of the bundled K3s Traefik installation
+
+# https://docs.k3s.io/helm#customizing-packaged-components-with-helmchartconfig
+
+#   https://docs.k3s.io/helm
+#
+#   https://github.com/k3s-io/helm-controller/
+
+# cp to /var/lib/rancher/k3s/server/manifests/traefil-config.yaml
+
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    image:
+      name: traefik
+      tag: v2.8.5
+    forwardedHeaders:
+      enabled: true
+      trustedIPs:
+        - 10.0.0.0/8
+    ssl:
+      enabled: true
+      permanentRedirect: false
