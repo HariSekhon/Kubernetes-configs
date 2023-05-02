@@ -17,7 +17,7 @@
 #                      H e l m   C h a r t   f o r   K 3 s
 # ============================================================================ #
 
-# This is CRD for deploying Helm charts using the K3s Helm Controller:
+# Deploys Helm charts using the K3s Helm Controller:
 #
 #   https://docs.k3s.io/helm
 #
@@ -37,6 +37,7 @@ spec:
   chart: CHART_NAME  # XXX: Edit
   version: VERSION  # XXX: Edit
   targetNamespace: NAMESPACE  # XXX: Edit
+  # set takes precedence over valuesContent and HelmChartConfig
   set:
     global.systemDefaultRegistry: ""
   # XXX: Edit
