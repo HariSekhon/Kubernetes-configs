@@ -17,7 +17,7 @@
 #               H e l m   C h a r t   C o n f i g   f o r   K 3 s
 # ============================================================================ #
 
-# This is CRD for deploying Helm charts using the K3s Helm Controller:
+# CRD for deploying Helm charts using the K3s Helm Controller:
 #
 #   https://docs.k3s.io/helm
 #
@@ -29,7 +29,7 @@
 apiVersion: helm.cattle.io/v1
 kind: HelmChartConfig
 metadata:
-  name: NAME  # XXX: Edit eg. traefik
+  name: NAME  # XXX: Edit eg. traefik - must match the NAME and NAMESPACE of the helm.cattle.io/v1/HelmChart resource it wants to override
   namespace: helm-charts  # deploy to a different namespace than the app for separation
 spec:
   valuesContent: |-
