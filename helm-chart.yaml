@@ -39,7 +39,7 @@ spec:
   targetNamespace: NAMESPACE  # XXX: Edit
   set:
     global.systemDefaultRegistry: ""
-	# XXX: Edit
-	# or cp helm-chart-config.yaml /var/lib/rancher/k3s/server/manifests/
+  # XXX: Edit
+  # or cp helm-chart-config.yaml /var/lib/rancher/k3s/server/manifests/
   valuesContent: |-
     key: value # ... yaml away ...
