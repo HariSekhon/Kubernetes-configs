@@ -34,7 +34,7 @@
 
 # sentinel
 - op: add
-  path: /spec/template/spec/containers/0/resources
+  path: /spec/template/spec/containers/1/resources
   value:
     requests:
       cpu: 100m
@@ -45,7 +45,7 @@
 
 # split-brain-fix
 - op: add
-  path: /spec/template/spec/containers/0/resources
+  path: /spec/template/spec/containers/2/resources
   value:
     requests:
       cpu: 100m
