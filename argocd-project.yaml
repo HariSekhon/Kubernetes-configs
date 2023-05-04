@@ -49,10 +49,17 @@ spec:
   # Only permit applications to deploy to the NAMESPACE namespace in the same cluster
   destinations:
     # XXX: Edit
-    - namespace: NAMESPACE  # default namespace, overridden in k8s manifests
-    # XXX: Edit - this is fine for in-cluster deployments, otherwise give external Master URL for deployments to other clusters
-    # XXX https://kubernetes.default.svc cannot be replaced with 'in-cluster' name from Clusters - not recognized even in latest argo version 2.6.7
+    - namespace: NAMESPACE  # don't include 'default' namespace as you shouldn't be using that for anything
+      #
+      # XXX: set to external Master URL for deployments to other clusters
       server: https://kubernetes.default.svc
+      #
+      # XXX: Edit - set to whatever you named your Kubernetes clusters in ArgoCD if deploying to external clusters
+      #
+      # XXX: must use 'server' key even for cluster name as 'name' key is not used here, only in apps
+      #
+      #server: in-cluster  # XXX: DOES NOT WORK FOR REPLACING THE DEFAULT https://kubernetes.default.svc, can only do this with additional cluster names - 'in-cluster' in apps works regardless
+
     - namespace: kube-system  # needed for Cert Manager roles for cainjector leader election
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: argocd
