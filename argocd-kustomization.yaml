@@ -137,6 +137,12 @@ patches:
       kind: Deployment
       group: apps
       version: v1
+  - path: argocd-resources.argocd-redis-ha-server.jsonpatch.yaml
+    target:
+      name: argocd-redis-ha-server
+      kind: StatefulSet
+      group: apps
+      version: v1
   - path: argocd-resources.argocd-repo-server.jsonpatch.yaml
     target:
       name: argocd-repo-server
