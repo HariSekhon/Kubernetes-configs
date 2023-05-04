@@ -26,8 +26,8 @@
   value:
     # App Controller is quite CPU hungry, and can hit context deadline exceeded issues otherwise
     requests:
-      cpu: '2'
-      memory: 4Gi
+      cpu: '8'
+      memory: 6Gi
     limits:
-      cpu: '4'
+      cpu: '8'
       memory: 6Gi
