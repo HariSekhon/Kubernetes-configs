@@ -47,3 +47,5 @@ spec:
     automated:
       selfHeal: true
       prune: false  # for safety since if using finalizers in managed apps you could accidentally wipe out deployments via cascading deletes if you remove/rename anything under apps/ dir
+    syncOptions:
+      - ApplyOutOfSyncOnly=false
