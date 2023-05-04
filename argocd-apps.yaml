@@ -40,8 +40,8 @@ spec:
     # XXX: Edit - path to argocd application configuration yamls
     path: k8s/argocd/apps  # relative to root of git repo so no leading slash
   destination:
-    #server: https://kubernetes.default.svc
-    name: in-cluster
+    server: https://kubernetes.default.svc
+    #name: in-cluster
     namespace: argocd
   syncPolicy:
     automated:
