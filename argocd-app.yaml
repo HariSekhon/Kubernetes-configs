@@ -69,7 +69,7 @@ spec:
     # prefer name over server now, it's less error prone
     #server: https://kubernetes.default.svc
     # XXX: Edit - set to whatever you named your Kubernetes clusters in ArgoCD if deploying to external clusters
-    name: in-cluster
+    name: in-cluster  # must match the NAME field in the /settings/clusters page
     # XXX: Edit - where to deploy APP to
     namespace: NAMESPACE
   syncPolicy:
