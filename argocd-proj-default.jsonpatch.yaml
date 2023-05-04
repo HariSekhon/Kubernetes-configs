@@ -33,7 +33,8 @@
   path: /spec/destinations
   value:
   - namespace: argocd
-    server: https://kubernetes.default.svc
+    #server: https://kubernetes.default.svc
+    name: in-cluster
 - op: add
   path: /spec/description
   value: Locked down to only be used by ArgoCD
