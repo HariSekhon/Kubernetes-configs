@@ -35,6 +35,8 @@ metadata:
   namespace: NAMESPACE
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    # XXX: set if you use an ingress controller that doesn't populate the ingress address field that external-dns uses to publish DNS records
+    #external-dns.alpha.kubernetes.io/target: host.domain.com
     ingress.kubernetes.io/force-ssl-redirect: "true"
 
     # ============================================================================ #
