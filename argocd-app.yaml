@@ -66,8 +66,10 @@ spec:
     #  values: |
     #    <some_yaml>
   destination:
-    # XXX: Edit - this is in-cluster URL, edit to external master URL if you need to deploy to other clusters
-    server: https://kubernetes.default.svc
+    # prefer name over server now, it's less error prone
+    #server: https://kubernetes.default.svc
+    # XXX: Edit - set to whatever you named your Kubernetes clusters in ArgoCD if deploying to external clusters
+    name: in-cluster
     # XXX: Edit - where to deploy APP to
     namespace: NAMESPACE
   syncPolicy:
