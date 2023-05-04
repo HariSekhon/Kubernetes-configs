@@ -43,7 +43,8 @@ spec:
 
   destinations:
     - namespace: argocd  # should be the ArgoCD installation namespace
-      server: https://kubernetes.default.svc
+      #server: https://kubernetes.default.svc
+      name: in-cluster
 
   clusterResourceWhitelist:
     - group: '*'
