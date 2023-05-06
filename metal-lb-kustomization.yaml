@@ -32,4 +32,4 @@ helmCharts:
     releaseName: metallb
     namespace: metallb
     includeCRDs: true
-    #valuesFile: metallb-values.yaml
+    valuesFile: metal-lb-values.yaml
