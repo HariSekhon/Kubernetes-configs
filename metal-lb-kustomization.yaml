@@ -22,7 +22,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-#namespace:
+# XXX: careful this might send prometheus resources to the wrong namespace
+namespace: metallb  # 22 objects not namespaced
 
 helmCharts:
   - name: metallb
