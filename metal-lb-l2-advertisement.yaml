@@ -1,0 +1,32 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-05-06 15:28:57 +0100 (Sat, 06 May 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#               M e t a l   L B   L 2   A d v e r t i s e m e n t
+# ============================================================================ #
+
+# https://metallb.universe.tf/configuration/#layer-2-configuration
+
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: NAME
+  namespace: metallb  # must match the namespace Metal LB was installed to
+# XXX: If no pool is specified then advertises all configured IPAddressPool's
+#spec:
+#  # alternatively a label selector could be used
+#  ipAddressPools:
+#    - NAME  # XXX: must match the name in the IPAddressPool yaml eg. metal-lb-ip-address-pool.yaml
