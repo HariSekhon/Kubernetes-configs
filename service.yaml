@@ -31,55 +31,71 @@ metadata:
   namespace: NAMESPACE
   labels:
     app: APP
-  # https://cloud.google.com/kubernetes-engine/docs/how-to/internal-load-balancing
-  # https://cloud.google.com/load-balancing/docs/internal
-  # create GKE internal Load Balancer - available within VPC region
   #annotations:
-  #  networking.gke.io/load-balancer-type: Internal  # GKE 1.17+
-  #  cloud.google.com/load-balancer-type: Internal   # GKE <= 1.16
-  #  networking.gke.io/internal-load-balancer-allow-global-access: "true"  # GKE 1.17+ - allow routing from VPC networks in other regions, VPC peers etc.
 
-  # ============
-  # External DNS will look for this FQDN (comma separate for multiple)
-  #
-  #   https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md#verify-externaldns-works-service-example
-  #
-  #  external-dns.alpha.kubernetes.io/hostname: NAME.DOMAIN.COM
+    # ============
+    # Metal LB
+    #
+    # # request an IP from a specific IPAddressPool
+    # metallb.universe.tf/address-pool: production-public-ips
+    #
+    # # assign a specific IP address eg. a public IPv4 address from your IPAddressPool configured with autoAssign:false
+    # metallb.universe.tf/loadBalancerIPs: 42.176.25.64/32
 
-  #  service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-2:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-  #  service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
-  #  service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # ============
+    # GKE
+    #
+    # # https://cloud.google.com/kubernetes-engine/docs/how-to/internal-load-balancing
+    # #
+    # # https://cloud.google.com/load-balancing/docs/internal
+    # #
+    # # create GKE internal Load Balancer - available within VPC region
+    # networking.gke.io/load-balancer-type: Internal  # GKE 1.17+
+    # cloud.google.com/load-balancer-type: Internal   # GKE <= 1.16
+    # networking.gke.io/internal-load-balancer-allow-global-access: "true"  # GKE 1.17+ - allow routing from VPC networks in other regions, VPC peers etc.
 
-  # =======================
-  # Kong Ingress Controller
-  #
-  #   https://docs.konghq.com/kubernetes-ingress-controller/latest/references/annotations/#service-resource
-  #
-  #  konghq.com/plugins: ratelimit-by-ip   # aggregate limit by IP from all routes when applied to the service instead of the ingress (kong route)
-  #  konghq.com/strip-path: "true"         # strips the ingress /path before forwarding the request to the service
-  #  konghq.com/path: /prepended-path      # prepends the URL path to each request Kong sends to this service
-  #  konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this service - deprecated, new versions should have native annotation settings
-  #  konghq.com/protocol: https            # used between Kong ingress and service
-  #
-  # =======================
-  # HAProxy Ingress Controller
-  #
-  #   https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/service/
-  #
-  # haproxy.org/load-balance: leastconn  # default: roundrobin
-  #
-  # haproxy.org/check: "true"
-  # haproxy.org/check-http: /health
-  # haproxy.org/check-interval: 30s
-  # haproxy.org/timeout-check: 5s
-  #
-  # haproxy.org/cookie-persistence: mycookie
-  #
-  # haproxy.org/forwarded-for: "true"
-  #
-  # haproxy.org/pod-maxconn: "30"
-  # haproxy.org/server-ssl: "true"
-  # haproxy.org/ssl-passthrough: "true"
+    # ============
+    # External DNS
+    #
+    # # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md#verify-externaldns-works-service-example
+    #
+    # # External DNS will look for this FQDN (comma separate for multiple)
+    # external-dns.alpha.kubernetes.io/hostname: NAME.DOMAIN.COM
+
+    # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-2:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    # service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
+    # service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+
+    # =======================
+    # Kong Ingress Controller
+    #
+    # # https://docs.konghq.com/kubernetes-ingress-controller/latest/references/annotations/#service-resource
+    #
+    # konghq.com/plugins: ratelimit-by-ip   # aggregate limit by IP from all routes when applied to the service instead of the ingress (kong route)
+    # konghq.com/strip-path: "true"         # strips the ingress /path before forwarding the request to the service
+    # konghq.com/path: /prepended-path      # prepends the URL path to each request Kong sends to this service
+    # konghq.com/override: my-kong-ingress  # KongIngress CRD applies full range of Kong settings to this service - deprecated, new versions should have native annotation settings
+    # konghq.com/protocol: https            # used between Kong ingress and service
+    #
+    # =======================
+    # HAProxy Ingress Controller
+    #
+    # # https://www.haproxy.com/documentation/kubernetes/latest/community/configuration-reference/service/
+    #
+    # haproxy.org/load-balance: leastconn  # default: roundrobin
+    #
+    # haproxy.org/check: "true"
+    # haproxy.org/check-http: /health
+    # haproxy.org/check-interval: 30s
+    # haproxy.org/timeout-check: 5s
+    #
+    # haproxy.org/cookie-persistence: mycookie
+    #
+    # haproxy.org/forwarded-for: "true"
+    #
+    # haproxy.org/pod-maxconn: "30"
+    # haproxy.org/server-ssl: "true"
+    # haproxy.org/ssl-passthrough: "true"
 
 spec:
   type: ClusterIP   # default
