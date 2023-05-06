@@ -39,7 +39,7 @@ spec:
   # don't allocate .0 or .255 IPs in case of old buggy equipment miscalculating subnets and blocking them for smurf protection
   avoidBuggyIPs: true
   # ping IPAddressPool to only be used for certain namespaces or labels for multi-tenancy
-	serviceAllocation:
+  serviceAllocation:
     # priority to use this IPAddressPool compared to other matching IPAddressPool's
     priority: 50  # lower number = higher priority
     # matches either namespace-a or namespace-b or any namespace with a label of 'foo: bar'
