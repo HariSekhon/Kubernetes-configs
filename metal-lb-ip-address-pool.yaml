@@ -17,6 +17,8 @@
 #                M e t a l   L B   I P   A d d r e s s   P o o l
 # ============================================================================ #
 
+# https://metallb.universe.tf/configuration/_advanced_ipaddresspool_configuration/
+
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -25,6 +27,29 @@ metadata:
   namespace: metallb  # must match the namespace Metal LB was installed to
 spec:
   addresses:
-  - 192.168.1.0/24
-  #- 192.168.9.1-192.168.9.5
-  #- fc00:f853:0ccd:e799::/124
+    - 192.168.1.0/24
+    #- 192.168.9.1-192.168.9.5
+    #- fc00:f853:0ccd:e799::/124
+    #- 42.176.25.64/32
+  # prevent auto-assigning out expensive public IPv4 addresses if this IPAddressPool is configured for them
+  # in those cases you can assign them manually in the service annotation: metallb.universe.tf/loadBalancerIPs: 42.176.25.64
+  #autoAssign: false
+  # don't allocate .0 or .255 IPs in case of old buggy equipment miscalculating subnets and blocking them for smurf protection
+  avoidBuggyIPs: true
+  # ping IPAddressPool to only be used for certain namespaces or labels for multi-tenancy
+	serviceAllocation:
+    # priority to use this IPAddressPool compared to other matching IPAddressPool's
+    priority: 50  # lower number = higher priority
+    # matches either namespace-a or namespace-b or any namespace with a label of 'foo: bar'
+    namespaces:
+      - namespace-a
+      - namespace-b
+    namespaceSelectors:
+      - matchLabels:
+          foo: bar
+    serviceSelectors:
+      - matchExpressions:
+          - key: app
+            operator: In
+            values:
+              - bar
