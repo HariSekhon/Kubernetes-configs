@@ -27,6 +27,8 @@ namespace: metallb  # 22 objects not namespaced
 
 resources:
   - metal-lb-namespace.yaml
+  - metal-lb-ip-address-pool.yaml
+  - metal-lb-l2-advertisement.yaml
 
 helmCharts:
   - name: metallb
