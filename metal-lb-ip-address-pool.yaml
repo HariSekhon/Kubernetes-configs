@@ -27,7 +27,9 @@ metadata:
   namespace: metallb  # must match the namespace Metal LB was installed to
 spec:
   addresses:
-    - 192.168.1.0/24
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
     #- 192.168.9.1-192.168.9.5
     #- fc00:f853:0ccd:e799::/124
     #- 42.176.25.64/32
