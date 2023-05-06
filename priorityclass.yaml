@@ -30,4 +30,4 @@ metadata:
 value: 1000000
 #preemptionPolicy: Never  # set to prevent pods of this priorityClass from being preempted to make space for other pods
 globalDefault: false     # if true all pods get this value instead of the default 0. Only 1 priorityClass in a cluster can be default
-description: "Use for statefulsets and critical workloads to ensure they get stable node pool priority rather than scheduled on preemptible node pool"
+description: "Use for critical workloads like Ingress controllers and Metal LB to ensure they get priority scheduling, especially when mixing stable and preemptible node pools"
