@@ -110,19 +110,23 @@ jobs:
           bash-tools/kustomize_install_helm_charts.sh $kustomizations
 
       - name: Nova Find
-        run: |
-          tries=3
-          for try in `seq $tries`; do
-            set +e
-            nova find --wide --format=table
-            exitcode=$?
-            set -e
-            if [ $exitcode = 0 ]; then
-              break
-            fi
-            if [ $try -lt $tries ]; then
-              echo
-              sleep 60
-            fi
-            exit $exitcode
-          done
+        run: nova find --wide --format=table
+          # doesn't help when the problem is ArtifactHub rate limiting:
+          #
+          #   https://github.com/FairwindsOps/nova/issues/214
+          #
+          #tries=3
+          #for try in `seq $tries`; do
+          #  set +e
+          #  nova find --wide --format=table
+          #  exitcode=$?
+          #  set -e
+          #  if [ $exitcode = 0 ]; then
+          #    break
+          #  fi
+          #  if [ $try -lt $tries ]; then
+          #    echo
+          #    sleep 60
+          #  fi
+          #  exit $exitcode
+          #done
