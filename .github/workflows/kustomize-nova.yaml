@@ -120,7 +120,7 @@ jobs:
             if [ $exitcode = 0 ]; then
               break
             fi
-            if [ $try -lt 2 ]; then
+            if [ $try -lt $tries ]; then
               echo
               sleep 60
             fi
