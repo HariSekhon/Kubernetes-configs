@@ -110,4 +110,11 @@ jobs:
           bash-tools/kustomize_install_helm_charts.sh $kustomizations
 
       - name: Nova Find
-        run: nova find --wide --format=table
+        run: |
+          for try in {1..3}; do
+            if nova find --wide --format=table; then
+              break
+            fi
+            echo
+            sleep 60
+          done
