@@ -19,6 +19,8 @@
 
 # https://metallb.universe.tf/configuration/_advanced_ipaddresspool_configuration/
 
+# https://metallb.universe.tf/apis/#metallb.io/v1beta1.IPAddressPool
+
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -38,7 +40,11 @@ spec:
   #autoAssign: false
   # don't allocate .0 or .255 IPs in case of old buggy equipment miscalculating subnets and blocking them for smurf protection
   avoidBuggyIPs: true
-  # ping IPAddressPool to only be used for certain namespaces or labels for multi-tenancy
+
+  # pin IPAddressPool to only be used for certain namespaces or labels for multi-tenancy
+  #
+  #   https://metallb.universe.tf/apis/#metallb.io/v1beta1.ServiceAllocation
+  #
   serviceAllocation:
     # priority to use this IPAddressPool compared to other matching IPAddressPool's
     priority: 50  # lower number = higher priority
