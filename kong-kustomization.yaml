@@ -24,6 +24,7 @@ kind: Kustomization
 #namespace: kong  # don't enable this, will override echoserver namespace
 
 resources:
+  - priorityclass.yaml
   - kong-namespace.yaml
   #- kong-cluster-plugin-prometheus.yaml
   #- kong-cluster-plugin-request-transformer-adv.yaml
