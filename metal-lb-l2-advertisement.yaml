@@ -17,7 +17,7 @@
 #               M e t a l   L B   L 2   A d v e r t i s e m e n t
 # ============================================================================ #
 
-# https://metallb.universe.tf/configuration/#layer-2-configuration
+# https://metallb.universe.tf/configuration/_advanced_l2_configuration/
 
 ---
 apiVersion: metallb.io/v1beta1
@@ -30,3 +30,30 @@ metadata:
 #  # alternatively a label selector could be used
 #  ipAddressPools:
 #    - NAME  # XXX: must match the name in the IPAddressPool yaml eg. metal-lb-ip-address-pool.yaml
+#
+#  # XXX: if matching interfaces / nodeSelector labels are not available on the selected leader, then service will not be announced
+#
+#  # only announce from specific interfaces - AND'd with nodeSelectors below
+#  interfaces:
+#  	 - eth0
+#    - eth1
+#
+#  # if only some node are exposed to the subnet, limit advertisements to those nodes only
+#  nodeSelectors:
+#    - matchLabels:
+#        kubernetes.io/hostname: NodeA
+#    - matchLabels:
+#        kubernetes.io/hostname: NodeB
+#  # - perhaps NodeC only services a different subnet using another L2 advertisement:
+#---
+#apiVersion: metallb.io/v1beta1
+#kind: L2Advertisement
+#metadata:
+#  name: NAME2
+#  namespace: metallb
+#spec:
+#  ipAddressPools:
+#  	- second-pool
+#  nodeSelectors:
+#  	 - matchLabels:
+#        kubernetes.io/hostname: NodeC
