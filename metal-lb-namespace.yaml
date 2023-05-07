@@ -27,6 +27,7 @@ metadata:
   labels:
     goldilocks.fairwinds.com/enabled: "true"
     # XXX: required for Pod Security Admission in Kubernetes 1.23+
+    # https://metallb.universe.tf/installation/
     pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/audit: privileged
     pod-security.kubernetes.io/warn: privileged
