@@ -31,6 +31,7 @@ kind: Kustomization
 #namespace: haproxy  # don't enable this, will override echoserver namespace
 
 resources:
+  - priorityclass.yaml
   - haproxy-namespace.yaml
   - haproxy-stats-service.yaml
   - haproxy-stats-ingress.yaml
