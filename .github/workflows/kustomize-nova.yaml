@@ -111,10 +111,18 @@ jobs:
 
       - name: Nova Find
         run: |
-          for try in {1..3}; do
-            if nova find --wide --format=table; then
+          tries=3
+          for try in `seq $tries`; do
+            set +x
+            nova find --wide --format=table
+            exitcode=$?
+            set -e
+            if [ $exitcode = 0 ]; then
               break
             fi
-            echo
-            sleep 60
+            if [ $try -lt 2 ]; then
+              echo
+              sleep 60
+            fi
+            exit $exitcode
           done
