@@ -28,8 +28,8 @@ kind: Kustomization
 #namespace: jenkins  # Do not override helm chart, can cause issues
 
 resources:
-  - jenkins-namespace.yaml
   - priorityclass.yaml
+  - jenkins-namespace.yaml
   #- storageclass-gcp-standard-resizeable.yaml
 
 # done in namespace yaml now
