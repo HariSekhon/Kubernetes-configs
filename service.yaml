@@ -36,6 +36,8 @@ metadata:
     # ============
     # Metal LB
     #
+    #   https://metallb.universe.tf/usage/#requesting-specific-ips
+    #
     # if address-pool or loadBalancerIPs don't match an IPAddressPool then the service will stay in pending state
     #
     # # request an IP from a specific IPAddressPool
