@@ -113,7 +113,7 @@ jobs:
         run: |
           tries=3
           for try in `seq $tries`; do
-            set +x
+            set +e
             nova find --wide --format=table
             exitcode=$?
             set -e
