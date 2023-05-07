@@ -245,13 +245,17 @@ controller:
     # nobody
     runAsUser: 65534
     fsGroup: 65534
-  resources: {}
-    # limits:
-      # cpu: 100m
-      # memory: 100Mi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 100m
+      memory: 100Mi
   nodeSelector: {}
   tolerations: []
-  priorityClassName: ""
+  # XXX: requires priorityclass.yaml
+  priorityClassName: high-priority
   runtimeClassName: ""
   affinity: {}
   podAnnotations: {}
@@ -305,13 +309,17 @@ speaker:
   ## By default secretName: {{ "metallb.fullname" }}-memberlist
   ##
   # secretName:
-  resources: {}
-    # limits:
-      # cpu: 100m
-      # memory: 100Mi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 100m
+      memory: 100Mi
   nodeSelector: {}
   tolerations: []
-  priorityClassName: ""
+  # XXX: requires priorityclass.yaml
+  priorityClassName: high-priority
   affinity: {}
   ## Selects which runtime class will be used by the pod.
   runtimeClassName: ""
