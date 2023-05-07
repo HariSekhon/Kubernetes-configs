@@ -43,6 +43,8 @@ spec:
 
   # pin IPAddressPool to only be used for certain namespaces or labels for multi-tenancy
   #
+  #   https://metallb.universe.tf/configuration/_advanced_ipaddresspool_configuration/#reduce-scope-of-address-allocation-to-specific-namespace-and-service
+  #
   #   https://metallb.universe.tf/apis/#metallb.io/v1beta1.ServiceAllocation
   #
   serviceAllocation:
