@@ -129,6 +129,11 @@ spec:
   # - cons:
   #   - can cause load imbalances between pods (which is why this is not the default)
   # - not needed for HTTP(s) services using Ingress -> default ClusterIP services
+  #
+  # XXX: beware externalTrafficPolicy: Local may skip a hop on GKE going directly to a node with a pod via a health check, but if the healthcheck fails and it goes to a random node this could cause timeouts:
+  #
+  #   https://cloud.google.com/knowledge/kb/externaltrafficpolicy-cluster-works-but-local-doesn-t-000004708
+  #
   #externalTrafficPolicy: Local
   externalTrafficPolicy: Cluster  # default, distribute to all service endpoints (pods) inside cluster
 
