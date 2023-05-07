@@ -30,6 +30,7 @@ kind: Kustomization
 #namespace: ingress-nginx  # Do not set in case it overrides resources needed in kube-system
 
 resources:
+  - priorityclass.yaml
   - ingress-nginx-namespace.yaml
 
 helmCharts:
