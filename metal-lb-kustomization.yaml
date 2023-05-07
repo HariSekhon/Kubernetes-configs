@@ -18,6 +18,10 @@
 #                  M e t a l   L B   K u s t o m i z a t i o n
 # ============================================================================ #
 
+# https://metallb.universe.tf/
+
+# https://metallb.universe.tf/installation/#installation-with-helm
+
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
