@@ -29,6 +29,7 @@ resources:
   - metal-lb-namespace.yaml
   - metal-lb-ip-address-pool.yaml
   - metal-lb-l2-advertisement.yaml
+  - priorityclass.yaml
 
 helmCharts:
   - name: metallb
