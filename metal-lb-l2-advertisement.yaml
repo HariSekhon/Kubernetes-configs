@@ -19,6 +19,8 @@
 
 # https://metallb.universe.tf/configuration/_advanced_l2_configuration/
 
+# https://metallb.universe.tf/apis/#metallb.io/v1beta1.L2Advertisement
+
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
