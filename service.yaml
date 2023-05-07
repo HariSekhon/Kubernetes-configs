@@ -122,6 +122,9 @@ spec:
   # NodePort / LoadBalancer
 
   # External traffic policy routes NodePort requests only to pods on same node
+  #
+  #   https://cloud.google.com/kubernetes-engine/docs/how-to/service-parameters#externalTrafficPolicy
+  #
   # - pros:
   #   - NodePort is only opened on nodes containing the pod, essentially allowing pods to control which nodes the LoadBalanacer routes through via pod placement and LB healthchecks
   #   - one less hop inside cluster
