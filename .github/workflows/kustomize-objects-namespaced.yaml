@@ -108,12 +108,12 @@ jobs:
 
       - name: 'Install Helm Charts found in all *-kustomization.yaml files to query Kubernetes API to exclude objects at cluster scope'
         run: |
-          kustomizations="$(find . -type f -name '*-kustomization.y*ml')"
+          kustomizations="$(find . -type f -path '*/*/kustomization.y*ml')"
           # try twice in case of timeouts
           export SKIP_EXISTING_HELM_INSTALLATIONS=1
           export SKIP_ERRORS=1
-          bash-tools/kustomize_install_helm_charts.sh $kustomizations ||
-          bash-tools/kustomize_install_helm_charts.sh $kustomizations
+          bash-tools/kubernetes/kustomize_install_helm_charts.sh $kustomizations ||
+          bash-tools/kubernetes/kustomize_install_helm_charts.sh $kustomizations
 
 
       - name: Check Objects are Explicitly Namespaced
@@ -121,14 +121,14 @@ jobs:
           if [ -n "${DEBUG:-}" ]; then
             set -x
           fi
-          for kustomization in *-kustomization.yaml; do
-            if [[ "$kustomization" =~ ^($IGNORE_REGEX)- ]]; then
-              echo "Skipping $kustomization"
-              echo
-              continue
-            fi
-            echo "$kustomization"
-            cp -fv -- "$kustomization" kustomization.yaml
-            bash-tools/kustomize_check_objects_namespaced.sh
+          for kustomization in */*/kustomization.y*ml; do
+            #if [[ "$kustomization" =~ ^($IGNORE_REGEX)- ]]; then
+            #  echo "Skipping $kustomization"
+            #  echo
+            #  continue
+            #fi
+            pushd "$(dirname "$kustomization")"
+            bash-tools/kubernetes/kustomize_check_objects_namespaced.sh
+            popd
             echo
           done
