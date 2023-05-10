@@ -108,12 +108,12 @@ spec:
     #  kind: CSIDriver
     #- group: storage.k8s.io
     #  kind: CSINode
-    #- group: certificates.k8s.io
-    #  kind: CertificateSigningRequest
+    - group: certificates.k8s.io
+      kind: CertificateSigningRequest
     - group: external-secrets.io
       kind: ClusterExternalSecret
-    #- group: external-secrets.io/v1beta1
-    #  kind: ClusterExternalSecret
+    - group: external-secrets.io/v1beta1
+      kind: ClusterExternalSecret
     - group: cert-manager.io
       kind: ClusterIssuer
     # needed for Polaris kustomization
@@ -123,8 +123,8 @@ spec:
       kind: ClusterRoleBinding
     - group: external-secrets.io
       kind: ClusterSecretStore
-    #- group: external-secrets.io/v1beta1
-    #  kind: ClusterSecretStore
+    - group: external-secrets.io/v1beta1
+      kind: ClusterSecretStore
     #- group: v1
     #  kind: ComponentStatus
     # needed for Cert-Manager
@@ -177,69 +177,220 @@ spec:
     #  kind: VolumeSnapshotContent
 
   # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
-  namespaceResourceBlacklist:
-    - group: ''
-      kind: ResourceQuota
-    - group: ''
-      kind: LimitRange
-    #- group: ''
-    #  kind: NetworkPolicy
+  #namespaceResourceBlacklist:
+  #  - group: ''
+  #    kind: ResourceQuota
+  #  - group: ''
+  #    kind: LimitRange
+  #  - group: ''
+  #    kind: NetworkPolicy
 
   # Deny all namespaced-scoped resources from being created, except for ones explicitly listed here
-  # populated by script argocd_namespace_resource_whitelist.sh from https://github.com/HariSekhon/DevOps-Bash-tools/
+  # populated by script argocd_namespace_resource_whitelist.sh from YAML from https://github.com/HariSekhon/DevOps-Bash-tools/
+  # and from script argocd_generate_resource_whitelist.sh from both Kubernetes API and existing project YAML
   namespaceResourceWhitelist:
+    - group: generators.external-secrets.io/v1alpha1
+      kind: ACRAccessToken
+    - group: notification.toolkit.fluxcd.io/v1beta1
+      kind: Alert
+    - group: jenkins.io
+      kind: App
+    - group: argoproj.io/v1alpha1
+      kind: AppProject
+    - group: argoproj.io/v1alpha1
+      kind: Application
+    - group: argoproj.io/v1alpha1
+      kind: ApplicationSet
+    - group: cloud.google.com
+      kind: BackendConfig
+    - group: v1
+      kind: Binding
+    - group: source.toolkit.fluxcd.io/v1beta1
+      kind: Bucket
+    - group: jenkins.io
+      kind: BuildPack
+    #- group: storage.k8s.io/v1beta1
+    #  kind: CSIStorageCapacity
+    #- group: internal.autoscaling.gke.io/v1alpha1
+    #  kind: CapacityRequest
+    #- group: internal.autoscaling.k8s.io/v1alpha1
+    #  kind: CapacityRequest
     - group: cert-manager.io
       kind: Certificate
-    - group: ''
+    - group: cert-manager.io
+      kind: CertificateRequest
+    #- group: acme.cert-manager.io
+    #  kind: Challenge
+    #- group: jenkins.io
+    #  kind: CommitStatus
+    - group: v1
       kind: ConfigMap
-    - group: batch
-      kind: Job
+    - group: apps
+      kind: ControllerRevision
     - group: batch
       kind: CronJob
     - group: apps
       kind: DaemonSet
+    - group: datadoghq.com/v2alpha1
+      kind: DatadogAgent
+    - group: datadoghq.com/v1alpha1
+      kind: DatadogMonitor
     - group: apps
       kind: Deployment
+    - group: generators.external-secrets.io/v1alpha1
+      kind: ECRAuthorizationToken
+    - group: discovery.k8s.io
+      kind: EndpointSlice
+    - group: v1
+      kind: Endpoints
+    - group: jenkins.io
+      kind: Environment
+    - group: jenkins.io
+      kind: EnvironmentRoleBinding
+    - group: events.k8s.io
+      kind: Event
+    - group: v1
+      kind: Event
+    - group: jenkins.io
+      kind: Extension
     - group: external-secrets.io
       kind: ExternalSecret
+    - group: external-secrets.io/v1beta1
+      kind: ExternalSecret
+    - group: jenkins.io
+      kind: Fact
+    #- group: generators.external-secrets.io/v1alpha1
+    #  kind: Fake
+    #- group: networking.gke.io/v1beta1
+    #  kind: FrontendConfig
+    - group: generators.external-secrets.io/v1alpha1
+      kind: GCRAccessToken
+    - group: source.toolkit.fluxcd.io/v1beta1
+      kind: GitRepository
+    - group: jenkins.io
+      kind: GitService
+    - group: source.toolkit.fluxcd.io/v1beta1
+      kind: HelmChart
+    - group: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+    - group: source.toolkit.fluxcd.io/v1beta1
+      kind: HelmRepository
     - group: autoscaling
       kind: HorizontalPodAutoscaler
     - group: extensions  # old ingress
+      kind: Ingress
+    - group: extensions/v1beta1 # old ingress
       kind: Ingress
     - group: networking.k8s.io  # new ingress
       kind: Ingress
     - group: traefik.containo.us
       kind: IngressRoute
+    - group: cert-manager.io
+      kind: Issuer
+    - group: batch
+      kind: Job
     - group: configuration.konghq.com
       kind: KongConsumer
     - group: configuration.konghq.com
       kind: KongPlugin
+    - group: kustomize.toolkit.fluxcd.io/v1beta1
+      kind: Kustomization
+    #- group: coordination.k8s.io
+    #  kind: Lease
+    - group: v1
+      kind: LimitRange
+    #- group: authorization.k8s.io
+    #  kind: LocalSubjectAccessReview
+    #- group: networking.gke.io
+    #  kind: ManagedCertificate
     - group: traefik.containo.us
       kind: Middleware
+    #- group: autoscaling.gke.io/v1beta1
+    #  kind: MultidimPodAutoscaler
     - group: networking.k8s.io
       kind: NetworkPolicy
-    - group: ''
+    - group: acme.cert-manager.io
+      kind: Order
+    #- group: generators.external-secrets.io/v1alpha1
+    #  kind: Password
+    - group: v1
+      kind: Pod  # need this for ArgoCD 2.2+ to show you pods
+    - group: v1
       kind: PersistentVolumeClaim
+    #- group: jenkins.io
+    #  kind: PipelineActivity
+    #- group: jenkins.io
+    #  kind: PipelineStructure
+    - group: jenkins.io
+      kind: Plugin
     - group: policy
       kind: PodDisruptionBudget
+    #- group: metrics.k8s.io/v1beta1
+    #  kind: PodMetrics
+    - group: v1
+      kind: PodTemplate
+    - group: notification.toolkit.fluxcd.io/v1beta1
+      kind: Provider
+    - group: external-secrets.io/v1alpha1
+      kind: PushSecret
+    - group: notification.toolkit.fluxcd.io/v1beta1
+      kind: Receiver
+    - group: jenkins.io
+      kind: Release
+    - group: apps
+      kind: ReplicaSet  # # need this for ArgoCD 2.2+ to show you replica sets
+    - group: v1
+      kind: ReplicationController
+    - group: v1
+      kind: ResourceQuota
     - group: rbac.authorization.k8s.io
       kind: Role
     - group: rbac.authorization.k8s.io
       kind: RoleBinding
-    - group: ''
+    #- group: scalingpolicy.kope.io/v1alpha1
+    #  kind: ScalingPolicy
+    - group: jenkins.io
+      kind: Scheduler
+    - group: bitnami.com
+      kind: SealedSecret
+    - group: bitnami.com/v1alpha1
+      kind: SealedSecret
+    - group: v1
       kind: Secret  # XXX: if you're managing this you're doing it wrong, used SealedSecret or ExternalSecret instead
     - group: external-secrets.io
       kind: SecretStore
-    - group: bitnami.com
-      kind: SealedSecret
-    - group: ''
+    - group: external-secrets.io/v1beta1
+      kind: SecretStore
+    - group: v1
       kind: Service
-    - group: ''
+    - group: v1
       kind: ServiceAccount
+    #- group: networking.gke.io/v1beta1
+    #  kind: ServiceAttachment
+    #- group: networking.gke.io/v1beta1
+    #  kind: ServiceNetworkEndpointGroup
+    - group: jenkins.io
+      kind: SourceRepository
+    - group: jenkins.io
+      kind: SourceRepositoryGroup
     - group: apps
       kind: StatefulSet
+    - group: jenkins.io
+      kind: Team
+    - group: nodemanagement.gke.io/v1alpha1
+      kind: UpdateInfo
+    - group: jenkins.io
+      kind: User
+    - group: generators.external-secrets.io/v1alpha1
+      kind: VaultDynamicSecret
     - group: autoscaling.k8s.io
       kind: VerticalPodAutoscaler
+    - group: autoscaling.k8s.io
+      kind: VerticalPodAutoscalerCheckpoint
+    - group: snapshot.storage.k8s.io
+      kind: VolumeSnapshot
+    - group: jenkins.io
+      kind: Workflow
     # for kube-prometheus-stack
     - group: monitoring.coreos.com
       kind: '*'
