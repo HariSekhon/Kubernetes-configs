@@ -1,0 +1,73 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-05-12 16:54:07 +0100 (Thu, 12 May 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                    D a t r e e   K u s t o m i z e   A l l
+# ============================================================================ #
+
+# Logs results to https://app.datree.io
+
+---
+name: Datree Kustomize All
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - '**.yml'
+      - '**.yaml'
+      - '!.github/workflows/'
+      - .github/workflows/datree-kustomize-all.yaml
+  pull_request:
+    branches:
+      - master
+      - main
+    paths:
+      - '**.yml'
+      - '**.yaml'
+      - '!.github/workflows/'
+      - .github/workflows/datree-kustomize-all.yaml
+  workflow_dispatch:
+    inputs:
+      path:
+        type: string
+        default: '.'
+        required: false
+      # https://hub.datree.io/setup/cli-arguments
+      args:
+        type: string
+        # XXX: need to leave default here, even though it's a duplication, in case we want to extend the CLI args in quick tests
+        default: '--only-k8s-files --ignore-missing-schemas'
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  datree_kustomize:
+    # github.event.repository context not available in scheduled workflows
+    #if: github.event.repository.fork == false
+    if: github.repository_owner == 'HariSekhon'
+    name: Kustomize
+    uses: HariSekhon/GitHub-Actions/.github/workflows/datree-kustomize-all.yaml@master
+    with:
+      path: ${{ github.event.inputs.path || '.' }}
+      cliArguments: ${{ github.event.inputs.args || '--only-k8s-files --ignore-missing-schemas' }}
+    secrets:
+      DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
