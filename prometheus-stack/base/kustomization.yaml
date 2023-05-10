@@ -38,7 +38,7 @@ helmCharts:
     releaseName: kube-prometheus-stack
     namespace: prometheus
     includeCRDs: true
-    valuesFile: prometheus-values.yaml
+    valuesFile: kube-prometheus-stack-values.yaml
 
 # XXX: ArgoCD specific workaround for:
 #
