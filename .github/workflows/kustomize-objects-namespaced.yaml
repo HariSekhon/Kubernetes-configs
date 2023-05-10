@@ -121,6 +121,7 @@ jobs:
           if [ -n "${DEBUG:-}" ]; then
             set -x
           fi
+          bash_tools="$PWD/bash-tools"
           for kustomization in */*/kustomization.y*ml; do
             #if [[ "$kustomization" =~ ^($IGNORE_REGEX)- ]]; then
             #  echo "Skipping $kustomization"
@@ -128,7 +129,7 @@ jobs:
             #  continue
             #fi
             pushd "$(dirname "$kustomization")"
-            bash-tools/kubernetes/kustomize_check_objects_namespaced.sh
+            "$bash_tools"/kubernetes/kustomize_check_objects_namespaced.sh
             popd
             echo
           done
