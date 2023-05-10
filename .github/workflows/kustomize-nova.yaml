@@ -74,7 +74,7 @@ jobs:
           path: bash-tools
 
       - name: Install Nova
-        #run: bash-tools/github_install_binary.sh FairwindsOps/nova 'nova_{version}_{os}_{arch}.tar.gz' latest nova /usr/local/bin/
+        #run: bash-tools/github/github_install_binary.sh FairwindsOps/nova 'nova_{version}_{os}_{arch}.tar.gz' latest nova /usr/local/bin/
         run: bash-tools/setup/install_nova.sh
 
       - name: Nova version
@@ -102,12 +102,12 @@ jobs:
 
       - name: 'Install Helm Charts found in all *-kustomization.yaml files'
         run: |
-          kustomizations="$(find . -type f -name '*-kustomization.y*ml')"
+          kustomizations="$(find . -type f -path '*/base/kustomization.y*ml')"
           # try twice in case of timeouts
           export SKIP_EXISTING_HELM_INSTALLATIONS=1
           export SKIP_ERRORS=1
-          bash-tools/kustomize_install_helm_charts.sh $kustomizations ||
-          bash-tools/kustomize_install_helm_charts.sh $kustomizations
+          bash-tools/kubernetes/kustomize_install_helm_charts.sh $kustomizations ||
+          bash-tools/kubernetes/kustomize_install_helm_charts.sh $kustomizations
 
       - name: Nova Find
         run: nova find --wide --format=table
