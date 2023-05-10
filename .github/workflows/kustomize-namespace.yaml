@@ -73,7 +73,7 @@ jobs:
       - name: Check Namespace Object Created
         run: |
           if [ -n "${DEBUG:-}" ]; then
-           set -x
+            set -x
           fi
           for yaml in */*/kustomization.yaml.materialized; do
             echo "Checking $yaml"
