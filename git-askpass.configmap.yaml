@@ -23,7 +23,7 @@
 #
 #      For using other external repos that might require different credentials, then this solution is currently necessary
 
-# simplified version of https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/git_askpass.sh
+# simplified version of https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/git/git_askpass.sh
 ---
 apiVersion: v1
 kind: ConfigMap
