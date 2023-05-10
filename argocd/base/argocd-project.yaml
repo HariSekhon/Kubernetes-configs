@@ -138,12 +138,18 @@ spec:
       kind: KongClusterPlugin
     - group: admissionregistration.k8s.io
       kind: MutatingWebhookConfiguration
+    - group: ''
+      kind: Namespace
     - group: v1
       kind: Namespace
+    #- group: ''
+    #  kind: Node
     #- group: v1
     #  kind: Node
     #- group: metrics.k8s.io/v1beta1
     #  kind: NodeMetrics
+    #- group: ''
+    #  kind: PersistentVolume
     #- group: v1
     #  kind: PersistentVolume
     # for kube-prometheus-stack
@@ -203,6 +209,8 @@ spec:
       kind: ApplicationSet
     - group: cloud.google.com
       kind: BackendConfig
+    - group: ''
+      kind: Binding
     - group: v1
       kind: Binding
     - group: source.toolkit.fluxcd.io/v1beta1
@@ -223,6 +231,8 @@ spec:
     #  kind: Challenge
     #- group: jenkins.io
     #  kind: CommitStatus
+    - group: ''  # ArgoCD doesn't show using v1
+      kind: ConfigMap
     - group: v1
       kind: ConfigMap
     - group: apps
@@ -241,6 +251,8 @@ spec:
       kind: ECRAuthorizationToken
     - group: discovery.k8s.io
       kind: EndpointSlice
+    - group: ''
+      kind: Endpoints
     - group: v1
       kind: Endpoints
     - group: jenkins.io
@@ -248,6 +260,8 @@ spec:
     - group: jenkins.io
       kind: EnvironmentRoleBinding
     - group: events.k8s.io
+      kind: Event
+    - group: ''
       kind: Event
     - group: v1
       kind: Event
@@ -297,6 +311,8 @@ spec:
       kind: Kustomization
     #- group: coordination.k8s.io
     #  kind: Lease
+    - group: ''
+      kind: LimitRange
     - group: v1
       kind: LimitRange
     #- group: authorization.k8s.io
@@ -313,8 +329,12 @@ spec:
       kind: Order
     #- group: generators.external-secrets.io/v1alpha1
     #  kind: Password
-    - group: v1
-      kind: Pod  # need this for ArgoCD 2.2+ to show you pods
+    - group: ''  # need this for ArgoCD 2.2+ to show you pods
+      kind: Pod
+    - group: v1  # doesn't work to show you in ArgoCD
+      kind: Pod
+    - group: ''
+      kind: PersistentVolumeClaim
     - group: v1
       kind: PersistentVolumeClaim
     #- group: jenkins.io
@@ -327,6 +347,8 @@ spec:
       kind: PodDisruptionBudget
     #- group: metrics.k8s.io/v1beta1
     #  kind: PodMetrics
+    - group: ''
+      kind: PodTemplate
     - group: v1
       kind: PodTemplate
     - group: notification.toolkit.fluxcd.io/v1beta1
@@ -338,9 +360,13 @@ spec:
     - group: jenkins.io
       kind: Release
     - group: apps
-      kind: ReplicaSet  # # need this for ArgoCD 2.2+ to show you replica sets
+      kind: ReplicaSet  # need this for ArgoCD 2.2+ to show you replica sets
+    - group: ''
+      kind: ReplicationController
     - group: v1
       kind: ReplicationController
+    - group: ''
+      kind: ResourceQuota
     - group: v1
       kind: ResourceQuota
     - group: rbac.authorization.k8s.io
@@ -355,14 +381,20 @@ spec:
       kind: SealedSecret
     - group: bitnami.com/v1alpha1
       kind: SealedSecret
-    - group: v1
+    - group: ''
       kind: Secret  # XXX: if you're managing this you're doing it wrong, used SealedSecret or ExternalSecret instead
+    - group: v1
+      kind: Secret
     - group: external-secrets.io
       kind: SecretStore
     - group: external-secrets.io/v1beta1
       kind: SecretStore
+    - group: ''
+      kind: Service
     - group: v1
       kind: Service
+    - group: ''
+      kind: ServiceAccount
     - group: v1
       kind: ServiceAccount
     #- group: networking.gke.io/v1beta1
