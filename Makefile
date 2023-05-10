@@ -69,3 +69,7 @@ datree-kustomize:
 .PHONY: wc
 wc:
 	find . -type f -name '*.yaml' -o -type f -name '*.json' | xargs wc -l
+
+clean:
+	find . -type d -name charts -exec rm -fr {} \;
+	find . -type f -name kustomization.materialized.yaml -exec rm -f {} \;
