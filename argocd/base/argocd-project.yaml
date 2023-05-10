@@ -25,6 +25,10 @@
 # if using argocd-projects.yaml App-of-Projects pattern you can just drop this into the k8s/argocd/projects directory in git to add it dynamically,
 # or conversely delete or rename it to a different suffix such .disabled to have it auto-removed from ArgoCD
 
+# See this script to easily (re)generate the whitelist for your specific cluster:
+#
+#   https://github.com/HariSekhon/Kubernetes-configs/blob/master/kubernetes/argocd_generate_resource_whitelist.sh
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
@@ -95,11 +99,21 @@ spec:
     - namespace: traefik
       server: https://kubernetes.default.svc  # XXX: Edit
 
-  # Deny all cluster-scoped resources from being created, except for Namespace
+  # Deny all cluster-scoped resources from being created, except for these
   clusterResourceWhitelist:
     # needed to deploy metrics-server to EKS
     - group: apiregistration.k8s.io
       kind: APIService
+    #- group: storage.k8s.io
+    #  kind: CSIDriver
+    #- group: storage.k8s.io
+    #  kind: CSINode
+    #- group: certificates.k8s.io
+    #  kind: CertificateSigningRequest
+    - group: external-secrets.io
+      kind: ClusterExternalSecret
+    #- group: external-secrets.io/v1beta1
+    #  kind: ClusterExternalSecret
     - group: cert-manager.io
       kind: ClusterIssuer
     # needed for Polaris kustomization
@@ -108,28 +122,59 @@ spec:
     - group: rbac.authorization.k8s.io
       kind: ClusterRoleBinding
     - group: external-secrets.io
-      kind: ClusterExternalSecret
-    - group: external-secrets.io
       kind: ClusterSecretStore
+    #- group: external-secrets.io/v1beta1
+    #  kind: ClusterSecretStore
+    #- group: v1
+    #  kind: ComponentStatus
+    # needed for Cert-Manager
     - group: apiextensions.k8s.io
-      kind: CustomResourceDefinition  # needed for Cert-Manager
+      kind: CustomResourceDefinition
+    #- group: flowcontrol.apiserver.k8s.io/v1beta1
+    #  kind: FlowSchema
     - group: networking.k8s.io
       kind: IngressClass
     - group: configuration.konghq.com
       kind: KongClusterPlugin
-    - group: ''
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+    - group: v1
       kind: Namespace
-    - group: scheduling.k8s.io
-      kind: PriorityClass
-    - group: storage.k8s.io
-      kind: StorageClass
+    #- group: v1
+    #  kind: Node
+    #- group: metrics.k8s.io/v1beta1
+    #  kind: NodeMetrics
+    #- group: v1
+    #  kind: PersistentVolume
     # for kube-prometheus-stack
     - group: policy
       kind: PodSecurityPolicy
-    - group: admissionregistration.k8s.io
-      kind: MutatingWebhookConfiguration
+    #- group: policy/v1beta1
+    #  kind: PodSecurityPolicy
+    - group: scheduling.k8s.io
+      kind: PriorityClass
+    #- group: flowcontrol.apiserver.k8s.io/v1beta1
+    #  kind: PriorityLevelConfiguration
+    #- group: node.k8s.io
+    #  kind: RuntimeClass
+    #- group: authorization.k8s.io
+    #  kind: SelfSubjectAccessReview
+    #- group: authorization.k8s.io
+    #  kind: SelfSubjectRulesReview
+    - group: storage.k8s.io
+      kind: StorageClass
+    #- group: authorization.k8s.io
+    #  kind: SubjectAccessReview
+    #- group: authentication.k8s.io
+    #  kind: TokenReview
     - group: admissionregistration.k8s.io
       kind: ValidatingWebhookConfiguration
+    #- group: storage.k8s.io
+    #  kind: VolumeAttachment
+    #- group: snapshot.storage.k8s.io
+    #  kind: VolumeSnapshotClass
+    #- group: snapshot.storage.k8s.io
+    #  kind: VolumeSnapshotContent
 
   # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceBlacklist:
