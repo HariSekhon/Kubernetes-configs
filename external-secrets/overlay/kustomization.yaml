@@ -18,26 +18,16 @@
 #          E x t e r n a l   S e c r e t s   K u s t o m i z a t i o n
 # ============================================================================ #
 
-# Don't embed an AWS secret key like this, use IRSA and the patch in the overlay instead
-#
-# kubectl create secret generic awssm-secret --from-literal=access-key="$AWS_ACCESS_KEY_ID" --from-literal=secret-access-key="$AWS_SECRET_ACCESS_KEY"
-
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - external-secrets-namespace.yaml
-  #- external-secrets-aws-secret-store.yaml
-  #- external-secrets-gcp-secret-store.yaml
-  #- secret-store.yaml
-  #- external-secret.yaml
+  - ../base
 
-helmCharts:
-  - name: external-secrets
-    repo: https://charts.external-secrets.io
-    version: 0.8.1
-    releaseName: external-secrets
-    namespace: external-secrets
-    includeCRDs: true
-    valuesFile: external-secrets-values.yaml
+patches:
+  - path: external-secrets-serviceaccount.jsonpatch.yaml
+    target:
+      version: v1
+      kind: ServiceAccount
+      name: external-secrets
