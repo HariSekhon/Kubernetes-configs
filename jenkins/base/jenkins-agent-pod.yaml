@@ -271,6 +271,22 @@ spec:
           cpu: 500m
           memory: 200Mi
     # ==================================================
+    # https://hub.docker.com/r/anchore/grype
+    - name: grype
+      #image: aquasec/grype:v0.61.1
+      image: aquasec/grype:latest
+      imagePullPolicy: Always
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 50Mi
+        limits:
+          cpu: 500m
+          memory: 200Mi
+    # ==================================================
     # https://hub.docker.com/r/bridgecrew/checkov
     - name: checkov
       #image: bridgecrew/checkov:2.0.715
