@@ -106,7 +106,7 @@ jobs:
       #- name: Installing all kustomizations to query Kubernetes API to exclude objects at cluster scope
       #  uses: ./.github/actions/kustomizations-install
 
-      - name: 'Install Helm Charts found in all *-kustomization.yaml files to query Kubernetes API to exclude objects at cluster scope'
+      - name: 'Install Helm Charts found in all */base/kustomization.y*ml files to query Kubernetes API to exclude objects at cluster scope'
         run: |
           kustomizations="$(find . -type f -path '*/*/kustomization.y*ml')"
           # try twice in case of timeouts
