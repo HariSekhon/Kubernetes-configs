@@ -103,7 +103,7 @@ jobs:
       #- uses: ./.github/actions/install-kustomize
       #- uses: ./.github/actions/kustomizations-install
 
-      - name: 'Install Helm Charts found in all *-kustomization.yaml files'
+      - name: 'Install Helm Charts found in all */base/kustomization.y*ml files'
         run: |
           kustomizations="$(find . -type f -path '*/base/kustomization.y*ml')"
           # try twice in case of timeouts
