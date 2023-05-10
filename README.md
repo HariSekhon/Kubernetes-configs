@@ -51,11 +51,11 @@ Real-world app deployment examples, tuning and patches are found in the more spe
 
 Advanced auto-scaling production-grade CI/CD on Kubernetes:
 
-- [ArgoCD](https://argoproj.github.io/cd/) - deployment, configs and optimizations. Start here: [argocd-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/argocd-kustomization.yaml)
-- [Jenkins](https://www.jenkins.io/) - jenkins server and dynamically scaling agents on kubernetes. Start here: [jenkins-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/jenkins-kustomization.yaml)
+- [ArgoCD](https://argoproj.github.io/cd/) - deployment, configs and optimizations. Start here: [argocd-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/argocd/base/kustomization.yaml)
+- [Jenkins](https://www.jenkins.io/) - jenkins server and dynamically scaling agents on kubernetes. Start here: [jenkins-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/jenkins/base/kustomization.yaml)
   - see also: [Jenkins](https://github.com/HariSekhon/Jenkins) repo with advanced Jenkinsfile & Jenkins Shared Library
-- [TeamCity](https://www.jetbrains.com/teamcity/) - teamcity server and dynamically scaling agents on kubernetes. Start here: [teamcity-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/teamcity-kustomization.yaml)
-- [Selenium Grid](https://www.selenium.dev/documentation/grid/) - simple and distributed auto-scaling deployments. Start here: [selenium-grid-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-kustomization.yaml) / [selenium-grid-distributed-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-distributed-kustomization.yaml)
+- [TeamCity](https://www.jetbrains.com/teamcity/) - teamcity server and dynamically scaling agents on kubernetes. Start here: [teamcity-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/teamcity/base/kustomization.yaml)
+- [Selenium Grid](https://www.selenium.dev/documentation/grid/) - simple and distributed auto-scaling deployments. Start here: [selenium-grid-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid/base/kustomization.yaml) / [selenium-grid-distributed-kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-distributed/base/kustomization.yaml)
 
 ## Helm + Kustomize integration
 
@@ -72,22 +72,22 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - Horizontal Pod Autoscaler - [horizontal-pod-autoscaler.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/horizontal-pod-autoscaler.yaml)
 - Pod Disruption Budget - [pod-disruption-budget.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-disruption-budget.yaml)
 - Pod Anti-Affinity - stable vs preemptible, HA across AZs, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- Ingress Controllers - `ingress-nginx-*.yaml`, `kong-*.yaml` or `traefik-*.yaml`
-- Ingress SSL - [Cert Manager](https://cert-manager.io/) `cert-manager-*.yaml` for [Automatic Certificate Management](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) using the popular free Let's Encrypt certificate authority
-- App Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) - `argocd-*.yaml`
-- App Ingresses - [ingress.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/ingress.yaml), `*-ingress.yaml`
+- Ingress Controllers - `ingress-nginx/base/`, `kong/base/` or `traefik/base/`
+- Ingress SSL - [Cert Manager](https://cert-manager.io/) `cert-manager/base/` for [Automatic Certificate Management](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) using the popular free Let's Encrypt certificate authority
+- App Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) - `argocd/base/`
+- App Ingresses - [ingress.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/ingress.yaml), `*/base/ingress.yaml`
 - App Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- App Right-Sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) - `goldilocks-*.yaml` to generate VPAs and resource recommendations
-- DNS - [External DNS](https://github.com/kubernetes-sigs/external-dns) integration to AWS Route53, Cloudflare etc. - `external-dns-*.yaml`
-- Secrets - [External Secrets](https://github.com/external-secrets/external-secrets) integration to AWS Secrets Manager, GCP Secret Manager etc. - `external-secrets-*.yaml` or [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) `sealed-secrets-*.yaml`
+- App Right-Sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) - `goldilocks/base/` to generate VPAs and resource recommendations
+- DNS - [External DNS](https://github.com/kubernetes-sigs/external-dns) integration to AWS Route53, Cloudflare etc. - `external-dns/base/`
+- Secrets - [External Secrets](https://github.com/external-secrets/external-secrets) integration to AWS Secrets Manager, GCP Secret Manager etc. - `external-secrets/base/` or [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) `sealed-secrets/base/`
 - Network Policies - [network-policy.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/network-policy.yaml)
 - Pod Security Policies - [pod-security-policy.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-security-policy.yaml)
-- Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) - `polaris-*.yaml` for recommendations
+- Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) - `polaris/base/` for recommendations
 - Find Deprecated API objects to replace - [Pluto](https://pluto.docs.fairwinds.com/) - see [pluto_detect_kustomize_materialize.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/pluto_detect_kustomize_materialize.sh) and [pluto_detect_kubectl_dump_objects.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/pluto_detect_kubectl_dump_objects.sh) in the [DevOps Bash Tools](https://github.com/HariSekhon/DevOps-Bash-tools) repo
 
 ## Further Documention
 
-The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/.vimrc) can open these URLs from the current file via a hotkey!)
+The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/configs/.vimrc) can open these URLs from the current file via a hotkey!)
 
 ## Extra Docs
 
