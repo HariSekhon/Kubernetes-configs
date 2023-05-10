@@ -75,7 +75,7 @@ jobs:
           if [ -n "${DEBUG:-}" ]; then
            set -x
           fi
-          for yaml in *-kustomization.yaml.materialized; do
+          for yaml in */*/kustomization.yaml.materialized; do
             echo "Checking $yaml"
             if ! grep -Eq '^kind[[:space:]]*:[[:space:]]*Namespace[[:space:]]*$' "$yaml"; then
               # if there are any namespaces defined that are not the readily available default or kube-system, then raise an alert
