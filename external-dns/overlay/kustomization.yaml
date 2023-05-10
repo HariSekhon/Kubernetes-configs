@@ -18,31 +18,26 @@
 #              E x t e r n a l   D N S   K u s t o m i z a t i o n
 # ============================================================================ #
 
-# https://github.com/kubernetes-sigs/external-dns
-
-# https://artifacthub.io/packages/helm/bitnami/external-dns
-
-# Troubleshooting:
-#
-#   kubectl logs -f -n external-dns deploy/external-dns
-#
-#   check --domain-filter setting in external-dns-values.yaml and external-dns-deployment.patch.yaml
-#   matches your.domain.com
-#
-#   check ingresses have their address fields populated by the ingress controller (Nginx, Traefik and Kong in this repo are all tested to do this)
-
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - external-dns-namespace.yaml
+  - ../base
 
-helmCharts:
-  - name: external-dns
-    repo: https://charts.bitnami.com/bitnami
-    version: 6.18.0
-    releaseName: external-dns
-    namespace: external-dns
-    includeCRDs: true
-    valuesFile: external-dns-values.yaml
+patches:
+  # override --domain-filter for dev.domain.com
+  - path: external-dns-deployment.jsonpatch.yaml
+    target:
+      version: v1
+      kind: Deployment
+      name: external-dns
+      namespace: external-dns
+
+  # add AWS IRSA credential to service account
+  - path: external-dns-serviceaccount.jsonpatch.yaml
+    target:
+      version: v1
+      kind: ServiceAccount
+      name: external-dns
+      namespace: external-dns
