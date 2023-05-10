@@ -31,12 +31,7 @@ runs:
       run: |
         echo "Running Kustomizations Materialize Action"
         set -euxo pipefail
-        for kustomization in *-kustomization.yaml; do
-          if [[ "$kustomization" =~ ^eks- ]]; then
-            echo "Skipping $kustomization"
-            echo
-            continue
-          fi
+        for kustomization in */*/kustomization.y*ml; do
           echo "$kustomization"
           cp -fv -- "$kustomization" kustomization.yaml
           kustomize build --enable-helm > "$kustomization.materialized"
