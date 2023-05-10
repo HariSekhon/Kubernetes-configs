@@ -33,8 +33,9 @@ runs:
         set -euxo pipefail
         for kustomization in */*/kustomization.y*ml; do
           echo "$kustomization"
-          cp -fv -- "$kustomization" kustomization.yaml
+          pushd "$(dirname "$kustomization")" >/dev/null
           kustomize build --enable-helm > "$kustomization.materialized"
           echo "Materialized YAML -> $kustomization.materialized"
+          popd
           echo
         done
