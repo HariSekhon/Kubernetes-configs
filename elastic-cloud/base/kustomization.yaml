@@ -38,6 +38,8 @@ resources:
   #
   # needed for Helm chart below
   - elastic-cloud-namespace.yaml
+  #- ../../elastic-cloud-kibana/base
+  #- ../../elastic-cloud-beats/base
 
 # better control and customization:
 helmCharts:
