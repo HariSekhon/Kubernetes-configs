@@ -1,0 +1,37 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-05-13 17:52:53 +0100 (Thu, 13 May 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#             S e l e n i u m   G r i d   -   N o d e   -   E d g e
+# ============================================================================ #
+#               H o r i z o n t a l   P o d   A u t o S c a l e r
+# ============================================================================ #
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: selenium-node-edge
+  namespace: selenium
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: selenium-node-edge
+  minReplicas: 1
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 30

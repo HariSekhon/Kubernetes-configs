@@ -1,0 +1,120 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-05-13 13:06:05 +0100 (Thu, 13 May 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#           S e l e n i u m   G r i d   -   N o d e   -   C h r o m e
+# ============================================================================ #
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selenium-node-chrome
+  namespace: selenium
+  labels:
+    app: selenium-node
+    browser: chrome
+spec:
+  selector:
+    matchLabels:
+      app: selenium-node
+      browser: chrome
+  template:
+    metadata:
+      labels:
+        app: selenium-node
+        browser: chrome
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
+      securityContext:
+        runAsNonRoot: true
+      terminationGracePeriodSeconds: 600
+      containers:
+        - name: selenium-node-chrome
+          #image: selenium/node-chrome:3.141.59  # XXX: selenide is using 3.141.59 dependency, gets Chrome binary not found on this version
+          #image: selenium/node-chrome:90.0  # requires Hub 4.0
+          image: selenium/node-chrome:4.1.2
+          ports:
+            - containerPort: 5555
+            - containerPort: 5900  # VNC
+            - containerPort: 7900  # noVNC (browser)
+          env:
+            - name: JAVA_OPTS
+              value: "-Xmx512m -Dselenium.LOGGER.level=WARNING"
+            - name: SE_OPTS
+              value: ""  # args to java -jar command
+            # Grid 3.x
+            #- name: HUB_PORT_4444_TCP_ADDR
+            #  value: "selenium-hub"
+            #- name: HUB_PORT_4444_TCP_PORT
+            #  value: "4444"
+            - name: SE_EVENT_BUS_HOST
+              value: "selenium-hub"
+              #value: "selenium-event-bus"  # XXX: for fully distributed mode
+            - name: SE_EVENT_BUS_PUBLISH_PORT
+              value: "4442"
+            - name: SE_EVENT_BUS_SUBSCRIBE_PORT
+              value: "4443"
+            # vnc pw defaults to 'secret', might as well not bother as the grid itself requires firewall protection instead
+            - name: VNC_NO_PASSWORD
+              value: "1"
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: 5555
+            initialDelaySeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: 5555
+            initialDelaySeconds: 30
+          # https://www.selenium.dev/documentation/en/grid/grid_4/grid_endpoints/#drain
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - curl -X POST 'http://localhost:5555/se/grid/node/drain' -H 'X-REGISTRATION-SECRET;' && while curl localhost:5555/status; do sleep 1; done
+          resources:
+            requests:
+              cpu: 300m
+              memory: 615Mi
+            limits:
+              cpu: "2"
+              memory: 1Gi
+          volumeMounts:
+            - name: dshm
+              mountPath: /dev/shm
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
