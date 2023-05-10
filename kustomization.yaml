@@ -124,7 +124,7 @@ resources:
 # must name metadata.name [and often metadata.namespace] in order to match exact resources from the above yamls to match + patch
 patchesStrategicMerge:
   # labels the namespace for Goldilocks to VPA + analyze
-  - goldilocks-namespace-enable.patch.yaml
+  #- goldilocks-namespace-enable.patch.yaml
 
   # overrides replica counts / memory / ports across environments etc - anything that could be defined in a normal deployment
   #- deployment.patch.yaml
