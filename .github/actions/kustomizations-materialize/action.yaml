@@ -34,8 +34,8 @@ runs:
         for kustomization in */*/kustomization.y*ml; do
           echo "$kustomization"
           pushd "$(dirname "$kustomization")" >/dev/null
-          kustomize build --enable-helm > "$kustomization.materialized"
-          echo "Materialized YAML -> $kustomization.materialized"
+          kustomize build --enable-helm > "kustomization.yaml.materialized"
+          echo "Materialized YAML -> kustomization.yaml.materialized"
           popd
           echo
         done
