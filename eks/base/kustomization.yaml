@@ -24,6 +24,6 @@ kind: Kustomization
 #namespace: kube-system
 
 resources:
-  - ../../bases/cluster-autoscaler  # XXX: copy environment patches section from cluster-autoscaler to here for base override customizations for specific environment
-  - ../../bases/metrics-server
-  - ../../bases/vpa
+  - ../../cluster-autoscaler/base  # XXX: copy environment patches section from cluster-autoscaler to here for base override customizations for specific environment
+  - ../../metrics-server/base
+  - ../../vpa/base
