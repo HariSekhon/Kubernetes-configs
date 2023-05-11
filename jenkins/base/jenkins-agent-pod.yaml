@@ -93,7 +93,7 @@ spec:
       resources:
         requests:
           cpu: "1"     # takes around 800m
-          memory: 2Gi  # GCloud SDK requires 300Mi, but Trivy requires 1Gi and Grype requires 2Gi to avoid OOM Killer
+          memory: 2.5Gi  # GCloud SDK requires 300Mi, but Trivy requires 1Gi and Grype requires 2.5Gi to avoid OOM Killer
         limits:
           cpu: "1"
           memory: 2Gi
@@ -111,7 +111,7 @@ spec:
       resources:
         requests:
           cpu: "1"
-          memory: 2Gi  # Trivy requires 1Gi and Grype requires 2Gi to avoid OOM Killer
+          memory: 2.5Gi  # Trivy requires 1Gi and Grype requires 2.5Gi to avoid OOM Killer
         limits:
           cpu: "1"
           memory: 2Gi
