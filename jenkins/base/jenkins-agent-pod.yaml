@@ -287,8 +287,8 @@ spec:
     # ==================================================
     # https://hub.docker.com/r/anchore/grype
     - name: grype
-      #image: aquasec/grype:v0.61.1
-      image: aquasec/grype:latest
+      #image: anchore/grype:v0.61.1
+      image: anchore/grype:latest
       imagePullPolicy: Always
       command:
         - cat
