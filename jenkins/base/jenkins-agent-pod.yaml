@@ -181,19 +181,22 @@ spec:
     # ==================================================
     # https://hub.docker.com/r/harisekhon/git-kustomize
     # for gitOpsK8sUpdate Jenkins shared library at https://github.com/HariSekhon/Templates/blob/master/vars/gitOpsK8sUpdate.groovy
-    - name: git-kustomize
-      image: harisekhon/git-kustomize:latest
-      imagePullPolicy: Always
-      command:
-        - cat
-      tty: true
-      resources:
-        requests:
-          cpu: 100m
-          memory: 50Mi
-        limits:
-          cpu: 500m
-          memory: 500Mi
+    #
+    # just use downloadKustomize() now, it only takes 1-2 seconds to run and is easier and more flexible for different piplines than this
+    #
+    #- name: git-kustomize
+    #  image: harisekhon/git-kustomize:latest
+    #  imagePullPolicy: Always
+    #  command:
+    #    - cat
+    #  tty: true
+    #  resources:
+    #    requests:
+    #      cpu: 100m
+    #      memory: 50Mi
+    #    limits:
+    #      cpu: 500m
+    #      memory: 500Mi
     # ==================================================
     # https://hub.docker.com/r/hashicorp/terraform
     - name: terraform
