@@ -86,6 +86,9 @@ spec:
       # works without this
       command:
         - cat
+      env:
+        - name: DOCKER_HOST
+          value: tcp://localhost:2375  # XXX: needs the docker dind container below
       tty: true
       resources:
         requests:
@@ -101,6 +104,9 @@ spec:
       #imagePullPolicy: Always
       command:
         - cat
+      env:
+        - name: DOCKER_HOST
+          value: tcp://localhost:2375  # XXX: needs the docker dind container below
       tty: true
       resources:
         requests:
@@ -267,25 +273,27 @@ spec:
           memory: 200Mi
     # ==================================================
     # https://hub.docker.com/r/aquasec/trivy
-    - name: trivy
-      #image: aquasec/trivy:0.22.0
-      image: aquasec/trivy:latest
-      imagePullPolicy: Always
-      command:
-        - cat
-      env:
-        - name: DOCKER_HOST
-          value: tcp://localhost:2375  # XXX: needs the docker dind container near the top
-      tty: true
-      resources:
-        requests:
-          cpu: 300m
-          memory: 300Mi  # Trivy kept getting killed without more resources
-        limits:
-          cpu: '1'
-          memory: 1Gi
+    # Downloading Trivy only takes 7 seconds - save this extra RAM which is billable scaling on cloud
+    #- name: trivy
+    #  #image: aquasec/trivy:0.22.0
+    #  image: aquasec/trivy:latest
+    #  imagePullPolicy: Always
+    #  command:
+    #    - cat
+    #  env:
+    #    - name: DOCKER_HOST
+    #      value: tcp://localhost:2375  # XXX: needs the docker dind container near the top
+    #  tty: true
+    #  resources:
+    #    requests:
+    #      cpu: 300m
+    #      memory: 300Mi  # Trivy kept getting killed without more resources
+    #    limits:
+    #      cpu: '1'
+    #      memory: 1Gi
     # ==================================================
     # https://hub.docker.com/r/anchore/grype
+    # doesn't stay alive given this issue: https://github.com/anchore/grype/issues/1287
     - name: grype
       #image: anchore/grype:v0.61.1
       image: anchore/grype:latest
