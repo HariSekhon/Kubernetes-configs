@@ -291,6 +291,7 @@ spec:
       image: anchore/grype:latest
       imagePullPolicy: Always
       command:
+        # XXX: doesn't work at this time due to having no shell or busybox: https://github.com/anchore/grype/issues/1287
         - cat
       env:
         - name: DOCKER_HOST
