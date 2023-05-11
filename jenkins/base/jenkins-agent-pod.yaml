@@ -110,6 +110,17 @@ spec:
           cpu: "1"
           memory: 1Gi
     # ==================================================
+    # XXX: needed for Docker builds, trivy or grype container scanning which docker pulls etc.
+    - name: docker
+      image: docker:23.0.6-dind-rootless
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          cpu: 500m
+          memory: 1Gi
+    # ==================================================
     # https://hub.docker.com/r/stedolan/jq
     - name: jq
       image: stedolan/jq
@@ -262,6 +273,9 @@ spec:
       imagePullPolicy: Always
       command:
         - cat
+      env:
+        - name: DOCKER_HOST
+          value: tcp://localhost:2375  # XXX: needs the docker dind container near the top
       tty: true
       resources:
         requests:
@@ -278,6 +292,9 @@ spec:
       imagePullPolicy: Always
       command:
         - cat
+      env:
+        - name: DOCKER_HOST
+          value: tcp://localhost:2375  # XXX: needs the docker dind container near the top
       tty: true
       resources:
         requests:
