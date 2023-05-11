@@ -265,11 +265,11 @@ spec:
       tty: true
       resources:
         requests:
-          cpu: 50m
-          memory: 50Mi
+          cpu: 300m
+          memory: 300Mi  # Trivy kept getting killed without more resources
         limits:
-          cpu: 500m
-          memory: 200Mi
+          cpu: '1'
+          memory: 1Gi
     # ==================================================
     # https://hub.docker.com/r/anchore/grype
     - name: grype
@@ -281,11 +281,11 @@ spec:
       tty: true
       resources:
         requests:
-          cpu: 50m
-          memory: 50Mi
+          cpu: 300m
+          memory: 300Mi
         limits:
-          cpu: 500m
-          memory: 200Mi
+          cpu: '1'
+          memory: 1Gi
     # ==================================================
     # https://hub.docker.com/r/bridgecrew/checkov
     - name: checkov
