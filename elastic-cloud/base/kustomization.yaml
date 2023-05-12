@@ -37,7 +37,7 @@ resources:
   #- https://download.elastic.co/downloads/eck/2.3.0/operator.yaml
   #
   # needed for Helm chart below
-  - elastic-cloud-namespace.yaml
+  - namespace.yaml
   #- ../../elastic-cloud-kibana/base
   #- ../../elastic-cloud-beats/base
 
@@ -49,7 +49,7 @@ helmCharts:
     releaseName: elastic-operator
     namespace: elastic-system
     includeCRDs: true
-    valuesFile: elastic-cloud-values.yaml
+    valuesFile: values.yaml
 
 #patches:
 #  # XXX: remove the caBundle field from ValidatingWebhookConfiguration to prevent it being repeatedly overwritten with the stub 'Cg=='
