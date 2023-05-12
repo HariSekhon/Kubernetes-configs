@@ -36,7 +36,7 @@ namespace: octopus-deploy
 # kubectl create secret generic -n octopus-deploy octopus-deploy-sa-password    --from-literal=password='0ct@pu55!'
 
 resources:
-  - octopus-deploy-namespace.yaml
+  - namespace.yaml
 
   # XXX: for production, replace this with one of the better mechanisms documented in secret.yaml
   - octopus-deploy-secrets.yaml
@@ -76,4 +76,4 @@ resources:
 #    releaseName: octopusdeploy
 #    namespace: octopus-deploy
 #    includeCRDs: true
-#    valuesFile: octopus-deploy-values.yaml
+#    valuesFile: values.yaml
