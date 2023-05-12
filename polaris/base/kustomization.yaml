@@ -28,7 +28,7 @@ resources:
   #- https://github.com/fairwindsops/polaris/releases/latest/download/dashboard.yaml
   #- https://github.com/fairwindsops/polaris/releases/download/4.2.0/dashboard.yaml
   #
-  - polaris-namespace.yaml
+  - namespace.yaml
   # XXX: Edit ingress address before uncommenting
   #- polaris-ingress.yaml
   #
@@ -46,7 +46,7 @@ helmCharts:
     releaseName: polaris
     namespace: polaris
     includeCRDs: true
-    valuesFile: polaris-values.yaml
+    valuesFile: values.yaml
 
 # only if downloading dashboard.yaml
 #patchesStrategicMerge:
