@@ -21,7 +21,7 @@ on:
       - master
     paths:
       - '*.yaml'
-      - .github/workflows/kustomize-objects-namespaces.yaml
+      - .github/workflows/kustomize-objects-namespaced.yaml
       #- .github/actions/install-kustomize/action.yaml
       #- .github/actions/kustomizations-install/action.yaml
   pull_request:
@@ -29,7 +29,7 @@ on:
       - master
     paths:
       - '*.yaml'
-      - .github/workflows/kustomize-objects-namespaces.yaml
+      - .github/workflows/kustomize-objects-namespaced.yaml
       #- .github/actions/install-kustomize/action.yaml
       #- .github/actions/kustomizations-install/action.yaml
   workflow_dispatch:  # needs to be in default branch before you get the UI option to manually run though
