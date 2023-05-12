@@ -33,7 +33,7 @@ runs:
         set -euxo pipefail
         for kustomization in */*/kustomization.y*ml; do
           # XXX: https://github.com/wiremind/wiremind-helm-charts/issues/259
-          if [[ "$kustomization" =~ /clair/ ]]; then
+          if [[ "$kustomization" =~ clair/ ]]; then
             continue
           fi
           echo "$kustomization"
