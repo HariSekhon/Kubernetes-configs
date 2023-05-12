@@ -43,4 +43,4 @@ helmCharts:
     releaseName: traefik-hub-agent
     namespace: traefik  # XXX: must match traefik proxy's installation namespace
     includeCRDs: true
-    valuesFile: traefik-hub-agent-values.yaml
+    valuesFile: values.yaml
