@@ -26,5 +26,5 @@ namespace: elasticsearch
 resources:
   # don't run this in GitOps / ArgoCD - it'll likely repeatedly replace the caBundle
   #- ../elastic-cloud  # should contain elastic-cloud-*.yaml
-  - elasticsearch-namespace.yaml  # should already be applied from elasticsearch-kustomization.yaml
+  - namespace.yaml  # should already be applied from elasticsearch-kustomization.yaml
   - elastic-cloud-beats.yaml
