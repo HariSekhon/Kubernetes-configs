@@ -24,7 +24,7 @@ kind: Kustomization
 namespace: github-actions
 
 resources:
-  - github-actions-namespace.yaml
+  - namespace.yaml
   - github-actions-runner.yaml
   - github-actions-runner-hpa.yaml
 
