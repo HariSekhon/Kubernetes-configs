@@ -31,7 +31,7 @@ helmCharts:
     releaseName: sealed-secrets
     namespace: kube-system                  # kubeseal expects kube-system namespace, otherwise you'd have to use --controller-namespace in every command
     includeCRDs: true
-    valuesFile: sealed-secrets-values.yaml  # overrides name to sealed-secrets-controller as kubeseal expects this, otherwise you'd have to specify --controller-name in every command
+    valuesFile: values.yaml  # overrides name to sealed-secrets-controller as kubeseal expects this, otherwise you'd have to specify --controller-name in every command
 
 # Workaround for:
 #
