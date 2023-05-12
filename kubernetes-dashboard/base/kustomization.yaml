@@ -30,7 +30,7 @@ kind: Kustomization
 namespace: kubernetes-dashboard  # XXX: 9 objects without explicit namespace as shown by kustomize_check_objects_namespaces.sh in the adjacent DevOps Bash tools repo
 
 resources:
-  - kubernetes-dashboard-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: kubernetes-dashboard
@@ -39,4 +39,4 @@ helmCharts:
     releaseName: kubernetes-dashboard
     namespace: kubernetes-dashboard
     includeCRDs: true
-    valuesFile: kubernetes-dashboard-values.yaml
+    valuesFile: values.yaml
