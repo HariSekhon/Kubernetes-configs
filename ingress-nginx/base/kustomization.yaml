@@ -31,7 +31,7 @@ kind: Kustomization
 
 resources:
   - priorityclass.yaml
-  - ingress-nginx-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: ingress-nginx
@@ -40,7 +40,7 @@ helmCharts:
     releaseName: ingress-nginx
     namespace: ingress-nginx
     includeCRDs: true
-    valuesFile: ingress-nginx-values.yaml
+    valuesFile: values.yaml
 
 # superceded by config key in ingress-nginx-values.yaml
 #patches:
