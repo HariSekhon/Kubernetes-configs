@@ -24,7 +24,7 @@ kind: Kustomization
 namespace: timescaledb  # 11 objects without namespace otherwise
 
 resources:
-  - timescaledb-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: timescaledb-single
@@ -33,4 +33,4 @@ helmCharts:
     releaseName: timescaledb
     namespace: timescaledb
     includeCRDs: true
-    valuesFile: timescaledb-values.yaml
+    valuesFile: values.yaml
