@@ -27,7 +27,7 @@ kind: Kustomization
 #namespace: trivy-operator
 
 resources:
-  - trivy-operator-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: trivy-operator
@@ -36,4 +36,4 @@ helmCharts:
     releaseName: trivy-operator
     namespace: trivy-operator
     includeCRDs: true
-    valuesFile: trivy-operator-values.yaml
+    valuesFile: values.yaml
