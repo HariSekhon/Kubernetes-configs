@@ -27,7 +27,7 @@ kind: Kustomization
 namespace: kyverno  # 1 object (pod) caught unnamespaced
 
 resources:
-  - kyverno-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: kyverno
@@ -36,4 +36,4 @@ helmCharts:
     releaseName: kyverno
     namespace: kyverno
     includeCRDs: true
-    valuesFile: kyverno-values.yaml
+    valuesFile: values.yaml
