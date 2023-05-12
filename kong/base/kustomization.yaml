@@ -25,7 +25,7 @@ kind: Kustomization
 
 resources:
   - priorityclass.yaml
-  - kong-namespace.yaml
+  - namespace.yaml
   #- kong-cluster-plugin-prometheus.yaml
   #- kong-cluster-plugin-request-transformer-adv.yaml
   #- kong-cluster-plugin-response-transformer-adv.yaml
@@ -58,7 +58,7 @@ helmCharts:
     releaseName: kong
     namespace: kong
     includeCRDs: true
-    valuesFile: kong-values.yaml
+    valuesFile: values.yaml
 
 #patches:
 #  # XXX: latest Helm chart is still generating outdated ingress objects as of 2.19.0
