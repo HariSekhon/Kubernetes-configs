@@ -36,7 +36,7 @@ kind: Kustomization
 
 # override namespace for all resources
 # may cause duplicate namespace clashes if different namespaces are defined in bases
-namespace: NAMESPACE  # XXX: Do not set this if using remote base or Helm charts - may override creating roles for kube-system for leader election etc. eg. for Cert Manager
+#namespace: [% NAME %] # XXX: Do not set this if using remote base or Helm charts - may override creating roles for kube-system for leader election etc. eg. for Cert Manager
 
 # XXX: bases are deprecated and 'kustomize edit' will remove them and add them to the bottom of the resources section, messing up your ordering, so put straight into the top of resources now
 #
@@ -64,8 +64,8 @@ namespace: NAMESPACE  # XXX: Do not set this if using remote base or Helm charts
 
 # set labels on all resources and selectors - will override base
 # eg. this will replace all 'app' labels
-commonLabels:
-  app: NAME-dev
+#commonLabels:
+#  app: [% NAME %]-dev
 
 # set annotations on all resources - will override base
 #commonAnnotations:
@@ -73,11 +73,11 @@ commonLabels:
 
 # ========================
 
-resources:
-  - namespace.yaml
-  - deployment.yaml
-  - statefulset.yaml
-  - service.yaml
+#resources:
+  #- [% NAME %]-namespace.yaml
+  #- [% NAME %]-deployment.yaml
+  #- [% NAME %]-statefulset.yaml
+  #- [% NAME %]-service.yaml
   #- cronjob.yaml
   #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
   #
@@ -107,22 +107,22 @@ resources:
 #   Find configurable values:
 #
 #     helm show values <name>/<chart>
-#
+
 #helmCharts:
-#  - name: <chart_name>
+#  - name: [% NAME %]
 #    repo: <url>
 #    version: <version>
-#    releaseName: <release_name>
-#    namespace: <namespace>
+#    releaseName: [% NAME %]
+#    namespace: [% NAME %]
 #    includeCRDs: true
-#    valuesFile: values.yaml
+#    valuesFile: [% NAME %]-values.yaml
 
 
 # ========================
 # Strategic Merge Patching
 #
 # must name metadata.name [and often metadata.namespace] in order to match exact resources from the above yamls to match + patch
-patchesStrategicMerge:
+#patchesStrategicMerge:
   # labels the namespace for Goldilocks to VPA + analyze
   #- goldilocks-namespace-enable.patch.yaml
 
@@ -146,7 +146,7 @@ patchesStrategicMerge:
 #   https://github.com/kubernetes-sigs/kustomize/blob/master/examples/patchMultipleObjects.md
 #
 # XXX: missing objects are silently ignored, eg. when apps change deployment names between versions
-patches:
+#patches:
 #  - path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
 #    target:
 #      group: <optional group>
@@ -159,35 +159,35 @@ patches:
 
   # XXX: override old Ingress deprecated/removed API version 'extensions/v1beta1' to 'networking.k8s.io/v1' - must do a patchesStrategicMerge on the original object rules section too in order to be valid
   # XXX: useful to override Helm charts using old APIs that break on newer versions of Kubernetes
-  - path: ingress-apiversion.jsonpatch.yaml
-    target:
-      kind: Ingress
+  #- path: ingress-apiversion.jsonpatch.yaml
+  #  target:
+  #    kind: Ingress
 
   # make cronjobs preemptible if this kustomization is used on dev/staging environments
-  - path: cronjob-preemptible.patch.yaml
-    target:
-      kind: CronJob
+  #- path: cronjob-preemptible.patch.yaml
+  #  target:
+  #    kind: CronJob
 
   # in test / feature environments - run all deployments and statefulsets on preemptible machines to save costs
-  - path: preemptible.jsonpatch.yaml
-    target:
-      kind: Deployment
-  - path: preemptible.jsonpatch.yaml
-    target:
-      kind: StatefulSet
+  #- path: preemptible.jsonpatch.yaml
+  #  target:
+  #    kind: Deployment
+  #- path: preemptible.jsonpatch.yaml
+  #  target:
+  #    kind: StatefulSet
 
   # in test / feature environments - run all deployments and statefulsets with a single replica to save costs
-  - path: replicas.jsonpatch.yaml
-    target:
-      kind: Deployment
-  - path: replicas.jsonpatch.yaml
-    target:
-      kind: StatefulSet
+  #- path: replicas.jsonpatch.yaml
+  #  target:
+  #    kind: Deployment
+  #- path: replicas.jsonpatch.yaml
+  #  target:
+  #    kind: StatefulSet
 
   # in test / feature environments - scale down all HPAs to save costs
-  - path: hpa.replicas.jsonpatch.yaml
-    target:
-      kind: HorizontalPodAutoscaler
+  #- path: hpa.replicas.jsonpatch.yaml
+  #  target:
+  #    kind: HorizontalPodAutoscaler
 
   # label app.kubernetes.io/instance=cert-manager causes warnings for all 6 Cert Manager CRDs in ArgoCD, eg:
   #
@@ -195,10 +195,10 @@ patches:
   #
   #   https://github.com/argoproj/argo-cd/issues/6728
   #
-  - path: ./remove-instance-label.jsonpatch.yaml
-    target:
-      kind: CustomResourceDefinition
-      labelSelector: app.kubernetes.io/instance=cert-manager
+  #- path: ./remove-instance-label.jsonpatch.yaml
+  #  target:
+  #    kind: CustomResourceDefinition
+  #    labelSelector: app.kubernetes.io/instance=cert-manager
 
 # =============
 # JSON Patching - not my favourite way of doing it, prefer patchesStrategicMerge above
@@ -212,7 +212,7 @@ patches:
 #  - target:
 #      version: v1
 #      kind: Deployment
-#      name: NAME
+#      name: [% NAME %]
 #    path: some.patch.yaml
 #    # OR inline
 #    patch: |-
@@ -236,25 +236,25 @@ patches:
 #
 #   can use newName and/or newTag
 #
-images:
-  - name: eu.gcr.io/myproject/myimage
-    newName: eu.gcr.io/myproject/myotherimage
-    newTag: "latest"
+#images:
+#  - name: eu.gcr.io/myproject/myimage
+#    newName: eu.gcr.io/myproject/myotherimage
+#    newTag: "latest"
 
 # =======================
 
-configMapGenerator:
+#configMapGenerator:
   # useful for straight mounts to files
   #- name: my-config-files
   #  files:
   #    - file1.properties
   #    - file2.properties
   # useful for extracting to environment variables
-  - name: my-env
-    namespace: NAMESPACE
-    literals:
-      - env=dev
-      - version=latest
+  #- name: my-env
+  #  namespace: [% NAME %]
+  #  literals:
+  #    - env=dev
+  #    - version=latest
 
 #configurations:
 #  - kustomizeconfig.yaml
