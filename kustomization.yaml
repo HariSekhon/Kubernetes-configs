@@ -38,8 +38,8 @@ kind: Kustomization
 # may cause duplicate namespace clashes if different namespaces are defined in bases
 #namespace: [% NAME %] # XXX: Do not set this if using remote base or Helm charts - may override creating roles for kube-system for leader election etc. eg. for Cert Manager
 
-#resources:
-  #- [% NAME %]-namespace.yaml
+resources:
+  - namespace.yaml
 
 #helmCharts:
 #  - name: [% NAME %]
@@ -48,7 +48,7 @@ kind: Kustomization
 #    releaseName: [% NAME %]
 #    namespace: [% NAME %]
 #    includeCRDs: true
-#    valuesFile: [% NAME %]-values.yaml
+#    valuesFile: values.yaml
 
 # ============================================================================ #
 #                                A d v a n c e d
@@ -131,7 +131,7 @@ kind: Kustomization
 #    releaseName: [% NAME %]
 #    namespace: [% NAME %]
 #    includeCRDs: true
-#    valuesFile: [% NAME %]-values.yaml
+#    valuesFile: values.yaml
 
 
 # ========================
