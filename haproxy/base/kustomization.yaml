@@ -32,7 +32,7 @@ kind: Kustomization
 
 resources:
   - priorityclass.yaml
-  - haproxy-namespace.yaml
+  - namespace.yaml
   - haproxy-stats-service.yaml
   - haproxy-stats-ingress.yaml
   #- haproxy-global.yaml
@@ -50,4 +50,4 @@ helmCharts:
     releaseName: haproxy
     namespace: haproxy
     includeCRDs: true
-    valuesFile: haproxy-values.yaml
+    valuesFile: values.yaml
