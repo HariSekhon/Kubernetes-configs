@@ -28,7 +28,7 @@ kind: Kustomization
 #namespace: jenkins  # Do not override helm chart, can cause issues
 
 resources:
-  - jenkins-namespace.yaml
+  - namespace.yaml
   - priorityclass.yaml
   - storageclass-gcp-standard-resizeable.yaml
 
@@ -43,7 +43,7 @@ helmCharts:
     releaseName: jenkins
     namespace: jenkins
     includeCRDs: true
-    valuesFile: jenkins-values.yaml
+    valuesFile: values.yaml
 
 # Older - Helm chart above has more automation with plugin management and JCasC (Jenkins Configuration as Code) with auto-reload
 #
