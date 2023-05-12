@@ -31,7 +31,7 @@ namespace: selenium
 
 resources:
   - priorityclass.yaml
-  - selenium-grid-namespace.yaml
+  - namespace.yaml
   # Master Components
   # XXX: Edit ingress address before uncommenting
   #- selenium-grid-router-ingress.yaml
