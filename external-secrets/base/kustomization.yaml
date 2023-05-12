@@ -27,7 +27,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - external-secrets-namespace.yaml
+  - namespace.yaml
   #- external-secrets-aws-secret-store.yaml
   #- external-secrets-gcp-secret-store.yaml
   #- secret-store.yaml
@@ -40,4 +40,4 @@ helmCharts:
     releaseName: external-secrets
     namespace: external-secrets
     includeCRDs: true
-    valuesFile: external-secrets-values.yaml
+    valuesFile: values.yaml
