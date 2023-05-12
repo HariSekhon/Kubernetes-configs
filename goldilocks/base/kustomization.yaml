@@ -30,7 +30,7 @@ namespace: goldilocks  # XXX: 5 objects without explicit namespace as shown by k
   #- goldilocks-namespace-enable.patch.yaml
 
 resources:
-  - goldilocks-namespace.yaml
+  - namespace.yaml
   # XXX: Edit ingress address before uncommenting
   #- goldilocks-ingress.yaml
   #
@@ -48,7 +48,7 @@ helmCharts:
     releaseName: goldilocks
     namespace: goldilocks
     includeCRDs: true
-    valuesFile: goldilocks-values.yaml
+    valuesFile: values.yaml
 
 
 # ============================================================================ #
