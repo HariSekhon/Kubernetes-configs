@@ -125,7 +125,7 @@ jobs:
           fi
           bash_tools="$PWD/bash-tools"
           for kustomization in */*/kustomization.y*ml; do
-            if [[ "$kustomization" =~ ^($IGNORE_REGEX)- ]]; then
+            if [[ "$kustomization" =~ ^($IGNORE_REGEX) ]]; then
               echo "Skipping $kustomization"
               echo
               continue
