@@ -31,7 +31,7 @@ resources:
   #
   # OR helm + namespace.yaml
   #
-  - cert-manager-namespace.yaml
+  - namespace.yaml
   #- cert-manager-clusterissuer.yaml  # XXX: configure this before enabling
 
 helmCharts:
@@ -41,7 +41,7 @@ helmCharts:
     releaseName: cert-manager
     namespace: cert-manager
     includeCRDs: true
-    valuesFile: cert-manager-values.yaml
+    valuesFile: values.yaml
 
 # label app.kubernetes.io/instance=cert-manager causes warnings for all 6 Cert Manager CRDs in ArgoCD, eg:
 #
