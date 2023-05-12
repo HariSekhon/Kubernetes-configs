@@ -29,7 +29,7 @@ kind: Kustomization
 namespace: circleci
 
 resources:
-  - circleci-namespace.yaml
+  - namespace.yaml
   - circleci-runner-serviceaccount.yaml
   - circleci-runner-configmap.yaml
   - circleci-runner-deployment.yaml
