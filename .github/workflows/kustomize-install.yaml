@@ -105,7 +105,8 @@ jobs:
 
       - name: 'Install Helm Charts found in all */base/kustomization.y*ml files'
         run: |
-          kustomizations="$(find . -type f -path '*/base/kustomization.y*ml')"
+          # XXX: https://github.com/wiremind/wiremind-helm-charts/issues/259
+          kustomizations="$(find . -type f -path '*/base/kustomization.y*ml' | grep -v /clair/)"
           # try twice in case of timeouts
           export SKIP_EXISTING_HELM_INSTALLATIONS=1
           export SKIP_ERRORS=1
