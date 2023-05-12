@@ -25,7 +25,7 @@ kind: Kustomization
 #namespace: clair
 
 resources:
-  - clair-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: clair
@@ -34,4 +34,4 @@ helmCharts:
     releaseName: clair
     namespace: clair
     includeCRDs: true
-    valuesFile: clair-values.yaml
+    valuesFile: values.yaml
