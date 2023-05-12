@@ -24,7 +24,7 @@ kind: Kustomization
 #namespace: prometheus  # Do not override helm chart, can cause issues
 
 resources:
-  - prometheus-namespace.yaml
+  - namespace.yaml
 
 # done in namespace yaml now
 #patchesStrategicMerge:
@@ -37,4 +37,4 @@ helmCharts:
     releaseName: prometheus
     namespace: prometheus
     includeCRDs: true
-    valuesFile: prometheus-values.yaml
+    valuesFile: values.yaml
