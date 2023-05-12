@@ -28,7 +28,7 @@ namespace: teamcity
 resources:
   - priorityclass.yaml
   - storageclass-gcp-standard-resizeable.yaml
-  - teamcity-namespace.yaml
+  - namespace.yaml
   - teamcity-agent.yaml
   - teamcity-agent-cloudprofile-deployment.yaml
   # XXX: Edit ingress address before uncommenting
