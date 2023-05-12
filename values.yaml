@@ -20,6 +20,6 @@
 
 # helm repo add [% NAME %] <url>
 #
-# helm show values [% NAME %]/[% NAME %] >> [% NAME %]-values.yaml
+# helm show values [% NAME %]/[% NAME %] >> values.yaml
 
 ---
