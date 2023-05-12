@@ -18,8 +18,8 @@
 #                                  Chart Values
 # ============================================================================ #
 
-# helm repo add <name> <url>
+# helm repo add [% NAME %] <url>
 #
-# helm show values <name>/<chart> >> values.yaml
+# helm show values [% NAME %]/[% NAME %] >> [% NAME %]-values.yaml
 
 ---
