@@ -30,7 +30,7 @@ kind: Kustomization
 namespace: metallb  # 22 objects not namespaced
 
 resources:
-  - metal-lb-namespace.yaml
+  - namespace.yaml
   - metal-lb-ip-address-pool.yaml
   - metal-lb-l2-advertisement.yaml
   - priorityclass.yaml
@@ -42,4 +42,4 @@ helmCharts:
     releaseName: metallb
     namespace: metallb
     includeCRDs: true
-    valuesFile: metal-lb-values.yaml
+    valuesFile: values.yaml
