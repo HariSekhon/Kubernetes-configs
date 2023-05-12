@@ -25,7 +25,7 @@ kind: Kustomization
 namespace: trivy  # 4 objects missing namespace otherwise
 
 resources:
-  - trivy-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: trivy
@@ -34,4 +34,4 @@ helmCharts:
     releaseName: trivy
     namespace: trivy
     includeCRDs: true
-    valuesFile: trivy-values.yaml
+    valuesFile: values.yaml
