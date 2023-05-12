@@ -1,0 +1,102 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-05-12 04:18:07 +0100 (Fri, 12 May 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                      C l a i r   C h a r t   V a l u e s
+# ============================================================================ #
+
+# helm repo add wiremind https://wiremind.github.io/wiremind-helm-charts
+#
+# helm show values wiremind/clair >> clair-values.yaml
+
+---
+replicaCount: 1
+logLevel: debug
+insecureTls: false
+#image:
+#  repository: quay.io/coreos/clair
+#  tag: v2.1.6
+#  pullPolicy: IfNotPresent
+service:
+  name: clair
+  type: ClusterIP
+  internalApiPort: 6060
+  externalApiPort: 6060
+  internalHealthPort: 6061
+  externalHealthPort: 6061
+ingress:
+  enabled: true
+  # ingressClassName: ""
+  # Used to create Ingress record (should used with service.type: ClusterIP).
+  hosts:
+    - clair-clair
+  annotations:
+    # kubernetes.io/ingress.global-static-ip-name: "test-ip"
+    # kubernetes.io/tls-acme: "true"
+  tls:
+    # Secrets must be manually created in the namespace.
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+resources:
+  requests:
+    cpu: 100m
+    memory: 2000Mi
+  limits:
+    cpu: 2
+    memory: 3000Mi
+config:
+  # postgresURI: "postgres://user:password@host:5432/postgres?sslmode=disable"
+  # paginationKey: "XxoPtCUzrUv4JV5dS+yQ+MdW7yLEJnRMwigVY/bpgtQ="
+  updateInterval: 2h
+  # notificationWebhookEndpoint: https://example.com/notify/me
+  enabledUpdaters:
+    - debian
+    - ubuntu
+    - rhel
+    - oracle
+    - alpine
+  enabledNamespaceDetectors:
+    - os-release
+    - lsb-release
+    - apt-sources
+    - alpine-release
+    - redhat-release
+  enabledFeatureListers:
+    - apk
+    - dpkg
+    - rpm
+# Configuration values for the postgresql dependency.
+# ref: https://github.com/kubernetes/charts/blob/master/stable/postgresql/README.md
+postgresql:
+# The dependant Postgres chart can be disabled, to connect to
+# an existing database by defining config.postgresURI
+  enabled: true
+  image:
+    debug: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 512Mi
+    limits:
+      cpu: 2
+      memory: 512Mi
+  postgresqlUsername: postgres
+  postgresqlPassword: clair
+  persistence:
+    size: 1Gi
+  networkPolicy:
+    enabled: true
