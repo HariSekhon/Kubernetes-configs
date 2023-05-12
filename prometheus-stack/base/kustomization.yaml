@@ -24,7 +24,7 @@ kind: Kustomization
 #namespace: prometheus  # Do not override helm chart, can cause issues
 
 resources:
-  - prometheus-namespace.yaml
+  - namespace.yaml
 
 # done in namespace yaml now
 #patchesStrategicMerge:
@@ -38,7 +38,7 @@ helmCharts:
     releaseName: kube-prometheus-stack
     namespace: prometheus
     includeCRDs: true
-    valuesFile: kube-prometheus-stack-values.yaml
+    valuesFile: values.yaml
 
 # XXX: ArgoCD specific workaround for:
 #
