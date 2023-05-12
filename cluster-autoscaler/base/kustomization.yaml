@@ -32,4 +32,4 @@ helmCharts:
     releaseName: cluster-autoscaler
     includeCRDs: true
     namespace: kube-system
-    valuesFile: cluster-autoscaler-values.yaml
+    valuesFile: values.yaml
