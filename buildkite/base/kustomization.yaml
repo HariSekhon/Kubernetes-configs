@@ -24,7 +24,7 @@ kind: Kustomization
 namespace: buildkite
 
 resources:
-  - buildkite-namespace.yaml
+  - namespace.yaml
   - buildkite-agent.yaml
   - buildkite-hpa.yaml
 
