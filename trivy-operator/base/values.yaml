@@ -20,7 +20,7 @@
 
 # helm repo add aquasecurity https://aquasecurity.github.io/helm-charts/
 #
-# helm show values aquasecurity/trivy-operator >> trivy-operator-values.yaml
+# helm show values aquasecurity/trivy-operator >> values.yaml
 
 ---
 # targetNamespace defines where you want trivy-operator to operate. By
