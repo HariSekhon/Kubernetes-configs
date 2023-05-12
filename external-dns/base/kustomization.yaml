@@ -36,7 +36,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - external-dns-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: external-dns
@@ -45,4 +45,4 @@ helmCharts:
     releaseName: external-dns
     namespace: external-dns
     includeCRDs: true
-    valuesFile: external-dns-values.yaml
+    valuesFile: values.yaml
