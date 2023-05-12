@@ -42,7 +42,8 @@ on:
     - cron: '0 0 * * 1'
 
 env:
-  IGNORE_REGEX: 'eks'
+  # XXX: https://github.com/wiremind/wiremind-helm-charts/issues/259
+  IGNORE_REGEX: /clair/
   DEBUG: ${{ github.event.inputs.debug == true || '' }}
 
 permissions:
@@ -124,11 +125,11 @@ jobs:
           fi
           bash_tools="$PWD/bash-tools"
           for kustomization in */*/kustomization.y*ml; do
-            #if [[ "$kustomization" =~ ^($IGNORE_REGEX)- ]]; then
-            #  echo "Skipping $kustomization"
-            #  echo
-            #  continue
-            #fi
+            if [[ "$kustomization" =~ ^($IGNORE_REGEX)- ]]; then
+              echo "Skipping $kustomization"
+              echo
+              continue
+            fi
             pushd "$(dirname "$kustomization")"
             "$bash_tools"/kubernetes/kustomize_check_objects_namespaced.sh
             popd
