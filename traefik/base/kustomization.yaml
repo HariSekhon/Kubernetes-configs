@@ -27,7 +27,7 @@ kind: Kustomization
 namespace: traefik  # XXX: 4 objects without explicit namespace as shown by kustomize_check_objects_namespaces.sh in the adjacent DevOps Bash tools repo
 
 resources:
-  - traefik-namespace.yaml
+  - namespace.yaml
   - traefik-dashboard-service.yaml
   - traefik-dashboard-basic-auth.yaml
   - traefik-dashboard-add-prefix.yaml
@@ -53,4 +53,4 @@ helmCharts:
     releaseName: traefik
     namespace: traefik
     includeCRDs: true
-    valuesFile: traefik-values.yaml
+    valuesFile: values.yaml
