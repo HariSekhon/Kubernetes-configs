@@ -25,7 +25,7 @@ kind: Kustomization
 namespace: harbor  # 37 objects without namespace
 
 resources:
-  - harbor-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: harbor
@@ -34,4 +34,4 @@ helmCharts:
     releaseName: harbor
     namespace: harbor
     includeCRDs: true
-    valuesFile: harbor-values.yaml
+    valuesFile: values.yaml
