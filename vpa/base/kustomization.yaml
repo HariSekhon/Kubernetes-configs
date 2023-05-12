@@ -48,4 +48,4 @@ helmCharts:
     releaseName: vpa
     namespace: kube-system
     includeCRDs: true
-    valuesFile: vpa-values.yaml
+    valuesFile: values.yaml
