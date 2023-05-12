@@ -28,7 +28,7 @@ kind: Kustomization
 namespace: cloudbees-core  # XXX: 8 objects found without explicit namespace defined by kustomize_check_objects_namespaces.sh in the DevOps Bash tools repo
 
 resources:
-  - cloudbees-namespace.yaml
+  - namespace.yaml
 
 helmCharts:
   - name: cloudbees-core
@@ -37,7 +37,7 @@ helmCharts:
     releaseName: cloudbees-core
     namespace: cloudbees-core
     includeCRDs: true
-    valuesFile: cloudbees-values.yaml
+    valuesFile: values.yaml
 
 #patches:
 #  # Old Ingress needs rules replacement to be valid too (done in disable patch further down)
