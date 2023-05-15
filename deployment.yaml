@@ -242,6 +242,8 @@ spec:
             httpGet:
               path: /healthz
               port: 8080
+              #scheme: HTTPS
+              #insecureSkipTLSVerify: true
             # only uncomment if you can't use http check, must delete http check otherwise will get this error:
             # invalid: spec.containers[0].livenessProbe.tcpSocket: Forbidden: may not specify more than 1 handler type
             #tcpSocket:
@@ -258,6 +260,8 @@ spec:
             httpGet:
               path: /healthz
               port: 8080
+              #scheme: HTTPS
+              #insecureSkipTLSVerify: true
             #tcpSocket:
             #  port: 8080
             #exec:
