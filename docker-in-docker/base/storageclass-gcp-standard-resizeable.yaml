@@ -1,0 +1,46 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2019-11-27 12:19:45 +0000 (Wed, 27 Nov 2019)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#  S t o r a g e C l a s s   -   G C P   S t a n d a r d   R e s i z e a b l e
+# ============================================================================ #
+
+# Storage Class for GCP Standard disk that allows clients to resize (increase only) simply via changing their requested allocation size
+
+# https://kubernetes.io/docs/concepts/storage/storage-classes/
+
+# https://kubernetes.io/blog/2018/07/12/resizing-persistent-volumes-using-kubernetes/
+
+# https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/storage-class-v1/
+
+# If you have already deployed using the default 'standard' storageclass and want to be able to resize that, you can patch the default storage class to permit it like so:
+#
+#   kubectl patch sc standard -p '{"allowVolumeExpansion": true}'
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  # generic name so on another cloud vendor you just replace the storageclass but the deployment / statefulset manifests don't need modifying
+  name: standard-resizeable
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-standard
+  #replication-type: regional-pd  # default: none
+#volumeBindingMode: WaitForFirstConsumer  # recommended with regional-pd
+allowVolumeExpansion: true
+reclaimPolicy: Retain # for safety, else default: Delete

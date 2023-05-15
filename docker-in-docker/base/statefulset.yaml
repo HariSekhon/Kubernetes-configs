@@ -1,0 +1,131 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-05-15 00:46:17 +0100 (Mon, 15 May 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#            D o c k e r - i n - D o c k e r   S t a t e f u l s e t
+# ============================================================================ #
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: docker
+  namespace: docker
+  annotations:
+spec:
+  replicas: 2
+  serviceName: docker
+  selector:
+    matchLabels:
+      app: docker-in-docker
+  template:
+    metadata:
+      labels:
+        app: docker-in-docker
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: cloud.google.com/gke-preemptible
+                    operator: DoesNotExist
+                  - key: eks.amazonaws.com/capacityType
+                    operator: NotIn
+                    values:
+                      - SPOT
+                  - key: kubernetes.azure.com/scalesetpriority
+                    operator: NotIn
+                    values:
+                      - spot
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: topology.kubernetes.io/zone
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - docker-in-docker
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - docker-in-docker
+      securityContext:
+        runAsUser: 1000
+        runAsNonRoot: true
+        fsGroup: 1000   # group to own volumeMounts so they can be written to by the user-level process
+        # XXX: don't chgrp all the many small files unless the root mismatches, prevents long outages on pod creation hanging with multiple of these error messages:
+        #
+        #   Unable to attach or mount volumes: unmounted volumes=[jenkins-home], unattached volumes=[kube-api-access-6q2kb jenkins-home]: timed out waiting for the condition
+        #
+        #   https://docs.cloudbees.com/docs/cloudbees-ci-kb/latest/cloudbees-ci-on-modern-cloud-platforms/timeout-when-attaching-volumes-in-kubernetes
+        #
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: docker
+          image: docker:23.0.6-dind-rootless
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+          securityContext:
+            runAsNonRoot: true
+            # [rootlesskit:child ] error: failed to share mount point: /: permission denied
+            privileged: true
+            # mkdir: can't create directory '/certs/ca': Read-only file system
+            readOnlyRootFilesystem: false
+            # [rootlesskit:parent] error: failed to setup UID/GID map: newuidmap 65 [0 1000 1 1 100000 65536] failed: : fork/exec /usr/bin/newuidmap: operation not permitted
+            #allowPrivilegeEscalation: false
+            #capabilities:
+            #  drop:
+            #    - ALL
+          readinessProbe:
+            tcpSocket:
+              port: 2376
+            initialDelaySeconds: 0 # default
+            successThreshold: 1    # default
+            failureThreshold: 3    # default
+            periodSeconds: 10      # default (interval)
+            timeoutSeconds: 1      # default
+          livenessProbe:
+            tcpSocket:
+              port: 2376
+            initialDelaySeconds: 0 # default
+            successThreshold: 1    # default
+            failureThreshold: 3    # default
+            periodSeconds: 10      # default (interval)
+            timeoutSeconds: 1      # default
+          volumeMounts:
+            - name: docker
+              mountPath: /var/lib/docker
+  volumeClaimTemplates:
+    - metadata:
+        name: docker
+      spec:
+        storageClassName: standard-resizeable
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi
