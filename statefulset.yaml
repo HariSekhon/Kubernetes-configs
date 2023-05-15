@@ -186,8 +186,8 @@ spec:
             #httpGet:
             #  path: /healthz
             #  port: 8080
-            #  scheme: HTTPS
-            #  insecureSkipTLSVerify: true
+            #  #scheme: HTTPS
+            #  #insecureSkipTLSVerify: true
             tcpSocket:
               port: 5432
             initialDelaySeconds: 0 # default
