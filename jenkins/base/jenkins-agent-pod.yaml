@@ -86,9 +86,10 @@ spec:
       # works without this
       command:
         - cat
-      env:
-        - name: DOCKER_HOST
-          value: tcp://docker.docker.svc.cluster.local:2375  # XXX: needs ../../docker-in-docker
+      # Set this system wide in Jenkins global config for easier maintenance
+      #env:
+      #  - name: DOCKER_HOST
+      #    value: tcp://docker.docker.svc.cluster.local:2375  # XXX: needs ../../docker-in-docker
       tty: true
       resources:
         requests:
@@ -104,9 +105,10 @@ spec:
       #imagePullPolicy: Always
       command:
         - cat
-      env:
-        - name: DOCKER_HOST
-          value: tcp://docker.docker.svc.cluster.local:2375  # XXX: needs ../../docker-in-docker
+      # Set this system wide in Jenkins global config for easier maintenance
+      #env:
+      #  - name: DOCKER_HOST
+      #    value: tcp://docker.docker.svc.cluster.local:2375  # XXX: needs ../../docker-in-docker
       tty: true
       resources:
         requests:
