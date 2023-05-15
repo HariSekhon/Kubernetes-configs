@@ -88,7 +88,7 @@ spec:
         - cat
       env:
         - name: DOCKER_HOST
-          value: tcp://localhost:2375  # XXX: needs the docker dind container below
+          value: tcp://docker.docker.svc.cluster.local:2375  # XXX: needs ../../docker-in-docker
       tty: true
       resources:
         requests:
@@ -106,7 +106,7 @@ spec:
         - cat
       env:
         - name: DOCKER_HOST
-          value: tcp://localhost:2375  # XXX: needs the docker dind container below
+          value: tcp://docker.docker.svc.cluster.local:2375  # XXX: needs ../../docker-in-docker
       tty: true
       resources:
         requests:
@@ -117,15 +117,16 @@ spec:
           memory: 2Gi
     # ==================================================
     # XXX: needed for Docker builds, trivy or grype container scanning which docker pulls etc.
-    - name: docker
-      image: docker:23.0.6-dind-rootless
-      resources:
-        requests:
-          cpu: 500m
-          memory: 512Mi
-        limits:
-          cpu: 500m
-          memory: 1Gi
+    # use ../../docker-in-docker instead for better performance and sharing across pods from ../../docker-in-docker
+    #- name: docker
+    #  image: docker:23.0.6-dind-rootless
+    #  resources:
+    #    requests:
+    #      cpu: 500m
+    #      memory: 512Mi
+    #    limits:
+    #      cpu: 500m
+    #      memory: 1Gi
     # ==================================================
     # https://hub.docker.com/r/stedolan/jq
     - name: jq
@@ -285,7 +286,7 @@ spec:
     #    - cat
     #  env:
     #    - name: DOCKER_HOST
-    #      value: tcp://localhost:2375  # XXX: needs the docker dind container near the top
+    #      value: tcp://localhost:2375  # XXX: needs ../../docker-in-docker
     #  tty: true
     #  resources:
     #    requests:
@@ -306,7 +307,7 @@ spec:
         - cat
       env:
         - name: DOCKER_HOST
-          value: tcp://localhost:2375  # XXX: needs the docker dind container near the top
+          value: tcp://localhost:2375  # XXX: needs ../../docker-in-docker
       tty: true
       resources:
         requests:
