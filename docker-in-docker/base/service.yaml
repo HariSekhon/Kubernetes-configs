@@ -33,10 +33,10 @@ spec:
     app: docker-in-docker
   ports:
     - protocol: TCP
-      name: plain
+      name: http
       port: 2375
       targetPort: 2375
     - protocol: TCP
-      name: tls
+      name: https
       port: 2376
       targetPort: 2376
