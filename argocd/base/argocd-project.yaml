@@ -72,6 +72,10 @@ spec:
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: circleci
       server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: datadog
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: docker
+      server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: external-dns
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: external-secrets
@@ -97,6 +101,8 @@ spec:
     - namespace: selenium
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: traefik
+      server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: trivy
       server: https://kubernetes.default.svc  # XXX: Edit
 
   # Deny all cluster-scoped resources from being created, except for these
