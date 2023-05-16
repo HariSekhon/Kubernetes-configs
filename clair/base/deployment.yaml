@@ -45,10 +45,10 @@ spec:
         - name: clair
           image: quay.io/coreos/clair:v4.3.6
           ports:
-            - containerPort: 6060
+            - containerPort: 8080
               name: clair-api
               protocol: TCP
-            - containerPort: 6061
+            - containerPort: 8089
               name: clair-health
               protocol: TCP
           env:
@@ -58,8 +58,8 @@ spec:
               value: /etc/clair/config.yaml
           readinessProbe:
             httpGet:
-              path: /health
-              port: 6061
+              path: /healthz
+              port: 8089
               scheme: HTTP
             initialDelaySeconds: 0 # default
             successThreshold: 1    # default
@@ -68,8 +68,8 @@ spec:
             timeoutSeconds: 1      # default
           livenessProbe:
             httpGet:
-              path: /health
-              port: 6061
+              path: /healthz
+              port: 8089
               scheme: HTTP
             initialDelaySeconds: 0 # default
             successThreshold: 1    # default
