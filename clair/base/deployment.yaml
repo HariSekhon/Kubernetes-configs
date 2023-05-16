@@ -43,7 +43,7 @@ spec:
       #progressDeadlineSeconds: 600
       containers:
         - name: clair
-          image: quay.io/coreos/clair:v4.3.6
+          image: quay.io/projectquay/clair:4.6.1
           ports:
             - containerPort: 8080
               name: clair-api
