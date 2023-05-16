@@ -26,12 +26,23 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - deployment.yaml
+  - service.yaml
+  - configmap.yaml
 
 helmCharts:
-  - name: clair
-    repo: https://wiremind.github.io/wiremind-helm-charts
-    version: 0.2.9
+# stale
+#  - name: clair
+#    repo: https://wiremind.github.io/wiremind-helm-charts
+#    version: 0.2.9
+#    releaseName: clair
+#    namespace: clair
+#    includeCRDs: true
+#    valuesFile: values.yaml
+  - name: postgresql
+    repo: https://charts.bitnami.com/bitnami
+    version: 12.5.2
     releaseName: clair
     namespace: clair
     includeCRDs: true
-    valuesFile: values.yaml
+    #valuesFile: postgres-values.yaml
