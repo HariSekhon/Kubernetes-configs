@@ -78,17 +78,17 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - Horizontal Pod Autoscaler - [horizontal-pod-autoscaler.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/horizontal-pod-autoscaler.yaml)
 - Pod Disruption Budget - [pod-disruption-budget.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-disruption-budget.yaml)
 - Pod Anti-Affinity - stable vs preemptible, HA across AZs, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- Ingress Controllers - `ingress-nginx/base/`, `kong/base/` or `traefik/base/`
-- Ingress SSL - [Cert Manager](https://cert-manager.io/) `cert-manager/base/` for [Automatic Certificate Management](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) using the popular free Let's Encrypt certificate authority
-- App Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) - `argocd/base/`
+- Ingress Controllers - [Nginx](https://kubernetes.github.io/ingress-nginx/) ([config](ingress-nginx/base/)), [Kong](https://konghq.com/) ([config](kong/base/)) or [Traefik](https://traefik.io/traefik/) ([config](traefik/base/))
+- Ingress SSL - [Cert Manager](https://cert-manager.io/) ([config](cert-manager/base/)) for [Automatic Certificate Management](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) using the popular free Let's Encrypt certificate authority
+- App Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) ([config](argocd/base/))
 - App Ingresses - [ingress.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/ingress.yaml), `*/base/ingress.yaml`
 - App Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- App Right-Sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) - `goldilocks/base/` to generate VPAs and resource recommendations
-- DNS - [External DNS](https://github.com/kubernetes-sigs/external-dns) integration to AWS Route53, Cloudflare etc. - `external-dns/base/`
-- Secrets - [External Secrets](https://github.com/external-secrets/external-secrets) integration to AWS Secrets Manager, GCP Secret Manager etc. - `external-secrets/base/` or [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) `sealed-secrets/base/`
+- App Right-Sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) ([config](goldilocks/base/)) to generate VPAs and resource recommendations
+- DNS - [External DNS](https://github.com/kubernetes-sigs/external-dns) ([config](external-dns/base/)) integration to AWS Route53, Cloudflare etc.
+- Secrets - [External Secrets](https://github.com/external-secrets/external-secrets) ([config](external-secrets/base/)) integration to AWS Secrets Manager, GCP Secret Manager etc. or [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) ([config](sealed-secrets/base/))
 - Network Policies - [network-policy.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/network-policy.yaml)
 - Pod Security Policies - [pod-security-policy.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-security-policy.yaml)
-- Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) - `polaris/base/` for recommendations
+- Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) ([config](polaris/base/)) for recommendations
 - Find Deprecated API objects to replace - [Pluto](https://pluto.docs.fairwinds.com/) - see [pluto_detect_kustomize_materialize.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/pluto_detect_kustomize_materialize.sh) and [pluto_detect_kubectl_dump_objects.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/pluto_detect_kubectl_dump_objects.sh) in the [DevOps Bash Tools](https://github.com/HariSekhon/DevOps-Bash-tools) repo
 
 ## Further Documention
