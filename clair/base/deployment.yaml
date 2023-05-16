@@ -54,7 +54,7 @@ spec:
           env:
             - name: CLAIR_MODE
               value: combo
-            - name: CLAIR_CONFIG
+            - name: CLAIR_CONF
               value: /etc/clair/config.yaml
           readinessProbe:
             httpGet:
@@ -90,5 +90,5 @@ spec:
       volumes:
         - name: clair-config
           configMap:
-            name: clair-clair
+            name: clair-config
             defaultMode: 420
