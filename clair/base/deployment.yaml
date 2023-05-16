@@ -1,0 +1,94 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-05-16 18:32:01 +0100 (Tue, 16 May 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help improve or steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                        C l a i r   D e p l o y m e n t
+# ============================================================================ #
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clair
+  namespace: clair
+  labels:
+    app: clair
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: clair
+      app.kubernetes.io/name: clair
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: clair
+        app.kubernetes.io/name: clair
+    spec:
+      #revisionHistoryLimit: 10
+      #progressDeadlineSeconds: 600
+      containers:
+        - name: clair
+          image: quay.io/coreos/clair:v4.3.6
+          ports:
+            - containerPort: 6060
+              name: clair-api
+              protocol: TCP
+            - containerPort: 6061
+              name: clair-health
+              protocol: TCP
+          env:
+            - name: CLAIR_MODE
+              value: combo
+            - name: CLAIR_CONFIG
+              value: /etc/clair/config.yaml
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 6061
+              scheme: HTTP
+            initialDelaySeconds: 0 # default
+            successThreshold: 1    # default
+            failureThreshold: 3    # default
+            periodSeconds: 10      # default (interval)
+            timeoutSeconds: 1      # default
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 6061
+              scheme: HTTP
+            initialDelaySeconds: 0 # default
+            successThreshold: 1    # default
+            failureThreshold: 3    # default
+            periodSeconds: 10      # default (interval)
+            timeoutSeconds: 1      # default
+          resources:
+            requests:
+              cpu: 100m
+              memory: 2Gi
+            limits:
+              cpu: "2"
+              memory: 3Gi
+          volumeMounts:
+            - mountPath: /etc/clair
+              name: clair-config
+              readOnly: true
+      volumes:
+        - name: clair-config
+          configMap:
+            name: clair-clair
+            defaultMode: 420
