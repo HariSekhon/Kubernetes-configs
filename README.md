@@ -37,7 +37,9 @@
 
 Advanced Kubernetes YAML configurations & templates, based on my experiences running Kubernetes in production at different companies.
 
-Contains various Best Practices, Tips & Tricks learned over time in production environments.
+The top-level directory contains standard Kubernetes object templates with many Best Practices, Tips & Tricks learned over time across production environments.
+
+The sub-directories contain ready-to-run real world apps that I've run across environments.
 
 ## Templates
 
@@ -47,7 +49,7 @@ The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/
 
 ## Apps
 
-Real-world app deployment examples, tuning and patches are found in the more specific `<app>-kustomization.yaml` and `<app>-*.yaml` configs.
+Real-world app deployment examples, tuning and patches are found in the more specific `<app>/` directories.
 
 ## CI/CD
 
