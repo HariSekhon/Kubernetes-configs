@@ -26,9 +26,11 @@
 replicaCount: 1
 logLevel: debug
 insecureTls: false
-#image:
+# XXX: this chart is so out of date, override the tag to a current release
+image:
 #  repository: quay.io/coreos/clair
 #  tag: v2.1.6
+  tag: v4.3.6
 #  pullPolicy: IfNotPresent
 service:
   name: clair
