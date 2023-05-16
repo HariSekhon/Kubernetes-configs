@@ -22,7 +22,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: clair
+  name: clair-config
   namespace: clair
 data:
   # taken from https://github.com/HariSekhon/Templates
@@ -39,7 +39,7 @@ data:
     log_level: info  # debug, debug-color, warn, error, fatal, panic
     indexer:
       # libpq connection string
-      connstring: host=clair-postgres-0 port=5432 user=clair dbname=clair sslmode=disable
+      connstring: host=clair-postgresql.clair.svc.cluster.local port=5432 user=clair dbname=clair sslmode=disable
       # or URL
       #connstring: postgres://user:password@localhost/clair?sslmode=disable
       scanlock_retry: 10
@@ -47,7 +47,7 @@ data:
       migrations: true
     matcher:
       indexer_addr: clair-clair.clair.svc.cluster.local:8080  # XXX: Edit
-      connstring: host=clair-postgres-0 port=5432 user=clair dbname=clair sslmode=disable
+      connstring: host=clair-postgresql.clair.svc.cluster.local port=5432 user=clair dbname=clair sslmode=disable
       max_conn_pool: 100
       run: ""
       migrations: true
@@ -87,7 +87,7 @@ data:
     notifier:
       indexer_addr: http://clair-clair.clair.svc.cluster.local:8080/  # XXX: Edit for distributed mode
       matcher_addr: http://clair-clair.clair.svc.cluster.local:8080/  # XXX: Edit for distributed mode
-      connstring: host=clair-postgres-0 port=5432 user=clair dbname=clair sslmode=disable
+      connstring: host=clair-postgresql.clair.svc.cluster.local port=5432 user=clair dbname=clair sslmode=disable
       migrations: true
       delivery_interval: 1m
       poll_interval: 5m
