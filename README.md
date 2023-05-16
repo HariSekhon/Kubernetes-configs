@@ -49,7 +49,7 @@ The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/
 
 ## Apps
 
-Real-world app deployment examples, tuning and patches are found in the more specific `<app>/` directories.
+Real-world app deployment examples, tuning and patches are found in the more specific `<app>/` directories which follow standard Kustomize `base/` / `overlay/` layout to make it easy to take as-is and just tuned the overlay to your specific environment.
 
 ## CI/CD
 
