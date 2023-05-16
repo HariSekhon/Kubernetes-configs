@@ -46,7 +46,7 @@ data:
       layer_scan_concurrency: 5
       migrations: true
     matcher:
-      indexer_addr: clair-clair.clair.svc.cluster.local:8080  # XXX: Edit
+      indexer_addr: clair.clair.svc.cluster.local:8080  # XXX: Edit
       #connstring: host=clair-postgresql.clair.svc.cluster.local port=5432 user=clair dbname=clair sslmode=disable
       connstring: postgres://clair:clair@clair-postgresql.clair.svc.cluster.local/clair?sslmode=disable
       max_conn_pool: 100
@@ -86,8 +86,8 @@ data:
           source: clair-sample-instance
           key: 207c527cfc2a6b8dcf4fa43ad7a976da
     notifier:
-      indexer_addr: http://clair-clair.clair.svc.cluster.local:8080/  # XXX: Edit for distributed mode
-      matcher_addr: http://clair-clair.clair.svc.cluster.local:8080/  # XXX: Edit for distributed mode
+      indexer_addr: http://clair.clair.svc.cluster.local:8080/  # XXX: Edit for distributed mode
+      matcher_addr: http://clair.clair.svc.cluster.local:8080/  # XXX: Edit for distributed mode
       #connstring: host=clair-postgresql.clair.svc.cluster.local port=5432 user=clair dbname=clair sslmode=disable
       connstring: postgres://clair:clair@clair-postgresql.clair.svc.cluster.local/clair?sslmode=disable
       migrations: true
