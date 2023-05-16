@@ -1,0 +1,137 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-05-16 18:26:41 +0100 (Tue, 16 May 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#             C l a i r   c o n f i g . y a m l   C o n f i g m a p
+# ============================================================================ #
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clair
+  namespace: clair
+data:
+  # taken from https://github.com/HariSekhon/Templates
+  config.yaml: |
+    # https://quay.github.io/clair/reference/config.html
+
+    # All 3 processes use this same config file regardless of combo or distributed mode
+
+    # XXX: in combo mode '*_addr' fields are ignored as everything runs in a single process
+
+    ---
+    introspection_addr: 0.0.0.0:8089  # where Clair's metrics and health endpoints are exposed
+    http_listen_addr: 0.0.0.0:8080
+    log_level: info  # debug, debug-color, warn, error, fatal, panic
+    indexer:
+      # libpq connection string
+      connstring: host=clair-postgres-0 port=5432 user=clair dbname=clair sslmode=disable
+      # or URL
+      #connstring: postgres://user:password@localhost/clair?sslmode=disable
+      scanlock_retry: 10
+      layer_scan_concurrency: 5
+      migrations: true
+    matcher:
+      indexer_addr: clair-clair.clair.svc.cluster.local:8080  # XXX: Edit
+      connstring: host=clair-postgres-0 port=5432 user=clair dbname=clair sslmode=disable
+      max_conn_pool: 100
+      run: ""
+      migrations: true
+      # https://quay.github.io/clair/reference/config.html#updaterssets
+      updater_sets:
+        - alpine
+        - aws
+        - debian
+        - oracle
+        - photon
+        - pyupio
+        - rhel
+        - suse
+        - ubuntu
+    matchers:
+      # https://quay.github.io/clair/reference/config.html#matchers
+      names:
+        - alpine
+        - aws
+        - debian
+        - oracle
+        - photon
+        - python
+        - rhel
+        - suse
+        - ubuntu
+        - crda
+      config:
+        #python:
+        #  ignore_vulns:
+        #    - CVE-XYZ
+        #    - CVE-ABC
+        crda:
+          url: https://gw.api.openshift.io/api/v2/
+          source: clair-sample-instance
+          key: 207c527cfc2a6b8dcf4fa43ad7a976da
+    notifier:
+      indexer_addr: http://clair-clair.clair.svc.cluster.local:8080/  # XXX: Edit for distributed mode
+      matcher_addr: http://clair-clair.clair.svc.cluster.local:8080/  # XXX: Edit for distributed mode
+      connstring: host=clair-postgres-0 port=5432 user=clair dbname=clair sslmode=disable
+      migrations: true
+      delivery_interval: 1m
+      poll_interval: 5m
+      # if multiple delivery methods are defined the only one will be selected.
+      # preference order:
+      # webhook, amqp, stomp
+      #webhook:
+      #  target: http://webhook/
+      #  callback: http://clair-notifier/notifier/api/v1/notifications
+      #amqp:
+      #  exchange:
+      #    name: ""
+      #    type: direct
+      #    durable: true
+      #    auto_delete: false
+      #  uris:
+      #    - amqp://user:pass@host:10000/vhost
+      #  direct: false
+      #  routing_key: notifications
+      #  callback: http://clair-notifier/notifier/api/v1/notifications
+      #  tls:
+      #    root_ca: optional/path/to/rootca
+      #    cert: madatory/path/to/cert
+      #    key: madatory/path/to/ke
+      #stomp:
+      #  desitnation: notifications
+      #  direct: false
+      #  callback: http://clair-notifier/notifier/api/v1/notifications
+      #  login:
+      #    login: username
+      #    passcode: passcode
+      #  tls:
+      #    root_ca: optional/path/to/rootca
+      #    cert: madatory/path/to/cert
+      #    key: madatory/path/to/key
+
+
+    trace:
+      name: jaeger
+      probability: 1
+      jaeger:
+        agent:
+          endpoint: localhost:6831
+        service_name: clair
+
+    metrics:
+      name: prometheus
