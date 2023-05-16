@@ -45,4 +45,4 @@ helmCharts:
     releaseName: clair
     namespace: clair
     includeCRDs: true
-    #valuesFile: postgres-values.yaml
+    valuesFile: postgres-values.yaml
