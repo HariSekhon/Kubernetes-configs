@@ -18,6 +18,8 @@
 #                      C l a i r   C h a r t   V a l u e s
 # ============================================================================ #
 
+# XXX: OBSOLETE - not using dated wiremind helm chart any more
+
 # helm repo add wiremind https://wiremind.github.io/wiremind-helm-charts
 #
 # helm show values wiremind/clair >> clair-values.yaml
