@@ -249,10 +249,13 @@ emptyDir: {}
 postgresql:
   # Enable to deploy the bitnami PostgreSQL chart
   enabled: true
-  # XXX: stops bitnami postgres helm chart from replacing secret 'sonarqube-postgresql' key 'postgresql-postgres-password' every time
+  # XXX: stops bitnami postgres helm chart from replacing secret 'sonarqube-postgresql' key 'postgresql-postgres-password' every time in ArgoCD
+  # XXX: replace these as soon as it's set up, reset the password, and then set this
+  # existingSecret: sonarqube-postgresql
   postgresqlPostgresPassword: "postgres"
   postgresqlUsername: "sonarUser"
   postgresqlPassword: "sonarPass"
+  ##########
   postgresqlDatabase: "sonarDB"
   resources:
     requests:
