@@ -31,14 +31,21 @@ resources:
   - configmap.yaml
 
 helmCharts:
-# stale
-#  - name: clair
-#    repo: https://wiremind.github.io/wiremind-helm-charts
-#    version: 0.2.9
-#    releaseName: clair
-#    namespace: clair
-#    includeCRDs: true
-#    valuesFile: values.yaml
+  # old - and breaks in Kustomize with this error:
+  #
+  #
+  #   Error: map[string]interface {}(nil): yaml: unmarshal errors:
+  #     line 18: mapping key "name" already defined at line 14
+  #     line 23: mapping key "name" already defined at line 19
+  #
+  #- name: clair
+  #  repo: https://wiremind.github.io/wiremind-helm-charts
+  #  version: 0.2.9
+  #  releaseName: clair
+  #  namespace: clair
+  #  includeCRDs: true
+  #  valuesFile: values.yaml
+
   - name: postgresql
     repo: https://charts.bitnami.com/bitnami
     version: 12.5.2
