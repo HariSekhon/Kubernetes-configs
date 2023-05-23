@@ -68,6 +68,7 @@ jobs:
           path: bash-tools
 
       - name: Install Kubevious
+        #run: curl https://get.kubevious.io/cli.sh | bash
         run: bash-tools/setup/install_kubevious.sh
 
       - name: Kubvious
