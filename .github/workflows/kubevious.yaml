@@ -72,4 +72,4 @@ jobs:
 
       - name: Kubvious
         run: |
-          kubevious lint * --detailed # --ignore-non-k8s
+          kubevious guard * --detailed # --ignore-non-k8s
