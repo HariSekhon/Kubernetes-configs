@@ -13,7 +13,7 @@
 #
 
 ---
-name: Kustomize Installs
+name: Kubevious
 
 on:
   push:
@@ -52,8 +52,8 @@ env:
   DEBUG: ${{ github.event.inputs.debug == true || '' }}
 
 jobs:
-  kustomize-install:
-    name: Install Kustomizations
+  kubevious::
+    name: Kubevious
     runs-on: ubuntu-latest
     steps:
       - name: Environment
