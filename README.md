@@ -13,6 +13,7 @@
 [![Repo on GitLab](https://img.shields.io/badge/repo-GitLab-FCA121?logo=gitlab)](https://gitlab.com/HariSekhon/Kubernetes-configs)
 [![Repo on BitBucket](https://img.shields.io/badge/repo-BitBucket-0052CC?logo=bitbucket)](https://bitbucket.org/HariSekhon/Kubernetes-configs)
 
+[![Kubevious](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kubevious.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kubevious.yaml)
 [![Kustomize Installs](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-install.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-install.yaml)
 [![Kustomize Namespace](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-namespace.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-namespace.yaml)
 [![Kustomize Objects Namespaced](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-objects-namespaced.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-objects-namespaced.yaml)
