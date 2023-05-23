@@ -52,7 +52,7 @@ env:
   DEBUG: ${{ github.event.inputs.debug == true || '' }}
 
 jobs:
-  kubevious::
+  kubevious:
     name: Kubevious
     runs-on: ubuntu-latest
     steps:
