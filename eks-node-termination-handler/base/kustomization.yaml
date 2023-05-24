@@ -30,5 +30,6 @@ helmCharts:
     repo: https://aws.github.io/eks-charts/
     version: 0.21.0
     releaseName: aws-node-termination-handler
-    includeCRDs:
     namespace: kube-system
+    includeCRDs: true
+    #valuesFile: values.yaml
