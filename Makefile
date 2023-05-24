@@ -70,6 +70,24 @@ datree-kustomize:
 wc:
 	find . -type f -name '*.yaml' -o -type f -name '*.json' | xargs wc -l
 
+envrc:
+	@# check .envrc NAMESPACE matches the namespace in the namespace.yaml or kustomization.yaml
+	for x in */base; do \
+		NAMESPACE="$$(grep "NAMESPACE=" "$$x/.envrc" | sed 's/.*=// ; s/"//g' | sed "s/'//g")"; \
+		namespace="$$( \
+		    if [ -f "$$x/namespace.yaml" ]; then \
+		        grep "name:" "$$x/namespace.yaml"; \
+		    else \
+		        grep -m1 "^[[:space:]]*namespace:" "$$x/kustomization.yaml"; \
+		    fi | \
+		    awk '{print $$2}' \
+		)"; \
+		if [ "$$NAMESPACE" != "$$namespace" ]; then \
+		    echo "$$x: '$$NAMESPACE' != '$$namespace'"; \
+		fi; \
+		echo; \
+	done
+
 clean:
 	find . -type d -name charts -exec rm -fr {} \;
 	find . -type f -name kustomization.materialized.yaml -exec rm -f {} \;
