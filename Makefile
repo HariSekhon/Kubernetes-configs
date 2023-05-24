@@ -72,20 +72,30 @@ wc:
 
 envrc:
 	@# check .envrc NAMESPACE matches the namespace in the namespace.yaml or kustomization.yaml
-	for x in */base; do \
+	@for x in */base; do \
+		if [ "$$x" = fluxcd/base ]; then \
+			continue; \
+		fi; \
 		NAMESPACE="$$(grep "NAMESPACE=" "$$x/.envrc" | sed 's/.*=// ; s/"//g' | sed "s/'//g")"; \
 		namespace="$$( \
 		    if [ -f "$$x/namespace.yaml" ]; then \
 		        grep "name:" "$$x/namespace.yaml"; \
-		    else \
-		        grep -m1 "^[[:space:]]*namespace:" "$$x/kustomization.yaml"; \
+		    elif [ -f "$$x/kustomization.yaml" ]; then \
+		        grep -m1 "^[[:space:]]*namespace:" "$$x/kustomization.yaml" || \
+				kustomize build --enable-helm "$$x" | \
+				grep "^[[:space:]]*namespace:" | \
+				awk '{print $$2}' | \
+				sort | \
+				uniq -c | \
+				sort -r | \
+				head -n 1; \
 		    fi | \
 		    awk '{print $$2}' \
 		)"; \
 		if [ "$$NAMESPACE" != "$$namespace" ]; then \
 		    echo "$$x: '$$NAMESPACE' != '$$namespace'"; \
+			echo; \
 		fi; \
-		echo; \
 	done
 
 clean:
