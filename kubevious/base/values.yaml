@@ -1,0 +1,138 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-05-24 21:10:58 +0100 (Wed, 24 May 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                            kubevious Chart Values
+# ============================================================================ #
+
+# helm repo add kubevious https://helm.kubevious.io
+#
+# helm show values kubevious/kubevious >> values.yaml
+
+---
+backend:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  log:
+    level: info
+
+collector:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  log:
+    level: info
+
+guard:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  log:
+    level: info
+
+parser:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+    limits:
+      cpu: 500m
+      memory: 1Gi
+  log:
+    level: info
+
+ui:
+  resources:
+    requests:
+      cpu: 25m
+      memory: 50Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
+mysql:
+  external:
+    enabled: false
+    host: ""
+    port: ""
+    database: ""
+    user: ""
+    password: ""
+  image:
+    repository: mysql
+    tag: 8.0.30
+    pullPolicy: IfNotPresent
+  db_name: kubevious
+  db_user: "kubevious"
+  generate_passwords: false
+  db_password: ""
+  root_password: ""
+  persistence:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: "10Gi"
+    storageClass: ""
+  resources:
+    requests:
+      cpu: 250m
+      memory: 1000Mi
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+
+redis:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+
+worldvious:
+  ## Disables version check. As a part of the version check, Kubevious deployments
+  ## are added to the leaderboard at https://worldvious.io. Reporting is anonymized
+  ## to the nearest city. No IP address is stored or logged. We calculate the SHA256
+  ## hash of the IP address and use it as a key. As a part of this request, we also
+  ## added news notification and a feedback request mechanism.
+  opt_out_version_check: false
+  ## Disables automatic exception and error reporting.
+  opt_out_error_report: false
+  ## Disables periodic reporting of cluster metrics, such as: number of nodes, pods,
+  ## ingresses, configmaps, etc. The number of pods and nodes would appear on the
+  ## https://worldvious.io leaderboard. Those are the same counters you would see in
+  ## the console log of kubevious and parser pods.
+  opt_out_counters_report: false
+  ## Disables periodic reporting of internal time metrics. In conjunction with counters
+  ## reporting, this would help identify internal bottlenecks and improve overall
+  ## performance. Those are the same metrics you would see in the console log of kubevious
+  ## and parser pods.
+  opt_out_metrics_report: false
+  ## Opt out from all of the above reportings.
+  opt_out_all: false
