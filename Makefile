@@ -71,7 +71,7 @@ wc:
 	find . -type f -name '*.yaml' -o -type f -name '*.json' | xargs wc -l
 
 envrc:
-	@# check .envrc NAMESPACE matches the namespace in the namespace.yaml or kustomization.yaml
+	@echo "Check each .envrc NAMESPACE matches the namespace in the base namespace.yaml or kustomization.yaml"
 	@for base in */base; do \
 		app="$${base%/base}"; \
 		overlay="$$app/overlay"; \
@@ -108,6 +108,10 @@ envrc:
 			fi; \
 		fi; \
 	done
+	@echo
+	@if type -P check_bash_syntax.sh >/dev/null 2>&1; then \
+		check_bash_syntax.sh $$(find . -type f -name .envrc); \
+	fi
 
 clean:
 	find . -type d -name charts -exec rm -fr {} \;
