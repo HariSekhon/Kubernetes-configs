@@ -73,7 +73,8 @@ wc:
 envrc:
 	@# check .envrc NAMESPACE matches the namespace in the namespace.yaml or kustomization.yaml
 	@for base in */base; do \
-		overlay="$${base%/base}/overlay"; \
+		app="$${base%/base}"; \
+		overlay="$$app/overlay"; \
 		if [ "$$base" = fluxcd/base ]; then \
 			continue; \
 		fi; \
@@ -97,12 +98,12 @@ envrc:
 		    awk '{print $$2}' \
 		)"; \
 		if [ "$$BASE_NAMESPACE" != "$$namespace" ]; then \
-			echo "$$x: base: '$$BASE_NAMESPACE' != '$$namespace'"; \
+			echo "$$app: base: '$$BASE_NAMESPACE' != '$$namespace'"; \
 			echo; \
 		fi; \
 		if [ -d "$$overlay" ]; then \
 			if [ "$$OVERLAY_NAMESPACE" != "$$namespace" ]; then \
-				echo "$$x: overlay: '$$BASE_NAMESPACE' != '$$namespace'"; \
+				echo "$$app: overlay: '$$BASE_NAMESPACE' != '$$namespace'"; \
 				echo; \
 			fi; \
 		fi; \
