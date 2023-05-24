@@ -25,6 +25,7 @@ kind: Kustomization
 namespace: cloud-sql-proxy
 
 resources:
-  - cloud-sql-proxy.yaml
-  - cloud-sql-proxy.pdb.yaml
-  - cloud-sql-proxy-service.yaml
+  - namespace.yaml
+  - deployment.yaml
+  - pdb.yaml
+  - service.yaml
