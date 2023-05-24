@@ -72,17 +72,21 @@ wc:
 
 envrc:
 	@# check .envrc NAMESPACE matches the namespace in the namespace.yaml or kustomization.yaml
-	@for x in */base; do \
-		if [ "$$x" = fluxcd/base ]; then \
+	@for base in */base; do \
+		overlay="$${base%/base}/overlay"; \
+		if [ "$$base" = fluxcd/base ]; then \
 			continue; \
 		fi; \
-		NAMESPACE="$$(grep "NAMESPACE=" "$$x/.envrc" | sed 's/.*=// ; s/"//g' | sed "s/'//g")"; \
+		BASE_NAMESPACE="$$(grep "NAMESPACE="  "$$base/.envrc"    | sed 's/.*=// ; s/"//g' | sed "s/'//g")"; \
+		if [ -d "$$overlay" ]; then \
+			OVERLAY_NAMESPACE="$$(grep "NAMESPACE=" "$$overlay/.envrc" | sed 's/.*=// ; s/"//g' | sed "s/'//g")"; \
+		fi; \
 		namespace="$$( \
-		    if [ -f "$$x/namespace.yaml" ]; then \
-		        grep "name:" "$$x/namespace.yaml"; \
-		    elif [ -f "$$x/kustomization.yaml" ]; then \
-		        grep -m1 "^[[:space:]]*namespace:" "$$x/kustomization.yaml" || \
-				kustomize build --enable-helm "$$x" | \
+		    if [ -f "$$base/namespace.yaml" ]; then \
+		        grep "name:" "$$base/namespace.yaml"; \
+		    elif [ -f "$$base/kustomization.yaml" ]; then \
+		        grep -m1 "^[[:space:]]*namespace:" "$$base/kustomization.yaml" || \
+				kustomize build --enable-helm "$$base" | \
 				grep "^[[:space:]]*namespace:" | \
 				awk '{print $$2}' | \
 				sort | \
@@ -92,9 +96,15 @@ envrc:
 		    fi | \
 		    awk '{print $$2}' \
 		)"; \
-		if [ "$$NAMESPACE" != "$$namespace" ]; then \
-		    echo "$$x: '$$NAMESPACE' != '$$namespace'"; \
+		if [ "$$BASE_NAMESPACE" != "$$namespace" ]; then \
+			echo "$$x: base: '$$BASE_NAMESPACE' != '$$namespace'"; \
 			echo; \
+		fi; \
+		if [ -d "$$overlay" ]; then \
+			if [ "$$OVERLAY_NAMESPACE" != "$$namespace" ]; then \
+				echo "$$x: overlay: '$$BASE_NAMESPACE' != '$$namespace'"; \
+				echo; \
+			fi; \
 		fi; \
 	done
 
