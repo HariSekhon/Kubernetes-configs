@@ -25,7 +25,7 @@
 #
 #   https://github.com/k3s-io/helm-controller/
 
-# XXX: doe not call this file 'traefik.yaml' as if you've set k3s to '--disable traefik' it will remove it
+# XXX: do not call this file 'traefik.yaml' as if you've set k3s to '--disable traefik' it will remove it
 #
 # cp to /var/lib/rancher/k3s/server/manifests/traefil-helm.yaml
 
