@@ -66,7 +66,7 @@ spec:
       securityContext:
         #runAsUser: 0
         fsGroup: 1000
-        # XXX: don't chgrp all the many small files unless the root mismatches, prevents long outages on pod creation hanging with multiple of these error messages:
+        # NOTE: don't chgrp all the many small files unless the root mismatches, prevents long outages on pod creation hanging with multiple of these error messages:
         #
         #   Unable to attach or mount volumes: unmounted volumes=[jenkins-home], unattached volumes=[kube-api-access-6q2kb jenkins-home]: timed out waiting for the condition
         #
@@ -76,11 +76,11 @@ spec:
       serviceAccountName: jenkins-server
       containers:
         - name: jenkins-server
-          # XXX: BEWARE LTS tag will auto-upgrade - will inevitably break some plugins which could break SSO login or all pipelines referencing plugin method such as slackSend with the error below:
+          # NOTE: BEWARE LTS tag will auto-upgrade - will inevitably break some plugins which could break SSO login or all pipelines referencing plugin method such as slackSend with the error below:
           #
           #         java.lang.NoSuchMethodError: 'com.google.common.hash.HashCode com.google.common.hash.HashFunction.hashString(java.lang.CharSequence)'
           #
-          # XXX: FIX to a specific LTS version number
+          # TODO: FIX to a specific LTS version number
           image: jenkins/jenkins:lts
           #image: jenkins/jenkins:2.228
           ports:
