@@ -4,6 +4,7 @@
 #
 #  vim:ts=2:sts=2:sw=2:et
 #  lint: k8s
+#  kics-scan ignore
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #
@@ -335,7 +336,6 @@ persistence:
     swift:
       authurl: https://storage.myprovider.com/v3/auth
       username: username
-      # kics-scan ignore-line
       password: password
       container: containername
       #region: fr
@@ -604,7 +604,6 @@ registry:
   relativeurls: false
   credentials:
     username: "harbor_registry_user"
-    # kics-scan ignore-line
     password: "harbor_registry_password"
     # If using existingSecret, the key must be REGISTRY_PASSWD and REGISTRY_HTPASSWD
     existingSecret: ""
@@ -803,7 +802,6 @@ database:
     host: "192.168.0.1"
     port: "5432"
     username: "user"
-    # kics-scan ignore-line
     password: "password"
     coreDatabase: "registry"
     notaryServerDatabase: "notary_server"
