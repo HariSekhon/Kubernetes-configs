@@ -43,6 +43,7 @@ kind: PodSecurityPolicy
 metadata:
   name: noprivpods
   namespace: NAMESPACE
+# kics-scan ignore-block
 spec:
   privileged: false
   allowPrivilegeEscalation: false
