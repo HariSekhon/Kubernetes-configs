@@ -4,6 +4,7 @@
 #
 #  vim:ts=2:sts=2:sw=2:et
 #  lint: k8s
+#  kics-scan ignore
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #
