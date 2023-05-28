@@ -102,6 +102,7 @@ spec:
           securityContext:
             runAsNonRoot: true
             # [rootlesskit:child ] error: failed to share mount point: /: permission denied
+            # kics-scan ignore-line
             privileged: true
             # mkdir: can't create directory '/certs/ca': Read-only file system
             readOnlyRootFilesystem: false
