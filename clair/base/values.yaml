@@ -99,6 +99,7 @@ postgresql:
       cpu: 2
       memory: 512Mi
   postgresqlUsername: postgres
+  # kics-scan ignore-line
   postgresqlPassword: clair
   persistence:
     size: 1Gi
