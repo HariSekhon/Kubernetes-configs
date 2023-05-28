@@ -24,10 +24,10 @@
 
 ---
 #replicaCount: 1
-#resources:
-#  requests:
-#    cpu: 100m
-#    memory: 150Mi
-#  limits:
-#    cpu: 1
-#    memory: 1Gi
+resources:
+  requests:
+    cpu: 100m
+    memory: 150Mi
+  limits:
+    cpu: 1
+    memory: 1Gi
