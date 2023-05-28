@@ -4,6 +4,7 @@
 #
 #  vim:ts=2:sts=2:sw=2:et
 #  lint: k8s
+#  kics-scan ignore
 #
 #  https://github.com/HariSekhon/Kubernetes-configs
 #
@@ -102,7 +103,6 @@ mssql-linux:
   # uses ephemeral storage. A ClusterIP service with the hostname of mssql is also created.
   enabled: true
   # Set the SA password, used by the octopus.connectionString value
-  # kics-scan ignore-line
   sapassword: Password01!
   # Must be set to "Y" to accept the EULA
   acceptEula:
