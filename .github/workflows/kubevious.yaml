@@ -67,15 +67,20 @@ jobs:
           submodules: 'true'  # requires Git 2.18+ to be installed first
           path: bash-tools
 
-      - name: Install Kubevious
-        #run: curl https://get.kubevious.io/cli.sh | bash
-        run: bash-tools/setup/install_kubevious.sh
+      #- name: Install Kubevious
+      #  #run: curl https://get.kubevious.io/cli.sh | bash
+      #  run: bash-tools/setup/install_kubevious.sh
 
       - name: Kubvious
-        run: |
-          # fails on most of the kustomization builds due to lack of --enable-helm:
-          #
-          #   https://github.com/kubevious/cli/issues/15
-          #
-          #kubevious guard * --detailed # --ignore-non-k8s
-          kubevious guard --detailed # --ignore-non-k8s
+        # https://github.com/kubevious/cli/blob/main/action.yml
+        uses: kubevious/cli@main
+        with:
+          manifests: '*'
+          ignore_non_k8s: 'true'
+        #run: |
+        #  # fails on most of the kustomization builds due to lack of --enable-helm:
+        #  #
+        #  #   https://github.com/kubevious/cli/issues/15
+        #  #
+        #  #kubevious guard * --detailed # --ignore-non-k8s
+        #  kubevious guard --detailed # --ignore-non-k8s
