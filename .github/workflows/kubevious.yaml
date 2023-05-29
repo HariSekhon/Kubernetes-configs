@@ -77,6 +77,7 @@ jobs:
         with:
           #manifests: '*'
           manifests: ''  # only check top-level templates for now
+          detailed_output: 'true'
           ignore_non_k8s: 'true'
         #run: |
         #  # fails on most of the kustomization builds due to lack of --enable-helm:
