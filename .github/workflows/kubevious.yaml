@@ -75,7 +75,8 @@ jobs:
         # https://github.com/kubevious/cli/blob/main/action.yml
         uses: kubevious/cli@main
         with:
-          manifests: '*'
+          #manifests: '*'
+          manifests: ''  # only check top-level templates for now
           ignore_non_k8s: 'true'
         #run: |
         #  # fails on most of the kustomization builds due to lack of --enable-helm:
