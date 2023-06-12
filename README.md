@@ -209,7 +209,7 @@ screenshot:
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/screenshots/gcp_cloudbuild_deployed_after_code_container_scans_failed.png)
 
 
-# OpenTSDB on Kubernetes and HBase
+### OpenTSDB on Kubernetes and HBase
 
 A high scale production OpenTSDB replatform I did to Kubernetes for a client, ingesting 9 billion data points per day and serving 3 million queries per day.
 
