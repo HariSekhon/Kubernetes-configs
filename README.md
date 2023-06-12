@@ -117,6 +117,9 @@ Shortcut symlinks are for faster instantiation from these configs using the stan
 
 ## Diagrams
 
+For more amazing diagrams see [HariSekhon/Diagrams-as-Code](https://github.com/HariSekhon/Diagrams-as-Code)
+
+
 ### Kubernetes Deployment with Horizontal Pod Autoscaler and Ingress
 
 - [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
@@ -190,7 +193,14 @@ A production Jenkins on Kubernetes I built for a client with auto-spawning agent
 - [claire/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/clair/base)
 - [sonarqube/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/sonarqube/base)
 - [trivy/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/trivy/base)
-- GitHub repo: [HariSekhon/Jenkins](https://github.com/HariSekhon/Jenkins) - Advanced [Jenkinsfile](https://github.com/HariSekhon/Jenkins/blob/master/Jenkinsfile) & [Groovy Shared Library](https://github.com/HariSekhon/Jenkins/tree/master/vars) with the code & container scanning functions, eg. [clair.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/clair.groovy) [grype.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/grype.groovy), [trivy.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/trivy.groovy), [trivyFS.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/trivyFS.groovy), [trivyImages](https://github.com/HariSekhon/Jenkins/blob/master/vars/trivyImages.groovy), [gcrDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/gcrDockerAuth.groovy), [garDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/garDockerAuth.groovy) among others in [vars/](https://github.com/HariSekhon/Jenkins/tree/master/vars) and don't forget about the epic [Jenkinsfile](https://github.com/HariSekhon/Jenkins/blob/master/Jenkinsfile)!
+- GitHub repo: [HariSekhon/Jenkins](https://github.com/HariSekhon/Jenkins)
+  - Advanced [Jenkinsfile](https://github.com/HariSekhon/Jenkins/blob/master/Jenkinsfile)
+  - [Groovy Shared Library](https://github.com/HariSekhon/Jenkins/tree/master/vars) with the code & container scanning functions
+    - [clair.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/clair.groovy)
+    - [grype.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/grype.groovy)
+    - [trivy.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/trivy.groovy), [trivyFS.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/trivyFS.groovy), [trivyImages](https://github.com/HariSekhon/Jenkins/blob/master/vars/trivyImages.groovy)
+    - [gcrDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/gcrDockerAuth.groovy), [garDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/garDockerAuth.groovy)
+    - among others in [vars/](https://github.com/HariSekhon/Jenkins/tree/master/vars) and don't forget about the epic [Jenkinsfile](https://github.com/HariSekhon/Jenkins/blob/master/Jenkinsfile)
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/jenkins_kubernetes_cicd.svg)
 
