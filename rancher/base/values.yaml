@@ -23,6 +23,14 @@
 # helm show values rancher/rancher >> values.yaml
 
 ---
+# Fully qualified name to reach your Rancher server
+# hostname: rancher.my.org  # XXX: Edit
+
+global:
+  cattle:
+    psp:
+      enabled: false  # XXX: Kubernetes 1.25 removed Pod Security Policis so this breaks installation if set to true
+
 # Additional Trusted CAs.
 # Enable this flag and add your CA certs as a secret named tls-ca-additional in the namespace.
 # See README.md for details.
@@ -66,9 +74,6 @@ restrictedAdmin: false
 # extraEnv:
 # - name: CATTLE_TLS_MIN_VERSION
 #   value: "1.0"
-
-# Fully qualified name to reach your Rancher server
-# hostname: rancher.my.org
 
 ## Optional array of imagePullSecrets containing private registry credentials
 ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -193,8 +198,3 @@ livenessProbe:
 readinessProbe:
   initialDelaySeconds: 5
   periodSeconds: 30
-
-global:
-  cattle:
-    psp:
-      enabled: false  # XXX: Kubernetes 1.25 removed Pod Security Policis so this breaks installation if set to true
