@@ -84,6 +84,7 @@ patchesStrategicMerge:
   #- argocd-cm.azure-ad.patch.yaml
   #- argocd-cm.users.patch.yaml
   #- argocd-rbac-cm.patch.yaml
+  #- argocd-azure-ad-external-secret.yaml  # XXX: Edit this if uncommenting
   #
   # GitHub Webhook Secret:
   #
