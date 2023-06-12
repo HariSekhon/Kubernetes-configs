@@ -197,4 +197,4 @@ readinessProbe:
 global:
   cattle:
     psp:
-      enabled: true #PSPs enablement should default to true
+      enabled: false  # XXX: Kubernetes 1.25 removed Pod Security Policis so this breaks installation if set to true
