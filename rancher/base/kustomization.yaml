@@ -1,0 +1,266 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-06-12 22:01:35 +0100 (Mon, 12 Jun 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                   R a n c h e r   K u s t o m i z a t i o n
+# ============================================================================ #
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# override namespace for all resources
+# may cause duplicate namespace clashes if different namespaces are defined in bases
+#namespace: cattle-system # XXX: Do not set this if using remote base or Helm charts - may override creating roles for kube-system for leader election etc. eg. for Cert Manager
+
+resources:
+  - namespace.yaml
+  - ../../cert-manager/base
+
+helmCharts:
+  - name: rancher
+    repo: https://releases.rancher.com/server-charts/latest
+    version: 2.7.4
+    releaseName: rancher
+    namespace: cattle-system
+    includeCRDs: true
+    valuesFile: values.yaml
+
+
+# ============================================================================ #
+#                                A d v a n c e d
+# ============================================================================ #
+
+# XXX: bases are deprecated and 'kustomize edit' will remove them and add them to the bottom of the resources section, messing up your ordering, so put straight into the top of resources now
+#
+#bases:
+# Add resource configs from ../base/kustomization.yaml
+#  - ../base
+#
+# Tagged base:
+#
+#  - github.com/HariSekhon/Kubernetes//<APP>/base?ref=v1.0.0
+#
+# Add resources from a URL - notice this is not the same as the browse path which is https://github.com/argoproj/argo-cd/tree/master/manifests/cluster-install
+#
+#                             // is intentional to only copy from this path down
+#  - github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3
+#
+# but // causes this error in Kustomize 3.5 (the argocd-repo-server.kustomize.patch.yaml upgrades Kustomize and should fix this too):
+#
+#     Error: accumulating resources: accumulateFile "accumulating resources from 'github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3': evalsymlink failure on '/tmp/git@repo/argocd/overlay/github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.0.3' : lstat /tmp/git@repo/argocd/overlay/github.com: no such file or directory", accumulateDirector: "recursed accumulation of path '/tmp/kustomize-881686007/repo': accumulating resources: accumulateFile \"accumulating resources from '../namespace-install': evalsymlink failure on '/tmp/kustomize-881686007/namespace-install' : lstat /tmp/kustomize-881686007/namespace-install: no such file or directory\", loader.New \"Error loading ../namespace-install with git: url lacks host: ../namespace-install, dir: evalsymlink failure on '/tmp/kustomize-881686007/namespace-install' : lstat /tmp/kustomize-881686007/namespace-install: no such file or directory, get: invalid source string: ../namespace-install\""
+#
+# so keep it simple, this works:
+#  - github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.0.3
+
+#namePrefix: dev-
+
+# set labels on all resources and selectors - will override base
+# eg. this will replace all 'app' labels
+#commonLabels:
+#  app: rancher-dev
+
+# set annotations on all resources - will override base
+#commonAnnotations:
+#  annotationKey1: annotationValue2
+
+# ========================
+
+#resources:
+  #- rancher-namespace.yaml
+  #- rancher-deployment.yaml
+  #- rancher-statefulset.yaml
+  #- rancher-service.yaml
+  #- cronjob.yaml
+  #- github.com/username/repo # can add paths and ?ref=dev-branch or ?ref=v1.0.6
+  #
+  # =====================
+  # XXX: Helm + Kustomize
+  #
+  # helm_template.sh is a convenience script if downloading the helm template output for serving out of Git, get it here:
+  #
+  #     https://github.com/HariSekhon/DevOps-Bash-tools
+  #
+  #   helm_template.sh "$repo_url" "$repo/$chart" -f values.yaml --version "$version" > helm.yaml
+  #
+  #- helm.yaml
+
+# OR
+#
+# dynamic versioned:
+#
+#   # for critical things like cluster-autoscaler, safer to push through git instead
+#
+#   helm repo add <name> <url>
+#
+#   Find latest version:
+#
+#     helm search repo <chart>
+#
+#   Find configurable values:
+#
+#     helm show values <name>/<chart>
+
+#helmCharts:
+#  - name: rancher
+#    repo: <url>
+#    version: <version>
+#    releaseName: rancher
+#    namespace: rancher
+#    includeCRDs: true
+#    valuesFile: values.yaml
+
+
+# ========================
+# Strategic Merge Patching
+#
+# must name metadata.name [and often metadata.namespace] in order to match exact resources from the above yamls to match + patch
+#patchesStrategicMerge:
+  # labels the namespace for Goldilocks to VPA + analyze
+  #- goldilocks-namespace-enable.patch.yaml
+
+  # overrides replica counts / memory / ports across environments etc - anything that could be defined in a normal deployment
+  #- deployment.patch.yaml
+
+  # set in cronjob.yml now - besides this is too generic without metadata.name necessary for patching selection, designed to be called from CLI as a fix
+  #- cronjob-fix-stale.patch.yaml
+
+  # enable to override LoadBalancer to NodePort for testing locally
+  #- service-nodeport.patch.yaml
+
+  # quick fix temporary init container to reset things like mount point permissions / owner mismatch - a common problem, easily solved this way
+  #- init-container-fix.patch.yaml
+
+# =====================
+# Multi-Object Patching
+#
+#   patch multiple objects at once - make the patch generic and target it in kustomization.yaml
+#
+#   https://github.com/kubernetes-sigs/kustomize/blob/master/examples/patchMultipleObjects.md
+#
+# XXX: missing objects are silently ignored, eg. when apps change deployment names between versions
+#patches:
+#  - path: somepatch.yaml  # can be the same as a strategic merge patch but with metadata.name set to any value as it's ignored
+#    target:
+#      group: <optional group>
+#      version: <optional version>
+#      kind: <optional kind>
+#      name: <optional name>
+#      namespace: <optional namespace>
+#      labelSelector: <optional label selector>
+#      annotationSelector: <optional annotation selector>
+
+  # XXX: override old Ingress deprecated/removed API version 'extensions/v1beta1' to 'networking.k8s.io/v1' - must do a patchesStrategicMerge on the original object rules section too in order to be valid
+  # XXX: useful to override Helm charts using old APIs that break on newer versions of Kubernetes
+  #- path: ingress-apiversion.jsonpatch.yaml
+  #  target:
+  #    kind: Ingress
+
+  # make cronjobs preemptible if this kustomization is used on dev/staging environments
+  #- path: cronjob-preemptible.patch.yaml
+  #  target:
+  #    kind: CronJob
+
+  # in test / feature environments - run all deployments and statefulsets on preemptible machines to save costs
+  #- path: preemptible.jsonpatch.yaml
+  #  target:
+  #    kind: Deployment
+  #- path: preemptible.jsonpatch.yaml
+  #  target:
+  #    kind: StatefulSet
+
+  # in test / feature environments - run all deployments and statefulsets with a single replica to save costs
+  #- path: replicas.jsonpatch.yaml
+  #  target:
+  #    kind: Deployment
+  #- path: replicas.jsonpatch.yaml
+  #  target:
+  #    kind: StatefulSet
+
+  # in test / feature environments - scale down all HPAs to save costs
+  #- path: hpa.replicas.jsonpatch.yaml
+  #  target:
+  #    kind: HorizontalPodAutoscaler
+
+  # label app.kubernetes.io/instance=cert-manager causes warnings for all 6 Cert Manager CRDs in ArgoCD, eg:
+  #
+  #  SharedResourceWarning  CustomResourceDefinition/certificaterequests.cert-manager.io is part of applications cert-manager-production and cert-manager
+  #
+  #   https://github.com/argoproj/argo-cd/issues/6728
+  #
+  #- path: ./remove-instance-label.jsonpatch.yaml
+  #  target:
+  #    kind: CustomResourceDefinition
+  #    labelSelector: app.kubernetes.io/instance=cert-manager
+
+# =============
+# JSON Patching - not my favourite way of doing it, prefer patchesStrategicMerge above
+#                 the only reason to use this is because not all resources or fields support strategic merge patches, or if you need to add to an array
+#
+#   https://github.com/kubernetes-sigs/kustomize/blob/master/examples/jsonpatch.md
+#   https://tools.ietf.org/html/rfc6902
+#
+# XXX: missing objects are silently ignored, eg. when apps change deployment names between versions
+#patchesJson6902:
+#  - target:
+#      version: v1
+#      kind: Deployment
+#      name: rancher
+#    path: some.patch.yaml
+#    # OR inline
+#    patch: |-
+#      - op: replace
+#        path: /some/existing/path
+#        value: new value
+
+# XXX: Danger - this breaks all existing normal ingress terminated SSL services
+#patchesJson6902:
+#  - target:
+#      group: apps
+#      version: v1
+#      kind: Deployment
+#      name: ingress-nginx-controller
+#      namespace: ingress-nginx
+#    path: nginx-ingress.passthrough.patch.yaml
+
+
+# =======================
+# Images + Tags overrides
+#
+#   can use newName and/or newTag
+#
+#images:
+#  - name: eu.gcr.io/myproject/myimage
+#    newName: eu.gcr.io/myproject/myotherimage
+#    newTag: "latest"
+
+# =======================
+
+#configMapGenerator:
+  # useful for straight mounts to files
+  #- name: my-config-files
+  #  files:
+  #    - file1.properties
+  #    - file2.properties
+  # useful for extracting to environment variables
+  #- name: my-env
+  #  namespace: rancher
+  #  literals:
+  #    - env=dev
+  #    - version=latest
+
+#configurations:
+#  - kustomizeconfig.yaml
