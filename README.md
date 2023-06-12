@@ -42,17 +42,20 @@ The top-level directory contains standard Kubernetes object templates with many 
 
 The sub-directories contain ready-to-run real world apps that I've run across environments.
 
+
 ## Templates
 
 Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
 
 The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) contains config for using static public IP and locking down your cloud load balancer's firewall rules eg. to Cloudflare Proxied or VPN IPs only.
 
+
 ## Apps
 
 Real-world app deployments are found in the more specific `<app>/` directories.
 
 These follow standard the Kustomize `<app>/base/` and `<app>/overlay/` layout to make it easy to use as-is by just tweaking a couple settings in the overlay to your specific environment.
+
 
 ## CI/CD
 
@@ -64,6 +67,7 @@ Advanced auto-scaling production-grade CI/CD on Kubernetes:
 - [TeamCity](https://www.jetbrains.com/teamcity/) - teamcity server and dynamically scaling agents on kubernetes. Start here: [teamcity/base/kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/teamcity/base/kustomization.yaml)
 - [Selenium Grid](https://www.selenium.dev/documentation/grid/) - simple and distributed auto-scaling deployments. Start here: [selenium-grid/base/kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid/base/kustomization.yaml) / [selenium-grid-distributed/base/kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-distributed/base/kustomization.yaml)
 
+
 ## Helm + Kustomize integration
 
 See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) for 2 methods provided:
@@ -72,6 +76,7 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 2. dynamically load the Helm chart from upstream with a `values.yaml`
 
 ...then patch override anything the chart doesn't directly support using the standard Kustomize patching examples given in the [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
+
 
 ## Production Ready Checklist
 
@@ -92,13 +97,16 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) ([config](polaris/base/)) for recommendations
 - Find Deprecated API objects to replace - [Pluto](https://pluto.docs.fairwinds.com/) - see [pluto_detect_kustomize_materialize.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/pluto_detect_kustomize_materialize.sh) and [pluto_detect_kubectl_dump_objects.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/pluto_detect_kubectl_dump_objects.sh) in the [DevOps Bash Tools](https://github.com/HariSekhon/DevOps-Bash-tools) repo
 
+
 ## Further Documention
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/configs/.vimrc) can open these URLs from the current file via a hotkey!)
 
+
 ## Extra Docs
 
 [Datree Kubernetes ArgoCD best practices](https://www.datree.io/resources/argocd-best-practices-you-should-know)
+
 
 ## Environment Enhancements
 
@@ -106,9 +114,106 @@ The best documentation links are provided at the top of each yaml for fast refer
 
 Shortcut symlinks are for faster instantiation from these configs using the standard kubernetes shortcuts such as `new pvc.yaml` - see the [Templates](https://github.com/HariSekhon/Templates) repo for more details on the `new` command to fast create new files from templates.
 
+
+## Diagrams
+
+### Kubernetes Deployment with Horizontal Pod Autoscaler and Ingress
+
+- [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
+- [horizontal-pod-autoscaler.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/horizontal-pod-autoscaler.yaml)
+- [ingress.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/ingress.yaml)
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_deployment_hpa_ingress.png)
+
+
+### Kubernetes Stateful Architecture with persistent volumes
+
+- [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml)
+- [persistent-volume-claim.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/persistent-volume-claim.yaml)
+- [persistent-volume.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/persistent-volume.yaml)
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_stateful_architecture.png)
+
+
+### Kubernetes Service External Traffic Policy
+
+- [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml#L141)
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_external_traffic_policy.svg)
+
+
+### Kubernetes on Premise
+
+- GitHub repo: [HariSekhon/HAProxy-configs](https://github.com/HariSekhon/HAProxy-configs)
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_on_premise.svg)
+
+with [MetalLB](https://metallb.universe.tf/):
+
+- [metal-lb/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/metal-lb/base)
+
+Is it just me or do MetaLB think they're [Starfleet](https://en.wikipedia.org/wiki/Starfleet)? (compare their logos)
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_on_premise_metallb.svg)
+
+
+### Traefik Ingress on GKE
+
+A Traefik deployment I did for a client using:
+
+- [traefik/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/traefik/base)
+- [traefik-hub-agent/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/traefik-hub-agent/base)
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_traefik_ingress_gke.png)
+
+alternative diagram:
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_traefik_ingress_gke.svg)
+
+
+### Kong API Gateway on AWS EKS
+
+A Kong API Gateway deployment I did for a client using:
+
+- [kong/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/kong/base)
+- [cert-manager/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/cert-manager/base)
+- [argocd/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/argocd/base)
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_kong_api_gateway_eks.png)
+
+
+### Jenkins on Kubernetes
+
+A production Jenkins on Kubernetes I built for a client with auto-spawning agents for horizontal scaling and integration with Docker, SonarQube, Clair, Grype and Trivy for code & container scanning.
+
+- [jenkins/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/jenkins/base)
+- [claire/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/clair/base)
+- [sonarqube/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/sonarqube/base)
+- [trivy/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/trivy/base)
+- GitHub repo: [HariSekhon/Jenkins](https://github.com/HariSekhon/Jenkins) - Advanced [Jenkinsfile](https://github.com/HariSekhon/Jenkins/blob/master/Jenkinsfile) & [Groovy Shared Library](https://github.com/HariSekhon/Jenkins/tree/master/vars) with the code & container scanning functions, eg. [clair.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/clair.groovy) [grype.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/grype.groovy), [trivy.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/trivy.groovy), [trivyFS.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/trivyFS.groovy), [trivyImages](https://github.com/HariSekhon/Jenkins/blob/master/vars/trivyImages.groovy), [gcrDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/gcrDockerAuth.groovy), [garDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/garDockerAuth.groovy) among others in [vars/](https://github.com/HariSekhon/Jenkins/tree/master/vars) and don't forget about the epic [Jenkinsfile](https://github.com/HariSekhon/Jenkins/blob/master/Jenkinsfile)!
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/jenkins_kubernetes_cicd.svg)
+
+screenshot:
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/screenshots/gcp_cloudbuild_deployed_after_code_container_scans_failed.png)
+
+
+# OpenTSDB on Kubernetes and HBase
+
+A high scale production OpenTSDB replatform I did to Kubernetes for a client, ingesting 9 billion data points per day and serving 3 million queries per day.
+
+I also had to do advanced performance tuning of their production HBase cluster which was suffering from frequent outages at this scale due to being set up by a non-SME on the wrong hardware (I had to make do with the existing hardware of course).
+
+This was the second client I did in-depth performance tuning of HBase for - I've published a selection of useful HBase tools - see `hbase_*.py` and `opentsdb_*.py` in my [DevOps Python tools](https://github.com/HariSekhon/DevOps-Python-tools) repo.
+
+![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/opentsdb_kubernetes_hbase.svg)
+
+
 ## History
 
-Forked from the [DevOps Perl tools](https://github.com/HariSekhon/DevOps-Perl-tools) repo, this is now a submodule of the [Templates](https://github.com/HariSekhon/Templates) repo which is a submodule of the DevOps [Bash](https://github.com/HariSekhon/DevOps-Bash-tools), [Perl](https://github.com/HariSekhon/DevOps-Perl-tools) and [Python](https://github.com/HariSekhon/DevOps-Python-tools) tools repos.
+Forked from the [Templates](https://github.com/HariSekhon/Templates) repo.
+
 
 ## Related Repositories
 
