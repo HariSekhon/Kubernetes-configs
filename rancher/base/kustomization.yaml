@@ -30,7 +30,7 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - ../../cert-manager/base
+  #- ../../cert-manager/base
 
 helmCharts:
   - name: rancher
