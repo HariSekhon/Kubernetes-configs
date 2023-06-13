@@ -130,6 +130,7 @@ controller:
     - ssh-agent:1.23                                  # https://plugins.jenkins.io/ssh-agent/
     - ansicolor:1.0.1                                 # https://plugins.jenkins.io/ansicolor/
     - greenballs:1.15.1                               # https://plugins.jenkins.io/greenballs/
+    - jfrog:1.4.0                                     # https://plugins.jenkins.io/jfrog/
     - antisamy-markup-formatter:2.7                   # https://plugins.jenkins.io/antisamy-markup-formatter/
     - slack:2.49                                      # https://plugins.jenkins.io/slack/
     - cloudbees-jenkins-advisor:3.3.2                 # https://plugins.jenkins.io/cloudbees-jenkins-advisor/
