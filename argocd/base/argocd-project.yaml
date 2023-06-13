@@ -68,6 +68,8 @@ spec:
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: argocd
       server: https://kubernetes.default.svc  # XXX: Edit
+    - namespace: cattle-system
+      server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: cert-manager
       server: https://kubernetes.default.svc  # XXX: Edit
     - namespace: circleci
