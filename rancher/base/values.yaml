@@ -88,7 +88,8 @@ ingress:
   # options: true, false
   enabled: true
   includeDefaultExtraAnnotations: true
-  extraAnnotations: {}
+  extraAnnotations:
+    cert-manager.io/cluster-issuer: letsencrypt
   ingressClassName: ""
   # backend port number
   servicePort: 80
@@ -99,7 +100,7 @@ ingress:
 
   tls:
     # options: rancher, letsEncrypt, secret
-    source: rancher
+    source: secret  # default: rancher
     secretName: tls-rancher-ingress
 
 ### LetsEncrypt config ###
