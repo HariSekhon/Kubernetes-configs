@@ -86,7 +86,7 @@ ingress:
   # If set to false, ingress will not be created
   # Defaults to true
   # options: true, false
-  enabled: true
+  enabled: false # XXX: creates with pathType: ImplementationSpecific and results in '404 not found' error in browser, just use ingress.yaml template, it's much easier than fighting with this
   includeDefaultExtraAnnotations: true
   extraAnnotations:
     cert-manager.io/cluster-issuer: letsencrypt
