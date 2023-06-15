@@ -1,0 +1,47 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-06-15 20:51:27 +0100 (Thu, 15 Jun 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                               Moon Kustomization
+# ============================================================================ #
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+#namespace: moon
+
+resources:
+  - namespace.yaml
+  #- deployment.yaml
+  #- statefulset.yaml
+  #- configmap.yaml
+  #- service.yaml
+  #- ingress.yaml
+  #- pdb.yaml
+  #- hpa.yaml
+  #- priorityclass.yaml
+  #- storageclass-gcp-standard-resizeable.yaml
+  #- storageclass-gcp-ssd-resizeable.yaml
+
+helmCharts:
+  - name: moon2
+    repo: https://charts.aerokube.com/
+    version: 2.5.1+1
+    releaseName: moon
+    namespace: moon
+    includeCRDs: true
+    valuesFile: values.yaml

@@ -1,0 +1,525 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-06-15 20:53:03 +0100 (Thu, 15 Jun 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                               Moon Chart Values
+# ============================================================================ #
+
+# helm repo add aerokube https://charts.aerokube.com/
+#
+# helm show values aerokube/moon2 >> values.yaml
+
+---
+customIngress:
+  enabled: false
+  annotations: {}
+  ingressClassName: nginx
+  host: moon.aerokube.local
+  tls: []
+  #- secretName: moon-tls
+  #  hosts:
+  #  - moon.aerokube.local
+  paths:
+  - path: /wd/hub
+    port: 4444
+  - path: /cypress
+    port: 4444
+  - path: /playwright
+    port: 4444
+  - path: /devtools
+    port: 4444
+  - path: /metrics
+    port: 4444
+  - path: /api
+    port: 9090
+  - path: /ui
+    port: 9090
+  - path: /
+    port: 8080
+
+##
+## Ingress settings. This chart is using Nginx Ingress. By default, Ingress listens only on port 80 (HTTP).
+## Port 443 (HTTPS) is enabled only if TLS certificate and private key are provided in the fields below.
+##
+ingress:
+  ##
+  ## To be able to disable ingress.
+  ##
+  enabled: true
+
+  ##
+  ## Ingress host. Replace this with your domain name.
+  ##
+  host: moon.aerokube.local
+
+  ##
+  ## Ingress class name
+  ##
+  ingressClassName: nginx
+
+  ##
+  ## Files with TLS certificate and TLS key. When provided Ingress switches to HTTPS-only mode.
+  ## Set to empty files if you need HTTPS, but do not need to provide key and cert manually(i.g. use cert-manager)
+  ##
+  tlsCert:
+  tlsKey:
+
+  ##
+  ## TLS Secret name. If exists will not be generated.
+  ##
+  tlsSecretName:
+
+  ##
+  ## Ingress proxy timeout settings.
+  ##
+  proxyConnectTimeout: 1900
+  proxySendTimeout: 1900
+  proxyReadTimeout: 1900
+
+  ##
+  ## Maximum request body size.
+  ##
+  proxyBodySize: 128m
+
+  ##
+  ## Set to true in Openshift.
+  ##
+  openshift:
+
+  ##
+  ## Add custom annotations to ingress
+  ##
+  customAnnotations: {}
+
+##
+## Moon service account annotations.
+##
+serviceAccountAnnotations: {}
+
+##
+## Moon service annotations.
+##
+serviceAnnotations: {}
+
+##
+## Moon service labels.
+##
+serviceLabels: {}
+
+##
+## Moon service to customize without ingress.
+##
+service:
+  ##
+  ## Service type e.g. NodePort, LoadBalancer.
+  ##
+  type:
+
+  ##
+  ## Load balancer IP address.
+  ##
+  loadBalancerIP:
+
+  ##
+  ## List of external IP addresses.
+  ##
+  externalIPs: []
+
+##
+## Moon deployment settings.
+##
+deployment:
+
+  ##
+  ## Custom deployment annotations.
+  ##
+  annotations: {}
+
+  ##
+  ## Custom pod annotations.
+  ##
+  podAnnotations: {}
+
+  ##
+  ## Total number of Moon pods. Default is 2.
+  ##
+  replicas:
+
+  ##
+  ## Moon pods graceful shutdown timeout. Default is 360 seconds.
+  ##
+  terminationGracePeriodSeconds:
+
+  ##
+  ## Moon container image repository. Default is quay.io/aerokube/moon.
+  ##
+  moonRepo:
+
+  ##
+  ## Moon container image tag. Default equals to chart app version.
+  ##
+  moonTag:
+
+  ##
+  ## Moon container CPU limit. Default is 0.5.
+  ##
+  moonCPULimit:
+
+  ##
+  ## Moon container CPU request. Default is 0.2.
+  ##
+  moonCPURequest:
+
+  ##
+  ## Moon container memory limit. Default is 256Mi.
+  ## We recommend setting the same value for memory request and limit.
+  ##
+  moonMemoryLimit:
+
+  ##
+  ## Moon container memory request. Default is 256Mi.
+  ##
+  moonMemoryRequest:
+
+  ##
+  ## Moon callback url. In case of using Moon without ingress or with custom ingress as AWS alb.
+  ##
+  moonCallbackURL:
+
+  ##
+  ## Moon browser limit. Use it in case you need to lower browser limit than license key allows. Default unset.
+  ##
+  moonBrowserLimit:
+
+  ##
+  ## Moon-conf image repository. Default is quay.io/aerokube/moon-conf.
+  ##
+  moonConfRepo:
+
+  ##
+  ## Moon-conf container image tag. Default equals to chart app version.
+  ##
+  moonConfTag:
+
+  ##
+  ## Moon-conf container CPU limit. Default is 0.25.
+  ##
+  moonConfCPULimit:
+
+  ##
+  ## Moon-conf container CPU request. Default is 0.05.
+  ##
+  moonConfCPURequest:
+
+  ##
+  ## Moon-conf container memory limit. Default is 128Mi.
+  ## We recommend setting the same value for memory request and limit.
+  ##
+  moonConfMemoryLimit:
+
+  ##
+  ## Moon-conf container memory request. Default is 128Mi.
+  ##
+  moonConfMemoryRequest:
+
+  ##
+  ## Moon-basic-auth container image repository. Default is quay.io/aerokube/moon-basic-auth.
+  ##
+  moonBasicAuthRepo:
+
+  ##
+  ## Moon-basic-auth container image tag. Default equals to chart app version.
+  ##
+  moonBasicAuthTag:
+
+  ##
+  ## Moon-basic-auth container CPU limit. Default is 0.5.
+  ##
+  moonBasicAuthCPULimit:
+
+  ##
+  ## Moon-basic-auth container CPU request. Default is 0.2.
+  ##
+  moonBasicAuthCPURequest:
+
+  ##
+  ## Moon-basic-auth container memory limit. Default is 256Mi.
+  ## We recommend setting the same value for memory request and limit.
+  ##
+  moonBasicAuthMemoryLimit:
+
+  ##
+  ## Moon-basic-auth container memory request. Default is 256Mi.
+  ##
+  moonBasicAuthMemoryRequest:
+
+  ##
+  ## Moon-ui image repository. Default is quay.io/aerokube/moon-ui.
+  ##
+  moonUIRepo:
+
+  ##
+  ## Moon-ui container image tag. Default equals to chart app version.
+  ##
+  moonUITag:
+
+  ##
+  ## Moon-ui container CPU limit. Default is 0.25.
+  ##
+  moonUICPULimit:
+
+  ##
+  ## Moon-ui container CPU request. Default is 0.05.
+  ##
+  moonUICPURequest:
+
+  ##
+  ## Moon-ui container memory limit. Default is 64Mi.
+  ## We recommend setting the same value for memory request and limit.
+  ##
+  moonUIMemoryLimit:
+
+  ##
+  ## Moon-ui container memory request. Default is 64Mi.
+  ##
+  moonUIMemoryRequest:
+
+  ##
+  ## Enable Moon experimental UI.
+  ##
+  experimentalUI: false
+
+  ## If specified, the pod's security policies.
+  ## ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+  ##
+  securityContext: {}
+  #  runAsUser: 1000
+
+  ##
+  ## Optional fields that specifies the maximum number of pods that can be created over the desired number of pods
+  ## and that can be unavailable during the update. You can use both int and percent values.
+  ##
+  rollingUpdate: {}
+  #    maxSurge: 25%
+  #    maxUnavailable: 25%
+
+  ##
+  ## Node Selector for Moon pods
+  ##
+  nodeSelector: {}
+  #  kubernetes.io/os: linux
+
+  ## Assign custom affinity rules to the instance
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  ##
+  affinity: {}
+  #  nodeAffinity:
+  #    requiredDuringSchedulingIgnoredDuringExecution:
+  #      nodeSelectorTerms:
+  #      - matchExpressions:
+  #        - key: kubernetes.io/e2e-az-name
+  #          operator: In
+  #          values:
+  #          - e2e-az1
+  #          - e2e-az2
+
+  #  ## If specified, the pod's priorityClassName.
+  #  ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
+  #  ##
+  # priorityClassName: default
+
+  ## If specified, the pod's tolerations.
+  ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  ##
+  tolerations: []
+  #- key: "key"
+  #  operator: "Equal"
+  #  value: "value"
+  #  effect: "NoSchedule"
+
+##
+## Available configuration objects.
+##
+configs:
+  ##
+  ## Default configuration object. Detailed description of the fields can be found
+  ## in documentation: https://aerokube.com/moon/latest/#configuration-object.
+  ##
+  default:
+    serviceAccountName: default
+    sessionTimeout: 5m
+    user:
+      id: 4096
+      name: user
+    group:
+      id: 4096
+      name: user
+    containers:
+      browser:
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2Gi
+          requests:
+            cpu: 500m
+            memory: 2Gi
+      ca-certs:
+        repository: quay.io/aerokube/ca-certs
+        resources:
+          limits:
+            cpu: 200m
+            memory: 32Mi
+          requests:
+            cpu: 100m
+            memory: 32Mi
+      proxy:
+        repository: quay.io/aerokube/proxy
+        resources:
+          limits:
+            cpu: 200m
+            memory: 32Mi
+          requests:
+            cpu: 100m
+            memory: 32Mi
+      defender:
+        repository: quay.io/aerokube/defender
+        resources:
+          limits:
+            cpu: 250m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+      video-recorder:
+        repository: quay.io/aerokube/video-recorder
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2Gi
+          requests:
+            cpu: 250m
+            memory: 2Gi
+      vnc-server:
+        repository: quay.io/aerokube/vnc-server
+        resources:
+          limits:
+            cpu: 200m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+      x-server:
+        repository: quay.io/aerokube/xvfb-server
+        resources:
+          limits:
+            cpu: 200m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+    storage:
+      accessKey: ""
+      bucket: ""
+      endpoint: ""
+      filename: ""
+      pattern: ""
+      secretKey: ""
+
+##
+## Available browsers set objects.
+##
+browsers:
+  ##
+  ## Default browsers set object. Detailed description of the fields can be found
+  ## in documentation: https://aerokube.com/moon/latest/#browsers-set.
+  ##
+  default:
+    selenium:
+      MicrosoftEdge:
+        repository: quay.io/browser/microsoft-edge-stable
+        default: 113.0.1774.50-5
+      chrome:
+        repository: quay.io/browser/google-chrome-stable
+        default: 113.0.5672.126-5
+      firefox:
+        repository: quay.io/browser/firefox-mozilla-build
+        default: 113.0.2-4
+      opera:
+        repository: quay.io/browser/opera-stable
+        default: 98.0.4759.39-6
+      safari:
+        repository: quay.io/browser/safari
+        default: 15.0-0
+    cypress:
+      electron:
+        repository: quay.io/browsers/cypress-electron
+      chromium:
+        repository: quay.io/browsers/cypress-chromium
+      chrome:
+        repository: quay.io/browsers/cypress-chrome
+      firefox:
+        repository: quay.io/browsers/cypress-firefox
+      edge:
+        repository: quay.io/browsers/cypress-edge
+    playwright:
+      chrome:
+        repository: quay.io/browser/playwright-chrome
+      chromium:
+        repository: quay.io/browser/playwright-chromium
+      firefox:
+        repository: quay.io/browser/playwright-firefox
+      webkit:
+        repository: quay.io/browser/playwright-webkit
+    devtools:
+      chrome:
+        repository: quay.io/browser/devtools-google-chrome-stable
+
+##
+## Available quotas. If you need to have multiple quota objects - simply add them below:
+##
+## quota:
+##   moon: null
+##   alfa-team:
+##     namespace: alfa
+##     serviceAccountName: custom
+##     serviceAccountAnnotations: {}
+##   beta-team:
+##     namespace: beta
+##
+quota:
+  ##
+  ## Default quota. Detailed description of the fields can be found
+  ## in documentation: https://aerokube.com/moon/latest/#quotas. Set it
+  ## to null when having multiple quota objects.
+  ##
+  moon:
+    namespace: moon
+
+##
+## License key. When empty default free license key is automatically used.
+##
+license:
+
+##
+## License key secret name. License data will be loaded from secret, overrides license field.
+##
+licenseSecretName:
+
+##
+## rbac true by default
+##
+rbac:
+  enabled: true
