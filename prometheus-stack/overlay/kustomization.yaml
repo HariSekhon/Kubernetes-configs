@@ -1,0 +1,27 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-11-29 16:09:45 +0000 (Mon, 29 Nov 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#          P r o m e t h e u s   S t a c k   K u s t o m i z a t i o n
+# ============================================================================ #
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+#namespace: prometheus  # Do not override helm chart, can cause issues
+
+resources:
+  - ../base

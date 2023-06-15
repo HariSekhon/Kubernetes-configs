@@ -1,0 +1,27 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-08-18 12:31:45 +0100 (Thu, 18 Aug 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#             E l a s t i c   C l o u d   o n   K u b e r n e t e s
+# ============================================================================ #
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+#namespace: elastic-system
+
+resources:
+  - ../base
