@@ -33,22 +33,22 @@ customIngress:
   #  hosts:
   #  - moon.aerokube.local
   paths:
-  - path: /wd/hub
-    port: 4444
-  - path: /cypress
-    port: 4444
-  - path: /playwright
-    port: 4444
-  - path: /devtools
-    port: 4444
-  - path: /metrics
-    port: 4444
-  - path: /api
-    port: 9090
-  - path: /ui
-    port: 9090
-  - path: /
-    port: 8080
+    - path: /wd/hub
+      port: 4444
+    - path: /cypress
+      port: 4444
+    - path: /playwright
+      port: 4444
+    - path: /devtools
+      port: 4444
+    - path: /metrics
+      port: 4444
+    - path: /api
+      port: 9090
+    - path: /ui
+      port: 9090
+    - path: /
+      port: 8080
 
 ##
 ## Ingress settings. This chart is using Nginx Ingress. By default, Ingress listens only on port 80 (HTTP).
