@@ -1,0 +1,92 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-06-16 02:23:25 +0100 (Fri, 16 Jun 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                A r t i f a c t o r y   C h a r t   V a l u e s
+# ============================================================================ #
+
+# helm repo add jfrog https://charts.jfrog.io
+#
+# helm show values jfrog/artifactory-oss >> values.yaml
+
+---
+# Beware when changing values here. You should know what you are doing!
+# Access the values with {{ .Values.key.subkey }}
+
+# This chart is based on the main artifactory chart with some customizations.
+# See all supported configuration keys in https://github.com/jfrog/charts/tree/master/stable/artifactory
+
+## All values are under the 'artifactory' sub chart.
+artifactory:
+  ## Artifactory
+  ## See full list of supported Artifactory options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
+  artifactory:
+    ## Default tag is from the artifactory sub-chart in the requirements.yaml
+    image:
+      registry: releases-docker.jfrog.io
+      repository: jfrog/artifactory-oss
+      # tag:
+    ## Uncomment the following resources definitions or pass them from command line
+    ## to control the cpu and memory resources allocated by the Kubernetes cluster
+    resources: {}
+    #  requests:
+    #    memory: "1Gi"
+    #    cpu: "500m"
+    #  limits:
+    #    memory: "4Gi"
+    #    cpu: "1"
+    ## The following Java options are passed to the java process running Artifactory.
+    ## You should set them according to the resources set above.
+    ## IMPORTANT: Make sure resources.limits.memory is at least 1G more than Xmx.
+    javaOpts: {}
+    # xms: "1g"
+    # xmx: "3g"
+    # other: ""
+  installer:
+    platform: art-oss-helm
+  installerInfo: '{"productId": "Helm_artifactory-oss/{{ .Chart.Version }}", "features": [ { "featureId": "Platform/{{ default "kubernetes" .Values.installer.platform }}"}]}'
+  ## Nginx
+  ## See full list of supported Nginx options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
+  nginx:
+    enabled: true
+    tlsSecretName: ""
+    service:
+      type: LoadBalancer
+  ## Ingress
+  ## See full list of supported Ingress options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
+  ingress:
+    enabled: false
+    tls:
+  ## PostgreSQL
+  ## See list of supported postgresql options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
+  ## Configuration values for the PostgreSQL dependency sub-chart
+  ## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql/README.md
+  postgresql:
+    enabled: true
+  ## This key is required for upgrades to protect old PostgreSQL chart's breaking changes.
+  databaseUpgradeReady: "yes"
+  ## If NOT using the PostgreSQL in this chart (artifactory.postgresql.enabled=false),
+  ## specify custom database details here or leave empty and Artifactory will use embedded derby.
+  ## See full list of database options and documentation in artifactory chart: https://github.com/jfrog/charts/tree/master/stable/artifactory
+  # database:
+  jfconnect:
+    enabled: false
+## Enable the PostgreSQL sub chart
+postgresql:
+  enabled: true
+router:
+  image:
+    tag: 7.67.0
