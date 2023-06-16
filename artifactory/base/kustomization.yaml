@@ -20,6 +20,10 @@
 
 # https://artifacthub.io/packages/helm/jfrog/artifactory-oss
 
+# The "Open Source" Freemium version is severely neutred and limited to only Generic, Gradle, Ivy and Maven repos
+#
+# If you want any of the modern languages like Python, or Docker etc then you need to pay for one of the following
+
 # Require licenses:
 #
 # https://artifacthub.io/packages/helm/jfrog/artifactory
