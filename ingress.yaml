@@ -181,7 +181,7 @@ metadata:
     #
     #haproxy.org/src-ip-header: X-Forwarded-For
     #haproxy.org/src-ip-header: CF-Connecting-IP
-    #haproxy.org/src-ip-header: True-Client-IP
+    #haproxy.org/src-ip-header: True-Client-IP  # Enterprise plan only, exactly the same as CF-Connecting-IP, just use that
     #haproxy.org/forwarded-for: "true"
     #
     #haproxy.org/cookie-persistence: mycookie
