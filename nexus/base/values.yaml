@@ -1,0 +1,194 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-07-22 03:37:37 +0100 (Sat, 22 Jul 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                     Nexus Chart Values
+# ============================================================================ #
+
+# helm repo add sonatype https://sonatype.github.io/helm3-charts/
+#
+# helm show values sonatype/nexus-repository-manager >> values.yaml
+
+---
+nexus:
+  docker:
+    enabled: false
+    # registries:
+    #   - host: chart.local
+    #     port: 5000
+    #     secretName: registry-secret
+  env:
+    # minimum recommended memory settings for a small, person instance from
+    # https://help.sonatype.com/repomanager3/product-information/system-requirements
+    - name: INSTALL4J_ADD_VM_PARAMS
+      value: |-
+        -Xms2703M -Xmx2703M
+        -XX:MaxDirectMemorySize=2703M
+        -XX:+UnlockExperimentalVMOptions
+        -XX:+UseCGroupMemoryLimitForHeap
+        -Djava.util.prefs.userRoot=/nexus-data/javaprefs
+    - name: NEXUS_SECURITY_RANDOMPASSWORD
+      value: "true"
+  properties:
+    override: false
+    data:
+      nexus.scripts.allowCreation: true
+      # See this article for ldap configuratioon options https://support.sonatype.com/hc/en-us/articles/216597138-Setting-Advanced-LDAP-Connection-Properties-in-Nexus-Repository-Manager
+      # nexus.ldap.env.java.naming.security.authentication: simple
+  # nodeSelector:
+  #   cloud.google.com/gke-nodepool: default-pool
+  resources:
+  # minimum recommended memory settings for a small, person instance from
+  # https://help.sonatype.com/repomanager3/product-information/system-requirements
+  #   requests:
+  #     cpu: 4
+  #     memory: 8Gi
+  #   limits:
+  #     cpu: 4
+  #     memory: 8Gi
+
+  # The ports should only be changed if the nexus image uses a different port
+  nexusPort: 8081
+
+  # Default the pods UID and GID to match the nexus3 container.
+  # Customize or remove these values from the securityContext as appropriate for
+  # your deployment environment.
+  securityContext:
+    runAsUser: 200
+    runAsGroup: 200
+    fsGroup: 200
+  podAnnotations: {}
+  livenessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    failureThreshold: 6
+    timeoutSeconds: 10
+    path: /
+  readinessProbe:
+    initialDelaySeconds: 30
+    periodSeconds: 30
+    failureThreshold: 6
+    timeoutSeconds: 10
+    path: /
+  # hostAliases allows the modification of the hosts file inside a container
+  hostAliases: []
+  # - ip: "192.168.1.10"
+  #   hostnames:
+  #   - "example.com"
+  #   - "www.example.com"
+
+nameOverride: ""
+fullnameOverride: ""
+
+deployment:
+  # # Add annotations in deployment to enhance deployment configurations
+  annotations: {}
+  # # Add init containers. e.g. to be used to give specific permissions for nexus-data.
+  # # Add your own init container or uncomment and modify the given example.
+  initContainers:
+  #   - name: fmp-volume-permission
+  #   image: busybox
+  #   imagePullPolicy: IfNotPresent
+  #   command: ['chown','-R', '200', '/nexus-data']
+  #   volumeMounts:
+  #     - name: nexus-data
+  #       mountPath: /nexus-data
+  # Uncomment and modify this to run a command after starting the nexus container.
+  postStart:
+    command:    # '["/bin/sh", "-c", "ls"]'
+  preStart:
+    command:    # '["/bin/rm", "-f", "/path/to/lockfile"]'
+  terminationGracePeriodSeconds: 120
+  additionalContainers:
+  additionalVolumes:
+  additionalVolumeMounts:
+
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  hostPath: /
+  hostRepo: repo.demo
+  # tls:
+  #   - secretName: nexus-local-tls
+  #     hosts:
+  #       - repo.demo
+
+
+service:
+  name: nexus3
+  enabled: true
+  labels: {}
+  annotations: {}
+  type: ClusterIP
+
+
+route:
+  enabled: false
+  name: docker
+  portName: docker
+  labels:
+  annotations:
+  # path: /docker
+
+nexusProxyRoute:
+  enabled: false
+  labels:
+  annotations:
+  # path: /nexus
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  ## If defined, storageClass: <storageClass>
+  ## If set to "-", storageClass: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClass spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # existingClaim:
+  # annotations:
+  #  "helm.sh/resource-policy": keep
+  # storageClass: "-"
+  storageSize: 8Gi
+  # If PersistentDisk already exists you can create a PV for it by including the 2 following keypairs.
+  # pdName: nexus-data-disk
+  # fsType: ext4
+
+tolerations: []
+
+# Enable configmap and add data in configmap
+config:
+  enabled: false
+  mountPath: /sonatype-nexus-conf
+  data: []
+
+# # To use an additional secret, set enable to true and add data
+secret:
+  enabled: false
+  mountPath: /etc/secret-volume
+  readOnly: true
+  data: []
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""

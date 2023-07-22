@@ -1,0 +1,37 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-07-22 03:35:29 +0100 (Sat, 22 Jul 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#            S o n a t y p e   N e x u s   K u s t o m i z a t i o n
+# ============================================================================ #
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: nexus
+
+resources:
+  - namespace.yaml
+
+helmCharts:
+  - name: nexus-repository-manager
+    repo: https://sonatype.github.io/helm3-charts/
+    version: 58.1.0
+    releaseName: nexus
+    namespace: nexus
+    includeCRDs: true
+    valuesFile: values.yaml
