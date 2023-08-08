@@ -129,12 +129,11 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
   hostPath: /
-  hostRepo: repo.demo
-  # tls:
-  #   - secretName: nexus-local-tls
-  #     hosts:
-  #       - repo.demo
-
+  hostRepo: nexus.domain.com  # XXX: Edit
+  tls:
+    - secretName: nexus-tls
+      hosts:
+        - nexus.domain.com  # XXX: Edit
 
 service:
   name: nexus3
@@ -142,7 +141,6 @@ service:
   labels: {}
   annotations: {}
   type: ClusterIP
-
 
 route:
   enabled: false
