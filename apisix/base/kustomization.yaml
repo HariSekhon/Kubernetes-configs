@@ -28,6 +28,7 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - priorityclass.yaml
 
 helmCharts:
   - name: apisix
