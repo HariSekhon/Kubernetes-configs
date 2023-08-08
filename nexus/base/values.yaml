@@ -126,6 +126,7 @@ ingress:
   enabled: false
   ingressClassName: nginx
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
   hostPath: /
   hostRepo: repo.demo
