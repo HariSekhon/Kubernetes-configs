@@ -60,7 +60,7 @@ nexus:
     #  cpu: 4
     #  memory: 8Gi
     requests:
-      cpu: 2
+      cpu: 1
       memory: 3.5Gi
     limits:
       cpu: 2
