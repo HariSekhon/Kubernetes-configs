@@ -63,7 +63,7 @@ nexus:
       cpu: 1
       memory: 3.5Gi
     limits:
-      cpu: 2
+      cpu: 1
       memory: 3.5Gi
 
   # The ports should only be changed if the nexus image uses a different port
