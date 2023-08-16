@@ -29,9 +29,15 @@
 apiVersion: v1
 kind: ResourceQuota
 metadata:
-  name: storagequota
-  namespace: NAMESPACE
+  name: NAME  # XXX: Edit - name it after which settings you enable in the spec, or just name it after the namespace if you're doing all in one quota
+  namespace: NAMESPACE  # XXX: Edit
 spec:
   hard:
+    # XXX: Edit - these are mere arbitrary starting defaults - tune to your expectations
+    pods: "50"
+    requests.cpu: "10"
+    requests.memory: 20Gi
+    limits.cpu: "10"
+    limits.memory: 20Gi
     persistentvolumeclaims: "10"
-    requests.storage: "500Mi"
+    requests.storage: 50Gi

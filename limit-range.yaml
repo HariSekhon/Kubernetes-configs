@@ -28,14 +28,23 @@
 apiVersion: v1
 kind: LimitRange
 metadata:
-  name: NAME
-  namespace: NAMESPACE
+  name: NAME  # XXX: Edit
+  namespace: NAMESPACE  # XXX: Edit
 spec:
   limits:
+      # Default resource requests + limits to assign to a container if unset by the app yaml - make this frugle and force people to right-size their apps in 2 iterations at time of deployment - see Goldilocks to make this easier (yamls to deploy Goldilocks are in this repo)
     - default:
-        cpu: 1
-        memory: 4Gi
-      defaultRequest:
-        cpu: 0.5
+        cpu: 100m
         memory: 100Mi
+      defaultRequest:
+        cpu: 100m
+        memory: 100Mi
+      type: Container
+    # Limit how large any single object can be created in this namespace
+    - max:
+        cpu: "4"
+        memory: 8Gi
+      defaultRequest:
+        cpu: "4"
+        memory: 8Gi
       type: Container

@@ -93,6 +93,8 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - App Right-Sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) ([config](goldilocks/base/)) to generate VPAs and resource recommendations
 - DNS - [External DNS](https://github.com/kubernetes-sigs/external-dns) ([config](external-dns/base/)) integration to AWS Route53, Cloudflare etc.
 - Secrets - [External Secrets](https://github.com/external-secrets/external-secrets) ([config](external-secrets/base/)) integration to AWS Secrets Manager, GCP Secret Manager etc. or [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) ([config](sealed-secrets/base/))
+- Resource Quotas per Namespace - [resource-quota.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/resource-quota.yaml)
+- Limit Ranges - per object limits within a namespace - [limit-range.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/limit-range.yaml)
 - Network Policies - [network-policy.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/network-policy.yaml)
 - Pod Security Policies - [pod-security-policy.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-security-policy.yaml)
 - Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) ([config](polaris/base/)) for recommendations

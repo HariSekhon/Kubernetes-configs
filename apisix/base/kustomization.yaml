@@ -1,0 +1,40 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-08-08 23:47:20 +0100 (Tue, 08 Aug 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                    A p i s i x   K u s t o m i z a t i o n
+# ============================================================================ #
+
+# https://apisix.apache.org/docs/ingress-controller/getting-started/
+
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+#namespace: apisix # XXX: Do not set this if using remote base or Helm charts - may override creating roles for kube-system for leader election etc. eg. for Cert Manager
+
+resources:
+  - namespace.yaml
+  - priorityclass.yaml
+
+helmCharts:
+  - name: apisix
+    repo: https://charts.apiseven.com
+    version: 2.1.0
+    releaseName: apisix
+    namespace: apisix
+    includeCRDs: true
+    valuesFile: values.yaml

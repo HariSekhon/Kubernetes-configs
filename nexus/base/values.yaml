@@ -15,7 +15,7 @@
 #
 
 # ============================================================================ #
-#                     Nexus Chart Values
+#                      N e x u s   C h a r t   V a l u e s
 # ============================================================================ #
 
 # helm repo add sonatype https://sonatype.github.io/helm3-charts/
@@ -53,12 +53,18 @@ nexus:
   resources:
   # minimum recommended memory settings for a small, person instance from
   # https://help.sonatype.com/repomanager3/product-information/system-requirements
+    #requests:
+    #  cpu: 4
+    #  memory: 8Gi
+    #limits:
+    #  cpu: 4
+    #  memory: 8Gi
     requests:
-      cpu: 4
-      memory: 8Gi
+      cpu: 1
+      memory: 3.5Gi
     limits:
-      cpu: 4
-      memory: 8Gi
+      cpu: 1
+      memory: 3.5Gi
 
   # The ports should only be changed if the nexus image uses a different port
   nexusPort: 8081
@@ -120,14 +126,14 @@ ingress:
   enabled: false
   ingressClassName: nginx
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
   hostPath: /
-  hostRepo: repo.demo
-  # tls:
-  #   - secretName: nexus-local-tls
-  #     hosts:
-  #       - repo.demo
-
+  hostRepo: nexus.domain.com  # XXX: Edit
+  tls:
+    - secretName: nexus-tls
+      hosts:
+        - nexus.domain.com  # XXX: Edit
 
 service:
   name: nexus3
@@ -135,7 +141,6 @@ service:
   labels: {}
   annotations: {}
   type: ClusterIP
-
 
 route:
   enabled: false
