@@ -46,6 +46,13 @@ runs:
         #git config url."https://token:$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/"
         #cat .git/config
 
+        # to access private repositories because url .insteadOf above only works in 'git fetch' and not in Kustomize
+        # must be done in a loop first because kustomizations that include other kustomizations will fail if they aren't all edited first
+        find . -name 'kustomization.y*ml' |
+        while read -r kustomization; do
+          sed -i "s|-[[:space:]]*github.com/|- https://$GITHUB_TOKEN@github.com/|" "$kustomization"
+        done
+
         for kustomization in */*/kustomization.y*ml; do
           # XXX: https://github.com/wiremind/wiremind-helm-charts/issues/259
           if [[ "$kustomization" =~ clair/ ]]; then
@@ -53,8 +60,6 @@ runs:
           fi
           echo "$kustomization"
           pushd "$(dirname "$kustomization")" >/dev/null
-          # to access private repositories because url .insteadOf above only works in 'git fetch' and not in Kustomize
-          #sed -i "s|-[[:space:]]*github.com/|- https://$GITHUB_TOKEN@github.com/|" kustomization.y*ml
           kustomize build --enable-helm > "kustomization.yaml.materialized"
           echo "Materialized YAML -> kustomization.yaml.materialized"
           popd
