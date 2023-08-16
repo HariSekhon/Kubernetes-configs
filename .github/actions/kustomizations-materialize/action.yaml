@@ -32,6 +32,8 @@ runs:
         echo "Running Kustomizations Materialize Action"
         set -euxo pipefail
 
+        # ==================
+        # None of these work
         #git config credential.helper '!f() { sleep 1; echo "username=${GITHUB_USER}"; echo "password=${GITHUB_TOKEN}"; }; f'
 
         #cat > git_askpass.sh <<EOF
@@ -45,13 +47,14 @@ runs:
         # works for 'git fetch' but doesn't work in Kustomize
         #git config url."https://token:$GITHUB_TOKEN@github.com/".insteadOf "https://github.com/"
         #cat .git/config
+        # ==================
 
-        # to access private repositories because url .insteadOf above only works in 'git fetch' and not in Kustomize
+        # use this to access private repositories because url .insteadOf above only works in 'git fetch' and not in Kustomize
         # must be done in a loop first because kustomizations that include other kustomizations will fail if they aren't all edited first
-        find . -name 'kustomization.y*ml' |
-        while read -r kustomization; do
-          sed -i "s|-[[:space:]]*github.com/|- https://$GITHUB_TOKEN@github.com/|" "$kustomization"
-        done
+        #find . -name 'kustomization.y*ml' |
+        #while read -r kustomization; do
+        #  sed -i "s|-[[:space:]]*github.com/|- https://$GITHUB_TOKEN@github.com/|" "$kustomization"
+        #done
 
         for kustomization in */*/kustomization.y*ml; do
           # XXX: https://github.com/wiremind/wiremind-helm-charts/issues/259
