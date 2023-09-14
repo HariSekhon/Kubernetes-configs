@@ -1,0 +1,64 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2023-09-14 23:55:14 +0100 (Thu, 14 Sep 2023)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#            A r g o C D   S e t t i n g s   C o n f i g   P a t c h
+# ============================================================================ #
+
+# Workaround for Deprecated APIs warning in GKE from automated cluster upgrades:
+#
+#   https://github.com/argoproj/argo-cd/issues/12382
+
+# https://argo-cd.readthedocs.io/en/latest/operator-manual/declarative-setup/#resource-exclusioninclusion
+
+# Patch to configure ArgoCD settings configmap
+#
+# Download argocd CLI:
+#
+#   curl -sSL https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/install_argocd.sh | bash
+#
+# Validate:
+#
+#   argocd admin settings validate --argocd-cm-path ./argocd-cm.resource-exclusions.patch.yaml
+#
+# Apply:
+#
+#   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat argocd-cm.resource-exclusions.patch.yaml)"
+#
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  # defining namespace leads to this error in Kustomize 3.1.0 and 4.1.3:
+  #
+  #   Error: no matches for Id ~G_v1_ConfigMap|argocd|argocd-cm; failed to find unique target for patch ~G_v1_ConfigMap|argocd-cm
+  #
+  # After much testing this is because the upstream ArgoCD base manifests for 2.0.3 defined in argocd-kustomization.yaml come without namespaces specified, and the namespace override in kustomization happens after this patching which is too late
+  #
+  #namespace: argocd  # breaks kustomize patching of argocd base
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
+data:
+  resource.exclusions: |
+    - apiGroups:
+        - policy
+      kinds:
+        - PodSecurityPolicy
+      clusters:
+        - "*"
