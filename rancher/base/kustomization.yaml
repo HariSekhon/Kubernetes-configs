@@ -35,7 +35,7 @@ resources:
 helmCharts:
   - name: rancher
     repo: https://releases.rancher.com/server-charts/latest
-    version: 2.7.4
+    version: 2.7.9
     releaseName: rancher
     namespace: cattle-system
     includeCRDs: true
