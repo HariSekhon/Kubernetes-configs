@@ -24,7 +24,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-#namespace: apisix # XXX: Do not set this if using remote base or Helm charts - may override creating roles for kube-system for leader election etc. eg. for Cert Manager
+namespace: apisix
 
 resources:
   - namespace.yaml
