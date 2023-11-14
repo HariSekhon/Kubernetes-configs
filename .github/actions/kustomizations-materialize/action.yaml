@@ -58,7 +58,8 @@ runs:
 
         for kustomization in */*/kustomization.y*ml; do
           # XXX: https://github.com/wiremind/wiremind-helm-charts/issues/259
-          if [[ "$kustomization" =~ clair/ ]]; then
+          # XXX: Rancher chart is old- Error: Error: chart requires kubeVersion: < 1.26.0-0 which is incompatible with Kubernetes v1.28.0
+          if [[ "$kustomization" =~ clair/|rancher/ ]]; then
             continue
           fi
           echo "$kustomization"
