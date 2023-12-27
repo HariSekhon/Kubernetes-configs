@@ -24,7 +24,8 @@ kind: Deployment
 metadata:
   # XXX: Edit
   name: NAME
-  namespace: NAMESPACE
+  # checkov:skip=CKV_K8S_21:breaks kustomize patching of base
+  #namespace: NAMESPACE
 spec:
   template:
     spec:
