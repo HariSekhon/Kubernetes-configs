@@ -25,6 +25,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: ignored
+  # checkov:skip=CKV_K8S_21:breaks kustomize patching of base
 spec:
   jobTemplate:
     spec:
