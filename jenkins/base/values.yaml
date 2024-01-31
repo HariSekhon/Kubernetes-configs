@@ -148,9 +148,9 @@ controller:
     - aws-secrets-manager-credentials-provider:1.214.va_0a_d8268d068  # https://plugins.jenkins.io/aws-secrets-manager-credentials-provider/
     - gcp-secrets-manager-credentials-provider:0.3.1    # https://plugins.jenkins.io/gcp-secrets-manager-credentials-provider/
     - google-cloudbuild:0.2.6                           # https://plugins.jenkins.io/google-cloudbuild/
-    - azure-credentials:98.vf9c2fdfde55c                # https://plugins.jenkins.io/azure-credentials/
-    - azure-keyvault:131.v867845ef6ae9                  # https://plugins.jenkins.io/azure-keyvault/
-    - hashicorp-vault-plugin:336.v182c0fbaaeb7          # https://plugins.jenkins.io/hashicorp-vault-plugin/
+    - azure-credentials:312.v0f3973cd1e59               # https://plugins.jenkins.io/azure-credentials/
+    - azure-keyvault:237.v301692369180                  # https://plugins.jenkins.io/azure-keyvault/
+    - hashicorp-vault-plugin:364.vf5d54b_3dc313         # https://plugins.jenkins.io/hashicorp-vault-plugin/
     # Metrics
     - monitoring:1.95.0                                 # https://plugins.jenkins.io/monitoring/
     - opentelemetry:3.1111.vc2733c03b_db_1              # https://plugins.jenkins.io/opentelemetry/  # for Jaeger
@@ -164,7 +164,7 @@ controller:
     #- dashboard-view:2.495.v07e81500c3f2               # https://plugins.jenkins.io/dashboard-view/
     #- maven-plugin:3.23                                # https://plugins.jenkins.io/maven-plugin/
     #- junit:1256.v002534a_5f33e                        # https://plugins.jenkins.io/junit/
-    #- mailer:391.ve4a_38c1b_cf4b_                      # https://plugins.jenkins.io/mailer/
+    #- mailer:463.vedf8358e006b_                        # https://plugins.jenkins.io/mailer/
     #- jira:3.12                                        # https://plugins.jenkins.io/jira/
     #- codedeploy:1.23                                  # https://plugins.jenkins.io/codedeploy/  # AWS CodeDeploy
     #- metrics:4.2.21-449.v6960d7c54c69                 # https://plugins.jenkins.io/metrics/
