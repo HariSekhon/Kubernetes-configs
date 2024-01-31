@@ -39,7 +39,7 @@ resources:
 helmCharts:
   - name: jenkins
     repo: https://charts.jenkins.io
-    version: 3.9.4
+    version: 4.12.1
     releaseName: jenkins
     namespace: jenkins
     includeCRDs: true
