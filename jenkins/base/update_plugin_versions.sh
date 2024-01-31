@@ -25,17 +25,36 @@ if [ "$(uname -s)" = Darwin ]; then
 fi
 
 echo "* Updating plugins in file '$srcdir/values.yaml"
-grep -Eo '^[[:space:]#]+- [[:alnum:]-]+:[[:digit:]]+(\.[[:digit:]]+)+' "$srcdir/values.yaml" |
-sed '
-    s/^[[:space:]#]*//;
-    s/^-//;
-    s/^[[:space:]]*//;
-    s/:/ /;
-' |
+
+plugin_versions="$(
+    grep -Eo '^[[:space:]#]+- [[:alnum:]-]+:[[:alnum:]]+([.[:alnum:]_-]+)+' "$srcdir/values.yaml" |
+    sed '
+        s/^[[:space:]#]*//;
+        s/^-//;
+        s/^[[:space:]]*//;
+        s/:/ /;
+    '
+)"
+
+latest_versions="$(
+    awk '{print $1}' <<< "$plugin_versions" |
+    # jenkins_plugins_latest_versions.sh is in https://github.com/HariSekhon/DevOps-Bash-tools which should be cloned and put in $PATH
+    xargs jenkins_plugins_latest_versions.sh
+)"
+
+exitcode=0
+
 while read -r plugin version; do
-    echo "$plugin $version"
-    # jenkins_plugin_latest_version.sh is in https://github.com/HariSekhon/DevOps-Bash-tools which should be cloned and put in $PATH
-    latest_version="$(jenkins_plugin_latest_version.sh "$plugin")"
-    echo "* updating plugin '$plugin' from version '$version' to latest version '$latest_version'"
-    sed -i "s/$plugin:$version/$plugin:$latest_version/" "$srcdir/values.yaml"
-done
+    plugin_latest_version="$(
+        if ! grep "^$plugin:" <<< "$latest_versions"; then
+            echo "WARNING: failed to find '$plugin' in the outout"
+        fi
+    )"
+    latest_version="${plugin_latest_version##*:}"
+    if [ "$plugin:$version" != "$plugin:$latest_version" ]; then
+        echo "* updating plugin '$plugin' version '$version' to latest version '$latest_version'"
+        sed -i "s/$plugin:$version/$plugin_latest_version/" "$srcdir/values.yaml"
+    fi
+done <<< "$plugin_versions"
+
+exit $exitcode
