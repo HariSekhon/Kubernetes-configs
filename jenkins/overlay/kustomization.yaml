@@ -25,3 +25,4 @@ kind: Kustomization
 
 resources:
   - ../base
+  - ingress.yaml
