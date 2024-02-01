@@ -1,0 +1,57 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2021-02-22 11:17:46 +0000 (Mon, 22 Feb 2021)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#  lint: k8s
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                    J e n k i n s   C I   -   I n g r e s s
+# ============================================================================ #
+
+---
+#apiVersion: extensions/v1beta1  # old
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins
+  namespace: jenkins
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    # XXX: Edit to make available externally or apply common ingress.nginx.patch.yaml with shared IP list eg. Cloudflare
+    nginx.ingress.kubernetes.io/whitelist-source-range: |
+      10.0.0.0/8,
+      172.16.0.0/16,
+      192.168.0.0/16
+spec:
+  tls:
+    - hosts:
+        # XXX: Edit
+        - jenkins.MYDOMAIN.COM
+      secretName: jenkins-tls
+  rules:
+    # XXX: Edit
+    - host: jenkins.MYDOMAIN.COM
+      http:
+        paths:
+          - path: /
+            pathType: Prefix  # for new networking.k8s.io/v1
+            backend:
+              #serviceName: jenkins-ui
+              #servicePort: jenkins-ui
+              service:
+                name: jenkins-ui
+                port:
+                  #number: 8080
+                  name: jenkins-ui
