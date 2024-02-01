@@ -124,7 +124,7 @@ controller:
     - blueocean:1.27.10                                 # https://plugins.jenkins.io/blueocean/
     - cloudbees-jenkins-advisor:358.v58972d19b_1f0      # https://plugins.jenkins.io/cloudbees-jenkins-advisor/
     - configuration-as-code:1775.v810dc950b_514         # https://plugins.jenkins.io/configuration-as-code/
-    #- credentials-binding:latest                       # https://plugins.jenkins.io/credentials-binding/  # pulled by Pipelines and secret manager keystores
+    #- credentials-binding:657.v2b_19db_7d6e6d          # https://plugins.jenkins.io/credentials-binding/  # pulled by Pipelines and secret manager keystores
     - git:5.2.1                                         # https://plugins.jenkins.io/git/
     - github:1.37.3.1                                   # https://plugins.jenkins.io/github/
     - greenballs:1.15.1                                 # https://plugins.jenkins.io/greenballs/
@@ -137,13 +137,13 @@ controller:
     - thinBackup:1.18                                   # https://plugins.jenkins.io/thinBackup/
     - timestamper:1.26                                  # https://plugins.jenkins.io/timestamper/
     - workflow-aggregator:596.v8c21c963d92d             # https://plugins.jenkins.io/workflow-aggregator/  # Pipelines
-    #- workflow-job:latest                              # https://plugins.jenkins.io/workflow-job/  # included by Pipelines
+    #- workflow-job:1400.v7fd111b_ec82f                 # https://plugins.jenkins.io/workflow-job/  # included by Pipelines
     # ==================================================
     # SSO
     - saml:4.464.vea_cb_75d7f5e0                        # https://plugins.jenkins.io/saml/  # use instead of Azure AD plugin which is EOL Feb 2024
     # ==================================================
     # Code Quality
-    #- clover:4.14.1.577.vb_ff5a_f69b_37b_              # https://plugins.jenkins.io/clover/
+    #- clover:4.14.2.596.vb_4d6475e990b_                # https://plugins.jenkins.io/clover/
     - sonar:2.17.1                                      # https://plugins.jenkins.io/sonar/
     - allure-jenkins-plugin:2.31.1                      # https://plugins.jenkins.io/allure-jenkins-plugin/
     # ==================================================
@@ -156,10 +156,10 @@ controller:
     - hashicorp-vault-plugin:364.vf5d54b_3dc313         # https://plugins.jenkins.io/hashicorp-vault-plugin/
     - gcp-secrets-manager-credentials-provider:0.3.1    # https://plugins.jenkins.io/gcp-secrets-manager-credentials-provider/
     - google-cloudbuild:0.2.6                           # https://plugins.jenkins.io/google-cloudbuild/
-    #- google-oauth-plugin:latest                       # https://plugins.jenkins.io/google-oauth-plugin/
-    #- google-source-plugin:latest                      # https://plugins.jenkins.io/google-source-plugin/
-    #- google-kubernetes-engine:latest                  # https://plugins.jenkins.io/google-kubernetes-engine/  # deploy to GKE, use ArgoCD instead
-    #- google-storage-plugin:latest                     # https://plugins.jenkins.io/google-storage-plugin/  # upload/download from GCS
+    #- google-oauth-plugin:1.330.vf5e86021cb_ec         # https://plugins.jenkins.io/google-oauth-plugin/
+    #- google-source-plugin:0.4                         # https://plugins.jenkins.io/google-source-plugin/
+    #- google-kubernetes-engine:0.429.vc265a_dc27a_6c   # https://plugins.jenkins.io/google-kubernetes-engine/  # deploy to GKE, use ArgoCD instead
+    #- google-storage-plugin:1.360.v6ca_38618b_41f      # https://plugins.jenkins.io/google-storage-plugin/  # upload/download from GCS
     # ==================================================
     # Metrics
     # cloudbees for prometheus plugin to get disk usage from instead of scanning cloud storage itself or disabling disk space reporting
@@ -175,7 +175,7 @@ controller:
     #- dashboard-view:2.495.v07e81500c3f2               # https://plugins.jenkins.io/dashboard-view/
     #- github-pullrequest:0.6.1                         # https://plugins.jenkins.io/github-pullrequest/
     #- jira:3.12                                        # https://plugins.jenkins.io/jira/
-    #- junit:1256.v002534a_5f33e                        # https://plugins.jenkins.io/junit/
+    #- junit:1259.v65ffcef24a_88                        # https://plugins.jenkins.io/junit/
     #- mailer:463.vedf8358e006b_                        # https://plugins.jenkins.io/mailer/
     #- maven-plugin:3.23                                # https://plugins.jenkins.io/maven-plugin/
     #- metrics:4.2.21-449.v6960d7c54c69                 # https://plugins.jenkins.io/metrics/
