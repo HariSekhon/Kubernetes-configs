@@ -44,10 +44,13 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer  # recommended with regional-pd
 allowVolumeExpansion: true
 reclaimPolicy: Retain # for safety, else default: Delete
-allowedTopologies:
-- matchLabelExpressions:
-  - key: topology.gke.io/zone
-    values:
-    - europe-west2-a
-    - europe-west2-b
-    - europe-west2-c
+# required for a zonal cluster
+# if unspecific, uses the zone of the pod and one other at random
+#allowedTopologies:
+#  - matchLabelExpressions:
+#    - key: topology.gke.io/zone
+#      values:
+#        # choose 2 zones only
+#      - europe-west2-a
+#      - europe-west2-b
+#      - europe-west2-c

@@ -34,6 +34,13 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd
-  #replication-type: regional-pd  # default: none
-  #volumeBindingMode: WaitForFirstConsumer  # recommended with regional-pd
+  replication-type: regional-pd  # default: none
+volumeBindingMode: WaitForFirstConsumer  # recommended with regional-pd
 reclaimPolicy: Retain # for safety, else default: Delete
+allowedTopologies:
+- matchLabelExpressions:
+  - key: topology.gke.io/zone
+    values:
+			- europe-west2-a
+			- europe-west2-b
+			- europe-west2-c
