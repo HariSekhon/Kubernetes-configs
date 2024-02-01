@@ -27,7 +27,7 @@ apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
   name: high-priority
-value: 1000000
+value: 1000000  # 1M out of 1B, higher is better
 #preemptionPolicy: Never  # set to prevent pods of this priorityClass from being preempted to make space for other pods
 globalDefault: false     # if true all pods get this value instead of the default 0. Only 1 priorityClass in a cluster can be default
 description: "Use for critical workloads like Ingress controllers and Metal LB to ensure they get priority scheduling, especially when mixing stable and preemptible node pools"
