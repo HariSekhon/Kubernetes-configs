@@ -121,6 +121,8 @@ controller:
   installPlugins:
     - kubernetes:4186.v1d804571d5d4                     # https://plugins.jenkins.io/kubernetes/
     - workflow-aggregator:596.v8c21c963d92d             # https://plugins.jenkins.io/workflow-aggregator/  # Pipelines
+    #- workflow-job:latest                              # https://plugins.jenkins.io/workflow-job/  # included by Pipelines
+    #- credentials-binding:latest                       # https://plugins.jenkins.io/credentials-binding/  # pulled by Pipelines and secret manager keystores
     - git:5.2.1                                         # https://plugins.jenkins.io/git/
     - configuration-as-code:1775.v810dc950b_514         # https://plugins.jenkins.io/configuration-as-code/
     - lockable-resources:1232.v512d6c434eb_d            # https://plugins.jenkins.io/lockable-resources/
@@ -151,6 +153,10 @@ controller:
     - azure-credentials:312.v0f3973cd1e59               # https://plugins.jenkins.io/azure-credentials/
     - azure-keyvault:237.v301692369180                  # https://plugins.jenkins.io/azure-keyvault/
     - hashicorp-vault-plugin:364.vf5d54b_3dc313         # https://plugins.jenkins.io/hashicorp-vault-plugin/
+    #- google-oauth-plugin:latest                       # https://plugins.jenkins.io/google-oauth-plugin/
+    #- google-source-plugin:latest                      # https://plugins.jenkins.io/google-source-plugin/
+    #- google-kubernetes-engine:latest                  # https://plugins.jenkins.io/google-kubernetes-engine/  # deploy to GKE, use ArgoCD instead
+    #- google-storage-plugin:latest                     # https://plugins.jenkins.io/google-storage-plugin/  # upload/download from GCS
     # Metrics
     - monitoring:1.95.0                                 # https://plugins.jenkins.io/monitoring/
     - opentelemetry:3.1111.vc2733c03b_db_1              # https://plugins.jenkins.io/opentelemetry/  # for Jaeger
