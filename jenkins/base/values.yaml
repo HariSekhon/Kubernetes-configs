@@ -186,7 +186,8 @@ controller:
     #- ws-cleanup:0.45                                  # https://plugins.jenkins.io/ws-cleanup/
 
   # Set to false to download the minimum required version of all dependencies.
-  installLatestPlugins: true
+  #installLatestPlugins: true
+  installLatestPlugins: false
 
   # Set to true to download latest dependencies of any plugin that is requested to have the latest version.
   installLatestSpecifiedPlugins: false
