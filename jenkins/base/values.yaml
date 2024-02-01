@@ -138,47 +138,52 @@ controller:
     - cloudbees-jenkins-advisor:358.v58972d19b_1f0      # https://plugins.jenkins.io/cloudbees-jenkins-advisor/
     - plugin-usage-plugin:4.2                           # https://plugins.jenkins.io/plugin-usage-plugin/
     - thinBackup:1.18                                   # https://plugins.jenkins.io/thinBackup/
+    # ==================================================
     # SSO
     - saml:4.464.vea_cb_75d7f5e0                        # https://plugins.jenkins.io/saml/  # use instead of Azure AD plugin which is EOL Feb 2024
+    # ==================================================
     # Code Quality
+    #- clover:4.14.1.577.vb_ff5a_f69b_37b_              # https://plugins.jenkins.io/clover/
     - sonar:2.17.1                                      # https://plugins.jenkins.io/sonar/
     - allure-jenkins-plugin:2.31.1                      # https://plugins.jenkins.io/allure-jenkins-plugin/
-    #- clover:4.14.1.577.vb_ff5a_f69b_37b_              # https://plugins.jenkins.io/clover/
+    # ==================================================
     # Cloud & Credentials
     # gives AWSAccessKeyId and AWSSecretKey fields in Jenkins Credentials API
     - aws-credentials:218.v1b_e9466ec5da_               # https://plugins.jenkins.io/aws-credentials/
     - aws-secrets-manager-credentials-provider:1.214.va_0a_d8268d068  # https://plugins.jenkins.io/aws-secrets-manager-credentials-provider/
-    - gcp-secrets-manager-credentials-provider:0.3.1    # https://plugins.jenkins.io/gcp-secrets-manager-credentials-provider/
-    - google-cloudbuild:0.2.6                           # https://plugins.jenkins.io/google-cloudbuild/
     - azure-credentials:312.v0f3973cd1e59               # https://plugins.jenkins.io/azure-credentials/
     - azure-keyvault:237.v301692369180                  # https://plugins.jenkins.io/azure-keyvault/
     - hashicorp-vault-plugin:364.vf5d54b_3dc313         # https://plugins.jenkins.io/hashicorp-vault-plugin/
+    - gcp-secrets-manager-credentials-provider:0.3.1    # https://plugins.jenkins.io/gcp-secrets-manager-credentials-provider/
+    - google-cloudbuild:0.2.6                           # https://plugins.jenkins.io/google-cloudbuild/
     #- google-oauth-plugin:latest                       # https://plugins.jenkins.io/google-oauth-plugin/
     #- google-source-plugin:latest                      # https://plugins.jenkins.io/google-source-plugin/
     #- google-kubernetes-engine:latest                  # https://plugins.jenkins.io/google-kubernetes-engine/  # deploy to GKE, use ArgoCD instead
     #- google-storage-plugin:latest                     # https://plugins.jenkins.io/google-storage-plugin/  # upload/download from GCS
+    # ==================================================
     # Metrics
+    # cloudbees for prometheus plugin to get disk usage from instead of scanning cloud storage itself or disabling disk space reporting
+    - cloudbees-disk-usage-simple:203.v3f46a_7462b_1a_  # https://plugins.jenkins.io/cloudbees-disk-usage-simple/
     - monitoring:1.95.0                                 # https://plugins.jenkins.io/monitoring/
     - opentelemetry:3.1111.vc2733c03b_db_1              # https://plugins.jenkins.io/opentelemetry/  # for Jaeger
     - prometheus:2.5.1                                  # https://plugins.jenkins.io/prometheus/
-    # for prometheus plugin to get disk usage from instead of scanning cloud storage itself or disabling disk space reporting
-    - cloudbees-disk-usage-simple:203.v3f46a_7462b_1a_  # https://plugins.jenkins.io/cloudbees-disk-usage-simple/
-    #- ws-cleanup:0.45                                  # https://plugins.jenkins.io/ws-cleanup/
-    #- compress-artifacts:98.vb_20f3c77ddf7             # https://plugins.jenkins.io/compress-artifacts/
+    # ==================================================
     #- cloudbees-folder:6.901.vb_4c7a_da_75da_3         # https://plugins.jenkins.io/cloudbees-folder/
-    #- view-job-filters:369.ve0513a_a_f5524             # https://plugins.jenkins.io/view-job-filters/
+    #- codedeploy:1.23                                  # https://plugins.jenkins.io/codedeploy/  # AWS CodeDeploy
+    #- compress-artifacts:98.vb_20f3c77ddf7             # https://plugins.jenkins.io/compress-artifacts/
+    #- conditional-buildstep:1.4.3                      # https://plugins.jenkins.io/conditional-buildstep/  # useless for Pipeline jobs, only useful to old freestyle jobs, and not flexible enough for change freeze periods either
     #- dashboard-view:2.495.v07e81500c3f2               # https://plugins.jenkins.io/dashboard-view/
-    #- maven-plugin:3.23                                # https://plugins.jenkins.io/maven-plugin/
+    #- github-pullrequest:0.6.1                         # https://plugins.jenkins.io/github-pullrequest/
+    #- jira:3.12                                        # https://plugins.jenkins.io/jira/
     #- junit:1256.v002534a_5f33e                        # https://plugins.jenkins.io/junit/
     #- mailer:463.vedf8358e006b_                        # https://plugins.jenkins.io/mailer/
-    #- jira:3.12                                        # https://plugins.jenkins.io/jira/
-    #- codedeploy:1.23                                  # https://plugins.jenkins.io/codedeploy/  # AWS CodeDeploy
+    #- maven-plugin:3.23                                # https://plugins.jenkins.io/maven-plugin/
     #- metrics:4.2.21-449.v6960d7c54c69                 # https://plugins.jenkins.io/metrics/
-    #- github-pullrequest:0.6.1                         # https://plugins.jenkins.io/github-pullrequest/
-    #- terraform:1.0.10                                 # https://plugins.jenkins.io/terraform/
     #- nodejs:1.6.1                                     # https://plugins.jenkins.io/nodejs/
     #- role-strategy:689.v731678c3e0eb_                 # https://plugins.jenkins.io/role-strategy/  # don't need this if using Azure AD plugin matrix-based security
-    #- conditional-buildstep:1.4.3                      # https://plugins.jenkins.io/conditional-buildstep/  # useless for Pipeline jobs, only useful to old freestyle jobs, and not flexible enough for change freeze periods either
+    #- terraform:1.0.10                                 # https://plugins.jenkins.io/terraform/
+    #- view-job-filters:369.ve0513a_a_f5524             # https://plugins.jenkins.io/view-job-filters/
+    #- ws-cleanup:0.45                                  # https://plugins.jenkins.io/ws-cleanup/
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
