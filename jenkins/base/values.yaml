@@ -126,7 +126,7 @@ controller:
     - configuration-as-code:1775.v810dc950b_514         # https://plugins.jenkins.io/configuration-as-code/
     #- credentials-binding:657.v2b_19db_7d6e6d          # https://plugins.jenkins.io/credentials-binding/  # pulled by Pipelines and secret manager keystores
     - git:5.2.1                                         # https://plugins.jenkins.io/git/
-    - github:1.37.3.1                                   # https://plugins.jenkins.io/github/
+    - github:1.38.0                                     # https://plugins.jenkins.io/github/
     - greenballs:1.15.1                                 # https://plugins.jenkins.io/greenballs/
     #- jfrog:1.5.0                                      # https://plugins.jenkins.io/jfrog/
     - kubernetes:4186.v1d804571d5d4                     # https://plugins.jenkins.io/kubernetes/
@@ -141,6 +141,7 @@ controller:
     # ==================================================
     # SSO
     - saml:4.464.vea_cb_75d7f5e0                        # https://plugins.jenkins.io/saml/  # use instead of Azure AD plugin which is EOL Feb 2024
+    - google-login:109.v022b_cf87b_e5b_                 # https://plugins.jenkins.io/google-login/
     # ==================================================
     # Code Quality
     #- clover:4.14.2.596.vb_4d6475e990b_                # https://plugins.jenkins.io/clover/
