@@ -47,8 +47,8 @@ helmCharts:
 
 # Older - Helm chart above has more automation with plugin management and JCasC (Jenkins Configuration as Code) with auto-reload
 #
-## only enable this if using permanent agents on k8s, otherwise see jenkins-agent-pod.yaml for dynamic auto-scaling on k8s
 #resources:
+#  # only enable this if using permanent agents on k8s, otherwise see jenkins-agent-pod.yaml for dynamic auto-scaling on k8s
 #  #- jenkins-agent.yaml
 #  - jenkins-agent-serviceaccount.yaml
 #  - jenkins-ingress.yaml
