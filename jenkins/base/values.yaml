@@ -340,11 +340,11 @@ controller:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
+              # not valid on AutoPilot clusters
               - key: cloud.google.com/gke-preemptible
                 operator: DoesNotExist
-              # for AutoPilot cluster, the above is not valid, must use
-              #- key: cloud.google.com/gke-spot
-              #  operator: DoesNotExist
+              - key: cloud.google.com/gke-spot
+                operator: DoesNotExist
               - key: eks.amazonaws.com/capacityType
                 operator: NotIn
                 values:
