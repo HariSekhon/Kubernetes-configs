@@ -93,9 +93,9 @@ controller:
     allowPrivilegeEscalation: false
   serviceType: ClusterIP
 
-  # for GKE Autopilot, but still didn't load due to improper auto-scaling not launching nodes with enough RAM - used standard cluster for Jenkins instead
-  #podAnnotations:
-  #  cloud.google.com/compute-class: Balanced
+  # for GKE Autopilot, which seems to launch additional nodes without enough RAM leaving Jenkins master pod unscheduleable - used standard cluster for Jenkins instead
+  nodeSelector:
+    cloud.google.com/compute-class: Balanced
 
   podDisruptionBudget:
     enabled: false
