@@ -32,11 +32,11 @@
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              # XXX: delete all except one of:
+              # XXX: delete all except ONE of:
               #
               # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
               #
-              # gke-preemptible not valid on GKE AutoPilot clusters - remove in that case and leave only gke-spot
+              # gke-preemptible not valid on GKE AutoPilot clusters - use gke-spot in that case
               - key: cloud.google.com/gke-preemptible
                 operator: Exists
               - key: cloud.google.com/gke-spot
