@@ -150,6 +150,7 @@ controller:
     - ssh-agent                                         # https://plugins.jenkins.io/ssh-agent/
     - thinBackup                                        # https://plugins.jenkins.io/thinBackup/
     - timestamper                                       # https://plugins.jenkins.io/timestamper/
+    - view-job-filters                                  # https://plugins.jenkins.io/view-job-filters/
     - workflow-aggregator                               # https://plugins.jenkins.io/workflow-aggregator/  # Pipelines
     #- workflow-job                                     # https://plugins.jenkins.io/workflow-job/  # included by Pipelines
     # ==================================================
