@@ -13,6 +13,9 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# DEPRECATED: let plugins install the latest version of compatible plugins to avoid breaking the system
+#             see comments in values.yaml above the plugin list for more details
+
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 srcdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
