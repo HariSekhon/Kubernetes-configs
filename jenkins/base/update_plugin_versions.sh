@@ -43,7 +43,7 @@ fi
 echo "* Updating plugins in file '$values_yaml_file"
 
 plugin_versions="$(
-    grep -Eo '^[[:space:]#]+- [[:alnum:]-]+:[[:alnum:]]+([.[:alnum:]_-]+)*' "$values_yaml_file" |
+    grep -Eo '^[[:space:]#]+- [[:alnum:]_-]+:[[:alnum:]]+([.[:alnum:]_-]+)*' "$values_yaml_file" |
     sed '
         s/^[[:space:]#]*//;
         s/^-//;
