@@ -275,6 +275,12 @@ controller:
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
     defaultConfig: true
+    # XXX: populate JCasC configScripts from a running configured instance and backport it here
+    #
+    #      get live config from:
+    #
+    #         $JENKINS_URL/manage/configuration-as-code/viewExport
+    #
     configScripts: {}
     #  welcome-message: |
     #    jenkins:
