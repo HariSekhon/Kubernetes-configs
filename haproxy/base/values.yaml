@@ -107,6 +107,8 @@ controller:
           - matchExpressions:
               - key: cloud.google.com/gke-preemptible
                 operator: DoesNotExist
+              - key: cloud.google.com/gke-spot
+                operator: DoesNotExist
               - key: eks.amazonaws.com/capacityType
                 operator: NotIn
                 values:
