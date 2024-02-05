@@ -207,11 +207,10 @@ controller:
     #- ws-cleanup:0.45                                  # https://plugins.jenkins.io/ws-cleanup/  # shouldn't need workspace cleanup in this config using ephemeral agents
 
   # Set to false to download the minimum required version of all dependencies.
-  #installLatestPlugins: true
-  installLatestPlugins: false
+  installLatestPlugins: true
 
   # Set to true to download latest dependencies of any plugin that is requested to have the latest version.
-  installLatestSpecifiedPlugins: false
+  installLatestSpecifiedPlugins: true
 
   # List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
