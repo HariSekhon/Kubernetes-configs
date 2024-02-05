@@ -41,6 +41,8 @@ spec:
                     matchExpressions:
                       - key: cloud.google.com/gke-preemptible
                         operator: Exists
+                      - key: cloud.google.com/gke-spot
+                        operator: Exists
                 # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
                 - weight: 100
                   preference:
