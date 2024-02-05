@@ -43,6 +43,8 @@ spec:
                 matchExpressions:
                   - key: cloud.google.com/gke-preemptible
                     operator: DoesNotExist
+                  - key: cloud.google.com/gke-spot
+                    operator: DoesNotExist
         podAntiAffinity:
           # XXX: use preferred if num_replicas > num_AZs
 #          preferredDuringSchedulingIgnoredDuringExecution:
