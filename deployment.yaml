@@ -110,11 +110,12 @@ spec:
                   # https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#kubernetes_constraint_violations
                   #
                   # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+                  #
+                  # not valid on AutoPilot clusters
                   - key: cloud.google.com/gke-preemptible
                     operator: DoesNotExist
-                  # for AutoPilot cluster, the above is not valid, must use
-                  #- key: cloud.google.com/gke-spot
-                  #  operator: DoesNotExist
+                  - key: cloud.google.com/gke-spot
+                    operator: DoesNotExist
                   #
                   # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
                   - key: eks.amazonaws.com/capacityType
