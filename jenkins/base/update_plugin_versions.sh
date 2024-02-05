@@ -54,7 +54,7 @@ plugin_versions="$(
 
 latest_versions="$(
     awk '{print $1}' <<< "$plugin_versions" |
-    # jenkins_plugins_latest_versions.sh is in https://github.com/HariSekhon/DevOps-Bash-tools which should be cloned and put in $PATH
+    # jenkins_plugins_latest_versions.sh is in https://github.com/HariSekhon/DevOps-Bash-tools which should be cloned and put in \$PATH
     xargs jenkins_plugins_latest_versions.sh
 )"
 
@@ -62,10 +62,13 @@ exitcode=0
 
 while read -r plugin version; do
     plugin_latest_version="$(
-        if ! grep "^$plugin:" <<< "$latest_versions"; then
-            echo "WARNING: failed to find '$plugin' in the outout"
+        if ! grep -m1 "^$plugin:" <<< "$latest_versions"; then
+            echo "WARNING: failed to find '$plugin' in the outout" >&2
         fi
     )"
+    if [ -z "$plugin_latest_version" ]; then
+        continue
+    fi
     latest_version="${plugin_latest_version##*:}"
     if [ "$plugin:$version" != "$plugin:$latest_version" ]; then
         echo "* updating plugin '$plugin' version '$version' to latest version '$latest_version'"
