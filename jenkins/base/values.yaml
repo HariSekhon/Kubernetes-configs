@@ -126,15 +126,21 @@ controller:
     - ansicolor:1.0.4                                   # https://plugins.jenkins.io/ansicolor/
     - antisamy-markup-formatter:162.v0e6ec0fcfcf6       # https://plugins.jenkins.io/antisamy-markup-formatter/
     - blueocean:1.27.10                                 # https://plugins.jenkins.io/blueocean/
+    - build-timeout:1.32                                # https://plugins.jenkins.io/build-timeout
+    - build-timestamp:1.0.3                             # https://plugins.jenkins.io/build-timestamp
+    - calendar-view:0.3.3                               # https://plugins.jenkins.io/calendar-view
     - cloudbees-jenkins-advisor:358.v58972d19b_1f0      # https://plugins.jenkins.io/cloudbees-jenkins-advisor/
     - configuration-as-code:1775.v810dc950b_514         # https://plugins.jenkins.io/configuration-as-code/
     #- credentials-binding:657.v2b_19db_7d6e6d          # https://plugins.jenkins.io/credentials-binding/  # pulled by Pipelines and secret manager keystores
+    - cron_column:1                                     # https://plugins.jenkins.io/cron_column
+    - discard-old-build:1.07                            # https://plugins.jenkins.io/discard-old-build
     - git:5.2.1                                         # https://plugins.jenkins.io/git/
     - github:1.38.0                                     # https://plugins.jenkins.io/github/
     - greenballs:1.15.1                                 # https://plugins.jenkins.io/greenballs/
     #- jfrog:1.5.0                                      # https://plugins.jenkins.io/jfrog/
     - kubernetes:4186.v1d804571d5d4                     # https://plugins.jenkins.io/kubernetes/
     - lockable-resources:1232.v512d6c434eb_d            # https://plugins.jenkins.io/lockable-resources/
+    - pipeline-github-lib:1                             # https://plugins.jenkins.io/pipeline-github-lib
     - plugin-usage-plugin:4.2                           # https://plugins.jenkins.io/plugin-usage-plugin/
     - slack:684.v833089650554                           # https://plugins.jenkins.io/slack/
     - ssh-agent:346.vda_a_c4f2c8e50                     # https://plugins.jenkins.io/ssh-agent/
@@ -173,22 +179,32 @@ controller:
     - opentelemetry:3.1111.vc2733c03b_db_1              # https://plugins.jenkins.io/opentelemetry/  # for Jaeger
     - prometheus:2.5.1                                  # https://plugins.jenkins.io/prometheus/
     # ==================================================
+    #- Office-365-Connector:4.21.0                      # https://plugins.jenkins.io/Office-365-Connector
+    #- ant:497.v94e7d9fffa_b_9                          # https://plugins.jenkins.io/ant
+    #- bouncycastle-api:2.30.1.77-225.v26ea_c9455fd9    # https://plugins.jenkins.io/bouncycastle-api
     #- cloudbees-folder:6.901.vb_4c7a_da_75da_3         # https://plugins.jenkins.io/cloudbees-folder/
     #- codedeploy:1.23                                  # https://plugins.jenkins.io/codedeploy/  # AWS CodeDeploy
     #- compress-artifacts:98.vb_20f3c77ddf7             # https://plugins.jenkins.io/compress-artifacts/
     #- conditional-buildstep:1.4.3                      # https://plugins.jenkins.io/conditional-buildstep/  # useless for Pipeline jobs, only useful to old freestyle jobs, and not flexible enough for change freeze periods either
     #- dashboard-view:2.495.v07e81500c3f2               # https://plugins.jenkins.io/dashboard-view/
+    #- email-ext:2.104                                  # https://plugins.jenkins.io/email-ext
+    #- external-monitor-job:215.v2e88e894db_f8          # https://plugins.jenkins.io/external-monitor-job
     #- github-pullrequest:0.6.1                         # https://plugins.jenkins.io/github-pullrequest/
+    #- gradle:2.9                                       # https://plugins.jenkins.io/gradle
+    #- javadoc:243.vb_b_503b_b_45537                    # https://plugins.jenkins.io/javadoc
     #- jira:3.12                                        # https://plugins.jenkins.io/jira/
+    #- jquery-detached:1.2.1                            # https://plugins.jenkins.io/jquery-detached
     #- junit:1259.v65ffcef24a_88                        # https://plugins.jenkins.io/junit/
+    #- mailer:463.vedf8358e006b_                        # https://plugins.jenkins.io/mailer
     #- mailer:463.vedf8358e006b_                        # https://plugins.jenkins.io/mailer/
     #- maven-plugin:3.23                                # https://plugins.jenkins.io/maven-plugin/
     #- metrics:4.2.21-449.v6960d7c54c69                 # https://plugins.jenkins.io/metrics/
     #- nodejs:1.6.1                                     # https://plugins.jenkins.io/nodejs/
+    #- pagerduty:0.7.1                                  # https://plugins.jenkins.io/pagerduty
     #- role-strategy:689.v731678c3e0eb_                 # https://plugins.jenkins.io/role-strategy/  # don't need this if using Azure AD plugin matrix-based security
     #- terraform:1.0.10                                 # https://plugins.jenkins.io/terraform/
     #- view-job-filters:369.ve0513a_a_f5524             # https://plugins.jenkins.io/view-job-filters/
-    #- ws-cleanup:0.45                                  # https://plugins.jenkins.io/ws-cleanup/
+    #- ws-cleanup:0.45                                  # https://plugins.jenkins.io/ws-cleanup/  # shouldn't need workspace cleanup in this config using ephemeral agents
 
   # Set to false to download the minimum required version of all dependencies.
   #installLatestPlugins: true
