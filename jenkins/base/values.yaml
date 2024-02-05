@@ -340,7 +340,7 @@ controller:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
-              # not valid on AutoPilot clusters
+              # gke-preemptible not valid on GKE AutoPilot clusters - remove in that case and leave only gke-spot
               - key: cloud.google.com/gke-preemptible
                 operator: DoesNotExist
               - key: cloud.google.com/gke-spot
