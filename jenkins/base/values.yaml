@@ -132,7 +132,7 @@ controller:
     - cloudbees-jenkins-advisor:358.v58972d19b_1f0      # https://plugins.jenkins.io/cloudbees-jenkins-advisor/
     - configuration-as-code:1775.v810dc950b_514         # https://plugins.jenkins.io/configuration-as-code/
     #- credentials-binding:657.v2b_19db_7d6e6d          # https://plugins.jenkins.io/credentials-binding/  # pulled by Pipelines and secret manager keystores
-    - cron_column:1                                     # https://plugins.jenkins.io/cron_column
+    - cron_column:1.7                                   # https://plugins.jenkins.io/cron_column
     - discard-old-build:1.07                            # https://plugins.jenkins.io/discard-old-build
     - git:5.2.1                                         # https://plugins.jenkins.io/git/
     - github:1.38.0                                     # https://plugins.jenkins.io/github/
