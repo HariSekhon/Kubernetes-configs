@@ -94,6 +94,9 @@ controller:
   serviceType: ClusterIP
 
   # for GKE Autopilot, which seems to launch additional nodes without enough RAM leaving Jenkins master pod unscheduleable - used standard cluster for Jenkins instead
+  #
+  #   https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-compute-classes#when-to-use
+  #
   nodeSelector:
     cloud.google.com/compute-class: Balanced
 
