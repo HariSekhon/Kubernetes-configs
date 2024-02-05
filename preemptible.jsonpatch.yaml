@@ -35,6 +35,8 @@
               # XXX: delete all except one of:
               #
               # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
+              #
+              # gke-preemptible not valid on GKE AutoPilot clusters - remove in that case and leave only gke-spot
               - key: cloud.google.com/gke-preemptible
                 operator: Exists
               - key: cloud.google.com/gke-spot
