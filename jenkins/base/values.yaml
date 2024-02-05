@@ -97,8 +97,8 @@ controller:
   #
   #   https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-compute-classes#when-to-use
   #
-  nodeSelector:
-    cloud.google.com/compute-class: Balanced
+  #nodeSelector:
+  #  cloud.google.com/compute-class: Balanced
 
   podDisruptionBudget:
     enabled: false
