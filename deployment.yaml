@@ -64,7 +64,12 @@ spec:
         role: master
         tier: backend
     spec:
+      # for business critical workloads to get priority access to the stable node pool instead of preemptible node pool, will evict lower priority pods to preemptible node pool (default 0) if necessary. Requires: priorityclass.yaml
+      #
+      # priorityClassName: high-priority
+      #
       nodeSelector:
+        #myLabel: myFastNodes
         disktype: ssd
         kubernetes.io/arch: amd64
         kubernetes.io/os: linux
@@ -72,10 +77,18 @@ spec:
         # for persistent disks limited to 2 zones combined with GKE regional clusters
         topology.kubernetes.io/zone: europe-west2-a  # 1.17+
         topology.kubernetes.io/region: europe-west2    # 1.17+
-        #myLabel: myFastNodes
+        #
         # GKE specific - hard requirement - prefer affinity below as safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
-        #cloud.google.com/gke-nodepool: POOL_NAME
-      #priorityClassName: high-priority  # for business critical workloads to get priority access to the stable node pool instead of preemptible node pool, will evict lower priority pods to preemptible node pool (default 0) if necessary. Requires: priorityclass.yaml
+        #
+        # cloud.google.com/gke-nodepool: POOL_NAME
+        #
+        # GKE Autopilot
+        #
+        #   https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-compute-classes#when-to-use
+        #
+        # cloud.google.com/compute-class: Balanced
+        #
+      #
       schedulerName: default-scheduler
       # https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
       # XXX: not recommended in clusters greater than several hundred nodes due to significant CPU overhead slowing down scheduling
