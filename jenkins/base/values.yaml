@@ -537,7 +537,9 @@ persistence:
   annotations: {}
   labels: {}
   accessMode: "ReadWriteOnce"
-  size: "8Gi"
+  # failed to provision volume with StorageClass "standard-resizeable": rpc error: code = Internal desc = CreateVolume failed to create regional disk pvc-15225f6d-8eda-40de-964f-e492e64360b4: failed to insert regional disk: rpc error: code = Internal desc = unknown Insert disk error: googleapi: Error 400: Invalid value for field 'resource.sizeGb': '100'. Disk size cannot be smaller than 200 GB., invalid
+  #size: "200Gi"  # Cannot be less than 200GB on GCP regional disk, see error above
+  size: "10Gi"
   volumes:
   #  - name: nothing
   #    emptyDir: {}
