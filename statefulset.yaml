@@ -54,15 +54,15 @@ spec:
       #
       # priorityClassName: high-priority
       #
-      nodeSelector:
+      #nodeSelector:
         #myLabel: myFastNodes
-        disktype: ssd
-        kubernetes.io/arch: amd64
-        kubernetes.io/os: linux
-        node.kubernetes.io/instance-type: m3.medium    # 1.17+
-        # for persistent disks limited to 2 zones combined with GKE regional clusters
-        topology.kubernetes.io/zone: europe-west2-a  # 1.17+
-        topology.kubernetes.io/region: europe-west2    # 1.17+
+        #disktype: ssd
+        #kubernetes.io/arch: amd64
+        #kubernetes.io/os: linux
+        #node.kubernetes.io/instance-type: m3.medium    # 1.17+
+        ## for persistent disks limited to 2 zones combined with GKE regional clusters
+        #topology.kubernetes.io/zone: europe-west2-a  # 1.17+
+        #topology.kubernetes.io/region: europe-west2    # 1.17+
         #
         # GKE specific - hard requirement - prefer affinity below is safer soft requirement to still allow scheduling if node pool becomes unavailable (eg. recreated by Terraform)
         #
