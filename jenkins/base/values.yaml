@@ -93,6 +93,10 @@ controller:
     allowPrivilegeEscalation: false
   serviceType: ClusterIP
 
+  # for GKE Autopilot, but still didn't load due to improper auto-scaling not launching nodes with enough RAM - used standard cluster for Jenkins instead
+  #podAnnotations:
+  #  cloud.google.com/compute-class: Balanced
+
   podDisruptionBudget:
     enabled: false
     # For Kubernetes v1.5+, use 'policy/v1beta1'
