@@ -17,6 +17,22 @@ set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 srcdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+if [ $# -eq 1 ]; then
+    values_yaml_file="$1"
+elif [ $# -gt 1 ]; then
+    echo "usage: ${0##*/} [values.yaml]" >&2
+    exit 3
+elif [ -f "$PWD/values.yaml" ]; then
+    values_yaml_file="$PWD/values.yaml"
+else
+    values_yaml_file="$srcdir/values.yaml"
+fi
+
+if ! [ -f "$values_yaml_file" ]; then
+    echo "File not found: $values_yaml_file" >&2
+    exit 1
+fi
+
 if [ "$(uname -s)" = Darwin ]; then
     # standardize on GNU sed for in-place editing - requires installing core-utils package in homebrew so that GNU sed is in the path as 'gsed'
     sed(){
@@ -24,10 +40,10 @@ if [ "$(uname -s)" = Darwin ]; then
     }
 fi
 
-echo "* Updating plugins in file '$srcdir/values.yaml"
+echo "* Updating plugins in file '$values_yaml_file"
 
 plugin_versions="$(
-    grep -Eo '^[[:space:]#]+- [[:alnum:]-]+:[[:alnum:]]+([.[:alnum:]_-]+)*' "$srcdir/values.yaml" |
+    grep -Eo '^[[:space:]#]+- [[:alnum:]-]+:[[:alnum:]]+([.[:alnum:]_-]+)*' "$values_yaml_file" |
     sed '
         s/^[[:space:]#]*//;
         s/^-//;
@@ -53,7 +69,7 @@ while read -r plugin version; do
     latest_version="${plugin_latest_version##*:}"
     if [ "$plugin:$version" != "$plugin:$latest_version" ]; then
         echo "* updating plugin '$plugin' version '$version' to latest version '$latest_version'"
-        sed -i "s/$plugin:$version/$plugin_latest_version/" "$srcdir/values.yaml"
+        sed -i "s/$plugin:$version/$plugin_latest_version/" "$values_yaml_file"
     fi
 done <<< "$plugin_versions"
 
