@@ -32,8 +32,12 @@
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
           - matchExpressions:
+              # XXX: delete all except one of:
+              #
               # GCP: https://cloud.google.com/kubernetes-engine/docs/how-to/preemptible-vms#best_practices
               - key: cloud.google.com/gke-preemptible
+                operator: Exists
+              - key: cloud.google.com/gke-spot
                 operator: Exists
               # AWS: https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html
               - key: eks.amazonaws.com/capacityType
