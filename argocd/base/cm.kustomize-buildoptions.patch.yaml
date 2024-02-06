@@ -28,11 +28,11 @@
 #
 # Validate:
 #
-#   argocd admin settings validate --argocd-cm-path ./argocd-cm.repos.patch.yaml
+#   argocd admin settings validate --argocd-cm-path ./cm.repos.patch.yaml
 #
 # Apply:
 #
-#   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat argocd-cm.kustomize-buildoptions.patch.yaml)"
+#   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat cm.kustomize-buildoptions.patch.yaml)"
 #
 
 ---
@@ -42,7 +42,7 @@ metadata:
   name: argocd-cm
   annotations:
     checkov.io/skip1: CKV_K8S_21=breaks kustomize patching of base
-  #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.repos.patch.yaml for details why
+  #namespace: argocd  # breaks kustomize patching of argocd base, see cm.repos.patch.yaml for details why
   labels:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
