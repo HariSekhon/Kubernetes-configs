@@ -20,7 +20,7 @@
 
 # helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 #
-# helm show values ingress-nginx/ingress-nginx >> ingress-nginx-values.yaml
+# helm show values ingress-nginx/ingress-nginx >> values.yaml
 
 # Noteable Advanced Configuration items:
 #
