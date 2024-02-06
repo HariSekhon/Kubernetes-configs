@@ -165,7 +165,7 @@ patches:
 #      version: argoproj.io/v1alpha1
 #      kind: AppProject
 #      name: default
-#    path: proj-default.jsonpatch.yaml
+#    path: project-default.jsonpatch.yaml
 
 # XXX: disable ArgoCD + Apps auto-sync, then click to disable the auto-sync on a specific app for development out of working directory, eg. using Skaffold
 #patchesJson6902:
