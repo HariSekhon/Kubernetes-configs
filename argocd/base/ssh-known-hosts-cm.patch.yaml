@@ -31,7 +31,7 @@ metadata:
   name: argocd-ssh-known-hosts-cm
   annotations:
     checkov.io/skip1: CKV_K8S_21=breaks kustomize patching of base
-  #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.repos.patch.yaml for details why
+  #namespace: argocd  # breaks kustomize patching of argocd base, see cm.repos.patch.yaml for details why
   labels:
     app.kubernetes.io/name: argocd-ssh-known-hosts-cm
     app.kubernetes.io/part-of: argocd
