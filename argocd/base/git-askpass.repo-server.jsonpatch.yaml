@@ -28,7 +28,7 @@
 
 # Apply:
 #
-#   run: kubectl patch deploy argocd-repo-server -n argocd --type json --patch "$(cat argocd-git-askpass.repo-server.patch.yaml)"
+#   run: kubectl patch deploy argocd-repo-server -n argocd --type json --patch "$(cat git-askpass.repo-server.patch.yaml)"
 
 ---
 - op: add
