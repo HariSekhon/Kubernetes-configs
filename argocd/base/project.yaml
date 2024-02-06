@@ -22,7 +22,7 @@
 
 # manages a given ArgoCD project and settings
 
-# if using argocd-projects.yaml App-of-Projects pattern you can just drop this into the k8s/argocd/projects directory in git to add it dynamically,
+# if using projects.yaml App-of-Projects pattern you can just drop this into the argocd/projects directory in git to add it dynamically,
 # or conversely delete or rename it to a different suffix such .disabled to have it auto-removed from ArgoCD
 
 # See this script to easily (re)generate the whitelist for your specific cluster:
