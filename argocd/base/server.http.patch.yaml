@@ -20,7 +20,7 @@
 
 # Apply:
 #
-#   run: kubectl patch deployment argocd-server --namespace argocd --type json --patch "$(cat argocd-server.http.patch.yaml)"
+#   run: kubectl patch deployment argocd-server --namespace argocd --type json --patch "$(cat server.http.patch.yaml)"
 
 ---
 - op: add
