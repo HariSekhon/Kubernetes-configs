@@ -18,7 +18,7 @@
 #            A r g o C D   R e d i s   R e s o u r c e s   P a t c h
 # ============================================================================ #
 
-# run: kubectl patch deploy argocd-redis-ha-haproxy -n argocd --type json --patch "$(cat argocd-resources.argocd-redis-ha-haproxy.jsonpatch.yaml)"
+# run: kubectl patch deploy argocd-redis-ha-haproxy -n argocd --type json --patch "$(cat resources.argocd-redis-ha-haproxy.jsonpatch.yaml)"
 
 ---
 - op: add
