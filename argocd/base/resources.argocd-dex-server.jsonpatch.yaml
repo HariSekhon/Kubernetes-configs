@@ -18,7 +18,7 @@
 #       A r g o C D   D e x   S e r v e r   R e s o u r c e s   P a t c h
 # ============================================================================ #
 
-# run: kubectl patch deploy argocd-dex-server -n argocd --type json --patch "$(cat argocd-resources.argocd-dex-server.jsonpatch.yaml)"
+# run: kubectl patch deploy argocd-dex-server -n argocd --type json --patch "$(cat resources.argocd-dex-server.jsonpatch.yaml)"
 
 ---
 - op: add
