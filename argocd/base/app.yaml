@@ -22,7 +22,7 @@
 
 # manages a given Kubnernetes application via Kustomize or Helm
 
-# if using argocd-apps.yaml App-of-Apps pattern you can just drop this into the k8s/argocd/apps directory in git to add it dynamically,
+# if using apps.yaml App-of-Apps pattern you can just drop this into the argocd/apps directory in git to add it dynamically,
 # or conversely delete or rename it to a different suffix such .disabled to have it auto-removed from ArgoCD apps
 
 ---
@@ -43,7 +43,7 @@ spec:
     #
     # XXX: Edit - url to Git repo containing your k8s manifests
     #repoURL: git@github.com:argoproj/argocd-example-apps.git
-    # XXX: use https url for repo if using Kustomize external tagged bases to same private repo requiring authentication - alternatively see solution argocd-git-askpass.repo-server.jsonpatch.yaml
+    # XXX: use https url for repo if using Kustomize external tagged bases to same private repo requiring authentication - alternatively see solution git-askpass.repo-server.jsonpatch.yaml
     repoURL: https://github.com/argoproj/argocd-example-apps.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
     targetRevision: HEAD
     # XXX: Edit - path to k8s manifiests
