@@ -60,7 +60,7 @@ spec:
             pathType: Prefix  # for new networking.k8s.io/v1
             backend:
               #serviceName: argocd-server
-              #servicePort: https  # http requires argocd-server.http.patch.yaml to stop 302 redirects
+              #servicePort: https  # http requires server.http.patch.yaml to stop 302 redirects
               service:
                 name: argocd-server
                 port:
