@@ -28,11 +28,11 @@
 #
 # Validate:
 #
-#   argocd admin settings validate --argocd-cm-path ./argocd-cm.repos.patch.yaml
+#   argocd admin settings validate --argocd-cm-path ./cm.repos.patch.yaml
 #
 # Apply:
 #
-#   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat argocd-cm.repos.patch.yaml)"
+#   run: kubectl patch configmap argocd-cm --namespace argocd --patch "$(cat cm.repos.patch.yaml)"
 #
 
 ---
@@ -47,7 +47,7 @@ metadata:
   #
   #   Error: no matches for Id ~G_v1_ConfigMap|argocd|argocd-cm; failed to find unique target for patch ~G_v1_ConfigMap|argocd-cm
   #
-  # After much testing this is because the upstream ArgoCD base manifests for 2.0.3 defined in argocd-kustomization.yaml come without namespaces specified, and the namespace override in kustomization happens after this patching which is too late
+  # After much testing this is because the upstream ArgoCD base manifests for 2.0.3 defined in kustomization.yaml come without namespaces specified, and the namespace override in kustomization happens after this patching which is too late
   #
   #namespace: argocd  # breaks kustomize patching of argocd base
   labels:
