@@ -24,7 +24,7 @@
 #
 # Apply:
 #
-#   run: kubectl patch appproject default -n argocd --type merge --patch "$(cat proj-default.patch.yaml)"
+#   run: kubectl patch appproject default -n argocd --type merge --patch "$(cat project-default.patch.yaml)"
 
 ---
 # not used
