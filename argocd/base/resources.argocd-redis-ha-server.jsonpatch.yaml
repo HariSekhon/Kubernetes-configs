@@ -18,7 +18,7 @@
 #                     ArgoCD Redis HA Server Resources Patch
 # ============================================================================ #
 
-# run: kubectl patch sts argocd-redis-ha-server -n argocd --type json --patch "$(cat argocd-resources.argocd-redis-ha-server .jsonpatch.yaml)"
+# run: kubectl patch sts argocd-redis-ha-server -n argocd --type json --patch "$(cat resources.argocd-redis-ha-server .jsonpatch.yaml)"
 
 ---
 # redis
