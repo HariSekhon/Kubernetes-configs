@@ -35,7 +35,7 @@ namespace: argocd
 #bases:                      # // is intentional to only copy from this path down
 #- github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3
 #
-# but // causes this error in Kustomize 3.5 (the argocd-repo-server.kustomize.patch.yaml upgrades Kustomize and should fix this too):
+# but // causes this error in Kustomize 3.5 (the repo-server.kustomize.patch.yaml upgrades Kustomize and should fix this too):
 #
 #     Error: accumulating resources: accumulateFile "accumulating resources from 'github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.0.3': evalsymlink failure on '/tmp/git@repo/argocd/overlay/github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.0.3' : lstat /tmp/git@repo/argocd/overlay/github.com: no such file or directory", accumulateDirector: "recursed accumulation of path '/tmp/kustomize-881686007/repo': accumulating resources: accumulateFile \"accumulating resources from '../namespace-install': evalsymlink failure on '/tmp/kustomize-881686007/namespace-install' : lstat /tmp/kustomize-881686007/namespace-install: no such file or directory\", loader.New \"Error loading ../namespace-install with git: url lacks host: ../namespace-install, dir: evalsymlink failure on '/tmp/kustomize-881686007/namespace-install' : lstat /tmp/kustomize-881686007/namespace-install: no such file or directory, get: invalid source string: ../namespace-install\""
 #
@@ -52,107 +52,107 @@ resources:
   #- https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.6.7/manifests/ha/install.yaml
   - namespace.yaml
-  - argocd-self.yaml  # GitOps self-management tracking of ArgoCD config itself
+  - self.yaml  # GitOps self-management tracking of ArgoCD config itself
   # XXX: Edit ingress address before uncommenting
-  #- argocd-ingress.yaml
+  #- ingress.yaml
   # XXX: Edit ingress address before uncommenting
-  #- argocd-ingress-grpc.yaml
-  - argocd-projects.yaml  # auto-loads projects under k8s/argocd/projects
-  - argocd-apps.yaml      # auto-loads applications under k8s/argocd/apps
+  #- ingress-grpc.yaml
+  - projects.yaml  # auto-loads projects under k8s/argocd/projects
+  - apps.yaml      # auto-loads applications under k8s/argocd/apps
   #- clusters-secrets.yaml
   #- repos-secrets.yaml
   #
   # XXX: simpler solution if using this for Kustomize External Bases, if using the same repo, is ensure the app is set to use the https://github.com url instead of the git@github.com address
   #- git-askpass.configmap.yaml
 
-# XXX: don't define namespace in these patches, will break patching, see argocd-cm.repos.patch.yaml for details why
+# XXX: don't define namespace in these patches, will break patching, see cm.repos.patch.yaml for details why
 patchesStrategicMerge:
   # Repos:
   #
-  - argocd-cm.repos.patch.yaml
+  - cm.repos.patch.yaml
   #
   # Bugfix for GitHub updating its security keys, more details in the patch
-  - argocd-ssh-known-hosts-cm.patch.yaml
+  - ssh-known-hosts-cm.patch.yaml
   #
   # Kustomize - download specific version:
   #
-  - argocd-repo-server.kustomize.patch.yaml
-  - argocd-cm.kustomize-buildoptions.patch.yaml
+  - repo-server.kustomize.patch.yaml
+  - cm.kustomize-buildoptions.patch.yaml
   #
-  #- argocd-cm.resource-exclusions.patch.yaml
+  #- cm.resource-exclusions.patch.yaml
   #
   # Azure AD SSO patches:
   #
-  #- argocd-cm.azure-ad.patch.yaml
-  #- argocd-cm.users.patch.yaml
-  #- argocd-rbac-cm.patch.yaml
-  #- argocd-azure-ad-external-secret.yaml  # XXX: Edit this if uncommenting
+  #- cm.azure-ad.patch.yaml
+  #- cm.users.patch.yaml
+  #- rbac-cm.patch.yaml
+  #- azure-ad-external-secret.yaml  # XXX: Edit this if uncommenting
   #
   # GitHub Webhook Secret:
   #
-  #- argocd-secret.github-webhook.patch.yaml
+  #- secret.github-webhook.patch.yaml
   #
   # Status Badge:
   #
-  #- argocd-cm.statusbadge.patch.yaml
+  #- cm.statusbadge.patch.yaml
   #
-  # done in argocd-namespace.yaml
+  # done in namespace.yaml
   #- goldilocks-namespace-enable.patch.yaml
 
 # ArgoCD doesn't come with default resources - https://github.com/argoproj/argo-cd/issues/7772
 patches:
   # XXX: seems missing from newer 2.1 HA install but this matching is silently ignored
-  - path: argocd-resources.argocd-application-controller.jsonpatch.yaml
+  - path: resources.argocd-application-controller.jsonpatch.yaml
     target:
       name: argocd-application-controller
       kind: StatefulSet
       group: apps
       version: v1
-  - path: argocd-resources.argocd-applicationset-controller.jsonpatch.yaml
+  - path: resources.argocd-applicationset-controller.jsonpatch.yaml
     target:
       name: argocd-applicationset-controller
       kind: Deployment
       group: apps
       version: v1
-  - path: argocd-resources.argocd-dex-server.jsonpatch.yaml
+  - path: resources.argocd-dex-server.jsonpatch.yaml
     target:
       name: argocd-dex-server
       kind: Deployment
       group: apps
       version: v1
-  - path: argocd-resources.argocd-notifications-controller.jsonpatch.yaml
+  - path: resources.argocd-notifications-controller.jsonpatch.yaml
     target:
       name: argocd-notifications-controller
       kind: Deployment
       group: apps
       version: v1
   # XXX: not present in 2.1 HA install but silently ignored
-  - path: argocd-resources.argocd-redis.jsonpatch.yaml
+  - path: resources.argocd-redis.jsonpatch.yaml
     target:
       name: argocd-redis
       kind: Deployment
       group: apps
       version: v1
   # XXX: only present in HA install
-  - path: argocd-resources.argocd-redis-ha-haproxy.jsonpatch.yaml
+  - path: resources.argocd-redis-ha-haproxy.jsonpatch.yaml
     target:
       name: argocd-redis-ha-haproxy
       kind: Deployment
       group: apps
       version: v1
-  - path: argocd-resources.argocd-redis-ha-server.jsonpatch.yaml
+  - path: resources.argocd-redis-ha-server.jsonpatch.yaml
     target:
       name: argocd-redis-ha-server
       kind: StatefulSet
       group: apps
       version: v1
-  - path: argocd-resources.argocd-repo-server.jsonpatch.yaml
+  - path: resources.argocd-repo-server.jsonpatch.yaml
     target:
       name: argocd-repo-server
       kind: Deployment
       group: apps
       version: v1
-  - path: argocd-resources.argocd-server.jsonpatch.yaml
+  - path: resources.argocd-server.jsonpatch.yaml
     target:
       name: argocd-server
       kind: Deployment
@@ -165,7 +165,7 @@ patches:
 #      version: argoproj.io/v1alpha1
 #      kind: AppProject
 #      name: default
-#    path: argocd-proj-default.jsonpatch.yaml
+#    path: proj-default.jsonpatch.yaml
 
 # XXX: disable ArgoCD + Apps auto-sync, then click to disable the auto-sync on a specific app for development out of working directory, eg. using Skaffold
 #patchesJson6902:
@@ -175,18 +175,18 @@ patches:
 #      kind: Application
 #      name: argocd
 #      namespace: argocd
-#    path: argocd-disable-autosync.jsonpatch.yaml
+#    path: disable-autosync.jsonpatch.yaml
 #  - target:
 #      group: argoproj.io
 #      version: v1alpha1
 #      kind: Application
 #      name: apps
 #      namespace: argocd
-#    path: argocd-disable-autosync.patch.yaml
+#    path: disable-autosync.patch.yaml
 
 # XXX: disable autosync for all apps while doing development eg. with Skaffold - you probably want the more targeted approach above
 #patches:
-#  - path: argocd-disable-autosync.patch.yaml
+#  - path: disable-autosync.patch.yaml
 #    target:
 #      group: argoproj.io
 #      version: v1alpha1
