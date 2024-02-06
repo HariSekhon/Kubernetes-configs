@@ -42,7 +42,7 @@ helmCharts:
     includeCRDs: true
     valuesFile: values.yaml
 
-# superceded by config key in ingress-nginx-values.yaml
+# superceded by config key in values.yaml
 #patches:
 #  - path: configmap.patch.yaml  # for global settings
 #    target:
