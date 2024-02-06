@@ -22,7 +22,7 @@
 
 # See Also:
 #
-#   ingress-nginx-configmap.patch.yaml
+#   configmap.patch.yaml
 #
 # for global Nginx settings such as 'ssl-redirect' or 'whitelist-source-range'
 
