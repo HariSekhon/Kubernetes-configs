@@ -20,7 +20,7 @@
 
 # For global settings to apply to all ingresses using this ingress controller
 
-# Superceded by config key in ingress-nginx-values.yaml
+# Superceded by config key in values.yaml
 
 # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
 
