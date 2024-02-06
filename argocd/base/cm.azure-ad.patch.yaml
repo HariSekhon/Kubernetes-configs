@@ -54,11 +54,11 @@ data:
   # XXX: Edit
   url: https://argocd.DOMAIN.COM/
   oidc.config: |
-    name: Azure
+    name: AzureAD
     # XXX: Edit tenant
     issuer: https://login.microsoftonline.com/{directory_tenant_id}/v2.0
     clientID: {azure_ad_application_client_id}  # XXX: Edit
-    clientSecret: $oidc.azure.clientSecret      # XXX: add key to argocd-secret - see description above
+    clientSecret: $oidc.azuread.clientSecret    # XXX: add key to argocd-secret - see description above
     requestedIDTokenClaims:
       groups:
         essential: true
