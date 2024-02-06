@@ -24,7 +24,7 @@
 #
 # Apply:
 #
-#   run: kubectl patch appproject default -n argocd --type json --patch "$(cat argocd-proj-default.jsonpatch.yaml)"
+#   run: kubectl patch appproject default -n argocd --type json --patch "$(cat proj-default.jsonpatch.yaml)"
 
 # Prefer the adjacent strategic merge patch as it also enforces cluster and namespace resources * to be allowed for argo to manage itself properly
 
