@@ -44,7 +44,7 @@ helmCharts:
 
 # superceded by config key in ingress-nginx-values.yaml
 #patches:
-#  - path: ingress-nginx-configmap.patch.yaml  # for global settings
+#  - path: configmap.patch.yaml  # for global settings
 #    target:
 #      version: v1
 #      kind: ConfigMap
@@ -53,7 +53,7 @@ helmCharts:
 
 # for Dev enable this to reduce replicas to 1
 #
-#  - path: ingress-nginx-pdb.patch.yaml
+#  - path: pdb.patch.yaml
 #    target:
 #      group: policy
 #      version: v1
@@ -61,7 +61,7 @@ helmCharts:
 #      name: ingress-nginx-controller
 #      namespace: ingress-nginx
 #
-#  - path: ingress-nginx-replicas.patch.yaml
+#  - path: replicas.patch.yaml
 #    target:
 #      group: apps
 #      version: v1
