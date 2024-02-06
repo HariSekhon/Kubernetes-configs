@@ -24,13 +24,13 @@
 #
 # Apply like so:
 #
-#   run: kubectl patch configmap argocd-rbac-cm --namespace argocd --patch "$(cat argocd-rbac-cm.patch.yaml)"
+#   run: kubectl patch configmap argocd-rbac-cm --namespace argocd --patch "$(cat rbac-cm.patch.yaml)"
 #
 # Validate while kubectl context is on k8s cluster where Argo is installed:
 #
 #        curl -sSL https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/install_argocd.sh | bash
 #
-#        argocd admin settings rbac validate --namespace argocd --policy-file argocd-rbac-cm.patch.yaml
+#        argocd admin settings rbac validate --namespace argocd --policy-file rbac-cm.patch.yaml
 
 ---
 apiVersion: v1
@@ -39,7 +39,7 @@ metadata:
   name: argocd-rbac-cm
   annotations:
     checkov.io/skip1: CKV_K8S_21=breaks kustomize patching of base
-  #namespace: argocd  # breaks kustomize patching of argocd base, see argocd-cm.repos.patch.yaml for details why
+  #namespace: argocd  # breaks kustomize patching of argocd base, see cm.repos.patch.yaml for details why
   labels:
     app.kubernetes.io/name: argocd-rbac-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
