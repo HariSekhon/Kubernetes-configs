@@ -18,7 +18,7 @@
 #                ArgoCD Notifications Controller Resources Patch
 # ============================================================================ #
 
-# run: kubectl patch deploy argocd-notifications-controller -n argocd --type json --patch "$(cat argocd-resources.argocd-notifications-controller.jsonpatch.yaml)"
+# run: kubectl patch deploy argocd-notifications-controller -n argocd --type json --patch "$(cat resources.argocd-notifications-controller.jsonpatch.yaml)"
 
 ---
 - op: add
