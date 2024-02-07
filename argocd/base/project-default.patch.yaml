@@ -27,12 +27,11 @@
 #   run: kubectl patch appproject default -n argocd --type merge --patch "$(cat project-default.patch.yaml)"
 
 ---
-# not used
-#apiVersion: argoproj.io/v1alpha1
-#kind: AppProject
-#metadata:
-#  name: default
-#  #namespace: argocd  # remote base doesn't specify namespace
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: default
+  namespace: argocd  # XXX: don't use if using remote base which doesn't specify namespace
 spec:
   description: Locked down to only be used by ArgoCD
   orphanedResources:
