@@ -47,13 +47,6 @@ configs:
     #
     admin.enabled: true
 
-    # create your user accounts like so and then update their passwords via:
-    #
-    #   argocd account update-password --account <name> --current-password <current-admin> --new-password <new-user-password>
-    #
-    #accounts.hari: login, apiKey
-    #accounts.hari.enabled: true  # default, set to false to disable account
-
     # OIDC configuration as an alternative to dex (optional).
     # oidc.config: |
     #   name: AzureAD
