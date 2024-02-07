@@ -46,7 +46,6 @@ configs:
     #   argocd login $ARGOCD_HOST --sso --grpc-web
     #
     admin.enabled: true
-    accounts.admin: login, apiKey  # built-in admin account doesn't have apiKey permission by default
 
     # create your user accounts like so and then update their passwords via:
     #
@@ -156,7 +155,6 @@ configs:
     # -- Additional known hosts for private repositories
     extraHosts: ''
 
-
   # -- Provide one or multiple [external cluster credentials]
   # @default -- `[]` (See [values.yaml])
   ## Ref:
@@ -212,11 +210,11 @@ configs:
     #   password: my-password
     #   username: my-username
     # ssh-creds:
-    #  url: git@github.com:argoproj-labs
-    #  sshPrivateKey: |
-    #    -----BEGIN OPENSSH PRIVATE KEY-----
-    #    ...
-    #    -----END OPENSSH PRIVATE KEY-----
+    #   url: git@github.com:argoproj-labs
+    #   sshPrivateKey: |
+    #     -----BEGIN OPENSSH PRIVATE KEY-----
+    #     ...
+    #     -----END OPENSSH PRIVATE KEY-----
 
   # -- Repositories list to be used by applications
   ## Creates a secret for each key/value specified below to create repositories
@@ -241,34 +239,34 @@ controller:
   # Additional replicas will cause sharding of managed clusters across number of replicas.
   replicas: 1
   resources:
-   limits:
-     cpu: 500m
-     memory: 512Mi
    requests:
-     cpu: 250m
-     memory: 256Mi
+     cpu: '1'
+     memory: 2Gi
+   limits:
+     cpu: '1'
+     memory: 2Gi
 
 
 dex:
   enabled: true
   resources:
+   requests:
+     cpu: 50m
+     memory: 64Mi
    limits:
      cpu: 50m
      memory: 64Mi
-   requests:
-     cpu: 10m
-     memory: 32Mi
 
 
 redis:
   enabled: true
   resources:
+   requests:
+     cpu: 100m
+     memory: 128Mi
    limits:
      cpu: 200m
      memory: 128Mi
-   requests:
-     cpu: 100m
-     memory: 64Mi
 
 
 ## Redis-HA subchart replaces custom redis deployment when `redis-ha.enabled=true`
@@ -287,6 +285,14 @@ server:
     targetCPUUtilizationPercentage: 50
     targetMemoryUtilizationPercentage: 50
 
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
 
 repoServer:
   replicas: 1
@@ -299,22 +305,22 @@ repoServer:
   #  targetMemoryUtilizationPercentage: 50
 
   resources:
-   limits:
-     cpu: 50m
-     memory: 128Mi
-   requests:
-     cpu: 10m
-     memory: 64Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
 
 
 ## ApplicationSet controller
 applicationSet:
   replicas: 1
   resources:
-    limits:
+    requests:
       cpu: 100m
       memory: 128Mi
-    requests:
+    limits:
       cpu: 100m
       memory: 128Mi
 
@@ -322,9 +328,9 @@ applicationSet:
 ## Notifications controller
 notifications:
   resources:
-    limits:
+    requests:
       cpu: 100m
       memory: 128Mi
-    requests:
+    limits:
       cpu: 100m
       memory: 128Mi
