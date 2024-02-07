@@ -41,12 +41,6 @@ configs:
     # XXX: Edit
     url: https://argocd.DOMAIN.COM/
 
-    # XXX: check your SSO works as documented in header before uncommenting to disable admin
-    #
-    #   argocd login $ARGOCD_HOST --sso --grpc-web
-    #
-    admin.enabled: true
-
     # OIDC configuration as an alternative to dex (optional).
     # oidc.config: |
     #   name: AzureAD
