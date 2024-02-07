@@ -44,7 +44,7 @@ spec:
     repoURL: https://github.com/argoproj/argocd-example-apps.git  # keep .git suffix for GitLab, otherwise it'll 301 redirect which ArgoCD doesn't follow
     targetRevision: HEAD
     # XXX: Edit - path to argocd project configuration yamls
-    path: k8s/argocd/projects  # relative to root of git repo so no leading slash
+    path: argocd/projects  # relative to root of git repo so no leading slash
   destination:
     server: https://kubernetes.default.svc
     #name: in-cluster
