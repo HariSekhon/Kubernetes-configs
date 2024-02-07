@@ -25,3 +25,7 @@ namespace: argocd
 
 resources:
   - ../base
+  # XXX: Edit ingress address before uncommenting
+  #- ingress.yaml
+  # XXX: Edit ingress address before uncommenting
+  #- ingress-grpc.yaml
