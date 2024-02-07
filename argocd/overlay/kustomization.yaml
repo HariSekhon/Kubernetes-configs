@@ -25,6 +25,8 @@ namespace: argocd
 
 resources:
   - ../base
+  - projects.yaml  # auto-loads projects under projects/
+  - apps.yaml      # auto-loads applications under apps/
   # XXX: Edit ingress address before uncommenting
   #- ingress.yaml
   # XXX: Edit ingress address before uncommenting
