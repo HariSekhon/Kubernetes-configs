@@ -50,43 +50,46 @@ namespace: argocd
 #
 resources:
   #- https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.0/manifests/ha/install.yaml
+  #- https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.0/manifests/ha/install.yaml
   - namespace.yaml
-  - self.yaml  # GitOps self-management tracking of ArgoCD config itself
+
+  # XXX: moved to overlay as likely to need different paths per environment
+  #
+  #- self.yaml      # GitOps self-management tracking of ArgoCD config itself
+  #- projects.yaml  # auto-loads projects under projects/
+  #- apps.yaml      # auto-loads applications under apps/
   # XXX: Edit ingress address before uncommenting
   #- ingress.yaml
   # XXX: Edit ingress address before uncommenting
   #- ingress-grpc.yaml
-  - projects.yaml  # auto-loads projects under k8s/argocd/projects
-  - apps.yaml      # auto-loads applications under k8s/argocd/apps
+
   #- clusters-secrets.yaml
   #- repos-secrets.yaml
   #
   # XXX: simpler solution if using this for Kustomize External Bases, if using the same repo, is ensure the app is set to use the https://github.com url instead of the git@github.com address
   #- git-askpass.configmap.yaml
 
-# awkward mix & match compared to straight yaml install
-#helmCharts:
-#  - name: argo-cd
-#    repo: https://argoproj.github.io/argo-helm
-#    version: 5.54.0
-#    releaseName: argocd
-#    namespace: argocd
-#    includeCRDs: true
-#    valuesFile: values.yaml
+helmCharts:
+  - name: argo-cd
+    repo: https://argoproj.github.io/argo-helm
+    version: 5.54.0
+    releaseName: argocd
+    namespace: argocd
+    includeCRDs: true
+    valuesFile: values.yaml
 
 # XXX: don't define namespace in these patches, will break patching, see cm.repos.patch.yaml for details why
 patchesStrategicMerge:
   # Repos:
   #
-  - cm.repos.patch.yaml
+  #- cm.repos.patch.yaml
   #
   # Bugfix for GitHub updating its security keys, more details in the patch
-  - ssh-known-hosts-cm.patch.yaml
+  #- ssh-known-hosts-cm.patch.yaml
   #
   # Kustomize - download specific version:
   #
-  - repo-server.kustomize.patch.yaml
+  #- repo-server.kustomize.patch.yaml
   - cm.kustomize-buildoptions.patch.yaml
   #
   #- cm.resource-exclusions.patch.yaml
@@ -109,65 +112,71 @@ patchesStrategicMerge:
   # done in namespace.yaml
   #- goldilocks-namespace-enable.patch.yaml
 
-# ArgoCD doesn't come with default resources - https://github.com/argoproj/argo-cd/issues/7772
 patches:
-  # XXX: seems missing from newer 2.1 HA install but this matching is silently ignored
-  - path: resources.argocd-application-controller.jsonpatch.yaml
-    target:
-      name: argocd-application-controller
-      kind: StatefulSet
-      group: apps
-      version: v1
-  - path: resources.argocd-applicationset-controller.jsonpatch.yaml
-    target:
-      name: argocd-applicationset-controller
-      kind: Deployment
-      group: apps
-      version: v1
-  - path: resources.argocd-dex-server.jsonpatch.yaml
-    target:
-      name: argocd-dex-server
-      kind: Deployment
-      group: apps
-      version: v1
-  - path: resources.argocd-notifications-controller.jsonpatch.yaml
-    target:
-      name: argocd-notifications-controller
-      kind: Deployment
-      group: apps
-      version: v1
-  # XXX: not present in 2.1 HA install but silently ignored
-  - path: resources.argocd-redis.jsonpatch.yaml
-    target:
-      name: argocd-redis
-      kind: Deployment
-      group: apps
-      version: v1
-  # XXX: only present in HA install
-  - path: resources.argocd-redis-ha-haproxy.jsonpatch.yaml
-    target:
-      name: argocd-redis-ha-haproxy
-      kind: Deployment
-      group: apps
-      version: v1
-  - path: resources.argocd-redis-ha-server.jsonpatch.yaml
-    target:
-      name: argocd-redis-ha-server
-      kind: StatefulSet
-      group: apps
-      version: v1
-  - path: resources.argocd-repo-server.jsonpatch.yaml
-    target:
-      name: argocd-repo-server
-      kind: Deployment
-      group: apps
-      version: v1
-  - path: resources.argocd-server.jsonpatch.yaml
-    target:
-      name: argocd-server
-      kind: Deployment
-      group: apps
-      version: v1
+  - target:
+      version: argoproj.io/v1alpha1
+      kind: AppProject
+      name: default
+    path: project-default.patch.yaml
+# ArgoCD doesn't come with default resources - https://github.com/argoproj/argo-cd/issues/7772
+# Only need resource overrides for remote base yaml install, Helm chart has direct support for Resource settings - see values.yaml instead
+#  # XXX: seems missing from newer 2.1 HA install but this matching is silently ignored
+#  - path: resources.argocd-application-controller.jsonpatch.yaml
+#    target:
+#      name: argocd-application-controller
+#      kind: StatefulSet
+#      group: apps
+#      version: v1
+#  - path: resources.argocd-applicationset-controller.jsonpatch.yaml
+#    target:
+#      name: argocd-applicationset-controller
+#      kind: Deployment
+#      group: apps
+#      version: v1
+#  - path: resources.argocd-dex-server.jsonpatch.yaml
+#    target:
+#      name: argocd-dex-server
+#      kind: Deployment
+#      group: apps
+#      version: v1
+#  - path: resources.argocd-notifications-controller.jsonpatch.yaml
+#    target:
+#      name: argocd-notifications-controller
+#      kind: Deployment
+#      group: apps
+#      version: v1
+#  # XXX: not present in 2.1 HA install but silently ignored
+#  - path: resources.argocd-redis.jsonpatch.yaml
+#    target:
+#      name: argocd-redis
+#      kind: Deployment
+#      group: apps
+#      version: v1
+#  # XXX: only present in HA install
+#  - path: resources.argocd-redis-ha-haproxy.jsonpatch.yaml
+#    target:
+#      name: argocd-redis-ha-haproxy
+#      kind: Deployment
+#      group: apps
+#      version: v1
+#  - path: resources.argocd-redis-ha-server.jsonpatch.yaml
+#    target:
+#      name: argocd-redis-ha-server
+#      kind: StatefulSet
+#      group: apps
+#      version: v1
+#  - path: resources.argocd-repo-server.jsonpatch.yaml
+#    target:
+#      name: argocd-repo-server
+#      kind: Deployment
+#      group: apps
+#      version: v1
+#  - path: resources.argocd-server.jsonpatch.yaml
+#    target:
+#      name: argocd-server
+#      kind: Deployment
+#      group: apps
+#      version: v1
 
 # ArgoCD default project can't be modified via Kustomize because it is not in the remote base objects
 #patchesJson6902:
