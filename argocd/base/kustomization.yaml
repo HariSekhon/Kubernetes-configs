@@ -65,6 +65,16 @@ resources:
   # XXX: simpler solution if using this for Kustomize External Bases, if using the same repo, is ensure the app is set to use the https://github.com url instead of the git@github.com address
   #- git-askpass.configmap.yaml
 
+# awkward mix & match compared to straight yaml install
+#helmCharts:
+#  - name: argo-cd
+#    repo: https://argoproj.github.io/argo-helm
+#    version: 5.54.0
+#    releaseName: argocd
+#    namespace: argocd
+#    includeCRDs: true
+#    valuesFile: values.yaml
+
 # XXX: don't define namespace in these patches, will break patching, see cm.repos.patch.yaml for details why
 patchesStrategicMerge:
   # Repos:
