@@ -24,6 +24,7 @@ kind: Kustomization
 namespace: argocd
 
 resources:
+  # switch this to a tagged URL for staggering base update through environments
   - ../base
   - self.yaml      # GitOps self-management tracking of ArgoCD config itself
   - projects.yaml  # auto-loads projects under projects/
