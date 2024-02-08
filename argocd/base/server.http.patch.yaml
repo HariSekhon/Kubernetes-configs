@@ -18,6 +18,9 @@
 #                      ArgoCD HTTP Patch for Nginx Ingress
 # ============================================================================ #
 
+# Don't do this except in a test lab where you don't want to bother
+# with full DNS + SSL automation (see adjacent Cert Manager and External DNS bases)
+
 # Apply:
 #
 #   run: kubectl patch deployment argocd-server --namespace argocd --type json --patch "$(cat server.http.patch.yaml)"
