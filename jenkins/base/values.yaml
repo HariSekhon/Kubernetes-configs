@@ -19,6 +19,8 @@
 # ============================================================================ #
 
 # https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/README.md
+#
+# https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES_SUMMARY.md
 
 # helm repo add jenkins https://charts.jenkins.io
 #
