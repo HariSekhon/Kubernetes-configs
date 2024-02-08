@@ -69,7 +69,7 @@ jobs:
 
       #- name: Install Kubevious
       #  #run: curl https://get.kubevious.io/cli.sh | bash
-      #  run: bash-tools/setup/install_kubevious.sh
+      #  run: bash-tools/install/install_kubevious.sh
 
       - name: Kubvious
         # https://github.com/kubevious/cli/blob/main/action.yml

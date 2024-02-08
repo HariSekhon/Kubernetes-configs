@@ -72,13 +72,13 @@ jobs:
           path: bash-tools
 
       - name: Install Helm
-        run: bash-tools/setup/install_helm.sh
+        run: bash-tools/install/install_helm.sh
 
       - name: Helm version
         run: helm version
 
       - name: Install yq
-        run: bash-tools/setup/install_yq.sh
+        run: bash-tools/install/install_yq.sh
 
       - name: yq version
         run: yq --version

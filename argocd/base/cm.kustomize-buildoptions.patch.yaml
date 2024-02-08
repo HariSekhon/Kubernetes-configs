@@ -24,7 +24,7 @@
 #
 # Download argocd CLI:
 #
-#   curl -sSL https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/setup/install_argocd.sh | bash
+#   curl -sSL https://raw.githubusercontent.com/HariSekhon/DevOps-Bash-tools/master/install/install_argocd.sh | bash
 #
 # Validate:
 #
