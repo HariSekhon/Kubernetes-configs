@@ -41,7 +41,7 @@ resources:
 helmCharts:
   - name: external-dns
     repo: https://charts.bitnami.com/bitnami
-    version: 6.18.0
+    version: 6.32.0
     releaseName: external-dns
     namespace: external-dns
     includeCRDs: true
