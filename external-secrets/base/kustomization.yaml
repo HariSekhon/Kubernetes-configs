@@ -28,8 +28,8 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  #- external-secrets-aws-secret-store.yaml
-  #- external-secrets-gcp-secret-store.yaml
+  #- aws-secret-store.yaml
+  #- gcp-secret-store.yaml
   #- secret-store.yaml
   #- external-secret.yaml
 
