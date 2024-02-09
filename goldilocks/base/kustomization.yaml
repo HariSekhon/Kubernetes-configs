@@ -44,7 +44,7 @@ resources:
 helmCharts:
   - name: goldilocks
     repo: https://charts.fairwinds.com/stable
-    version: 4.0.2
+    version: 8.0.1
     releaseName: goldilocks
     namespace: goldilocks
     includeCRDs: true
