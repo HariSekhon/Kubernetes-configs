@@ -39,11 +39,11 @@ spec:
   tls:
     # XXX: Edit
     - hosts:
-        - APP.DOMAIN.COM
+        - polaris.DOMAIN.COM
       secretName: polaris-tls
   rules:
     # XXX: Edit
-    - host: APP.DOMAIN.COM
+    - host: polaris.DOMAIN.COM
       http:
         paths:
           # XXX: Edit
@@ -55,4 +55,5 @@ spec:
               service:
                 name: polaris-dashboard
                 port:
-                  number: 80
+                  name: http
+                  #number: 80
