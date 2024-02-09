@@ -25,4 +25,4 @@ namespace: goldilocks
 
 resources:
   - ../base
-  - ingress.yaml
+  #- ingress.yaml
