@@ -92,6 +92,9 @@ metadata:
     #nginx.ingress.kubernetes.io/affinity-mode: persistent  # default: "balanced" - rebalances to new pods
     #nginx.ingress.kubernetes.io/canary: "true"
     #nginx.ingress.kubernetes.io/canary-weight: 1  # 1%
+    # or
+    #nginx.ingress.kubernetes.io/canary-by-header: "some-header"
+    #nginx.ingress.kubernetes.io/canary-by-header-value: "some-value"
 
     # Mirror to test backend
     #
