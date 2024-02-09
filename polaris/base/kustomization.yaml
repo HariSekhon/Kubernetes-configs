@@ -42,7 +42,7 @@ resources:
 helmCharts:
   - name: polaris
     repo: https://charts.fairwinds.com/stable
-    version: 4.2.1
+    version: 5.17.0
     releaseName: polaris
     namespace: polaris
     includeCRDs: true
