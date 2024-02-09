@@ -27,7 +27,7 @@ resources:
 
 patches:
   # override --domain-filter for dev.domain.com
-  - path: external-dns-deployment.jsonpatch.yaml
+  - path: deployment.jsonpatch.yaml
     target:
       version: v1
       kind: Deployment
@@ -35,7 +35,7 @@ patches:
       namespace: external-dns
 
   # add AWS IRSA credential to service account
-  - path: external-dns-serviceaccount.jsonpatch.yaml
+  - path: serviceaccount.jsonpatch.yaml
     target:
       version: v1
       kind: ServiceAccount
