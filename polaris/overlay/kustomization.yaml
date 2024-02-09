@@ -25,3 +25,4 @@ namespace: polaris
 
 resources:
   - ../base
+  #- ingress.yaml
