@@ -55,4 +55,5 @@ spec:
               service:
                 name: goldilocks-dashboard
                 port:
-                  number: 80
+                  name: http
+                  #number: 80
