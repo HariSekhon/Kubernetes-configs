@@ -70,6 +70,7 @@ metadata:
     #nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 
     # XXX: Edit to make available externally or apply common ingress.nginx.patch.yaml with shared IP list eg. Cloudflare
+    # XXX: instead of putting Cloudflare IPs in every ingress - see the ingress-nginx/base/annotations.patch.yaml to apply to all ingresses
     nginx.ingress.kubernetes.io/whitelist-source-range: |
       10.0.0.0/8,
       172.16.0.0/16,
