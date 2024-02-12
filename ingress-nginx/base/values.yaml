@@ -211,7 +211,7 @@ controller:
       #
       #   https://github.com/HariSekhon/DevOps-Bash-tools
       #
-      #   cloudflare_ip_ranges.sh | sort | sed 's/^/     - /'
+      #   cloudflare_ip_ranges.sh | sort | sed 's/^/      - /'
       #
       - 103.21.244.0/22
       - 103.22.200.0/22
