@@ -207,7 +207,7 @@ controller:
       #
       # Cloudflare IPs - https://www.cloudflare.com/vi-vn/ips/
       #
-      # Can quickly repopulate this using the script from adjacent DevOps-Bash-tools repo:
+      # Quickly obtain the latest IPs using the script from adjacent DevOps-Bash-tools repo:
       #
       #   https://github.com/HariSekhon/DevOps-Bash-tools
       #
