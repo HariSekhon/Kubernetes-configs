@@ -41,12 +41,19 @@ metadata:
     #kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/use-regex: "true"
+    # XXX: Cloudflare Proxy IPs - https://www.cloudflare.com/en-gb/ips/
+    #
+    # Quickly obtain the latest IPs using the script from adjacent DevOps-Bash-tools repo:
+    #
+    #   https://github.com/HariSekhon/DevOps-Bash-tools
+    #
+    #   cloudflare_ip_ranges.sh | sort | sed 's/^/      /; s/$/,/'
+    #
     # XXX: Edit to make available externally
     nginx.ingress.kubernetes.io/whitelist-source-range: |
       10.0.0.0/8,
       172.16.0.0/16,
       192.168.0.0/16,
-      # XXX: Cloudflare Proxy IPs - https://www.cloudflare.com/en-gb/ips/ - REMOVE THIS COMMENT LINE
       103.21.244.0/22,
       103.22.200.0/22,
       103.31.4.0/22,
@@ -68,7 +75,7 @@ metadata:
       2606:4700::/32,
       2803:f800::/32,
       2a06:98c0::/29,
-      2c0f:f248::/32
+      2c0f:f248::/32,
     nginx.ingress.kubernetes.io/configuration-snippet: |
       more_set_headers "server: nginx";
       more_clear_headers "x-powered-by";
