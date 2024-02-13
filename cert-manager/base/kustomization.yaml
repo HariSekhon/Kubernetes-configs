@@ -37,7 +37,7 @@ resources:
 helmCharts:
   - name: cert-manager
     repo: https://charts.jetstack.io
-    version: v1.6.1  # helm search repo --regexp 'jetstack/cert-manager[[:space:]]' -o json | jq -r '.[].version'
+    version: v1.14.2  # helm search repo --regexp 'jetstack/cert-manager[[:space:]]' -o json | jq -r '.[].version'
     releaseName: cert-manager
     namespace: cert-manager
     includeCRDs: true
