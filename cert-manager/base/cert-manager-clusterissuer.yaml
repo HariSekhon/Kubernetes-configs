@@ -83,11 +83,11 @@ spec:
           cloudflare:
             email: my-cloudflare-account@mydomain.com
             # XXX: create this k8s secret
-            # kubectl create secret generic cloudflare-api-token
+            # kubectl create secret generic cloudflare-api-token --from-literal=cloudflare-api-token="$CLOUDFLARE_TOKEN"
             apiTokenSecretRef:
               name: cloudflare-api-token
               key: cloudflare-api-token
-        # use Cloudflare to resolve challenges example.org
-        #selector:
-        #  dnsNames:
-        #  - example.org
+        # use Cloudflare to resolve challenges for example.org
+        selector:
+          dnsNames:
+            - example.org  # XXX: Edit
