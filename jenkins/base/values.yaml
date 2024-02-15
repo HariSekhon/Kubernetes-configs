@@ -488,9 +488,8 @@ agent:
   showRawYaml: true
 
   # Max number of spawned agent
-  containerCap: 10
-  # Pod name
-  podName: "default"
+  containerCap: 10  # XXX: Edit
+  podName: jenkins-agent
   # Allows the Pod to remain active for reuse until the configured number of
   # minutes has passed since the last step was executed on it.
   idleMinutes: 0
