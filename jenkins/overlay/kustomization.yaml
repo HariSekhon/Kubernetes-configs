@@ -26,3 +26,6 @@ kind: Kustomization
 resources:
   - ../base
   - ingress.yaml
+
+patchesStrategicMerge:
+  - jenkins-agent-serviceaccount.patch.yaml
