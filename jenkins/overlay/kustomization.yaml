@@ -18,7 +18,6 @@
 #                   J e n k i n s   K u s t o m i z a t i o n
 # ============================================================================ #
 
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 #namespace: jenkins  # Do not override helm chart, can cause issues
@@ -27,5 +26,5 @@ resources:
   - ../base
   - ingress.yaml
 
-patchesStrategicMerge:
-  - jenkins-agent-serviceaccount.patch.yaml
+patches:
+  - path: jenkins-agent-serviceaccount.patch.yaml
