@@ -471,7 +471,7 @@ agent:
   #tag: "4.11-1"
   alwaysPullImage: false
   # if resetting the 'ENTRYPOINT []' in the Dockerfile for a jenkins/inbound-agent derived image to support old freestyle jobs which cannot set default container
-  # generally shouldn't need to do this as jobs exec into the running container so usually fine to leave the entrypoint
+  # generally shouldn't need to do this as jobs exec into the running container so usually fine to leave the entrypoint in a derived image
   #command: /usr/local/bin/jenkins-agent
   #workingDir: "/home/jenkins/agent"
   #privileged: false
