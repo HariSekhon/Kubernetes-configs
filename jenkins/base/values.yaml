@@ -634,7 +634,7 @@ serviceAccount:
 
 serviceAccountAgent:
   # Specifies whether a ServiceAccount should be created
-  create: false
+  create: false  # must be false if the same service account name is used as it's already created above
   # The name of the ServiceAccount to use.
   # If not set and create is true, a name is generated using the fullname template
   name:  # jenkins-agent
