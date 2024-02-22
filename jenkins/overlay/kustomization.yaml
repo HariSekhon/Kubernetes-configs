@@ -27,4 +27,5 @@ resources:
   - ingress.yaml
 
 patches:
-  - path: jenkins-agent-serviceaccount.patch.yaml
+  - path: agent-serviceaccount.patch.yaml
+  - path: jcasc-cm.patch.yaml
