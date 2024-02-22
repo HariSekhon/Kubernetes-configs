@@ -27,7 +27,8 @@ metadata:
   namespace: jenkins
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
+    # old, use ingressClassName under spec
+    #kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     # XXX: Edit to make available externally or apply common ingress.nginx.patch.yaml with shared IP list eg. Cloudflare
     nginx.ingress.kubernetes.io/whitelist-source-range: |
@@ -35,6 +36,7 @@ metadata:
       172.16.0.0/16,
       192.168.0.0/16
 spec:
+  ingressClassName: nginx
   tls:
     - hosts:
         # XXX: Edit
