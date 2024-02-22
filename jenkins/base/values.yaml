@@ -278,8 +278,17 @@ controller:
   # /var/jenkins_home/casc_configs (by default) and will be processed by the Configuration as Code Plugin.  The lines after each |
   # become the content of the configuration yaml file.  The first line after this is a JCasC root element, eg jenkins, credentials,
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
+  #
+  # How to add jobs to JCasC:
+  #
+  #     https://github.com/jenkinsci/helm-charts/issues/28
+  #
+  # JCasC materializes as a horrible big embedded string making Kustomize patching difficult eg. to add different NFS mounts per environment overlay
+  #
+  # This override per environment see ../overlay/jcasc-cm.patch.yaml which completely replaces this defaultConfig
+  #
   JCasC:
-    defaultConfig: true
+    defaultConfig: true  # set to false if using the ../overlay/jcasc-cm.patch.yaml instead because all of this would be wholesale replaced as a string field in the configmap
     # XXX: populate JCasC configScripts from a running configured instance and backport it here
     #
     #      install 'Configuration as Code' plugin, then get live config from Manage Jenkins -> Configuration as Code -> View Configuration:
@@ -637,7 +646,7 @@ serviceAccount:
 
 serviceAccountAgent:
   # Specifies whether a ServiceAccount should be created
-  create: false  # must be false if the same service account name is used as it's already created above
+  create: true  # must be false if the same service account name is used as it's already created above
   # The name of the ServiceAccount to use.
   # If not set and create is true, a name is generated using the fullname template
   name:  # jenkins-agent
