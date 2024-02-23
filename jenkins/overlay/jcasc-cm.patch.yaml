@@ -18,9 +18,11 @@
 #                   J C a s C   C o n f i g M a p   P a t c h
 # ============================================================================ #
 
-# Replacement for the jenkins jcasc in the values.yaml to be able to override it
-# eg. to override jenkins agent NFS mounts per environment overlay ie. dev, stagin, prod
-# and the corresponding different cloud AWS accounts or GCP projects
+# Wholesale JCasC replacement to be able to override it per environment
+# eg. to override jenkins agent NFS mounts per environment overlay ie. dev, staging, prod
+# pointing to different GCP Filestores in different GCP projects
+
+# be sure to set agent enabled to false and comment the section in ../base/values.yaml to avoid confusion
 
 ---
 apiVersion: v1
