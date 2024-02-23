@@ -98,6 +98,10 @@ data:
                 - nfsVolume:
                     mountPath: "/sharedfiles"
                     readOnly: false
+                    # quickly compare to your GCP Filestore NFS IP:
+                    #
+                    #   gcloud filestore instances list --filter="name ~ /${FILESTORE_NAME}$" --format='value(networks[0].ipAddresses[0])'
+                    #
                     serverAddress: "x.x.x.x"  # XXX: Edit per environment
                     serverPath: "/server-shared"  # XXX: Edit to path on the NFS server
               idleMinutes: 0
