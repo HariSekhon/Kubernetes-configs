@@ -28,4 +28,7 @@ resources:
 
 patches:
   - path: agent-serviceaccount.patch.yaml
-  - path: jcasc-cm.patch.yaml
+  # use this for per environment Jenkins overrides like connecting to a different NFS server
+  # beware because the JCasS config is done as one big string field this replaces the entire
+  # agent section defined in ../base/values.yaml which should be commented out to not confuse people if you're using this
+  #- path: jcasc-cm.patch.yaml
