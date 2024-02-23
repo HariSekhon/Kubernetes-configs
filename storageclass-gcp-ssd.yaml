@@ -38,9 +38,9 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer  # recommended with regional-pd
 reclaimPolicy: Retain # for safety, else default: Delete
 allowedTopologies:
-- matchLabelExpressions:
-  - key: topology.gke.io/zone
-    values:
-			- europe-west2-a
-			- europe-west2-b
-			- europe-west2-c
+  - matchLabelExpressions:
+      - key: topology.gke.io/zone
+        values:
+          - europe-west2-a
+          - europe-west2-b
+          - europe-west2-c
