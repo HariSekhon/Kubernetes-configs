@@ -226,34 +226,34 @@ controller:
   # Additional replicas will cause sharding of managed clusters across number of replicas.
   replicas: 1
   resources:
-   requests:
-     cpu: '1'
-     memory: 2Gi
-   limits:
-     cpu: '1'
-     memory: 2Gi
+    requests:
+      cpu: '1'
+      memory: 2Gi
+    limits:
+      cpu: '1'
+      memory: 2Gi
 
 
 dex:
   enabled: true
   resources:
-   requests:
-     cpu: 50m
-     memory: 64Mi
-   limits:
-     cpu: 50m
-     memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 50m
+      memory: 64Mi
 
 
 redis:
   enabled: true
   resources:
-   requests:
-     cpu: 100m
-     memory: 128Mi
-   limits:
-     cpu: 200m
-     memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
 
 
 ## Redis-HA subchart replaces custom redis deployment when `redis-ha.enabled=true`
