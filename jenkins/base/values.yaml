@@ -285,7 +285,11 @@ controller:
   #
   # JCasC materializes as a horrible big embedded string making Kustomize patching difficult eg. to add different NFS mounts per environment overlay
   #
+  #     https://github.com/jenkinsci/helm-charts/issues/1024
+  #
   # This override per environment see ../overlay/jcasc-cm.patch.yaml which completely replaces this defaultConfig
+  #
+  #     https://github.com/jenkinsci/helm-charts/issues/1025
   #
   JCasC:
     defaultConfig: true  # set to false if using the ../overlay/jcasc-cm.patch.yaml instead because all of this would be wholesale replaced as a string field in the configmap
