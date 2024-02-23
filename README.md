@@ -193,7 +193,8 @@ A Kong API Gateway deployment I did for a client using:
 
 A production Jenkins on Kubernetes I built for a client with auto-spawning agents for horizontal scaling and integration with Docker, SonarQube, Clair, Grype and Trivy for code & container scanning.
 
-- [jenkins/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/jenkins/base)
+- [jenkins/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/jenkins/base) - core config that is inherited by all environments
+- [jenkins/overlay/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/jenkins/overlay) - environment specific settings like ingress address, NFS server mount on agents
 - [claire/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/clair/base)
 - [sonarqube/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/sonarqube/base)
 - [trivy/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/trivy/base)
