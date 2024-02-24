@@ -45,6 +45,11 @@ helmCharts:
     includeCRDs: true
     valuesFile: values.yaml
 
+#patches:
+#  # overrides the random generated initial admin password to stop ArgoCD constantly replacing the secret
+#  # XXX: change the pw in here if using this
+#  - path: initial-admin-secret.patch.yaml
+
 # Older - Helm chart above has more automation with plugin management and JCasC (Jenkins Configuration as Code) with auto-reload
 #
 #resources:
