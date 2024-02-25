@@ -41,6 +41,14 @@ controller:
     limits:
       cpu: 2
       memory: 5Gi
+
+  admin:
+    # uncomment after initial deployment to prevent the helm chart from recreating all the time breaking the admin login via ArgoCD applies:
+    #
+    #   https://github.com/jenkinsci/helm-charts/issues/1026
+    #
+    existingsecret: jenkins
+
   # Overrides the init container default values
   # initContainerResources:
   #   requests:
