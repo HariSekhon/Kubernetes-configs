@@ -43,7 +43,8 @@ controller:
       memory: 5Gi
 
   admin:
-    # uncomment after initial deployment to prevent the helm chart from recreating all the time breaking the admin login via ArgoCD applies:
+    # uncomment after initial deployment to prevent the helm chart from recreating this secret on every kustomize build
+    # which breaks the admin login via ArgoCD sync:
     #
     #   https://github.com/jenkinsci/helm-charts/issues/1026
     #
