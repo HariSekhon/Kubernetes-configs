@@ -48,7 +48,7 @@ controller:
     #
     #   https://github.com/jenkinsci/helm-charts/issues/1026
     #
-    existingsecret: jenkins
+    existingSecret: jenkins
 
   # Overrides the init container default values
   # initContainerResources:
