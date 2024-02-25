@@ -28,10 +28,4 @@ resources:
 
 patches:
   # enable this for dev / staging environments to use internal IP load balancer only
-  # if enabling this later you'll need to delete the load balancer so it gets recreated correctly
-  #
-  # XXX: beware this is a very disruptive operation if anybody is using the nginx ingress on the cluster
-  #
-  #   kubectl delete svc -n ingress-nginx ingress-nginx-controller
-  #
   #- internal-loadbalancer-service.patch.yaml
