@@ -32,7 +32,8 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt
     ingress.kubernetes.io/force-ssl-redirect: "true"
 
-    kubernetes.io/ingress.class: haproxy  # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
+    # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
+    #kubernetes.io/ingress.class: haproxy
     haproxy.org/ingress.class: haproxy
     haproxy.org/load-balance: leastconn  # default: roundrobin
 
@@ -50,7 +51,7 @@ metadata:
     haproxy.org/rate-limit-size: "1000000"
 
 spec:
-  #ingressClassName: haproxy
+  ingressClassName: haproxy
   tls:
     # XXX: Edit
     - hosts:
