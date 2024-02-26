@@ -28,7 +28,7 @@ metadata:
   namespace: goldilocks
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    # deprecated, used spec.ingressClassName now
+    # deprecated, use ingressClassName under spec section for Kubernetes 1.18+
     #kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     # XXX: Edit to make available externally or apply common ingress.nginx.patch.yaml with shared IP list eg. Cloudflare
