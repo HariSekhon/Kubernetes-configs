@@ -26,8 +26,7 @@
 #
 #   kubectl logs -f -n external-dns deploy/external-dns
 #
-#   check --domain-filter setting in external-dns-values.yaml and external-dns-deployment.patch.yaml
-#   matches your.domain.com
+#   check --domain-filter setting in values.yaml and deployment.jsonpatch.yaml matches your.domain.com
 #
 #   check ingresses have their address fields populated by the ingress controller (Nginx, Traefik and Kong in this repo are all tested to do this)
 
