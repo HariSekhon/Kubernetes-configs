@@ -190,7 +190,8 @@ controller:
       # -- Enables an additional internal load balancer (besides the external one).
       enabled: false
       # -- Annotations are mandatory for the load balancer to come up. Varies with the cloud service.
-      annotations: {}
+      annotations:
+        cloud.google.com/load-balancer-type: Internal
       # loadBalancerIP: ""
       loadBalancerSourceRanges:
         - 10.0.0.0/8
