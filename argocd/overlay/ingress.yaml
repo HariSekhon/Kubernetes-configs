@@ -30,7 +30,8 @@ metadata:
   namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
-    kubernetes.io/ingress.class: nginx
+    # deprecated, used spec.ingressClassName now
+    #kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     # XXX: FIX: without this gets infinite 307 redirects, regardless of whether you use servicePort http or https
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
@@ -47,6 +48,7 @@ metadata:
       172.16.0.0/16,
       192.168.0.0/16
 spec:
+  ingressClassName: nginx
   # cert manager will auto-create SSL cert for this address and put it in named secret
   tls:
     # XXX: Edit
