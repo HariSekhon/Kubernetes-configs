@@ -248,6 +248,8 @@ controller:
 
   # XXX: enable this instead of service.internal.enabled=True and service.external.enabled=False
   #      since it can only be one or the other for practical purposes - see comment with GitHub issue above
+  # XXX: you must uncomment fullnameOverride at the top of this config because otherwise clusterrole and
+  #      clusterrolebindings won't be created with the right permissions for the ingress-nginx-internal namespace
   #ingressClassResource:
   #  name: nginx-internal
   #  enabled: true
