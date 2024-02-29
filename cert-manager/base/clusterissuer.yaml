@@ -92,6 +92,8 @@ spec:
         #
         # XXX: hit this bug despite having used exactly this in production before and triple checked the domains list
         #
+        #   https://github.com/cert-manager/cert-manager/issues/6528
+        #
         # kubectl describe orders -n jenkins
         #
         #   Events:
