@@ -131,5 +131,5 @@ data:
         usageStatisticsEnabled: true
     unclassified:
       location:
-        adminAddress:
-        url: http://jenkins:8080
+        adminAddress: "devops@domain.com"
+        url: "https://jenkins.domain.com"
