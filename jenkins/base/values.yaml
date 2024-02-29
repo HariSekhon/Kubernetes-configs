@@ -24,7 +24,7 @@
 
 # helm repo add jenkins https://charts.jenkins.io
 #
-# helm show values jenkins/jenkins >> jenkins-values.yaml
+# helm show values jenkins/jenkins >> values.yaml
 
 ---
 controller:
@@ -36,11 +36,11 @@ controller:
   numExecutors: 0
   resources:
     requests:
-      cpu: 100m
-      memory: 3Gi
+      cpu: 1
+      memory: 6Gi
     limits:
       cpu: 2
-      memory: 5Gi
+      memory: 6Gi
 
   # XXX: uncomment after initial deployment to prevent the helm chart from recreating this secret on every kustomize build
   # which breaks the admin login via ArgoCD sync:
@@ -65,7 +65,7 @@ controller:
   # containerEnv:
   #   - name: http_proxy
   #     value: "http://192.168.64.1:3128"
-  javaOpts: -Xms3G -Xmx3G -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC
+  javaOpts: -Xms5G -Xmx5G -XX:+AlwaysPreTouch -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC
   # jenkinsOpts: ""
   # If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
   # The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
