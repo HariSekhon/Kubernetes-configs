@@ -143,22 +143,23 @@ controller:
     - ansicolor                                         # https://plugins.jenkins.io/ansicolor/
     - antisamy-markup-formatter                         # https://plugins.jenkins.io/antisamy-markup-formatter/
     - blueocean                                         # https://plugins.jenkins.io/blueocean/
-    - build-timeout                                     # https://plugins.jenkins.io/build-timeout
-    - build-timestamp                                   # https://plugins.jenkins.io/build-timestamp
-    - calendar-view                                     # https://plugins.jenkins.io/calendar-view
+    - build-timeout                                     # https://plugins.jenkins.io/build-timeout/
+    - build-timestamp                                   # https://plugins.jenkins.io/build-timestamp/
+    - calendar-view                                     # https://plugins.jenkins.io/calendar-view/
     - cloudbees-jenkins-advisor                         # https://plugins.jenkins.io/cloudbees-jenkins-advisor/
     - configuration-as-code                             # https://plugins.jenkins.io/configuration-as-code/
     #- credentials-binding                              # https://plugins.jenkins.io/credentials-binding/  # pulled by Pipelines and secret manager keystores
-    - cron_column                                       # https://plugins.jenkins.io/cron_column
-    - discard-old-build                                 # https://plugins.jenkins.io/discard-old-build
+    - cron_column                                       # https://plugins.jenkins.io/cron_column/
+    - discard-old-build                                 # https://plugins.jenkins.io/discard-old-build/
+    - disk-usage                                        # https://plugins.jenkins.io/disk-usage/
     - git                                               # https://plugins.jenkins.io/git/
     - github                                            # https://plugins.jenkins.io/github/
     - greenballs                                        # https://plugins.jenkins.io/greenballs/
     #- jfrog                                            # https://plugins.jenkins.io/jfrog/
+    - jobConfigHistory                                  # https://plugins.jenkins.io/jobConfigHistory/  # Saves every job config change, like local VCS. See also the Jenkins job to auto-backport job XMLs to Git in https://github.com/HariSekhon/Jenkins
     - kubernetes                                        # https://plugins.jenkins.io/kubernetes/
     - lockable-resources                                # https://plugins.jenkins.io/lockable-resources/
-    # unresolved dependencies
-    #- pipeline-github-lib                               # https://plugins.jenkins.io/pipeline-github-lib
+    - pipeline-github-lib                               # https://plugins.jenkins.io/pipeline-github-lib/  # to allow dynamic loading for public github libraries via: @Library('github.com/HariSekhon/Jenkins') _
     - plugin-usage-plugin                               # https://plugins.jenkins.io/plugin-usage-plugin/
     - slack                                             # https://plugins.jenkins.io/slack/
     - ssh-agent                                         # https://plugins.jenkins.io/ssh-agent/
@@ -171,6 +172,7 @@ controller:
     # SSO
     - saml                                              # https://plugins.jenkins.io/saml/  # use instead of Azure AD plugin which is EOL Feb 2024
     - google-login                                      # https://plugins.jenkins.io/google-login/
+    # - ldap                                            # https://plugins.jenkins.io/ldap/
     # ==================================================
     # Code Quality
     #- clover                                           # https://plugins.jenkins.io/clover/
@@ -190,6 +192,7 @@ controller:
     #- google-source-plugin                             # https://plugins.jenkins.io/google-source-plugin/
     #- google-kubernetes-engine                         # https://plugins.jenkins.io/google-kubernetes-engine/  # deploy to GKE, use ArgoCD instead
     #- google-storage-plugin                            # https://plugins.jenkins.io/google-storage-plugin/  # upload/download from GCS
+    #- codedeploy                                       # https://plugins.jenkins.io/codedeploy/  # AWS CodeDeploy
     # ==================================================
     # Metrics
     # cloudbees for prometheus plugin to get disk usage from instead of scanning cloud storage itself or disabling disk space reporting
@@ -198,27 +201,32 @@ controller:
     - opentelemetry                                     # https://plugins.jenkins.io/opentelemetry/  # for Jaeger
     - prometheus                                        # https://plugins.jenkins.io/prometheus/
     # ==================================================
-    #- Office-365-Connector                             # https://plugins.jenkins.io/Office-365-Connector
-    #- ant                                              # https://plugins.jenkins.io/ant
+    # language support for downloading specific JDKs and build tools
+    #
+    # usually more efficient than doing the download in pipeline code because it's downloaded once and distributed to agents locally as they spawn
+    #
+    #- ant                                              # https://plugins.jenkins.io/ant/
+    #- gradle                                           # https://plugins.jenkins.io/gradle/
+    #- groovy                                           # https://plugins.jenkins.io/groovy/
+    #- junit                                            # https://plugins.jenkins.io/junit/
+    #- maven-plugin                                     # https://plugins.jenkins.io/maven-plugin/
+    #- nodejs                                           # https://plugins.jenkins.io/nodejs/
+    # ==================================================
+    #- Office-365-Connector                             # https://plugins.jenkins.io/Office-365-Connector/
     #- bouncycastle-api                                 # https://plugins.jenkins.io/bouncycastle-api
     #- cloudbees-folder                                 # https://plugins.jenkins.io/cloudbees-folder/
-    #- codedeploy                                       # https://plugins.jenkins.io/codedeploy/  # AWS CodeDeploy
     #- compress-artifacts                               # https://plugins.jenkins.io/compress-artifacts/
     #- conditional-buildstep                            # https://plugins.jenkins.io/conditional-buildstep/  # useless for Pipeline jobs, only useful to old freestyle jobs, and not flexible enough for change freeze periods either
     #- dashboard-view                                   # https://plugins.jenkins.io/dashboard-view/
-    #- email-ext                                        # https://plugins.jenkins.io/email-ext
-    #- external-monitor-job                             # https://plugins.jenkins.io/external-monitor-job
+    #- email-ext                                        # https://plugins.jenkins.io/email-ext/
+    #- external-monitor-job                             # https://plugins.jenkins.io/external-monitor-job/
     #- github-pullrequest                               # https://plugins.jenkins.io/github-pullrequest/
-    #- gradle                                           # https://plugins.jenkins.io/gradle
-    #- javadoc                                          # https://plugins.jenkins.io/javadoc
+    #- javadoc                                          # https://plugins.jenkins.io/javadoc/
     #- jira                                             # https://plugins.jenkins.io/jira/
     #- jquery-detached                                  # https://plugins.jenkins.io/jquery-detached
-    #- junit                                            # https://plugins.jenkins.io/junit/
-    #- mailer                                           # https://plugins.jenkins.io/mailer
-    #- maven-plugin                                     # https://plugins.jenkins.io/maven-plugin/
+    #- mailer                                           # https://plugins.jenkins.io/mailer/
     #- metrics                                          # https://plugins.jenkins.io/metrics/
-    #- nodejs                                           # https://plugins.jenkins.io/nodejs/
-    #- pagerduty                                        # https://plugins.jenkins.io/pagerduty
+    #- pagerduty                                        # https://plugins.jenkins.io/pagerduty/
     #- role-strategy                                    # https://plugins.jenkins.io/role-strategy/  # don't need this if using Azure AD plugin matrix-based security
     #- terraform                                        # https://plugins.jenkins.io/terraform/
     #- view-job-filters                                 # https://plugins.jenkins.io/view-job-filters/
