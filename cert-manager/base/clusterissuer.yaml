@@ -89,6 +89,17 @@ spec:
               name: cloudflare-api-token
               key: cloudflare-api-token
         # use Cloudflare to resolve challenges for example.org
+        #
+        # XXX: hit this bug despite having used exactly this in production before and triple checked the domains list
+        #
+        #   Events:
+        #     Type     Reason  Age                From                 Message
+        #     ----     ------  ----               ----                 -------
+        #     Warning  Solver  40m (x3 over 15h)  cert-manager-orders  Failed to determine a valid solver configuration for the set of domains on the Order: no configured challenge solvers can be used for this challenge
+        #     Warning  Solver  30m                cert-manager-orders  Failed to determine a valid solver configuration for the set of domains on the Order: no configured challenge solvers can be used for this challenge
+        #
+        # XXX: FIX: comment out the selector block to get past it:
+        #
         selector:
           dnsNames:
             - example.org  # XXX: Edit
