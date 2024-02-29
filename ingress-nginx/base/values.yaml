@@ -32,7 +32,9 @@
 #   - enables Mod Security and OWASP rules
 
 ---
-# needed because otherwise the clusterrole and clusterrolebindings don't give permission to the new ingress-nginx-internal namespace
+# fullnameOverride is needed for a second internal-only ingress because otherwise new clusterrole and clusterrolebindings
+# aren't created and the old ones don't give permission to the new ingress-nginx-internal namespace
+# see comments further down about why two ingresses are needed near service.internal and ingressClassResource sections
 #fullnameOverride: ingress-nginx-internal
 controller:
   name: controller
