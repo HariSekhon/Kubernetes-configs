@@ -55,6 +55,11 @@ data:
       projectNamingStrategy: "standard"
       markupFormatter:
         plainText
+      globalNodeProperties:
+      - envVars:
+          env:
+          - key: "MY_ENV_VAR"  # XXX: Edit: whatever system-wide environment variables you need
+            value: "my_value"
       clouds:
       - kubernetes:
           containerCapStr: "30"
