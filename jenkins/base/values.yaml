@@ -230,7 +230,8 @@ controller:
     #- github-pullrequest                               # https://plugins.jenkins.io/github-pullrequest/
     #- javadoc                                          # https://plugins.jenkins.io/javadoc/
     #- jira                                             # https://plugins.jenkins.io/jira/
-    #- jquery-detached                                  # https://plugins.jenkins.io/jquery-detached
+    #- jquery-detached                                  # https://plugins.jenkins.io/jquery-detached/
+    #- mask-passwords                                   # https://plugins.jenkins.io/mask-passwords/
     #- mailer                                           # https://plugins.jenkins.io/mailer/
     #- metrics                                          # https://plugins.jenkins.io/metrics/
     #- pagerduty                                        # https://plugins.jenkins.io/pagerduty/
