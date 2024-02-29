@@ -163,6 +163,7 @@ controller:
     - plugin-usage-plugin                               # https://plugins.jenkins.io/plugin-usage-plugin/
     - slack                                             # https://plugins.jenkins.io/slack/
     - ssh-agent                                         # https://plugins.jenkins.io/ssh-agent/
+    #- ssh-slaves                                       # https://plugins.jenkins.io/ssh-slaves/  # Not needed on Kubernetes, old way of having VMs SSH'd to launch agents
     - thinBackup                                        # https://plugins.jenkins.io/thinBackup/
     - timestamper                                       # https://plugins.jenkins.io/timestamper/
     - view-job-filters                                  # https://plugins.jenkins.io/view-job-filters/
@@ -172,7 +173,9 @@ controller:
     # SSO
     - saml                                              # https://plugins.jenkins.io/saml/  # use instead of Azure AD plugin which is EOL Feb 2024
     - google-login                                      # https://plugins.jenkins.io/google-login/
-    # - ldap                                            # https://plugins.jenkins.io/ldap/
+    #- ldap                                             # https://plugins.jenkins.io/ldap/
+    #- matrix-auth                                      # https://plugins.jenkins.io/matrix-auth/
+    #- pam-auth                                         # https://plugins.jenkins.io/pam-auth/
     # ==================================================
     # Code Quality
     #- clover                                           # https://plugins.jenkins.io/clover/
@@ -201,13 +204,14 @@ controller:
     - opentelemetry                                     # https://plugins.jenkins.io/opentelemetry/  # for Jaeger
     - prometheus                                        # https://plugins.jenkins.io/prometheus/
     # ==================================================
-    # language support for downloading specific JDKs and build tools
+    # Languages & Build Systems - supports downloading specific JDK & build tool version
     #
-    # usually more efficient than doing the download in pipeline code because it's downloaded once and distributed to agents locally as they spawn
+    #   usually more efficient than doing the download in pipeline code because it's downloaded once to the Jenkins server and then distributed locally to agents as they spawn
     #
     #- ant                                              # https://plugins.jenkins.io/ant/
     #- gradle                                           # https://plugins.jenkins.io/gradle/
     #- groovy                                           # https://plugins.jenkins.io/groovy/
+    #- pyenv-pipeline                                   # https://plugins.jenkins.io/pyenv-pipeline/
     #- junit                                            # https://plugins.jenkins.io/junit/
     #- maven-plugin                                     # https://plugins.jenkins.io/maven-plugin/
     #- nodejs                                           # https://plugins.jenkins.io/nodejs/
