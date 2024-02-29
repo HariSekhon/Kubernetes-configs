@@ -62,6 +62,7 @@ controller:
                 values:
                   - spot
     podAntiAffinity:
+      # XXX: relax this to preferred if doing internal-only ingresses
       requiredDuringSchedulingIgnoredDuringExecution:
         - topologyKey: topology.kubernetes.io/zone  # XXX: replace this with topologySpreadConstraints below
           labelSelector:
