@@ -53,6 +53,7 @@ spec:
       #
       # https://cert-manager.io/docs/configuration/acme/http01/
       #
+      # XXX: HTTP cannot be used for wildcard SSL certs validation - must configure DNS resolver instead for that
       - http01:
           ingress:
             class: nginx
