@@ -231,7 +231,7 @@ controller:
     #- javadoc                                          # https://plugins.jenkins.io/javadoc/
     #- jira                                             # https://plugins.jenkins.io/jira/
     #- jquery-detached                                  # https://plugins.jenkins.io/jquery-detached/
-    #- mask-passwords                                   # https://plugins.jenkins.io/mask-passwords/
+    #- mask-passwords                                   # https://plugins.jenkins.io/mask-passwords/  # shouldn't need this if you're using the credentials plugin properly Jenkins redacts in logs
     #- mailer                                           # https://plugins.jenkins.io/mailer/
     #- metrics                                          # https://plugins.jenkins.io/metrics/
     #- pagerduty                                        # https://plugins.jenkins.io/pagerduty/
