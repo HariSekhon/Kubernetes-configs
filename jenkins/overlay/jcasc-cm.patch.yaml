@@ -131,5 +131,5 @@ data:
         usageStatisticsEnabled: true
     unclassified:
       location:
-        adminAddress: "devops@domain.com"
-        url: "https://jenkins.domain.com"
+        adminAddress: "devops@domain.com"  # XXX: Edit
+        url: "https://jenkins.domain.com"  # XXX: Edit
