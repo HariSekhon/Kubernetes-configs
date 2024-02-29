@@ -32,6 +32,8 @@
 #   - enables Mod Security and OWASP rules
 
 ---
+# needed because otherwise the clusterrole and clusterrolebindings don't give permission to the new ingress-nginx-internal namespace
+#fullnameOverride: ingress-nginx-internal
 controller:
   name: controller
   replicaCount: 3  # XXX: capped by podAntiAffinity of zones vs number of zones - would have to relax that to have more ingress controllers
