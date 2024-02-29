@@ -188,6 +188,11 @@ controller:
       enabled: true
     internal:
       # -- Enables an additional internal load balancer (besides the external one).
+      #
+      # XXX: don't set this in addition to external.enabled=True because there is no differentiated ingressClass so apps will go to the wrong one
+      #
+      #     https://github.com/kubernetes/ingress-nginx/issues/10057
+      #
       enabled: false
       # -- Annotations are mandatory for the load balancer to come up. Varies with the cloud service.
       annotations:
@@ -236,6 +241,15 @@ controller:
       - 2803:f800::/32
       - 2a06:98c0::/29
       - 2c0f:f248::/32
+
+  # XXX: enable this instead of service.internal.enabled=True and service.external.enabled=False
+  #      since it can only be one or the other for practical purposes - see comment with GitHub issue above
+  #ingressClassResource:
+  #  name: nginx-internal
+  #  enabled: true
+  #  default: true
+  #  controllerValue: "k8s.io/ingress-nginx-internal"
+  #ingressClass: nginx-internal
 
   # For global settings to apply to all ingresses using this ingress controller
   # https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
