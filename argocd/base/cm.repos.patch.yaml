@@ -49,7 +49,7 @@ metadata:
   #
   # After much testing this is because the upstream ArgoCD base manifests for 2.0.3 defined in kustomization.yaml come without namespaces specified, and the namespace override in kustomization happens after this patching which is too late
   #
-  #namespace: argocd  # breaks kustomize patching of argocd base
+  namespace: argocd  # breaks kustomize patching of argocd base if using url-based install rather than helm
   labels:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
