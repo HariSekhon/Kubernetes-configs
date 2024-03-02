@@ -33,3 +33,6 @@ resources:
   #- ingress.yaml
   # XXX: Edit ingress address before uncommenting
   #- ingress-grpc.yaml
+
+patches:
+  - path: cm.url.patch.yaml
