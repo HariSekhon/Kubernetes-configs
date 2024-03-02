@@ -38,7 +38,7 @@ configs:
     create: true
 
     # -- Argo CD's externally facing base URL (optional). Required when configuring SSO
-    # XXX: Edit
+    # XXX: Edit / Patch this - see ../overlay/cm.url.path.yaml
     url: https://argocd.DOMAIN.COM/
 
     # OIDC configuration as an alternative to dex (optional).
