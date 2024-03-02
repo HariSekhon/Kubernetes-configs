@@ -59,3 +59,12 @@ data:
       # XXX: AAD group usage requires "groupMembershipClaims": "All" in the App Registration manifest
       g, "84ce98d1-e359-4f3b-85af-985b458de3c6", role:org-admin
   scopes: '[roles, email]'
+
+  #policy.default: role:admin
+	# set from role:readonly to role:admin because user wildcard doesn't work:
+  #
+  #   https://github.com/argoproj/argo-cd/issues/17377
+  #
+  #policy.csv: |
+  #  p, *, applications, sync, */*, allow
+  #scopes: '[groups, email]'
