@@ -220,7 +220,8 @@ controller:
     #- nodejs                                           # https://plugins.jenkins.io/nodejs/
     # ==================================================
     #- Office-365-Connector                             # https://plugins.jenkins.io/Office-365-Connector/
-    #- bouncycastle-api                                 # https://plugins.jenkins.io/bouncycastle-api
+    #- bouncycastle-api                                 # https://plugins.jenkins.io/bouncycastle-api/
+    #- cctray-xml                                       # https://plugins.jenkins.io/cctray-xml/  # provides the /cc.xml/ endpoint for CCMenu and similar desktop notification tools
     #- cloudbees-folder                                 # https://plugins.jenkins.io/cloudbees-folder/
     #- compress-artifacts                               # https://plugins.jenkins.io/compress-artifacts/
     #- conditional-buildstep                            # https://plugins.jenkins.io/conditional-buildstep/  # useless for Pipeline jobs, only useful to old freestyle jobs, and not flexible enough for change freeze periods either
