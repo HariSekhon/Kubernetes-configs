@@ -28,9 +28,7 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  #- aws-secret-store.yaml
-  #- gcp-secret-store.yaml
-  #- secret-store.yaml
+  # if this secret is available and the same in all environments put it in base to reduce duplicate config
   #- external-secret.yaml
 
 helmCharts:
