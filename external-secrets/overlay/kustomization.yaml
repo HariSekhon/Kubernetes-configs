@@ -24,6 +24,10 @@ kind: Kustomization
 
 resources:
   - ../base
+  #- aws-secret-store.yaml
+  #- gcp-secret-store.yaml
+  #- external-secret.yaml
+  #- secret-store.yaml
 
 patches:
   - path: serviceaccount.jsonpatch.yaml
