@@ -78,41 +78,39 @@ helmCharts:
     includeCRDs: true
     valuesFile: values.yaml
 
-# XXX: don't define namespace in these patches, will break patching, see cm.repos.patch.yaml for details why
-patchesStrategicMerge:
+# XXX: don't define namespace in these patches if installed from url rather than helm, will break patching, see cm.repos.patch.yaml for details why
+patches:
   # Repos:
   #
-  #- cm.repos.patch.yaml
+  #- path: cm.repos.patch.yaml
   #
   # Bugfix for GitHub updating its security keys, more details in the patch
-  #- ssh-known-hosts-cm.patch.yaml
+  #- path: ssh-known-hosts-cm.patch.yaml
   #
   # Kustomize - download specific version:
   #
   #- repo-server.kustomize.patch.yaml
-  - cm.kustomize-buildoptions.patch.yaml
+  - path: cm.kustomize-buildoptions.patch.yaml
   #
-  #- cm.resource-exclusions.patch.yaml
+  #- path: cm.resource-exclusions.patch.yaml
   #
   # Azure AD SSO patches:
   #
-  #- cm.azure-ad.patch.yaml
-  #- cm.users.patch.yaml
-  #- rbac-cm.patch.yaml
-  #- azure-ad-external-secret.yaml  # XXX: Edit this if uncommenting
+  #- path: cm.azure-ad.patch.yaml
+  #- path: cm.users.patch.yaml
+  #- path: rbac-cm.patch.yaml
+  #- path: azure-ad-external-secret.yaml  # XXX: Edit this if uncommenting
   #
   # GitHub Webhook Secret:
   #
-  #- secret.github-webhook.patch.yaml
+  #- path: secret.github-webhook.patch.yaml
   #
   # Status Badge:
   #
-  #- cm.statusbadge.patch.yaml
+  #- path: cm.statusbadge.patch.yaml
   #
   # done in namespace.yaml
-  #- goldilocks-namespace-enable.patch.yaml
-
-patches:
+  #- path: goldilocks-namespace-enable.patch.yaml
   - target:
       version: argoproj.io/v1alpha1
       kind: AppProject
