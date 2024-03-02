@@ -157,7 +157,6 @@ controller:
     - disk-usage                                        # https://plugins.jenkins.io/disk-usage/
     - git                                               # https://plugins.jenkins.io/git/
     - github                                            # https://plugins.jenkins.io/github/
-    - greenballs                                        # https://plugins.jenkins.io/greenballs/
     #- jfrog                                            # https://plugins.jenkins.io/jfrog/
     - jobConfigHistory                                  # https://plugins.jenkins.io/jobConfigHistory/  # Saves every job config change, like local VCS. See also the Jenkins job to auto-backport job XMLs to Git in https://github.com/HariSekhon/Jenkins
     - kubernetes                                        # https://plugins.jenkins.io/kubernetes/
@@ -228,6 +227,7 @@ controller:
     #- dashboard-view                                   # https://plugins.jenkins.io/dashboard-view/
     #- email-ext                                        # https://plugins.jenkins.io/email-ext/
     #- external-monitor-job                             # https://plugins.jenkins.io/external-monitor-job/
+    #- greenballs                                       # https://plugins.jenkins.io/greenballs/  # not used in recent versions due to UI change
     #- github-pullrequest                               # https://plugins.jenkins.io/github-pullrequest/
     #- javadoc                                          # https://plugins.jenkins.io/javadoc/
     #- jira                                             # https://plugins.jenkins.io/jira/
