@@ -161,7 +161,7 @@ controller:
     - jobConfigHistory                                  # https://plugins.jenkins.io/jobConfigHistory/  # Saves every job config change, like local VCS. See also the Jenkins job to auto-backport job XMLs to Git in https://github.com/HariSekhon/Jenkins
     - kubernetes                                        # https://plugins.jenkins.io/kubernetes/
     - lockable-resources                                # https://plugins.jenkins.io/lockable-resources/
-    - pipeline-github-lib                               # https://plugins.jenkins.io/pipeline-github-lib/  # to allow dynamic loading for public github libraries via: @Library('github.com/HariSekhon/Jenkins') _
+    #- pipeline-github-lib                              # https://plugins.jenkins.io/pipeline-github-lib/  # to allow dynamic loading for public github libraries via: @Library('github.com/HariSekhon/Jenkins') _  # should be pulled in automatically by Pipeline plugins as a dependency
     - plugin-usage-plugin                               # https://plugins.jenkins.io/plugin-usage-plugin/
     - slack                                             # https://plugins.jenkins.io/slack/
     - ssh-agent                                         # https://plugins.jenkins.io/ssh-agent/
