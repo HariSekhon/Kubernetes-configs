@@ -40,6 +40,7 @@ data:
       authorizationStrategy:
         loggedInUsersCanDoAnything:
           allowAnonymousRead: false
+      # XXX: delete this whole securityRealm section if enabling Google auth plugin so that it doesn't revert Jenkins to local admin local
       securityRealm:
         local:
           allowsSignup: false
