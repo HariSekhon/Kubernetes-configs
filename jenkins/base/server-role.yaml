@@ -21,7 +21,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: jenkins
-  name: jenkins-server
+  name: jenkins
 rules:
   - apiGroups: ["", "apps"] # "" indicates the core API group
     resources: ["*"]
