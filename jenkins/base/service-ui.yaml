@@ -27,7 +27,7 @@ metadata:
 spec:
   clusterIP: None
   selector:
-    app: jenkins-server
+    app: jenkins
   ports:
     - name: jenkins-ui
       protocol: TCP
