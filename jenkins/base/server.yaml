@@ -28,22 +28,22 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: jenkins-server
+  name: jenkins
   namespace: jenkins
   labels:
-    app: jenkins-server
+    app: jenkins
   annotations:
     datree.skip/CONTAINERS_MISSING_READINESSPROBE_KEY: Jenkins readinessProbe prevents accessing setup and restarting screen
 spec:
   replicas: 1
-  serviceName: jenkins-server
+  serviceName: jenkins
   selector:
     matchLabels:
-      app: jenkins-server
+      app: jenkins
   template:
     metadata:
       labels:
-        app: jenkins-server
+        app: jenkins
     spec:
       priorityClassName: high-priority  # requires priorityclass.yaml
       affinity:
@@ -76,9 +76,9 @@ spec:
         #   https://docs.cloudbees.com/docs/cloudbees-ci-kb/latest/cloudbees-ci-on-modern-cloud-platforms/timeout-when-attaching-volumes-in-kubernetes
         #
         fsGroupChangePolicy: OnRootMismatch
-      serviceAccountName: jenkins-server
+      serviceAccountName: jenkins
       containers:
-        - name: jenkins-server
+        - name: jenkins
           # NOTE: BEWARE LTS tag will auto-upgrade - will inevitably break some plugins which could break SSO login or all pipelines referencing plugin method such as slackSend with the error below:
           #
           #         java.lang.NoSuchMethodError: 'com.google.common.hash.HashCode com.google.common.hash.HashFunction.hashString(java.lang.CharSequence)'
