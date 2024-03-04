@@ -48,8 +48,12 @@ The sub-directories contain ready-to-run real world apps that I've run across en
 
 Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
 
-The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) contains config for using static public IP and locking down your cloud load balancer's firewall rules eg. to Cloudflare Proxied or VPN IPs only.
-
+The [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) and
+[ingress.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml) configs contain settings
+for using static public IP addresses and locking down your cloud load balancer's firewall rules eg. to private IP
+addresses, and patches for Cloudflare Proxied or VPN IPs. You may need to extend those IP lists to your office /
+VPN / public addresses if really want to permit direct internet access to your ingresses and aren't proxying them
+through a WAF in proxied mode etc.
 
 ## Apps
 
