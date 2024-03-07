@@ -41,9 +41,8 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
   namespace: argocd  # XXX: only use with Helm override, fails to match direct yaml install
-  annotations:
-    checkov.io/skip1: CKV_K8S_21=breaks kustomize patching of base
-  namespace: argocd  # breaks kustomize patching of argocd base if using url based install rather than helm, see cm.repos.patch.yaml for details why
+  #annotations:
+  #  checkov.io/skip1: CKV_K8S_21=breaks kustomize patching of base
   labels:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd  # necessary for configmap to be picked up my ArgoCD
