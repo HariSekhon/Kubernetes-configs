@@ -43,7 +43,7 @@ on:
 
 env:
   # XXX: https://github.com/wiremind/wiremind-helm-charts/issues/259
-  IGNORE_REGEX: clair/
+  IGNORE_REGEX: clair/|rancher/
   DEBUG: ${{ github.event.inputs.debug == true || '' }}
 
 permissions:
