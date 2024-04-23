@@ -37,7 +37,7 @@ metadata:
 #
 #  # only announce from specific interfaces - AND'd with nodeSelectors below
 #  interfaces:
-#  	 - eth0
+#    - eth0
 #    - eth1
 #
 #  # if only some node are exposed to the subnet, limit advertisements to those nodes only
@@ -55,7 +55,7 @@ metadata:
 #  namespace: metallb
 #spec:
 #  ipAddressPools:
-#  	- second-pool
+#    - second-pool
 #  nodeSelectors:
-#  	 - matchLabels:
+#    - matchLabels:
 #        kubernetes.io/hostname: NodeC
