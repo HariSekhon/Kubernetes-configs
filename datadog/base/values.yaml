@@ -26,7 +26,7 @@
 
 ---
 # registry -- Registry to use for all Agent images (default gcr.io)
-#registry: gcr.io/datadoghq			   # GCP (default)
+#registry: gcr.io/datadoghq        # GCP (default)
 #registry: public.ecr.aws/datadog  # AWS
 #registry: docker.io/datadog       # DockerHub
 
