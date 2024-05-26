@@ -256,17 +256,55 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: my-secret
+          #
+          # Probe fields:
+          #
+          #   https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+          #
+          # newer versions of Kubernetes
+          # use this for slow starting applications without compromising the responsiveness of readiness or liveness probes which do not start until after this
+          #startupProbe:
+          #  # http, tcp or exec
+          #  httpGet:
+          #    path: /healthz
+          #    port: 8080  # or 'http' to use name from ports section
+          #    #httpHeaders:
+          #    #  - name: Custom-Header
+          #    #    value: Awesome
+          #    #scheme: HTTPS
+          #    #insecureSkipTLSVerify: true
+          #  # only uncomment if you can't use http check, must delete http check otherwise will get this error:
+          #  # invalid: spec.containers[0].livenessProbe.tcpSocket: Forbidden: may not specify more than 1 handler type
+          #  #tcpSocket:
+          #  #  port: 8080
+          #  #grpc:  # Kubernetes 1.27+
+          #  #  port: 2379  # must be number, not port name or fqdn
+          #  #  #service: readiness  # to use same grpc port to distinguish between checks
+          #  #exec:
+          #  #  command:
+          #  #    - pgrep -f somecommand
+          #  initialDelaySeconds: 0 # default
+          #  successThreshold: 1    # default
+          #  failureThreshold: 3    # default
+          #  periodSeconds: 10      # default (interval)
+          #  timeoutSeconds: 1      # default
           readinessProbe:
             # http, tcp or exec
             httpGet:
               path: /healthz
-              port: 8080
+              port: 8080  # or 'http' to use name from ports section
+              #httpHeaders:
+              #  - name: Custom-Header
+              #    value: Awesome
               #scheme: HTTPS
               #insecureSkipTLSVerify: true
             # only uncomment if you can't use http check, must delete http check otherwise will get this error:
             # invalid: spec.containers[0].livenessProbe.tcpSocket: Forbidden: may not specify more than 1 handler type
             #tcpSocket:
             #  port: 8080
+            #grpc:  # Kubernetes 1.27+
+            #  port: 2379  # must be number, not port name or fqdn
+            #  #service: readiness  # to use same grpc port to distinguish between checks
             #exec:
             #  command:
             #    - pgrep -f somecommand
@@ -278,11 +316,17 @@ spec:
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 8080
+              port: 8080  # or 'http' to use name from ports section
+              #httpHeaders:
+              #  - name: Custom-Header
+              #    value: Awesome
               #scheme: HTTPS
               #insecureSkipTLSVerify: true
             #tcpSocket:
             #  port: 8080
+            #grpc:  # Kubernetes 1.27+
+            #  port: 2379  # must be number, not port name or fqdn
+            #  #service: readiness  # to use same grpc port to distinguish between checks
             #exec:
             #  command:
             #    - pgrep -f somecommand
