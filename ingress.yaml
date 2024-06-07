@@ -56,6 +56,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     #nginx.ingress.kubernetes.io/force-ssl-redirect: "true"  # redirect even if the ingress doesn't have TLS
 
+    # =============
     # Rate Limiting - mitigate DoS / brute force attacks
     #
     #   https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#rate-limiting
@@ -65,10 +66,13 @@ metadata:
     #nginx.ingress.kubernetes.io/limit-rpm: 60  # req/min
     #nginx.ingress.kubernetes.io/limit-whitelist: 10.0.0.0/8,172.16.0.0/12,192.168.0.0./16
 
+    # ======================
     # rewrite /APP to just /
     nginx.ingress.kubernetes.io/rewrite-target: /
     #nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 
+    # ==============================
+    # IP Whitelisting / Blacklisting
     # XXX: Edit to make available externally or apply common ingress.nginx.patch.yaml with shared IP list eg. Cloudflare
     # XXX: instead of putting Cloudflare IPs in every ingress - see the ingress-nginx/base/annotations.patch.yaml to apply to all ingresses
     nginx.ingress.kubernetes.io/whitelist-source-range: |
@@ -77,6 +81,7 @@ metadata:
       192.168.0.0/16
     #nginx.ingress.kubernetes.io/denylist-source-range: x.x.x.x/y  # block known bad CIDR
 
+    # ============
     # Mod Security
     #
     #   https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#modsecurity
@@ -84,6 +89,16 @@ metadata:
     #nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     #nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
 
+    # =================
+    # URL Path Blocking eg. Coder block SSH in open source version because enterprise version is expensive
+    #
+    #nginx.ingress.kubernetes.io/configuration-snippet: |
+    #  location ~* /api/v2/deployment/ssh {
+    #    deny all
+    #    return 403
+    #  }
+
+    # ======
     # Canary
     #
     #   https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/
@@ -97,10 +112,12 @@ metadata:
     #nginx.ingress.kubernetes.io/canary-by-header: "some-header"
     #nginx.ingress.kubernetes.io/canary-by-header-value: "some-value"
 
+    # ======================
     # Mirror to test backend
     #
     # nginx.ingress.kubernetes.io/mirror-target: https://test.env.com/$request_uri
 
+    # =======
     # AWS EKS
     #
     #   https://aws.amazon.com/premiumsupport/knowledge-center/eks-configure-nginx-ingress-controller/
@@ -111,6 +128,7 @@ metadata:
     # nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
     # nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
 
+    # ============================================
     # Enable OpenTracing only for this one ingress
     #
     #nginx.ingress.kubernetes.io/enable-opentracing: "true"
