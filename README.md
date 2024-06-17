@@ -211,6 +211,12 @@ A production Jenkins on Kubernetes I built for a client with auto-spawning agent
     - [gcrDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/gcrDockerAuth.groovy), [garDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/garDockerAuth.groovy)
     - among others in [vars/](https://github.com/HariSekhon/Jenkins/tree/master/vars) and don't forget about the epic [Jenkinsfile](https://github.com/HariSekhon/Jenkins/blob/master/Jenkinsfile)
 
+#### Useful Notes:
+
+[HariSekhon/Knowledge-Base - Jenkins](https://github.com/HariSekhon/Knowledge-Base/blob/main/jenkins.md)
+
+[HariSekhon/Knowledge-Base - Jenkins-on-Kubernetes](https://github.com/HariSekhon/Knowledge-Base/blob/main/jenkins-on-kubernetes.md)
+
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/jenkins_kubernetes_cicd.svg)
 
 screenshot:
