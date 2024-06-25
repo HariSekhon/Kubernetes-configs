@@ -54,6 +54,11 @@ addresses, and patches for Cloudflare Proxied or VPN IPs. You may need to extend
 VPN / public addresses if really want to permit direct internet access to your ingresses and aren't proxying them
 through a WAF in proxied mode etc.
 
+See also the [Dockerfile](https://github.com/HariSekhon/Templates/blob/master/Dockerfile) template in the
+[HariSekhon/Templates](https://github.com/HariSekhon/Templates) repo to containerize your custom apps for deploying
+on to Kubernetes.
+
+
 ## Apps
 
 Real-world app deployments are found in the more specific `<app>/` directories.
