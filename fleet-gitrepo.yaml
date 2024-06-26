@@ -33,5 +33,5 @@ spec:
   repo: https://github.com/rancher/fleet-examples  # XXX: Edit
   paths:
     # XXX: Edit
-		- single-cluster/manifests
-		- single-cluster/helm
+    - single-cluster/manifests
+    - single-cluster/helm
