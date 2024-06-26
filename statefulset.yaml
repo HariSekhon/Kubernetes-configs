@@ -238,7 +238,6 @@ spec:
             #  port: 2379  # must be number, not port name or fqdn
             #  #service: readiness  # to use same grpc port to distinguish between checks
             initialDelaySeconds: 0 # default
-            initialDelaySeconds: 0 # default
             successThreshold: 1    # default
             failureThreshold: 3    # default
             periodSeconds: 10      # default (interval)
