@@ -77,6 +77,33 @@ Advanced auto-scaling production-grade CI/CD on Kubernetes:
 - [Selenium Grid](https://www.selenium.dev/documentation/grid/) - simple and distributed auto-scaling deployments. Start here: [selenium-grid/base/kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid/base/kustomization.yaml) / [selenium-grid-distributed/base/kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-distributed/base/kustomization.yaml)
 
 
+## Helm Repos
+
+Helm repos you should probably have installed:
+
+<!--
+
+Generate table from Kubernetes repo using this command:
+
+  { echo "| Repo Label | URL |"; echo "| --- | --- |" ; dec $k8s/helm-repos.txt | gsed 's/^/| /; s/  \+/ | /; s/$/
+|/' ; } | pandoc -t gfm | pbcopy
+
+-->
+
+| Repo Label       | URL                                 |
+|------------------|-------------------------------------|
+| stable           | https://charts.helm.sh/stable       |
+| bitnami          | https://charts.bitnami.com/bitnami  |
+| fairwinds-stable | https://charts.fairwinds.com/stable |
+
+These are listed in [helm-repos.txt](https://github.com/HariSekhon/Kubernetes-configs/blob/master/helm-repos.txt)
+and can be quickly installed via the script [install_repos.sh](https://github.com/HariSekhon/Kubernetes-configs/blob/master/install_repos.sh):
+
+```shell
+./install_repos.sh
+```
+
+
 ## Helm + Kustomize integration
 
 See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) for 2 methods provided:
@@ -115,6 +142,13 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/configs/.vimrc) can open these URLs from the current file via a hotkey!)
 
+See also [HariSekhon/Knowledge-Base](https://github.com/HariSekhon/Knowledge-Base), especially:
+
+- [Kubernetes](https://github.com/HariSekhon/Knowledge-Base/blob/main/kubernetes.md)
+- [Helm](https://github.com/HariSekhon/Knowledge-Base/blob/main/helm.md)
+- [Kustomize](https://github.com/HariSekhon/Knowledge-Base/blob/main/kustomize.md)
+- [ArgoCD](https://github.com/HariSekhon/Knowledge-Base/blob/main/argocd.md)
+- [Cert Manager](https://github.com/HariSekhon/Knowledge-Base/blob/main/cert-manager.md)
 
 ## Extra Docs
 
