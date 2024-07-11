@@ -1,0 +1,25 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2024-07-11 16:35:26 +0200 (Thu, 11 Jul 2024)
+#
+#  vim:ts=4:sts=4:sw=4:et
+#
+#  https///github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+
+# ============================================================================ #
+#                        H e l m   C h a r t   R e p o s
+# ============================================================================ #
+
+# Helm repos you should probably have installed
+
+stable              https://charts.helm.sh/stable
+
+bitnami             https://charts.bitnami.com/bitnami
+
+fairwinds-stable    https://charts.fairwinds.com/stable
