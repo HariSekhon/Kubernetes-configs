@@ -13,6 +13,8 @@
 #  https://www.linkedin.com/in/HariSekhon
 #
 
+# Install Helm Chart Repos listed in adjacent helm-repos.txt file
+
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 srcdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
