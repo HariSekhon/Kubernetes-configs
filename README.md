@@ -89,7 +89,8 @@ Helm repos you should probably have installed:
 
 Table generated from [helm-repos.txt](https://github.com/HariSekhon/Kubernetes-configs/blob/master/helm-repos.txt)
 by script [generate_repos_markdown_table.sh](https://github.com/HariSekhon/Kubernetes-configs/blob/master/generate_repos_markdown_table.sh)
-and can be quickly installed via the script [install_repos.sh](https://github.com/HariSekhon/Kubernetes-configs/blob/master/install_repos.sh):
+
+These repos can quickly installed in one command using script [install_repos.sh](https://github.com/HariSekhon/Kubernetes-configs/blob/master/install_repos.sh):
 
 ```shell
 ./install_repos.sh
