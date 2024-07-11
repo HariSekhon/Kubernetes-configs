@@ -14,6 +14,10 @@
 #
 
 # Install Helm Chart Repos listed in adjacent helm-repos.txt file
+#
+# Assumes you have Helm already installed, see:
+#
+#   https://github.com/HariSekhon/Knowledge-Base/blob/main/helm.md#install
 
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
