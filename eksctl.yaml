@@ -1,0 +1,66 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2022-12-11 13:35:53 +0000 (Sun, 11 Dec 2022)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https://github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                            E K S C t l   C o n f i g
+# ============================================================================ #
+
+# run: eksctl create cluster -f eksctl.yaml
+
+# https://eksctl.io/usage/creating-and-managing-clusters/
+
+# https://eksctl.io/usage/schema/
+
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: hari
+  region: eu-west-2
+  #version: "1.20"
+
+# creates a VPC by default - careful, you'll hit your account VPC limits, causing a rollback
+vpc:
+  #cidr: 10.0.0.0/16
+  # use an existing VPC by providing the subnets
+  subnets:
+    private:
+      eu-west-2a: {id: subnet-xxxxxxxxxxxxxxxxx}
+      eu-west-2b: {id: subnet-xxxxxxxxxxxxxxxxx}
+      eu-west-2c: {id: subnet-xxxxxxxxxxxxxxxxx}
+
+nodeGroups:
+  - name: ng-1
+    # https://aws.amazon.com/ec2/instance-types/
+    instanceType: t2.micro
+    desiredCapacity: 3
+    #volumeSize: 80
+    #ssh:
+    #  allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
+  #- name: ng-2
+  #  instanceType: m5.xlarge
+  #  desiredCapacity: 2
+  #  volumeSize: 100
+  #  ssh:
+  #    publicKeyPath: ~/.ssh/ec2_id_rsa.pub
+
+#managedNodeGroups:
+#  - instanceType: m5.large
+#    amiFamily: AmazonLinux2
+#    name: eks-kapenter-demo-ng
+#    desiredCapacity: 1
+#    minSize: 1
+#    maxSize: 5
