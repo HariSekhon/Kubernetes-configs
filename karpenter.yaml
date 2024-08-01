@@ -1,0 +1,55 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2024-08-01 22:26:58 +0300 (Thu, 01 Aug 2024)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https///github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                               K a r p e n t e r
+# ============================================================================ #
+
+# Cluster Autoscaler
+#
+# https://karpenter.sh/
+
+---
+apiVersion: karpenter.sh/v1alpha5
+kind: Provisioner
+metadata:
+name: default
+spec:
+  # requirements constrain parameters of nodes to provision
+  requirements:
+    - key: node.kubernetes.io/instance-type  # defaults to all instance types if omitted
+      operator: In  # or NotIn
+      values:
+        - m5.large
+        - m5.2xlarge
+    - key: topology.kubernetes.io/zone  # defaults to all zones if omitted
+      operator: In  # or NotIn
+      values:
+        - eu-west-1a
+        - eu-west-1b
+        - eu-west-1c"]
+    - key: kubernetes.io/arch  # defaults to all architectures if omitted
+      operator: In  # or NotIn
+      values:
+        - arm64
+        - amd64
+    - key: karpenter.sh/capacity-type  # defaults to the webhook for the AWS cloud on-demand provider if omitted
+      operator: In  # or NotIn
+      values:
+        - spot
+        - on-demand
+  provider:
+    instanceProfile: KarpenterNodeInstanceProfile-eks-karpenter-demo
+  ttlSecondsAfterEmpty: 30
