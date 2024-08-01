@@ -21,6 +21,9 @@
 #
 # https://karpenter.sh/
 
+# XXX: do not use with traditional cluster autoscaling as there will be a race condition
+#      between the two cluster autoscalers trying to scale up nodes in response to unscheduleable pods
+
 ---
 apiVersion: karpenter.sh/v1alpha5
 kind: Provisioner
@@ -52,4 +55,5 @@ spec:
         - on-demand
   provider:
     instanceProfile: KarpenterNodeInstanceProfile-eks-karpenter-demo
+  # terminate empty nodes after this many seconds of being idle
   ttlSecondsAfterEmpty: 30
