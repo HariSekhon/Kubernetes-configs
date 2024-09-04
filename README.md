@@ -22,7 +22,6 @@
 [![JSON](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/json.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/json.yaml)
 [![Validation](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/validate.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/validate.yaml)
 
-
 [![Pluto](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/pluto.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/pluto.yaml)
 [![Kustomize Nova](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-nova.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-nova.yaml)
 [![Checkov](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/checkov.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/checkov.yaml)
@@ -42,7 +41,6 @@ The top-level directory contains standard Kubernetes object templates with many 
 
 The sub-directories contain ready-to-run real world apps that I've run across environments.
 
-
 ## Templates
 
 Start with [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml) / [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml), for advanced users see [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
@@ -58,13 +56,11 @@ See also the [Dockerfile](https://github.com/HariSekhon/Templates/blob/master/Do
 [HariSekhon/Templates](https://github.com/HariSekhon/Templates) repo to containerize your custom apps for deploying
 on to Kubernetes.
 
-
 ## Apps
 
 Real-world app deployments are found in the more specific `<app>/` directories.
 
 These follow the standard Kustomize `<app>/base/` and `<app>/overlay/` layout to make it easy to use as-is by just tweaking a couple settings in the overlay to your specific environment.
-
 
 ## CI/CD
 
@@ -75,7 +71,6 @@ Advanced auto-scaling production-grade CI/CD on Kubernetes:
   - see also: [Jenkins](https://github.com/HariSekhon/Jenkins) repo with advanced Jenkinsfile & Jenkins Shared Library
 - [TeamCity](https://www.jetbrains.com/teamcity/) - teamcity server and dynamically scaling agents on kubernetes. Start here: [teamcity/base/kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/teamcity/base/kustomization.yaml)
 - [Selenium Grid](https://www.selenium.dev/documentation/grid/) - simple and distributed auto-scaling deployments. Start here: [selenium-grid/base/kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid/base/kustomization.yaml) / [selenium-grid-distributed/base/kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/selenium-grid-distributed/base/kustomization.yaml)
-
 
 ## Helm Repos
 
@@ -96,16 +91,14 @@ These repos can quickly installed in one command using script [install_repos.sh]
 ./install_repos.sh
 ```
 
-
 ## Helm + Kustomize integration
 
 See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml) for 2 methods provided:
 
 1. template the Helm chart using a `values.yaml` to Git and serve from there (see [DevOps Bash Tools](https://github.com/HariSekhon/DevOps-Bash-tools) for the `helm_template.sh` convenience script)
-2. dynamically load the Helm chart from upstream with a `values.yaml`
+1. dynamically load the Helm chart from upstream with a `values.yaml`
 
 ...then patch override anything the chart doesn't directly support using the standard Kustomize patching examples given in the [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kustomization.yaml).
-
 
 ## Production Ready Checklist
 
@@ -134,7 +127,6 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 - Helm is not IaC idempotent by itself - that is PoC territory - you must wrap it in Kustomize, ArgoCD or similar to detect live drift!
 - Quickly update any Helm Charts in a `kustomization.yaml` file using [kustomize_update_helm_chart_versions.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/kustomize_update_helm_chart_versions.sh) in the [DevOps Bash Tools](https://github.com/HariSekhon/DevOps-Bash-tools) repo
 
-
 ## Further Documention
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/configs/.vimrc) can open these URLs from the current file via a hotkey!)
@@ -151,18 +143,15 @@ See also [HariSekhon/Knowledge-Base](https://github.com/HariSekhon/Knowledge-Bas
 
 [Datree Kubernetes ArgoCD best practices](https://www.datree.io/resources/argocd-best-practices-you-should-know)
 
-
 ## Environment Enhancements
 
 [.envrc](https://github.com/HariSekhon/Kubernetes-configs/blob/master/.envrc) - use with `direnv` to auto-load correct Kubernetes context isolated to current shell to avoid race conditions between shells and scripts caused by naively changing the global `~/.kube/config` context
 
 Shortcut symlinks are for faster instantiation from these configs using the standard kubernetes shortcuts such as `new pvc.yaml` - see the [Templates](https://github.com/HariSekhon/Templates) repo for more details on the `new` command to fast create new files from templates.
 
-
 ## Diagrams
 
 For more amazing diagrams see [HariSekhon/Diagrams-as-Code](https://github.com/HariSekhon/Diagrams-as-Code)
-
 
 ### Kubernetes Deployment with Horizontal Pod Autoscaler and Ingress
 
@@ -172,7 +161,6 @@ For more amazing diagrams see [HariSekhon/Diagrams-as-Code](https://github.com/H
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_deployment_hpa_ingress.png)
 
-
 ### Kubernetes Stateful Architecture with persistent volumes
 
 - [statefulset.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/statefulset.yaml)
@@ -181,13 +169,11 @@ For more amazing diagrams see [HariSekhon/Diagrams-as-Code](https://github.com/H
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_stateful_architecture.png)
 
-
 ### Kubernetes Service External Traffic Policy
 
 - [service.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/service.yaml#L141)
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_external_traffic_policy.svg)
-
 
 ### Kubernetes on Premise
 
@@ -203,7 +189,6 @@ Is it just me or do MetaLB think they're [Starfleet](https://en.wikipedia.org/wi
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_on_premise_metallb.svg)
 
-
 ### Traefik Ingress on GKE
 
 A Traefik deployment I did for a client using:
@@ -217,7 +202,6 @@ alternative diagram:
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_traefik_ingress_gke.svg)
 
-
 ### Kong API Gateway on AWS EKS
 
 A Kong API Gateway deployment I did for a client using:
@@ -227,7 +211,6 @@ A Kong API Gateway deployment I did for a client using:
 - [argocd/base/*.yaml](https://github.com/HariSekhon/Kubernetes-configs/tree/master/argocd/base)
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/kubernetes_kong_api_gateway_eks.png)
-
 
 ### Jenkins on Kubernetes
 
@@ -247,7 +230,7 @@ A production Jenkins on Kubernetes I built for a client with auto-spawning agent
     - [gcrDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/gcrDockerAuth.groovy), [garDockerAuth.groovy](https://github.com/HariSekhon/Jenkins/blob/master/vars/garDockerAuth.groovy)
     - among others in [vars/](https://github.com/HariSekhon/Jenkins/tree/master/vars) and don't forget about the epic [Jenkinsfile](https://github.com/HariSekhon/Jenkins/blob/master/Jenkinsfile)
 
-#### Useful Notes:
+#### Useful Notes
 
 [HariSekhon/Knowledge-Base - Jenkins](https://github.com/HariSekhon/Knowledge-Base/blob/main/jenkins.md)
 
@@ -259,13 +242,11 @@ screenshot:
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/screenshots/gcp_cloudbuild_deployed_after_code_container_scans_failed.png)
 
-
 ### ArgoCD - GitOps for Kubernetes
 
 [argocd.d2](argocd.d2):
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/argocd.svg)
-
 
 ### OpenTSDB on Kubernetes and HBase
 
@@ -276,7 +257,6 @@ I also had to do advanced performance tuning of their production HBase cluster w
 This was the second client I did in-depth performance tuning of HBase for - I've published a selection of useful HBase tools - see `hbase_*.py` and `opentsdb_*.py` in my [DevOps Python tools](https://github.com/HariSekhon/DevOps-Python-tools) repo.
 
 ![](https://github.com/HariSekhon/Diagrams-as-Code/raw/master/images/opentsdb_kubernetes_hbase.svg)
-
 
 ## History
 
