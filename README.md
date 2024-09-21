@@ -102,32 +102,13 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 
 ## Production Ready Checklist
 
-- Healthchecks - readiness/liveness probes, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- Horizontal Pod Autoscaler - [horizontal-pod-autoscaler.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/horizontal-pod-autoscaler.yaml)
-- Pod Disruption Budget - [pod-disruption-budget.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-disruption-budget.yaml)
-- Pod Anti-Affinity - stable vs preemptible, HA across AZs, see [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- Ingress Controllers - [Nginx](https://kubernetes.github.io/ingress-nginx/) ([config](ingress-nginx/base/)), [Kong](https://konghq.com/) ([config](kong/base/)) or [Traefik](https://traefik.io/traefik/) ([config](traefik/base/))
-- Ingress SSL - [Cert Manager](https://cert-manager.io/) ([config](cert-manager/base/)) for [Automatic Certificate Management](https://en.wikipedia.org/wiki/Automatic_Certificate_Management_Environment) using the popular free Let's Encrypt certificate authority
-- App Lifecycle Management - [ArgoCD](https://argoproj.github.io/cd/) ([config](argocd/base/))
-- App Ingresses - [ingress.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/ingress.yaml), `*/base/ingress.yaml`
-- App Resources - see resources section in [deployment.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/deployment.yaml)
-- App Right-Sizing - [Goldilocks](https://www.fairwinds.com/goldilocks) ([config](goldilocks/base/)) to generate VPAs and resource recommendations
-- DNS - [External DNS](https://github.com/kubernetes-sigs/external-dns) ([config](external-dns/base/)) integration to AWS Route53, Cloudflare etc.
-- Secrets - [External Secrets](https://github.com/external-secrets/external-secrets) ([config](external-secrets/base/)) integration to AWS Secrets Manager, GCP Secret Manager etc. or [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) ([config](sealed-secrets/base/))
-- Resource Quotas per Namespace - [resource-quota.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/resource-quota.yaml)
-- Limit Ranges - per object limits within a namespace - [limit-range.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/limit-range.yaml)
-- Network Policies - [network-policy.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/network-policy.yaml)
-- Pod Security Policies - [pod-security-policy.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/master/pod-security-policy.yaml)
-- Governance, Security & Best Practices - [Polaris](https://www.fairwinds.com/polaris) ([config](polaris/base/)) for recommendations
-- Find Deprecated API objects to replace - [Pluto](https://pluto.docs.fairwinds.com/) - see
-  [pluto_detect_kustomize_materialize.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/pluto_detect_kustomize_materialize.sh),
-  [pluto_detect_helm_materialize.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/pluto_detect_helm_materialize.sh)
-  and [pluto_detect_kubectl_dump_objects.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/pluto_detect_kubectl_dump_objects.sh)
-  in the [DevOps Bash Tools](https://github.com/HariSekhon/DevOps-Bash-tools) repo
-- Helm is not IaC idempotent by itself - that is PoC territory - you must wrap it in Kustomize, ArgoCD or similar to detect live drift!
-- Quickly update any Helm Charts in a `kustomization.yaml` file using [kustomize_update_helm_chart_versions.sh](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/kubernetes/kustomize_update_helm_chart_versions.sh) in the [DevOps Bash Tools](https://github.com/HariSekhon/DevOps-Bash-tools) repo
+This section has moved to and enhanced in my amazing
+[Knowledge-Base](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kubernetes-production-ready.md)
+repo:
 
-## Further Documention
+[Kubernetes Production Ready Checklist](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kubernetes-production-ready.md)
+
+## Further Documentation
 
 The best documentation links are provided at the top of each yaml for fast referencing (my advanced [.vimrc](https://github.com/HariSekhon/DevOps-Bash-tools/blob/master/configs/.vimrc) can open these URLs from the current file via a hotkey!)
 
