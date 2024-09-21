@@ -102,7 +102,7 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 
 ## Production Ready Checklist
 
-This section has moved to and enhanced in my amazing
+This section has been moved and enhanced in my amazing
 [Knowledge-Base](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kubernetes-production-ready-checklist.md)
 repo:
 
