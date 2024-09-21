@@ -103,10 +103,10 @@ See [kustomization.yaml](https://github.com/HariSekhon/Kubernetes-configs/blob/m
 ## Production Ready Checklist
 
 This section has been moved and enhanced in my amazing
-[Knowledge-Base](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kubernetes-production-ready-checklist.md)
+[Knowledge-Base](https://github.com/HariSekhon/Knowledge-Base/blob/master/kubernetes-production-ready-checklist.md)
 repo:
 
-[Kubernetes Production Ready Checklist](https://github.com/HariSekhon/Kubernetes-configs/blob/master/kubernetes-production-ready-checklist.md)
+[Kubernetes Production Ready Checklist](https://github.com/HariSekhon/Knowledge-Base/blob/master/kubernetes-production-ready-checklist.md)
 
 ## Further Documentation
 
