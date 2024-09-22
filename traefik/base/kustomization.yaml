@@ -26,6 +26,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: traefik  # XXX: 4 objects without explicit namespace as shown by kustomize_check_objects_namespaces.sh in the adjacent DevOps Bash tools repo
 
+helmCharts:
+  - name: traefik
+    repo: https://helm.traefik.io/traefik
+    version: 22.1.0
+    releaseName: traefik
+    namespace: traefik
+    includeCRDs: true
+    valuesFile: values.yaml
+
 resources:
   - namespace.yaml
   - dashboard-service.yaml
@@ -45,12 +54,3 @@ resources:
   # =======
   # XXX: for quickly testing Traefik
   #- whoami.yaml
-
-helmCharts:
-  - name: traefik
-    repo: https://helm.traefik.io/traefik
-    version: 22.1.0
-    releaseName: traefik
-    namespace: traefik
-    includeCRDs: true
-    valuesFile: values.yaml
