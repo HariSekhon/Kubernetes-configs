@@ -28,20 +28,20 @@ namespace: traefik  # XXX: 4 objects without explicit namespace as shown by kust
 
 resources:
   - namespace.yaml
-  - traefik-dashboard-service.yaml
-  - traefik-dashboard-basic-auth.yaml
-  - traefik-dashboard-add-prefix.yaml
-  - traefik-middleware-redirect-https.yaml
-  #- traefik-dashboard-external-secret.yaml
+  - dashboard-service.yaml
+  - dashboard-basic-auth.yaml
+  - dashboard-add-prefix.yaml
+  - middleware-redirect-https.yaml
+  #- dashboard-external-secret.yaml
   # =======
   # either:
-  - traefik-dashboard-ingress.yaml
-  - traefik-dashboard-api-ingress.yaml
+  - dashboard-ingress.yaml
+  - dashboard-api-ingress.yaml
   # =======
   # or use more advanced ingressroute and cert-manager generated cert due to lack of integration
-  - traefik-dashboard-cert.yaml
-  - traefik-dashboard-ingressroute.yaml
-  - traefik-dashboard-ingressroute-http-redirect.yaml
+  - dashboard-cert.yaml
+  - dashboard-ingressroute.yaml
+  - dashboard-ingressroute-http-redirect.yaml
   # =======
   # XXX: for quickly testing Traefik
   #- whoami.yaml
