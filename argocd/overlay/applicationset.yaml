@@ -1,0 +1,52 @@
+#
+#  Author: Hari Sekhon
+#  Date: 2024-10-10 09:49:41 +0300 (Thu, 10 Oct 2024)
+#
+#  vim:ts=2:sts=2:sw=2:et
+#
+#  https///github.com/HariSekhon/Kubernetes-configs
+#
+#  License: see accompanying Hari Sekhon LICENSE file
+#
+#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#
+#  https://www.linkedin.com/in/HariSekhon
+#
+
+# ============================================================================ #
+#                   A r g o C D   A p p l i c a t i o n S e t
+# ============================================================================ #
+
+# https://argo-cd.readthedocs.io/en/stable/user-guide/application-set/
+
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: '[% NAME %]'  # XXX: Edit
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - list:
+        elements:
+          - cluster: dev
+            url: https://1.2.3.4   # XXX: Edit
+          - cluster: staging
+            url: https://2.4.6.8   # XXX: Edit
+          - cluster: prod
+            url: https://9.8.7.6   # XXX: Edit
+  template:
+    metadata:
+      name: '{{.cluster}}-[% NAME %]'
+    spec:
+      project: MYPROJECT  # XXX: Edit
+      source:
+        repoURL: https://github.com/MYCOMPANY/Kubernetes.git  # XXX: Edit
+        targetRevision: main
+        path: '[% NAME %]/{{.cluster}}'  # XXX: Edit
+      destination:
+        server: '{{.url}}'
+        namespace: NAME  # XXX: Edit
