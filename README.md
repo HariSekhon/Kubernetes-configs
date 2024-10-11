@@ -20,6 +20,7 @@
 [![Kustomize Objects Namespaced](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-objects-namespaced.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/kustomize-objects-namespaced.yaml)
 [![YAML](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/yaml.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/yaml.yaml)
 [![JSON](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/json.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/json.yaml)
+[![Markdown](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/markdown.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/markdown.yaml)
 [![Validation](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/validate.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/validate.yaml)
 
 [![Pluto](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/pluto.yaml/badge.svg)](https://github.com/HariSekhon/Kubernetes-configs/actions/workflows/pluto.yaml)
