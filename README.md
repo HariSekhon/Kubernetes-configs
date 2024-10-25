@@ -244,9 +244,9 @@ This was the second client I did in-depth performance tuning of HBase for - I've
 
 Forked from the [Templates](https://github.com/HariSekhon/Templates) repo.
 
-## Stargazers over time
+## Star History
 
-[![Stargazers over time](https://starchart.cc/HariSekhon/Kubernetes-configs.svg)](https://starchart.cc/HariSekhon/Kubernetes-configs)
+[![Star History Chart](https://api.star-history.com/svg?repos=HariSekhon/Kubernetes-configs&type=Date)](https://star-history.com/#HariSekhon/Kubernetes-configs&Date)
 
 [git.io/k8s-configs](https://git.io/k8s-configs)
 
