@@ -53,7 +53,17 @@ spec:
       values:
         - spot
         - on-demand
+  limits:
+    resources:
+      cpu: 1000  # optional, recommended to limit total provisioned CPUs
+      memory: 1000Gi
   provider:
     instanceProfile: KarpenterNodeInstanceProfile-eks-karpenter-demo
-  # terminate empty nodes after this many seconds of being idle
-  ttlSecondsAfterEmpty: 30
+  # Terminate empty nodes after this many seconds of being idle
+  ttlSecondsAfterEmpty: 30  # optional, but never scales down if not set
+  # Terminate nodes after 2592000 seconds (30 days)
+  # Karpenter doesn't automatically add jitter to this value
+  # If you create multiple instances in a short amount of time,
+  # then the instances will expire around the same time
+  # To prevent workload disruption, define a Pod Disruption Budget
+  ttlSecondsUntilExpired: 2592000  # optional, set nodes to be reaped & replaced after 30 days, if not set are never reaped
